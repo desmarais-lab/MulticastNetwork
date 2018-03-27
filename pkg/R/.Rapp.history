@@ -1,2767 +1,33 @@
-timemat[base.length+d, ]
-sum(timemat[base.length+d, ] * eta[3:4])
-Q
-document()
-library(pkg)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-#timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-5, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 4), 0.5*diag(4))#
-prior.tau = 1#
-sigma.Q = c(0.05, 0.001, 0.01, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)
-base.data
-Outer = 5#
-Inner = c(5, 5, 5)#
-Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-Outer = 5#
-Inner = c(5, 5, 5)#
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-Outer = 5#
-Inner = c(5, 5, 5)#
-Schein <- Schein(100, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-Q
-document()
-library(pkg)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-#timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-5, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 4), 0.5*diag(4))#
-prior.tau = 1#
-sigma.Q = c(0.05, 0.001, 0.01, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(5, 5, 5)#
-Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-plot(seq(1,10, 0.01), sapply(seq(1,10, 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim])#
-))
-senders
-timeinc
-mu
-Q
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 10#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 dhalfcauchy(s2, 1) +	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 dhalfcauchy(s2, 1) +	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-y
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 10#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate#
-nDocs = 100#
-s2 = 1#
-node = 10#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(c(eta.true[1],x), obs, sender))#
-plot(eta.grid, y)#
-c(eta.true[2],eta.grid[which(y==max(y))])
-#mean + one covariate#
-nDocs = 10#
-s2 = 1#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(c(eta.true[1],x), obs, sender))#
-plot(eta.grid, y)#
-c(eta.true[2],eta.grid[which(y==max(y))])
-#mean + one covariate#
-nDocs = 10#
-s2 = 1#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(c(eta.true[1],x), obs, sender))#
-plot(eta.grid, y)#
-c(eta.true[2],eta.grid[which(y==max(y))])
-#mean + one covariate#
-nDocs = 10#
-s2 = 1#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(c(eta.true[1],x), obs, sender))#
-plot(eta.grid, y)#
-c(eta.true[2],eta.grid[which(y==max(y))])
-#mean + one covariate#
-nDocs = 10#
-s2 = 1#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(c(eta.true[1],x), obs, sender))#
-plot(eta.grid, y)#
-c(eta.true[2],eta.grid[which(y==max(y))])
-#mean + one covariate#
-nDocs = 10#
-s2 = 1#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(c(eta.true[1],x), obs, sender))#
-plot(eta.grid, y)#
-c(eta.true[2],eta.grid[which(y==max(y))])
-#mean + one covariate#
-nDocs = 10#
-s2 = 1#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(c(eta.true[1],x), obs, sender))#
-plot(eta.grid, y)#
-c(eta.true[2],eta.grid[which(y==max(y))])
-#mean + one covariate#
-nDocs = 10#
-s2 = 1#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(c(eta.true[1],x), obs, sender))#
-plot(eta.grid, y)#
-c(eta.true[2],eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 10#
-s2 = 1#
-node = 5#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 10#
-s2 = 1#
-node = 5#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 10#
-s2 = 1#
-node = 5#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 10#
-s2 = 1#
-node = 5#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 100#
-s2 = 1#
-node = 5#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 100#
-s2 = 1#
-node = 5#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 100#
-s2 = 1#
-node = 5#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 500#
-s2 = 1#
-node = 5#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 50#
-s2 = 1#
-node = 5#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 50#
-s2 = 1#
-node = 5#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 50#
-s2 = 1#
-node = 5#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 50#
-s2 = 1#
-node = 5#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 50#
-s2 = 1#
-node = 5#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 50#
-s2 = 1#
-node = 5#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 50#
-s2 = 1#
-node = 10#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-# only common mean#
-nDocs = 50#
-s2 = 1#
-node = 10#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1] *  X#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old * X#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(x, obs, sender))#
-plot(eta.grid, y)#
-c(eta.true,eta.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 10#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(0:3, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(0:3, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(0:3, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(0:3, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(0:3, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(0:3, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(0:3, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(0:3, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(0:3, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate#
-nDocs = 10#
-s2 = 1#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(c(eta.true[1],x), obs, sender))#
-plot(eta.grid, y)#
-c(eta.true[2],eta.grid[which(y==max(y))])
-#mean + one covariate#
-nDocs = 10#
-s2 = 1#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(c(eta.true[1],x), obs, sender))#
-plot(eta.grid, y)#
-c(eta.true[2],eta.grid[which(y==max(y))])
-#mean + one covariate#
-nDocs = 10#
-s2 = 1#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(c(eta.true[1],x), obs, sender))#
-plot(eta.grid, y)#
-c(eta.true[2],eta.grid[which(y==max(y))])
-#mean + one covariate#
-nDocs = 10#
-s2 = 1#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(c(eta.true[1],x), obs, sender))#
-plot(eta.grid, y)#
-c(eta.true[2],eta.grid[which(y==max(y))])
-#mean + one covariate#
-nDocs = 10#
-s2 = 1#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(c(eta.true[1],x), obs, sender))#
-plot(eta.grid, y)#
-c(eta.true[2],eta.grid[which(y==max(y))])
-#mean + one covariate#
-nDocs = 10#
-s2 = 1#
-node = 4#
-X = matrix(sample(1:5, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	 sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-eta.grid = seq(-10, 10, by = 0.01)#
-y = sapply(eta.grid, function(x) post.old(c(eta.true[1],x), obs, sender))#
-plot(eta.grid, y)#
-c(eta.true[2],eta.grid[which(y==max(y))])
-#mean --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 0.1)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 0.1)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 0.1)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 0.1)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 0.5)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 0.5)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 0.5)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 0.5)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 0.5)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 0.5)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- exp(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dnorm(val[i],mu[index[i]],sig)) + sum(log(1-pnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rnorm(1000,0,exp(1)),rnorm(1000,1,exp(1)),rnorm(1000,2,exp(1)))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- exp(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dnorm(val[i],mu[index[i]],sig)) + sum(log(1-pnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rnorm(1000,0,exp(1)),rnorm(1000,1,exp(1)),rnorm(1000,2,exp(1)))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- exp(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,exp(1)),rlnorm(1000,1,exp(1)),rlnorm(1000,2,exp(1)))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- exp(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,exp(1)),rlnorm(1000,1,exp(1)),rlnorm(1000,2,exp(1)))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- exp(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,exp(1)),rlnorm(1000,1,exp(1)),rlnorm(1000,2,exp(1)))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- exp(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,exp(1)),rlnorm(1000,1,exp(1)),rlnorm(1000,2,exp(1)))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- par[4]#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- par[4]#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- par[4]#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- par[4]#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- par[4]#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-dlnorm
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1), rlnorm(1000,3,1), rlnorm(1000,4,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1), rlnorm(1000,3,1), rlnorm(1000,4,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,6),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1), rlnorm(1000,3,1), rlnorm(1000,4,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,5),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:5]#
-    sig <- sqrt(par[6])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1), rlnorm(1000,3,1), rlnorm(1000,4,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,6),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:5]#
-    sig <- sqrt(par[6])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(100,0,1),rlnorm(100,1,1),rlnorm(100,2,1), rlnorm(100,3,1), rlnorm(100,4,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,6),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:5]#
-    sig <- sqrt(par[6])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(100,0,1),rlnorm(100,1,1),rlnorm(100,2,1), rlnorm(100,3,1), rlnorm(100,4,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,6),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:5]#
-    sig <- sqrt(par[6])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(100,0,1),rlnorm(100,1,1),rlnorm(100,2,1), rlnorm(100,3,1), rlnorm(100,4,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,6),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:5]#
-    sig <- sqrt(par[6])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(100,0,1),rlnorm(100,1,1),rlnorm(100,2,1), rlnorm(100,3,1), rlnorm(100,4,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,6),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:5]#
-    sig <- sqrt(par[6])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(100,0,1),rlnorm(100,1,1),rlnorm(100,2,1), rlnorm(100,3,1), rlnorm(100,4,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,6),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:5]#
-    sig <- sqrt(par[6])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1), rlnorm(1000,3,1), rlnorm(1000,4,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,6),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:5]#
-    sig <- sqrt(par[6])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1), rlnorm(1000,3,1), rlnorm(1000,4,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,6),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:5]#
-    sig <- sqrt(par[6])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,1),rlnorm(1000,1,1),rlnorm(1000,2,1), rlnorm(1000,3,1), rlnorm(1000,4,1))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,6),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:5]#
-    sig <- sqrt(par[6])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,10),rlnorm(1000,1,10),rlnorm(1000,2,10), rlnorm(1000,3,10), rlnorm(1000,4,10))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,6),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:5]#
-    sig <- sqrt(par[6])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,10),rlnorm(1000,1,10),rlnorm(1000,2,10), rlnorm(1000,3,10), rlnorm(1000,4,10))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,6),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:5]#
-    sig <- sqrt(par[6])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,10),rlnorm(1000,1,10),rlnorm(1000,2,10), rlnorm(1000,3,10), rlnorm(1000,4,10))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,6),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,10),rlnorm(1000,1,10),rlnorm(1000,2,10))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,10),rlnorm(1000,1,10),rlnorm(1000,2,10))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,10),rlnorm(1000,1,10),rlnorm(1000,2,10))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-y <- cbind(rlnorm(1000,0,10),rlnorm(1000,1,10),rlnorm(1000,2,10))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)
-par = rep(1,4)
-mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0
-for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll
-val
-vals
-i
-length(index)
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,10),rlnorm(1000,1,10),rlnorm(1000,2,10))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-y <- cbind(rlnorm(1000,0,10),rlnorm(1000,1,10),rlnorm(1000,2,10))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)
-vals
-mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }
-val
-val = vals
-mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }
--ll
-sig
-dlnorm
-dlnorm(val[i],mu[index[i]],sig)
-log(dlnorm(val[i],mu[index[i]],sig))
-1-plnorm(val[i],mu[-index[i]],sig)
-log(1-plnorm(val[i],mu[-index[i]],sig))
-log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))
--ll
-ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }
-ll
-i
-i = 1
-log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-    }
-log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))
-i = 1000
-log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))
-is.na(Inf)
-is.infinite(Inf)
-is.infinite(-Inf)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-        if (is.infinite(Inf)) browser()#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,10),rlnorm(1000,1,10),rlnorm(1000,2,10))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-i
-dlnorm(val[i],mu[index[i]],sig)
-log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))
-ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))
-Q
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-        if (is.infinite(ll)) browser()#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,10),rlnorm(1000,1,10),rlnorm(1000,2,10))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-i
-log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))
-log(dlnorm(val[i],mu[index[i]],sig))
-sum(log(1-plnorm(val[i],mu[-index[i]],sig)))
-log(1-plnorm(val[i],mu[-index[i]],sig))
-plnorm(val[i],mu[-index[i]],sig)
-plnorm(val[i],mu[-index[i]],sig, FALSE, TRUE)
-rlnorm(1000,2,1)
-plnorm(val[i],mu[-index[i]],sig)
-1-plnorm(val[i],mu[-index[i]],sig)
-plnorm(val[i],mu[-index[i]],sig, FALSE)
-?plnorm
-plnorm(val[i],mu[-index[i]],sig, FALSE)
-1-plnorm(val[i],mu[-index[i]],sig)
-plnorm(val[i],mu[-index[i]],sig, FALSE)
-sum(log(1-plnorm(val[i],mu[-index[i]],sig)))
-log(1-plnorm(val[i],mu[-index[i]],sig))
-sum(log(1-plnorm(val[i],mu[-index[i]],sig)))
-sum(log(1-plnorm(val[i],mu[-index[i]],sig)))
-sum(log(1-plnorm(val[i],mu[-index[i]],sig)))
-sum(log(1-plnorm(val[i],mu[-index[i]],sig)))
-Q
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + log(dlnorm(val[i],mu[index[i]],sig)) + sum(log(1-plnorm(val[i],mu[-index[i]],sig)))#
-        if (is.infinite(ll)) browser()#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,10),rlnorm(1000,1,10),rlnorm(1000,2,10))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-log(dlnorm(val[i],mu[index[i]],sig))
-sum(log(1-plnorm(val[i],mu[-index[i]],sig)))
-log(1-plnorm(val[i],mu[-index[i]],sig))
-1-plnorm(val[i],mu[-index[i]],sig)
-plnorm(val[i],mu[-index[i]],sig, FALSE)
-plnorm(val[i],mu[-index[i]],sig, FALSE, TRUE)
-Q
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + dlnorm(val[i],mu[index[i]],sig, log = TRUE) + sum(plnorm(val[i],mu[-index[i]],sig, FALSE, TRUE))#
-        if (is.infinite(ll)) browser()#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,10),rlnorm(1000,1,10),rlnorm(1000,2,10))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + dlnorm(val[i],mu[index[i]],sig, log = TRUE) + sum(plnorm(val[i],mu[-index[i]],sig, FALSE, TRUE))#
-        if (is.infinite(ll)) browser()#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,5),rlnorm(1000,1,5),rlnorm(1000,2,5))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + dlnorm(val[i],mu[index[i]],sig, log = TRUE) + sum(plnorm(val[i],mu[-index[i]],sig, FALSE, TRUE))#
-        if (is.infinite(ll)) browser()#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,5),rlnorm(1000,1,5),rlnorm(1000,2,5))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-#MLE using log-normal#
-#
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + dlnorm(val[i],mu[index[i]],sig, log = TRUE) + sum(plnorm(val[i],mu[-index[i]],sig, FALSE, TRUE))#
-        if (is.infinite(ll)) browser()#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,5),rlnorm(1000,1,5),rlnorm(1000,2,5))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-s2grid = seq(0.01, 10, by = 0.01)#
-y = sapply(s2grid, function(x) log.lik(c(0,1,2,x), vals, index))
-plot(s2grid, y)
-s2grid = seq(0.01, 100, by = 0.01)#
-y = sapply(s2grid, function(x) log.lik(c(0,1,2,x), vals, index))#
-plot(s2grid, y)
-s2grid = seq(0.01, 100, by = 0.1)#
-y = sapply(s2grid, function(x) log.lik(c(0,1,2,x), vals, index))#
-plot(s2grid, y)
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- sqrt(par[4])#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + dlnorm(val[i],mu[index[i]],sig, log = TRUE) + sum(plnorm(val[i],mu[-index[i]],sig, FALSE, TRUE))#
-        if (is.infinite(ll)) browser()#
-    }#
-    -ll#
-}#
-#
-y <- cbind(rlnorm(1000,0,5),rlnorm(1000,1,5),rlnorm(1000,2,5))#
-#
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
-#
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)
-s2grid = seq(0.01, 100, by = 0.1)#
-y = sapply(s2grid, function(x) log.lik(c(0,1,2,x), vals, index))#
-plot(s2grid, y)
-which(y==min(y))
-plot(s2grid[25:100], y[25:100])
-length(s2grid)
-plot(s2grid[25:1000], y[25:1000])
-plot(s2grid[25:500], y[25:500])
-library(pkg)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-#timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-5, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 4), 0.5*diag(4))#
-prior.tau = 1#
-sigma.Q = c(0.05, 0.001, 0.01, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(50, 50, 50)#
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-plot(seq(1,10, 0.01), sapply(seq(1,10, 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim])#
-))
+plot(seq(0.1,10, by = 0.1), sapply(seq(0.1,10, by = 0.1), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim])))
+which(sapply(seq(0.1,10, by = 0.1), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))==max(sapply(seq(0.1,10, by = 0.1), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))))
+seq(0.1,10, by = 0.1)[48]
 sigma_tau
-Q
-document()
-library(pkg)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-#timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-5, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 4), 0.5*diag(4))#
-prior.tau = 1#
-sigma.Q = c(0.05, 0.001, 0.01, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(50, 50, 50)#
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-head(Forward_stats)
-Q
-library(pkg)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-5, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 4), 0.5*diag(4))#
-prior.tau = 1#
-sigma.Q = c(0.05, 0.001, 0.01, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(50, 50, 50)#
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-head(Forward_stats)
-Q
-library(pkg)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-5, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
-prior.tau = 1#
-sigma.Q = c(0.05, 0.001, 0.01, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(50, 50, 50)#
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-summary(Forward_stats[,7])
-summary(Backward_stats[,7])
-Q
-document()
-library(pkg)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-5, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
-prior.tau = 1#
-sigma.Q = c(0.05, 0.001, 0.01, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(50, 50, 50)#
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-Q
-library(pkg)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-#timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-5, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 4), 0.5*diag(4))#
-prior.tau = 1#
-sigma.Q = c(0.05, 0.001, 0.01, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(50, 50, 50)#
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-head(Forward_stats)
-head(Backward_stats)
-Q
-library(pkg)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-5, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
-prior.tau = 1#
-sigma.Q = c(0.05, 0.001, 0.01, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(50, 50, 50)#
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-Q
-document()
-Inference
-library(pkg)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-5, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
-prior.tau = 1#
-sigma.Q = c(0.05, 0.001, 0.01, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(50, 50, 50)#
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-library(pkg)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-5, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
-prior.tau = 0.5#
-sigma.Q = c(0.05, 0.001, 0.01, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(50, 50, 50)#
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-Q
-nDocs = 100#
-s2 = rhalfcauchy(1, 0.5)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
+sigma_tau.new
+log.lik <- function(par,val,index){#
+    mu <- par[1:3]#
+    sig <- par[4]#
+    ll <- 0#
+    for(i in 1:length(index)){#
+        ll <- ll + dlnorm(val[i],mu[index[i]],sig, log = TRUE) + sum(plnorm(val[i],mu[-index[i]],sig, FALSE, TRUE))#
+    }#
+    -ll#
+}
+log.lik
+log.lik = function(mu, index, timeinc, s2) {#
+	ll = 0#
+	sig = sqrt(s2)#
+	for (i in 1:nrow(mu)) {#
+		 ll <- ll + dlnorm(timeinc[i],mu[i,index[i]],sig, log = TRUE) + sum(plnorm(timeinc[i],mu[i, -index[i]],sig, FALSE, TRUE))#
 	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-nDocs = 100#
-s2 = rhalfcauchy(1, 0.5)#
-node = 4#
-X = matrix(1, nDocs, node)#
-	eta.true = rnorm(1, 0, 1)#
-	mu = eta.true[1]* X #
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1]* X#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(0:3, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#MLE using log-normal#
-#
+	return(ll)#
+}
+log.lik(mu, senders[edge.trim], timeinc[edge.trim], sigma_tau)
+Timepartsum(mu, sqrt(sigma_tau), senders[edge.trim], timeinc[edge.trim])
+Timepartsum(mu, sqrt(sigma_tau.new), senders[edge.trim], timeinc[edge.trim])
+log.lik(mu, senders[edge.trim], timeinc[edge.trim], sigma_tau.new)
+dlnorm
+plnorm
+?plnorm
 log.lik <- function(par,val,index){#
     mu <- par[1:3]#
     sig <- par[4]#
@@ -2782,78 +48,718 @@ optim(par = rep(1,4),fn=log.lik,val=vals,index=index)#
 s2grid = seq(3, 10, by = 0.1)#
 y = sapply(s2grid, function(x) log.lik(c(0,1,2,x), vals, index))#
 plot(s2grid, y)
-#mean + one covariate --- test of s2#
+mu
+plot(seq(0.1,10, by = 0.01), sapply(seq(0.1,10, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim])))
+sigma_tau
+plot(seq(4,5, by = 0.1), sapply(seq(4,5, by = 0.1), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim])))
+plot(seq(4,5, by = 0.01), sapply(seq(4,5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim])))
+which(sapply(seq(4,5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))==max(sapply(seq(4,5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))))
+seq(4,5, by = 0.01)[83]
+sigma_tau.new
+u
+Q
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
 nDocs = 100#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(0:3, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-#mean + one covariate --- test of s2#
-nDocs = 1000#
-s2 = rhalfcauchy(1, 1)#
-node = 4#
-X = matrix(sample(0:3, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-hist( rhalfcauchy(10000, 1))
-plot(rhalfcauchy(10000, 1))
-hist(rhalfcauchy(10000, 1))
-hist(rhalfcauchy(10000, 1), max = 10)
-hist(rhalfcauchy(10000, 1), xlim = c(0,10))
-hist(rhalfcauchy(10000, 1), xlim = c(0,50))
-#mean + one covariate --- test of s2#
-nDocs = 1000#
-s2 = rhalfcauchy(1, 0.1)#
-node = 4#
-X = matrix(sample(0:3, nDocs * node, replace = TRUE), nDocs)#
-	eta.true = rnorm(2, 0, 1)#
-	mu = eta.true[1] + X * eta.true[2]#
-	obs = rep(NA, nDocs)#
-	sender = rep(NA, nDocs)#
-	for (d in 1:nDocs) {#
-		times = rlnorm(node, mu[d,], s2)#
-		obs[d] = min(times)#
-		sender[d] = which(times == obs[d])#
-	}#
-post.old = function(eta.old, obs, sender, s2) {#
-	 mu = eta.old[1] + X * eta.old[2]#
-	sum(sapply(1:nDocs, function(d) dlnorm(obs[d], mu[d,sender[d]], s2, log = TRUE) + sum(sapply(c(1:node)[-sender[d]], function(x) plnorm(obs[d], mu[d, x], s2, lower.tail = FALSE, log.p = TRUE)))))#
-	}#
-s2.grid = seq(0.1, 10, by = 0.01)#
-y = sapply(s2.grid, function(x) post.old(eta.true, obs, sender, x))#
-plot(s2.grid, y)#
-c(s2,s2.grid[which(y==max(y))])
-hist(rhalfcauchy(10000, 0.1), xlim = c(0,10))
-hist(rhalfcauchy(10000, 0.1),)
-hist(rhalfcauchy(10000, 0.1))
+node = 1:4#
+netstat = c("dyadic")#
+timestat = c("timeofday", "dayofweek")#
+timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.05, 0.01, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)
+document()
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
+nDocs = 100#
+node = 1:4#
+netstat = c("dyadic")#
+timestat = c("timeofday", "dayofweek")#
+timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.05, 0.01, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)
+mu
+Q
+Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+mu
+u
+rowSums(u[[base.length+d]])
+mu
+eta
+timevec = rlnorm(A, mu, sqrt(sigma_tau))*timeunit
+timevec
+rlnorm(A, mu, sqrt(sigma_tau))
+i.d = which(timevec == min(timevec))
+i.d
+which_num(384*timeunit, vapply(1:length(edge), function(d) {edge[[d]][[3]]}, c(1)))
+base.length
+u
+Q
+document()
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
+nDocs = 100#
+node = 1:4#
+netstat = c("dyadic")#
+timestat = c("timeofday", "dayofweek")#
+timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.05, 0.01, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)
+Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+Q
+document()
+Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+par(mfrow=c(4,4), oma = c(3,3,3,3), mar = c(2,1,1,1))#
+    GiR_PP_Plots(Forward_stats, Backward_stats)
+outer
+Outer
+Inner
+u
+Forward_sample$u
+Backward_sample$u
+identical(Forward-sample$u, Backward_sample$u)
+identical(Forward_sample$u, Backward_sample$u)
+Forward_sample$u[[177]]
+length(Forward_sample$u)
+Backward$u[[177]]
+plot(Inference_samp$eta[2,])
+plot(Inference_samp$eta[2,], type = 'l')
+Q
+document()
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
+nDocs = 100#
+node = 1:4#
+netstat = c("dyadic")#
+timestat = c("timeofday", "dayofweek")#
+timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.05, 0.01, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)#
+Outer = 5#
+Inner = c(50, 50, 50)
+Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+head(Forward_stats[,8])
+summary(Forward_stats[,8])
+summary(Backward_stats[,8])
+plot(Inference_samp$eta[2,])
+plot(Inference_samp$b[2,])
+plot(Inference_samp$b[6,])
+summary(Forward_stats[,6])
+summary(Backward_stats[,6])
+summary(Backward_stats[,5])
+summary(Forward_stats[,5])
+Q
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
+nDocs = 100#
+node = 1:4#
+netstat = c("dyadic")#
+timestat = c("timeofday", "dayofweek")#
+timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)#
+Outer = 5#
+Inner = c(50, 50, 50)
+Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+document()
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
+nDocs = 100#
+node = 1:4#
+netstat = c("dyadic")#
+timestat = c("timeofday", "dayofweek")#
+timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)
+Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+probij
+lmultinom(probij)
+node[-i]
+u[[d]]
+i
+j
+u[[d]][i,j]
+Q
+document()
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
+nDocs = 100#
+node = 1:4#
+netstat = c("dyadic")#
+timestat = c("timeofday", "dayofweek")#
+timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)#
+Outer = 5#
+Inner = c(50, 50, 50)
+Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+Q
+document()
+Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+X
+u
+initial$u
+initial$u[[177]]
+u[[177]]
+identical(initial$u, u)
+sum(unlist(initial$u)==initial$u)
+sum(unlist(initial$u)==unlist(u))
+length(u)
+177* 4*4
+sum(unlist(initial$u))
+sum(unlist(u))
+b.old
+ㅣ므ㅠㅇㅁ
+lambda
+X[[d]]
+Q
+document()
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
+nDocs = 100#
+node = 1:4#
+netstat = c("dyadic")#
+timestat = c("timeofday", "dayofweek")#
+timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)#
+Outer = 5#
+Inner = c(50, 50, 50)#
+Outer = 1#
+Inner = c(5, 5, 5)#
+#
+Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+Forward_sample$u
+Backward_sample$u
+Forward_sample$u[[177]]
+Backward_sample$u[[177]]
+Forward_sample$u[[176]]
+lambda
+Q
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
+nDocs = 100#
+node = 1:4#
+netstat = c("dyadic")#
+timestat = c("timeofday", "dayofweek")#
+timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)#
+Outer = 5#
+Inner = c(10, 10, 10)
+Schein <- Schein(50000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+Q
+document()
+check()
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
+nDocs = 100#
+node = 1:4#
+netstat = c("dyadic")#
+timestat = c("timeofday", "dayofweek")#
+timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 1), 0.5*diag(1))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)#
+Outer = 5#
+Inner = c(10, 10, 10)
+Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+document()
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
+nDocs = 100#
+node = 1:4#
+netstat = c("dyadic")#
+timestat = c("timeofday", "dayofweek")#
+timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 1), 0.5*diag(1))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)
+mu
+timevec = rlnorm(A, mu, sqrt(sigma_tau))*timeunit
+timevec
+Q
+document()
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
+nDocs = 100#
+node = 1:4#
+netstat = c("dyadic")#
+timestat = c("timeofday", "dayofweek")#
+timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 1), 0.5*diag(1))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)
+Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+summary(Forward_stats[,9])
+document()
+Schein <- Schein(100, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+head(Forward_stats)
+summary(Forward_stats[,9])
+summary(Backward_stats[,9])
+Q
+document()
+Schein <- Schein(100, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+sigma_tau.new
+sigma_tau
+prior.new3
+prior.old3
+Timepartsum(mu, sqrt(sigma_tau.new), senders[edge.trim], timeinc[edge.trim])
+post.old3
+prior.new3+post.new3-prior.old3-post.old3
+plot(seq(0.1, 5, by = 0.01), sapply(seq(0.1, 5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim])))
+which(sapply(seq(0.1, 5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))==max(sapply(seq(0.1, 5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))))
+seq(0.1, 5, by = 0.01)[20]
+Timepartsum(mu, sqrt(0.29), senders[edge.trim], timeinc[edge.trim])
+Timepartsum(mu, sqrt(0.291), senders[edge.trim], timeinc[edge.trim])
+Timepartsum(mu, sqrt(0.2988366#
+), senders[edge.trim], timeinc[edge.trim])
+post.old2
+post.old3
+etamat
+Timepartsum(mu, sqrt(sigma_tau), senders[edge.trim], timeinc[edge.trim])
+eta.old1
+eta.old
+eta.old[1]
+log(dinvgamma(sigma_tau, prior.tau[1], prior.tau[2]))
+prior.old3
+Timepartsum(mu, sqrt(sigma_tau), senders[edge.trim], timeinc[edge.trim])
+post.old3
+post.old2
+post.old2 =
+Timepartsum(mu, sqrt(sigma_tau), senders[edge.trim], timeinc[edge.trim])
+post.oold2
+post.old2
+Q
+document()
+Schein <- Schein(50000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+post.old2
+post.old3
+Q
+document()
+Schein <- Schein(50000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+post.old2
+post.new2
+mu
+etamat
+Timepartsum(mu, sqrt(sigma_tau), senders[edge.trim], timeinc[edge.trim])
+post.old3
+Q
+document()
+Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+par(mfrow=c(4,4), oma = c(3,3,3,3), mar = c(2,1,1,1))#
+    GiR_PP_Plots(Forward_stats, Backward_stats)
+plot(Inference_samp$eta[1,])
+plot(Inference_samp$eta[2,])
+Q
+document()
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
+nDocs = 100#
+node = 1:4#
+netstat = c("dyadic")#
+timestat = c("timeofday", "dayofweek")#
+timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 1), 0.5*diag(1))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)#
+Outer = 5#
+Inner = c(10, 10, 10)
+Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+document()
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
+nDocs = 100#
+node = 1:4#
+netstat = c("dyadic")#
+timestat = c("timeofday", "dayofweek")#
+#timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 3), 0.5*diag(3))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)
+bse.data
+base.data
+Outer = 1#
+Inner = c(5, 5, 5)#
+#
+Schein <- Schein(500, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+par(mfrow=c(4,4), oma = c(3,3,3,3), mar = c(2,1,1,1))#
+    GiR_PP_Plots(Forward_stats, Backward_stats)
+head(Forward_stats)
+summary(Forward_stats[,11])
+summary(Backward_stats[,11])
+Q
+document()
+Outer = 1#
+Inner = c(5, 5, 5)#
+#
+Schein <- Schein(50000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+mu
+eta.old
+eta.new
+timemat
+Q
+document()
+Outer = 1#
+Inner = c(5, 5, 5)#
+#
+Schein <- Schein(50000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+loglike.diff
+mu
+etamat
+prior.new3
+prior.old3
+sigma_tau
+sigma_tau.new
+post.old3
+post.new2
+post.new3
+plot(seq(0.1, 5, by = 0.01), sapply(seq(0.1, 5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim])))
+which(sapply(seq(0.1, 5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))==max(sapply(seq(0.1, 5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))))
+seq(0.1, 5, by = 0.01)[491]
+Q
+document()
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
+nDocs = 100#
+node = 1:4#
+netstat = c("dyadic")#
+timestat = c("timeofday", "dayofweek")#
+#timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 3), 0.5*diag(3))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)#
+Outer = 5#
+Inner = c(10, 10, 10)
+library(MulticastNetwork)#
+library(FastGP)#
+library(MCMCpack)#
+library(LaplacesDemon)#
+set.seed(526113322)#
+nDocs = 100#
+node = 1:4#
+netstat = c("dyadic")#
+#timestat = c("timeofday", "dayofweek")#
+timestat = c()#
+L = 3#
+P = 6#
+prior.b = list(rep(0.5, P), 0.5* diag(P))#
+prior.delta = c(-4, 0.1)#
+#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
+prior.eta = list(rep(2.5, 1), 0.5*diag(1))#
+prior.tau =  c(2,1)#
+sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
+#
+b = prior.b[[1]]#
+eta = prior.eta[[1]]#
+delta = prior.delta[1]#
+sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
+support = gibbs.measure.support(length(node)-1)#
+base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
+                        base.data= NULL, backward = FALSE, base = TRUE)#
+Outer = 5#
+Inner = c(10, 10, 10)
+Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
+               netstat = c("dyadic"), timestat = timestat,#
+              base.data = base.data, generate_PP_plots = TRUE)
+par(mfrow=c(4,4), oma = c(3,3,3,3), mar = c(2,1,1,1))#
+    GiR_PP_Plots(Forward_stats, Backward_stats)
+summary(Forward_stats[,9])
+summary(Backard_stats[,9])
+summary(Backward_stats[,9])
+summary(Backward_stats[,7])
+summary(Forward_stats[,7])
+Q

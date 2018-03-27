@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // sortuniq
 NumericVector sortuniq(NumericVector x);
-RcppExport SEXP _pkg_sortuniq(SEXP xSEXP) {
+RcppExport SEXP _MulticastNetwork_sortuniq(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,7 +19,7 @@ END_RCPP
 }
 // Mahalanobis
 arma::vec Mahalanobis(arma::mat x, arma::rowvec center, arma::mat cov);
-RcppExport SEXP _pkg_Mahalanobis(SEXP xSEXP, SEXP centerSEXP, SEXP covSEXP) {
+RcppExport SEXP _MulticastNetwork_Mahalanobis(SEXP xSEXP, SEXP centerSEXP, SEXP covSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -32,7 +32,7 @@ END_RCPP
 }
 // ei
 arma::vec ei(arma::mat M);
-RcppExport SEXP _pkg_ei(SEXP MSEXP) {
+RcppExport SEXP _MulticastNetwork_ei(SEXP MSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -43,7 +43,7 @@ END_RCPP
 }
 // dmvnorm_arma
 arma::vec dmvnorm_arma(arma::mat x, arma::rowvec mean, arma::mat sigma);
-RcppExport SEXP _pkg_dmvnorm_arma(SEXP xSEXP, SEXP meanSEXP, SEXP sigmaSEXP) {
+RcppExport SEXP _MulticastNetwork_dmvnorm_arma(SEXP xSEXP, SEXP meanSEXP, SEXP sigmaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -56,7 +56,7 @@ END_RCPP
 }
 // rmvnorm_arma
 arma::mat rmvnorm_arma(int n, const arma::vec& mu, const arma::mat& Sigma);
-RcppExport SEXP _pkg_rmvnorm_arma(SEXP nSEXP, SEXP muSEXP, SEXP SigmaSEXP) {
+RcppExport SEXP _MulticastNetwork_rmvnorm_arma(SEXP nSEXP, SEXP muSEXP, SEXP SigmaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -69,7 +69,7 @@ END_RCPP
 }
 // priorsum
 double priorsum(arma::mat var, arma::rowvec mu, arma::mat x);
-RcppExport SEXP _pkg_priorsum(SEXP varSEXP, SEXP muSEXP, SEXP xSEXP) {
+RcppExport SEXP _MulticastNetwork_priorsum(SEXP varSEXP, SEXP muSEXP, SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -82,7 +82,7 @@ END_RCPP
 }
 // tabulateC
 IntegerVector tabulateC(const IntegerVector& x, const signed max);
-RcppExport SEXP _pkg_tabulateC(SEXP xSEXP, SEXP maxSEXP) {
+RcppExport SEXP _MulticastNetwork_tabulateC(SEXP xSEXP, SEXP maxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -94,7 +94,7 @@ END_RCPP
 }
 // transpose
 arma::mat transpose(arma::mat x);
-RcppExport SEXP _pkg_transpose(SEXP xSEXP) {
+RcppExport SEXP _MulticastNetwork_transpose(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -105,7 +105,7 @@ END_RCPP
 }
 // callRMultinom
 IntegerVector callRMultinom(NumericVector x);
-RcppExport SEXP _pkg_callRMultinom(SEXP xSEXP) {
+RcppExport SEXP _MulticastNetwork_callRMultinom(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -116,7 +116,7 @@ END_RCPP
 }
 // multinom_vec
 IntegerVector multinom_vec(int nSample, NumericVector props);
-RcppExport SEXP _pkg_multinom_vec(SEXP nSampleSEXP, SEXP propsSEXP) {
+RcppExport SEXP _MulticastNetwork_multinom_vec(SEXP nSampleSEXP, SEXP propsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -128,7 +128,7 @@ END_RCPP
 }
 // which_int
 int which_int(int value, IntegerVector x);
-RcppExport SEXP _pkg_which_int(SEXP valueSEXP, SEXP xSEXP) {
+RcppExport SEXP _MulticastNetwork_which_int(SEXP valueSEXP, SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -140,7 +140,7 @@ END_RCPP
 }
 // which_num
 int which_num(double value, NumericVector x);
-RcppExport SEXP _pkg_which_num(SEXP valueSEXP, SEXP xSEXP) {
+RcppExport SEXP _MulticastNetwork_which_num(SEXP valueSEXP, SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -152,7 +152,7 @@ END_RCPP
 }
 // rdirichlet_cpp
 NumericMatrix rdirichlet_cpp(int num_samples, NumericVector alpha_m);
-RcppExport SEXP _pkg_rdirichlet_cpp(SEXP num_samplesSEXP, SEXP alpha_mSEXP) {
+RcppExport SEXP _MulticastNetwork_rdirichlet_cpp(SEXP num_samplesSEXP, SEXP alpha_mSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -164,7 +164,7 @@ END_RCPP
 }
 // which_cpp
 IntegerVector which_cpp(int value, NumericVector x);
-RcppExport SEXP _pkg_which_cpp(SEXP valueSEXP, SEXP xSEXP) {
+RcppExport SEXP _MulticastNetwork_which_cpp(SEXP valueSEXP, SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -176,7 +176,7 @@ END_RCPP
 }
 // expconst
 NumericVector expconst(NumericVector consts);
-RcppExport SEXP _pkg_expconst(SEXP constsSEXP) {
+RcppExport SEXP _MulticastNetwork_expconst(SEXP constsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -187,7 +187,7 @@ END_RCPP
 }
 // History
 List History(List edge, NumericVector timestamps, int A, int d, double timeunit);
-RcppExport SEXP _pkg_History(SEXP edgeSEXP, SEXP timestampsSEXP, SEXP ASEXP, SEXP dSEXP, SEXP timeunitSEXP) {
+RcppExport SEXP _MulticastNetwork_History(SEXP edgeSEXP, SEXP timestampsSEXP, SEXP ASEXP, SEXP dSEXP, SEXP timeunitSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -202,7 +202,7 @@ END_RCPP
 }
 // History2
 List History2(List edge, NumericVector timestamps, int A, IntegerMatrix timeintd, double timeunit);
-RcppExport SEXP _pkg_History2(SEXP edgeSEXP, SEXP timestampsSEXP, SEXP ASEXP, SEXP timeintdSEXP, SEXP timeunitSEXP) {
+RcppExport SEXP _MulticastNetwork_History2(SEXP edgeSEXP, SEXP timestampsSEXP, SEXP ASEXP, SEXP timeintdSEXP, SEXP timeunitSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -217,7 +217,7 @@ END_RCPP
 }
 // Degree
 NumericMatrix Degree(List history, int A, int sender);
-RcppExport SEXP _pkg_Degree(SEXP historySEXP, SEXP ASEXP, SEXP senderSEXP) {
+RcppExport SEXP _MulticastNetwork_Degree(SEXP historySEXP, SEXP ASEXP, SEXP senderSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -230,7 +230,7 @@ END_RCPP
 }
 // Outdegree
 NumericMatrix Outdegree(IntegerMatrix timeintd, IntegerVector senders, int A);
-RcppExport SEXP _pkg_Outdegree(SEXP timeintdSEXP, SEXP sendersSEXP, SEXP ASEXP) {
+RcppExport SEXP _MulticastNetwork_Outdegree(SEXP timeintdSEXP, SEXP sendersSEXP, SEXP ASEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -243,7 +243,7 @@ END_RCPP
 }
 // Indegree
 NumericMatrix Indegree(List history, int A, int sender);
-RcppExport SEXP _pkg_Indegree(SEXP historySEXP, SEXP ASEXP, SEXP senderSEXP) {
+RcppExport SEXP _MulticastNetwork_Indegree(SEXP historySEXP, SEXP ASEXP, SEXP senderSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -256,7 +256,7 @@ END_RCPP
 }
 // Dyadic
 IntegerMatrix Dyadic(List history, int A, int sender);
-RcppExport SEXP _pkg_Dyadic(SEXP historySEXP, SEXP ASEXP, SEXP senderSEXP) {
+RcppExport SEXP _MulticastNetwork_Dyadic(SEXP historySEXP, SEXP ASEXP, SEXP senderSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -269,7 +269,7 @@ END_RCPP
 }
 // Triadic
 NumericMatrix Triadic(List history, int A, int sender);
-RcppExport SEXP _pkg_Triadic(SEXP historySEXP, SEXP ASEXP, SEXP senderSEXP) {
+RcppExport SEXP _MulticastNetwork_Triadic(SEXP historySEXP, SEXP ASEXP, SEXP senderSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -282,7 +282,7 @@ END_RCPP
 }
 // Netstats_cpp
 List Netstats_cpp(List edge, NumericVector timestamps, IntegerMatrix timeintd, IntegerVector senders, int A, double timeunit, IntegerVector netstat);
-RcppExport SEXP _pkg_Netstats_cpp(SEXP edgeSEXP, SEXP timestampsSEXP, SEXP timeintdSEXP, SEXP sendersSEXP, SEXP ASEXP, SEXP timeunitSEXP, SEXP netstatSEXP) {
+RcppExport SEXP _MulticastNetwork_Netstats_cpp(SEXP edgeSEXP, SEXP timestampsSEXP, SEXP timeintdSEXP, SEXP sendersSEXP, SEXP ASEXP, SEXP timeunitSEXP, SEXP netstatSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -299,7 +299,7 @@ END_RCPP
 }
 // inner
 double inner(arma::vec x, arma::vec y);
-RcppExport SEXP _pkg_inner(SEXP xSEXP, SEXP ySEXP) {
+RcppExport SEXP _MulticastNetwork_inner(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -311,7 +311,7 @@ END_RCPP
 }
 // MultiplyXB
 arma::mat MultiplyXB(List X, arma::vec B);
-RcppExport SEXP _pkg_MultiplyXB(SEXP XSEXP, SEXP BSEXP) {
+RcppExport SEXP _MulticastNetwork_MultiplyXB(SEXP XSEXP, SEXP BSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -323,7 +323,7 @@ END_RCPP
 }
 // lmultinom
 int lmultinom(NumericVector lprops);
-RcppExport SEXP _pkg_lmultinom(SEXP lpropsSEXP) {
+RcppExport SEXP _MulticastNetwork_lmultinom(SEXP lpropsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -334,7 +334,7 @@ END_RCPP
 }
 // u_Gibbs
 NumericVector u_Gibbs(NumericVector u_di, NumericVector lambda_di, double delta, int j);
-RcppExport SEXP _pkg_u_Gibbs(SEXP u_diSEXP, SEXP lambda_diSEXP, SEXP deltaSEXP, SEXP jSEXP) {
+RcppExport SEXP _MulticastNetwork_u_Gibbs(SEXP u_diSEXP, SEXP lambda_diSEXP, SEXP deltaSEXP, SEXP jSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -348,7 +348,7 @@ END_RCPP
 }
 // Edgepart
 double Edgepart(arma::mat u, arma::mat lambda, double delta);
-RcppExport SEXP _pkg_Edgepart(SEXP uSEXP, SEXP lambdaSEXP, SEXP deltaSEXP) {
+RcppExport SEXP _MulticastNetwork_Edgepart(SEXP uSEXP, SEXP lambdaSEXP, SEXP deltaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -361,7 +361,7 @@ END_RCPP
 }
 // Edgepartsum
 double Edgepartsum(List X, arma::vec B, arma::mat u, double delta);
-RcppExport SEXP _pkg_Edgepartsum(SEXP XSEXP, SEXP BSEXP, SEXP uSEXP, SEXP deltaSEXP) {
+RcppExport SEXP _MulticastNetwork_Edgepartsum(SEXP XSEXP, SEXP BSEXP, SEXP uSEXP, SEXP deltaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -375,7 +375,7 @@ END_RCPP
 }
 // mu_vec
 NumericVector mu_vec(NumericVector timemat, int A, NumericVector eta);
-RcppExport SEXP _pkg_mu_vec(SEXP timematSEXP, SEXP ASEXP, SEXP etaSEXP) {
+RcppExport SEXP _MulticastNetwork_mu_vec(SEXP timematSEXP, SEXP ASEXP, SEXP etaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -388,7 +388,7 @@ END_RCPP
 }
 // mu_mat
 NumericMatrix mu_mat(NumericMatrix timemat, int A, NumericVector eta);
-RcppExport SEXP _pkg_mu_mat(SEXP timematSEXP, SEXP ASEXP, SEXP etaSEXP) {
+RcppExport SEXP _MulticastNetwork_mu_mat(SEXP timematSEXP, SEXP ASEXP, SEXP etaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -401,7 +401,7 @@ END_RCPP
 }
 // Timepart
 double Timepart(NumericVector mu, double sigma_tau, double a_d, double t_d);
-RcppExport SEXP _pkg_Timepart(SEXP muSEXP, SEXP sigma_tauSEXP, SEXP a_dSEXP, SEXP t_dSEXP) {
+RcppExport SEXP _MulticastNetwork_Timepart(SEXP muSEXP, SEXP sigma_tauSEXP, SEXP a_dSEXP, SEXP t_dSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -415,7 +415,7 @@ END_RCPP
 }
 // Timepartsum
 double Timepartsum(NumericMatrix mumat, double sigma_tau, IntegerVector senders, NumericVector timestamps);
-RcppExport SEXP _pkg_Timepartsum(SEXP mumatSEXP, SEXP sigma_tauSEXP, SEXP sendersSEXP, SEXP timestampsSEXP) {
+RcppExport SEXP _MulticastNetwork_Timepartsum(SEXP mumatSEXP, SEXP sigma_tauSEXP, SEXP sendersSEXP, SEXP timestampsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -429,7 +429,7 @@ END_RCPP
 }
 // timefinder
 List timefinder(NumericVector timestamps, IntegerVector edgetrim, double timeunit);
-RcppExport SEXP _pkg_timefinder(SEXP timestampsSEXP, SEXP edgetrimSEXP, SEXP timeunitSEXP) {
+RcppExport SEXP _MulticastNetwork_timefinder(SEXP timestampsSEXP, SEXP edgetrimSEXP, SEXP timeunitSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -442,7 +442,7 @@ END_RCPP
 }
 // timefinder_vec
 arma::mat timefinder_vec(NumericVector timestamps, int d, double timeunit);
-RcppExport SEXP _pkg_timefinder_vec(SEXP timestampsSEXP, SEXP dSEXP, SEXP timeunitSEXP) {
+RcppExport SEXP _MulticastNetwork_timefinder_vec(SEXP timestampsSEXP, SEXP dSEXP, SEXP timeunitSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -455,45 +455,45 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_pkg_sortuniq", (DL_FUNC) &_pkg_sortuniq, 1},
-    {"_pkg_Mahalanobis", (DL_FUNC) &_pkg_Mahalanobis, 3},
-    {"_pkg_ei", (DL_FUNC) &_pkg_ei, 1},
-    {"_pkg_dmvnorm_arma", (DL_FUNC) &_pkg_dmvnorm_arma, 3},
-    {"_pkg_rmvnorm_arma", (DL_FUNC) &_pkg_rmvnorm_arma, 3},
-    {"_pkg_priorsum", (DL_FUNC) &_pkg_priorsum, 3},
-    {"_pkg_tabulateC", (DL_FUNC) &_pkg_tabulateC, 2},
-    {"_pkg_transpose", (DL_FUNC) &_pkg_transpose, 1},
-    {"_pkg_callRMultinom", (DL_FUNC) &_pkg_callRMultinom, 1},
-    {"_pkg_multinom_vec", (DL_FUNC) &_pkg_multinom_vec, 2},
-    {"_pkg_which_int", (DL_FUNC) &_pkg_which_int, 2},
-    {"_pkg_which_num", (DL_FUNC) &_pkg_which_num, 2},
-    {"_pkg_rdirichlet_cpp", (DL_FUNC) &_pkg_rdirichlet_cpp, 2},
-    {"_pkg_which_cpp", (DL_FUNC) &_pkg_which_cpp, 2},
-    {"_pkg_expconst", (DL_FUNC) &_pkg_expconst, 1},
-    {"_pkg_History", (DL_FUNC) &_pkg_History, 5},
-    {"_pkg_History2", (DL_FUNC) &_pkg_History2, 5},
-    {"_pkg_Degree", (DL_FUNC) &_pkg_Degree, 3},
-    {"_pkg_Outdegree", (DL_FUNC) &_pkg_Outdegree, 3},
-    {"_pkg_Indegree", (DL_FUNC) &_pkg_Indegree, 3},
-    {"_pkg_Dyadic", (DL_FUNC) &_pkg_Dyadic, 3},
-    {"_pkg_Triadic", (DL_FUNC) &_pkg_Triadic, 3},
-    {"_pkg_Netstats_cpp", (DL_FUNC) &_pkg_Netstats_cpp, 7},
-    {"_pkg_inner", (DL_FUNC) &_pkg_inner, 2},
-    {"_pkg_MultiplyXB", (DL_FUNC) &_pkg_MultiplyXB, 2},
-    {"_pkg_lmultinom", (DL_FUNC) &_pkg_lmultinom, 1},
-    {"_pkg_u_Gibbs", (DL_FUNC) &_pkg_u_Gibbs, 4},
-    {"_pkg_Edgepart", (DL_FUNC) &_pkg_Edgepart, 3},
-    {"_pkg_Edgepartsum", (DL_FUNC) &_pkg_Edgepartsum, 4},
-    {"_pkg_mu_vec", (DL_FUNC) &_pkg_mu_vec, 3},
-    {"_pkg_mu_mat", (DL_FUNC) &_pkg_mu_mat, 3},
-    {"_pkg_Timepart", (DL_FUNC) &_pkg_Timepart, 4},
-    {"_pkg_Timepartsum", (DL_FUNC) &_pkg_Timepartsum, 4},
-    {"_pkg_timefinder", (DL_FUNC) &_pkg_timefinder, 3},
-    {"_pkg_timefinder_vec", (DL_FUNC) &_pkg_timefinder_vec, 3},
+    {"_MulticastNetwork_sortuniq", (DL_FUNC) &_MulticastNetwork_sortuniq, 1},
+    {"_MulticastNetwork_Mahalanobis", (DL_FUNC) &_MulticastNetwork_Mahalanobis, 3},
+    {"_MulticastNetwork_ei", (DL_FUNC) &_MulticastNetwork_ei, 1},
+    {"_MulticastNetwork_dmvnorm_arma", (DL_FUNC) &_MulticastNetwork_dmvnorm_arma, 3},
+    {"_MulticastNetwork_rmvnorm_arma", (DL_FUNC) &_MulticastNetwork_rmvnorm_arma, 3},
+    {"_MulticastNetwork_priorsum", (DL_FUNC) &_MulticastNetwork_priorsum, 3},
+    {"_MulticastNetwork_tabulateC", (DL_FUNC) &_MulticastNetwork_tabulateC, 2},
+    {"_MulticastNetwork_transpose", (DL_FUNC) &_MulticastNetwork_transpose, 1},
+    {"_MulticastNetwork_callRMultinom", (DL_FUNC) &_MulticastNetwork_callRMultinom, 1},
+    {"_MulticastNetwork_multinom_vec", (DL_FUNC) &_MulticastNetwork_multinom_vec, 2},
+    {"_MulticastNetwork_which_int", (DL_FUNC) &_MulticastNetwork_which_int, 2},
+    {"_MulticastNetwork_which_num", (DL_FUNC) &_MulticastNetwork_which_num, 2},
+    {"_MulticastNetwork_rdirichlet_cpp", (DL_FUNC) &_MulticastNetwork_rdirichlet_cpp, 2},
+    {"_MulticastNetwork_which_cpp", (DL_FUNC) &_MulticastNetwork_which_cpp, 2},
+    {"_MulticastNetwork_expconst", (DL_FUNC) &_MulticastNetwork_expconst, 1},
+    {"_MulticastNetwork_History", (DL_FUNC) &_MulticastNetwork_History, 5},
+    {"_MulticastNetwork_History2", (DL_FUNC) &_MulticastNetwork_History2, 5},
+    {"_MulticastNetwork_Degree", (DL_FUNC) &_MulticastNetwork_Degree, 3},
+    {"_MulticastNetwork_Outdegree", (DL_FUNC) &_MulticastNetwork_Outdegree, 3},
+    {"_MulticastNetwork_Indegree", (DL_FUNC) &_MulticastNetwork_Indegree, 3},
+    {"_MulticastNetwork_Dyadic", (DL_FUNC) &_MulticastNetwork_Dyadic, 3},
+    {"_MulticastNetwork_Triadic", (DL_FUNC) &_MulticastNetwork_Triadic, 3},
+    {"_MulticastNetwork_Netstats_cpp", (DL_FUNC) &_MulticastNetwork_Netstats_cpp, 7},
+    {"_MulticastNetwork_inner", (DL_FUNC) &_MulticastNetwork_inner, 2},
+    {"_MulticastNetwork_MultiplyXB", (DL_FUNC) &_MulticastNetwork_MultiplyXB, 2},
+    {"_MulticastNetwork_lmultinom", (DL_FUNC) &_MulticastNetwork_lmultinom, 1},
+    {"_MulticastNetwork_u_Gibbs", (DL_FUNC) &_MulticastNetwork_u_Gibbs, 4},
+    {"_MulticastNetwork_Edgepart", (DL_FUNC) &_MulticastNetwork_Edgepart, 3},
+    {"_MulticastNetwork_Edgepartsum", (DL_FUNC) &_MulticastNetwork_Edgepartsum, 4},
+    {"_MulticastNetwork_mu_vec", (DL_FUNC) &_MulticastNetwork_mu_vec, 3},
+    {"_MulticastNetwork_mu_mat", (DL_FUNC) &_MulticastNetwork_mu_mat, 3},
+    {"_MulticastNetwork_Timepart", (DL_FUNC) &_MulticastNetwork_Timepart, 4},
+    {"_MulticastNetwork_Timepartsum", (DL_FUNC) &_MulticastNetwork_Timepartsum, 4},
+    {"_MulticastNetwork_timefinder", (DL_FUNC) &_MulticastNetwork_timefinder, 3},
+    {"_MulticastNetwork_timefinder_vec", (DL_FUNC) &_MulticastNetwork_timefinder_vec, 3},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_pkg(DllInfo *dll) {
+RcppExport void R_init_MulticastNetwork(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

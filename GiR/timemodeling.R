@@ -72,7 +72,7 @@ c(eta.true[2],eta.grid[which(y==max(y))])
 
 
 #mean + one covariate --- test of s2
-nDocs = 1000
+nDocs = 100
 s2 = rhalfcauchy(1, 0.1)
 node = 4
 X = matrix(sample(0:3, nDocs * node, replace = TRUE), nDocs)

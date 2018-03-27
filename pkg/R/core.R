@@ -1,4 +1,4 @@
-#' @useDynLib pkg
+#' @useDynLib MulticastNetwork
 #' @import stats
 #' @import grDevices
 #' @import graphics
@@ -11,6 +11,7 @@
 #' @importFrom lubridate wday hour
 #' @importFrom LaplacesDemon dhalfcauchy rhalfcauchy
 #' @importFrom truncnorm rtruncnorm dtruncnorm
+#' @importFrom MCMCpack rinvgamma dinvgamma
 
 tvapply = function(...) transpose(vapply(...))
 
@@ -35,7 +36,6 @@ gibbs.measure.support = function(n) {
 #' @title r.gibbs.measure
 #' @description List out the support of Gibbs measure
 #'
-#' @param nsamp the number of binary vector samples to draw
 #' @param lambda.i a vector of coefficients according to which each element
 #' @param delta a positive real valued parameter that controls the density penalty 
 #' @param support support of Gibbs measure
@@ -43,7 +43,7 @@ gibbs.measure.support = function(n) {
 #' @return nsamp number of samples with each row denoting binary vector
 #'
 #' @export
-r.gibbs.measure <- function(nsamp, lambda.i, delta, support) {
+r.gibbs.measure <- function(lambda.i, delta, support) {
 	#gibbsNormalizer = prod(exp(delta+lambda.i)+1)-1
 	logitNumerator = vapply(1:nrow(support), function(s) {
 		sum((delta+lambda.i)*support[s,])
@@ -136,7 +136,7 @@ Inference = function(edge, node, sigma.Q, prior.b, prior.delta, prior.eta, prior
   proposal.var2 = diag(Q)
   if (length(initial) == 0) {
     delta = rnorm(1, prior.delta[1], sqrt(prior.delta[2]))
-    sigma_tau = rhalfcauchy(1, prior.tau)
+    sigma_tau = rinvgamma(1, prior.tau[1], prior.tau[2])
     b.old = rmvnorm_arma(1, prior.b[[1]], prior.b[[2]])
     eta.old = rmvnorm_arma(1, prior.eta[[1]], prior.eta[[2]])
     sigma.Q = sigma.Q
@@ -185,10 +185,6 @@ Inference = function(edge, node, sigma.Q, prior.b, prior.delta, prior.eta, prior
             }
         }
     }
-    for (d in edge.trim) {
-         X[[d]] = Netstats_cpp(edge, timestamps, timeinterval[[d]], senders, A, timeunit, netstat)
-	 }
-    
   # adaptive M-H   
     #if (o > 1) {
     #	accept.rates[1] = accept.rates[1]/Inner[1]
@@ -198,7 +194,7 @@ Inference = function(edge, node, sigma.Q, prior.b, prior.delta, prior.eta, prior
     #	sigma.Q = adaptive.MH(sigma.Q, accept.rates, update.size = 0.2*sigma.Q)
     #}
     #accept.rates = rep(0, 4)
-    
+   
     prior.old1 = priorsum(prior.b[[2]], prior.b[[1]], b.old)+
     			 dnorm(delta, prior.delta[1], sqrt(prior.delta[2]), TRUE)
     post.old1 = Edgepartsum(X[[max.edge]], b.old, u[[max.edge]], delta)
@@ -221,21 +217,18 @@ Inference = function(edge, node, sigma.Q, prior.b, prior.delta, prior.eta, prior
     }
     
     if (sum(timestat) > 0) {
-      	mu = eta.old[1] + eta.old[2] * t(sapply(edge.trim, function(d) rowSums(u[[d]])-1)) + 
-      	matrix(timemat[edge.trim,] %*% eta.old[3:4], nrow = length(edge.trim), ncol = A)
+      	mu = eta.old[1] + matrix(timemat[edge.trim,] %*% eta.old[2:3], nrow = length(edge.trim), ncol = A)
     } else {
-    	mu = eta.old[1] + eta.old[2] * t(sapply(edge.trim, function(d) rowSums(u[[d]])-1))
+		mu = matrix(eta.old[1], length(edge.trim), A)
     }
 	  prior.old2 = priorsum(prior.eta[[2]], prior.eta[[1]], eta.old)
 	  post.old2 = Timepartsum(mu, sqrt(sigma_tau), senders[edge.trim], timeinc[edge.trim])
       for (inner in 1:Inner[2]) {
          eta.new = rmvnorm_arma(1, eta.old, sigma.Q[2]*proposal.var2)
          if (sum(timestat) > 0) {
-      		mu = eta.new[1] + eta.new[2] * t(sapply(edge.trim, function(d) rowSums(u[[d]])-1)) + 
-      		matrix(timemat[edge.trim,] %*% eta.new[3:4], nrow = length(edge.trim), ncol = A) 	
+      		mu = eta.new[1] + matrix(timemat[edge.trim,] %*% eta.new[2:3], nrow = length(edge.trim), ncol = A) 	
    		 } else {
-    		#mu = matrix(rep(eta.new, D), D, A, byrow = TRUE)
-    		mu = eta.new[1] + eta.new[2] * t(sapply(edge.trim, function(d) rowSums(u[[d]])-1))
+			mu = matrix(eta.new[1], length(edge.trim), A)
     		}
          prior.new2 = priorsum(prior.eta[[2]], prior.eta[[1]], eta.old)
          post.new2 = Timepartsum(mu, sqrt(sigma_tau), senders[edge.trim], timeinc[edge.trim])
@@ -249,12 +242,11 @@ Inference = function(edge, node, sigma.Q, prior.b, prior.delta, prior.eta, prior
           etamat[,inner] = eta.old
     }
     if (sum(timestat) > 0) {
-      	mu = eta.old[1] + eta.old[2] * t(sapply(edge.trim, function(d) rowSums(u[[d]])-1)) + 
-      	matrix(timemat[edge.trim,] %*% eta.old[3:4], nrow = length(edge.trim), ncol = A)
+      	mu = eta.old[1] + matrix(timemat[edge.trim,] %*% eta.old[2:3], nrow = length(edge.trim), ncol = A)
     } else {
-    	mu = eta.old[1] + eta.old[2] * t(sapply(edge.trim, function(d) rowSums(u[[d]])-1))
+    	mu = matrix(eta.old[1], length(edge.trim), A)
     }
-     prior.old3 = dhalfcauchy(sigma_tau, prior.tau, TRUE)
+     prior.old3 = log(dinvgamma(sigma_tau, prior.tau[1], prior.tau[2]))
      post.old3 = post.old2
      for (inner in 1:Inner[3]) {
       #sigma_tau.new = rtruncnorm(1, 0, Inf, sigma_tau, sqrt(sigma.Q[3]))
@@ -262,16 +254,13 @@ Inference = function(edge, node, sigma.Q, prior.b, prior.delta, prior.eta, prior
       #	sigma_tau.new = rtruncnorm(1, 0, Inf, sigma_tau, sqrt(sigma.Q[3]))
       #}	
       sigma_tau.new = exp(rnorm(1, log(sigma_tau), sqrt(sigma.Q[3])))
-      while (sigma_tau.new > 10) {
-     	 sigma_tau.new = exp(rnorm(1, log(sigma_tau), sqrt(sigma.Q[3])))
-      }	
-      prior.new3 = dhalfcauchy(sigma_tau.new, prior.tau, TRUE)
+      prior.new3 = log(dinvgamma(sigma_tau.new, prior.tau[1], prior.tau[2]))
       post.new3 =  Timepartsum(mu, sqrt(sigma_tau.new), senders[edge.trim], timeinc[edge.trim])
       # loglike.diff = log(dtruncnorm(sigma_tau, 0, Inf, sigma_tau.new, sqrt(sigma.Q[3])))-
                    # log(dtruncnorm(sigma_tau.new, 0, Inf, sigma_tau, sqrt(sigma.Q[3])))+
                    # prior.new3+post.new3-prior.old3-post.old3
       loglike.diff = prior.new3+post.new3-prior.old3-post.old3
-      if (log(runif(1, 0, 1)) < loglike.diff) {
+     if (log(runif(1, 0, 1)) < loglike.diff) {
         sigma_tau = sigma_tau.new
         prior.old3 = prior.new3
         post.old3 = post.new3
@@ -355,12 +344,12 @@ GenerateDocs = function(nDocs, node, b, eta, delta, sigma_tau, support, netstat,
        lambda = matrix(0, A, A)
     }
     for (i in node) {
-      u[[base.length+d]][i,-i] = r.gibbs.measure(1, lambda[i,-i], delta, support)
+      u[[base.length+d]][i,-i] = r.gibbs.measure(lambda[i,-i], delta, support)
     }
     if (sum(timestat) > 0) {
-      	 mu = eta[1] + eta[2] * (rowSums(u[[base.length+d]])-1) + sum(timemat[base.length+d, ] * eta[3:4])
+      	 mu = eta[1] + sum(timemat[base.length+d, ] * eta[2:3])
     } else {
-      	 mu = eta[1] + eta[2] * (rowSums(u[[base.length+d]])-1)
+      	 mu = eta[1]
     }
     timevec = rlnorm(A, mu, sqrt(sigma_tau))*timeunit
     i.d = which(timevec == min(timevec))
@@ -538,7 +527,7 @@ GiR = function(Nsamp, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, s
     b = rmvnorm_arma(1, prior.b[[1]], prior.b[[2]])
     eta = rmvnorm_arma(1, prior.eta[[1]], prior.eta[[2]])
     delta = rnorm(1, prior.delta[1], sqrt(prior.delta[2]))
-    sigma_tau = rhalfcauchy(1, prior.tau)
+    sigma_tau = rinvgamma(1, prior.tau[1], prior.tau[2])
     Forward_sample = GenerateDocs(nDocs, node, b, eta, delta, sigma_tau,
                      support, netstat, timestat, base.data = base.data, backward = FALSE, base = FALSE)
     Forward_stats[i, ] = GiR_stats(Forward_sample)
@@ -615,8 +604,7 @@ Schein = function(Nsamp, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau
     b = rmvnorm_arma(1, prior.b[[1]], prior.b[[2]])
     eta = rmvnorm_arma(1, prior.eta[[1]], prior.eta[[2]])
     delta = rnorm(1, prior.delta[1], sqrt(prior.delta[2]))
-    sigma_tau = rhalfcauchy(1, prior.tau)
-	while (sigma_tau > 10) {sigma_tau = rhalfcauchy(1, prior.tau)}
+    sigma_tau = rinvgamma(1, prior.tau[1], prior.tau[2])
     Forward_sample = GenerateDocs(nDocs, node, b, eta, delta, sigma_tau,
                      support, netstat, timestat, base.data = base.data, backward = FALSE, base = FALSE)
     Forward_stats[i, ] = GiR_stats(Forward_sample)
@@ -630,11 +618,11 @@ Schein = function(Nsamp, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau
                       support, netstat, timestat, base.data = base.data, backward = TRUE, base = FALSE)
     Backward_stats[i, ] = GiR_stats(Backward_sample)
  }
+   browser()
   if (generate_PP_plots) {
     par(mfrow=c(4,4), oma = c(3,3,3,3), mar = c(2,1,1,1))
     GiR_PP_Plots(Forward_stats, Backward_stats)
   } 
-  browser()
   return(list(Forward = Forward_stats, Backward = Backward_stats))
 }                         	          
       

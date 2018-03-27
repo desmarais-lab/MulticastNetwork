@@ -2,142 +2,142 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 sortuniq <- function(x) {
-    .Call('_pkg_sortuniq', PACKAGE = 'pkg', x)
+    .Call('_MulticastNetwork_sortuniq', PACKAGE = 'MulticastNetwork', x)
 }
 
 Mahalanobis <- function(x, center, cov) {
-    .Call('_pkg_Mahalanobis', PACKAGE = 'pkg', x, center, cov)
+    .Call('_MulticastNetwork_Mahalanobis', PACKAGE = 'MulticastNetwork', x, center, cov)
 }
 
 ei <- function(M) {
-    .Call('_pkg_ei', PACKAGE = 'pkg', M)
+    .Call('_MulticastNetwork_ei', PACKAGE = 'MulticastNetwork', M)
 }
 
 dmvnorm_arma <- function(x, mean, sigma) {
-    .Call('_pkg_dmvnorm_arma', PACKAGE = 'pkg', x, mean, sigma)
+    .Call('_MulticastNetwork_dmvnorm_arma', PACKAGE = 'MulticastNetwork', x, mean, sigma)
 }
 
 rmvnorm_arma <- function(n, mu, Sigma) {
-    .Call('_pkg_rmvnorm_arma', PACKAGE = 'pkg', n, mu, Sigma)
+    .Call('_MulticastNetwork_rmvnorm_arma', PACKAGE = 'MulticastNetwork', n, mu, Sigma)
 }
 
 priorsum <- function(var, mu, x) {
-    .Call('_pkg_priorsum', PACKAGE = 'pkg', var, mu, x)
+    .Call('_MulticastNetwork_priorsum', PACKAGE = 'MulticastNetwork', var, mu, x)
 }
 
 tabulateC <- function(x, max) {
-    .Call('_pkg_tabulateC', PACKAGE = 'pkg', x, max)
+    .Call('_MulticastNetwork_tabulateC', PACKAGE = 'MulticastNetwork', x, max)
 }
 
 transpose <- function(x) {
-    .Call('_pkg_transpose', PACKAGE = 'pkg', x)
+    .Call('_MulticastNetwork_transpose', PACKAGE = 'MulticastNetwork', x)
 }
 
 callRMultinom <- function(x) {
-    .Call('_pkg_callRMultinom', PACKAGE = 'pkg', x)
+    .Call('_MulticastNetwork_callRMultinom', PACKAGE = 'MulticastNetwork', x)
 }
 
 multinom_vec <- function(nSample, props) {
-    .Call('_pkg_multinom_vec', PACKAGE = 'pkg', nSample, props)
+    .Call('_MulticastNetwork_multinom_vec', PACKAGE = 'MulticastNetwork', nSample, props)
 }
 
 which_int <- function(value, x) {
-    .Call('_pkg_which_int', PACKAGE = 'pkg', value, x)
+    .Call('_MulticastNetwork_which_int', PACKAGE = 'MulticastNetwork', value, x)
 }
 
 which_num <- function(value, x) {
-    .Call('_pkg_which_num', PACKAGE = 'pkg', value, x)
+    .Call('_MulticastNetwork_which_num', PACKAGE = 'MulticastNetwork', value, x)
 }
 
 rdirichlet_cpp <- function(num_samples, alpha_m) {
-    .Call('_pkg_rdirichlet_cpp', PACKAGE = 'pkg', num_samples, alpha_m)
+    .Call('_MulticastNetwork_rdirichlet_cpp', PACKAGE = 'MulticastNetwork', num_samples, alpha_m)
 }
 
 which_cpp <- function(value, x) {
-    .Call('_pkg_which_cpp', PACKAGE = 'pkg', value, x)
+    .Call('_MulticastNetwork_which_cpp', PACKAGE = 'MulticastNetwork', value, x)
 }
 
 expconst <- function(consts) {
-    .Call('_pkg_expconst', PACKAGE = 'pkg', consts)
+    .Call('_MulticastNetwork_expconst', PACKAGE = 'MulticastNetwork', consts)
 }
 
 History <- function(edge, timestamps, A, d, timeunit) {
-    .Call('_pkg_History', PACKAGE = 'pkg', edge, timestamps, A, d, timeunit)
+    .Call('_MulticastNetwork_History', PACKAGE = 'MulticastNetwork', edge, timestamps, A, d, timeunit)
 }
 
 History2 <- function(edge, timestamps, A, timeintd, timeunit) {
-    .Call('_pkg_History2', PACKAGE = 'pkg', edge, timestamps, A, timeintd, timeunit)
+    .Call('_MulticastNetwork_History2', PACKAGE = 'MulticastNetwork', edge, timestamps, A, timeintd, timeunit)
 }
 
 Degree <- function(history, A, sender) {
-    .Call('_pkg_Degree', PACKAGE = 'pkg', history, A, sender)
+    .Call('_MulticastNetwork_Degree', PACKAGE = 'MulticastNetwork', history, A, sender)
 }
 
 Outdegree <- function(timeintd, senders, A) {
-    .Call('_pkg_Outdegree', PACKAGE = 'pkg', timeintd, senders, A)
+    .Call('_MulticastNetwork_Outdegree', PACKAGE = 'MulticastNetwork', timeintd, senders, A)
 }
 
 Indegree <- function(history, A, sender) {
-    .Call('_pkg_Indegree', PACKAGE = 'pkg', history, A, sender)
+    .Call('_MulticastNetwork_Indegree', PACKAGE = 'MulticastNetwork', history, A, sender)
 }
 
 Dyadic <- function(history, A, sender) {
-    .Call('_pkg_Dyadic', PACKAGE = 'pkg', history, A, sender)
+    .Call('_MulticastNetwork_Dyadic', PACKAGE = 'MulticastNetwork', history, A, sender)
 }
 
 Triadic <- function(history, A, sender) {
-    .Call('_pkg_Triadic', PACKAGE = 'pkg', history, A, sender)
+    .Call('_MulticastNetwork_Triadic', PACKAGE = 'MulticastNetwork', history, A, sender)
 }
 
 Netstats_cpp <- function(edge, timestamps, timeintd, senders, A, timeunit, netstat) {
-    .Call('_pkg_Netstats_cpp', PACKAGE = 'pkg', edge, timestamps, timeintd, senders, A, timeunit, netstat)
+    .Call('_MulticastNetwork_Netstats_cpp', PACKAGE = 'MulticastNetwork', edge, timestamps, timeintd, senders, A, timeunit, netstat)
 }
 
 inner <- function(x, y) {
-    .Call('_pkg_inner', PACKAGE = 'pkg', x, y)
+    .Call('_MulticastNetwork_inner', PACKAGE = 'MulticastNetwork', x, y)
 }
 
 MultiplyXB <- function(X, B) {
-    .Call('_pkg_MultiplyXB', PACKAGE = 'pkg', X, B)
+    .Call('_MulticastNetwork_MultiplyXB', PACKAGE = 'MulticastNetwork', X, B)
 }
 
 lmultinom <- function(lprops) {
-    .Call('_pkg_lmultinom', PACKAGE = 'pkg', lprops)
+    .Call('_MulticastNetwork_lmultinom', PACKAGE = 'MulticastNetwork', lprops)
 }
 
 u_Gibbs <- function(u_di, lambda_di, delta, j) {
-    .Call('_pkg_u_Gibbs', PACKAGE = 'pkg', u_di, lambda_di, delta, j)
+    .Call('_MulticastNetwork_u_Gibbs', PACKAGE = 'MulticastNetwork', u_di, lambda_di, delta, j)
 }
 
 Edgepart <- function(u, lambda, delta) {
-    .Call('_pkg_Edgepart', PACKAGE = 'pkg', u, lambda, delta)
+    .Call('_MulticastNetwork_Edgepart', PACKAGE = 'MulticastNetwork', u, lambda, delta)
 }
 
 Edgepartsum <- function(X, B, u, delta) {
-    .Call('_pkg_Edgepartsum', PACKAGE = 'pkg', X, B, u, delta)
+    .Call('_MulticastNetwork_Edgepartsum', PACKAGE = 'MulticastNetwork', X, B, u, delta)
 }
 
 mu_vec <- function(timemat, A, eta) {
-    .Call('_pkg_mu_vec', PACKAGE = 'pkg', timemat, A, eta)
+    .Call('_MulticastNetwork_mu_vec', PACKAGE = 'MulticastNetwork', timemat, A, eta)
 }
 
 mu_mat <- function(timemat, A, eta) {
-    .Call('_pkg_mu_mat', PACKAGE = 'pkg', timemat, A, eta)
+    .Call('_MulticastNetwork_mu_mat', PACKAGE = 'MulticastNetwork', timemat, A, eta)
 }
 
 Timepart <- function(mu, sigma_tau, a_d, t_d) {
-    .Call('_pkg_Timepart', PACKAGE = 'pkg', mu, sigma_tau, a_d, t_d)
+    .Call('_MulticastNetwork_Timepart', PACKAGE = 'MulticastNetwork', mu, sigma_tau, a_d, t_d)
 }
 
 Timepartsum <- function(mumat, sigma_tau, senders, timestamps) {
-    .Call('_pkg_Timepartsum', PACKAGE = 'pkg', mumat, sigma_tau, senders, timestamps)
+    .Call('_MulticastNetwork_Timepartsum', PACKAGE = 'MulticastNetwork', mumat, sigma_tau, senders, timestamps)
 }
 
 timefinder <- function(timestamps, edgetrim, timeunit) {
-    .Call('_pkg_timefinder', PACKAGE = 'pkg', timestamps, edgetrim, timeunit)
+    .Call('_MulticastNetwork_timefinder', PACKAGE = 'MulticastNetwork', timestamps, edgetrim, timeunit)
 }
 
 timefinder_vec <- function(timestamps, d, timeunit) {
-    .Call('_pkg_timefinder_vec', PACKAGE = 'pkg', timestamps, d, timeunit)
+    .Call('_MulticastNetwork_timefinder_vec', PACKAGE = 'MulticastNetwork', timestamps, d, timeunit)
 }
 
