@@ -248,11 +248,7 @@ Inference = function(edge, node, sigma.Q, prior.b, prior.delta, prior.eta, prior
     }
      prior.old3 = log(dinvgamma(sigma_tau, prior.tau[1], prior.tau[2]))
      post.old3 = post.old2
-     for (inner in 1:Inner[3]) {
-      #sigma_tau.new = rtruncnorm(1, 0, Inf, sigma_tau, sqrt(sigma.Q[3]))
-      #while (sigma_tau.new > 10) {
-      #	sigma_tau.new = rtruncnorm(1, 0, Inf, sigma_tau, sqrt(sigma.Q[3]))
-      #}	
+     for (inner in 1:Inner[3]) {	
       sigma_tau.new = exp(rnorm(1, log(sigma_tau), sqrt(sigma.Q[3])))
       prior.new3 = log(dinvgamma(sigma_tau.new, prior.tau[1], prior.tau[2]))
       post.new3 =  Timepartsum(mu, sqrt(sigma_tau.new), senders[edge.trim], timeinc[edge.trim])

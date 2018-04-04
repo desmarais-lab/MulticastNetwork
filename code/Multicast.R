@@ -3,7 +3,7 @@ library(combinat)
 library(mvtnorm)
 library(MCMCpack)
 library(Rcpp)
-sourceCpp('/Users/bomin8319/Desktop/MulticastNetwork/GiR/Multicast_rcpp.cpp')
+sourceCpp('/Users/bomin8319/Desktop/MulticastNetwork/code/Multicast_rcpp.cpp')
 
 gibbs.measure.support = function(n) {
 	gibbs.support = rbind(rep(1, n))
@@ -16,7 +16,6 @@ gibbs.measure.support = function(n) {
 }
 
 r.gibbs.measure <- function(lambda.i, support) {
-	#gibbsNormalizer = prod(exp(delta+lambda.i)+1)-1
 	logitNumerator = vapply(1:nrow(support), function(s) {
 		sum(lambda.i*support[s,])
 		}, c(1))		
@@ -79,25 +78,14 @@ GiR_PP_Plots = function(Forward_stats, Backward_stats) {
                 x = 0.65, y = 0.15, cex = 0.4)
   }
 }      
- 
-lambda_cal = function(X, beta, delta) {
-	D = dim(X)[1]
-	A = dim(X)[2]
-	lambda = list()
-	for (d in 1:D) {
-		lambda[[d]] = lambda_cpp(X[d,,,], beta, delta)
-	}			
-	return(lambda)
-}  
 
-
-Generate = function(D, A, beta, delta, eta, sigma2, X, Y, support, timeunit = 3600) {
+Generate = function(D, A, beta, eta, sigma2, X, Y, support, timeunit = 3600) {
 	P = length(beta)
 	Q = length(eta)
 	u = list()
 	data = list()
 	t_d = 0
-	lambda = lambda_cal(X, beta, delta)
+	lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta))
 	mu = mu_cpp(Y, eta)
 	for (d in 1:D) {
 		u[[d]] = matrix(0, A, A)
@@ -110,48 +98,53 @@ Generate = function(D, A, beta, delta, eta, sigma2, X, Y, support, timeunit = 36
 		t_d = t_d + min(tau) * timeunit
 		data[[d]] = list(a_d = a_d, r_d = r_d, t_d = t_d)
 	}
-	return(list(data = data, u = u, beta = beta, delta = delta, eta = eta, sigma2 = sigma2, X = X, Y = Y))
+	return(list(data = data, u = u, beta = beta, eta = eta, sigma2 = sigma2))
 }
 
-Inference = function(data, outer, inner, prior.beta, prior.delta, prior.eta, prior.sigma2, initial = initial,
+Inference = function(data, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigma2, initial = initial,
 		proposal.var, timeunit = 3600) {
-	u = initial$u
-	beta = initial$beta
-	delta = initial$delta
-	eta = initial$eta
-	sigma2 = initial$sigma2
-	X = initial$X
-	Y = initial$Y
-	D = length(u)
-	P = length(beta)
-	Q = length(eta)
+	D = dim(X)[1]
+	A = dim(X)[2]
+	P = dim(X)[4]
+	Q = dim(Y)[3]
+	
+	if (length(initial) > 0) {
+		u = initial$u
+		beta = initial$beta
+		eta = initial$eta
+		sigma2 = initial$sigma2
+	} else {
+		u = lapply(1:D, function(d) matrix(0, A, A))
+		beta = matrix(prior.beta$mean, nrow = 1)
+		eta = matrix(prior.eta$mean, nrow = 1)
+		sigma2 = prior.sigma2$b / (prior.sigma2$a-1)
+	}
+	#output matrix
+	betamat = matrix(beta, nrow = outer-burn, ncol = P)
+	etamat = matrix(eta, nrow = outer-burn, ncol = Q)
+	sigma2mat = matrix(sigma2, nrow = outer-burn, ncol = 1)
+	loglike = matrix(NA, nrow = outer-burn, ncol = 1)
 	senders = vapply(data, function(d) { d[[1]] }, c(1))
 	timestamps = vapply(data, function(d) { d[[3]] }, c(1))
 	timeinc = c(timestamps[1], timestamps[-1]-timestamps[-length(timestamps)]) / timeunit
+	timeinc[timeinc == 0] = runif(sum(timeinc==0), 0, min(timeinc[timeinc!=0]))
 	for (o in 1:outer) {
-		lambda = lambda_cal(X, beta, delta)
+		if (o %% 100 == 0) print(o)
+		lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta))
+		u = u_cpp(lambda, u)
 		for (d in 1:D) {
-			for (a in 1:A) {
-				for (r in c(1:A)[-a]) {
-					prob = c(as.numeric(sum(u[[d]][a,-r]) > 0), exp(lambda[[d]][a, r]))
-					u[[d]][a, r] = multinom_vec(prob)-1
-				}
-			}
+		  u[[d]][senders[d],] = data[[d]][[2]]
 		}
-		prior.old1 = dmvnorm_arma(beta, prior.beta$mean, prior.beta$var) +
-					dnorm(delta, prior.delta$mean, prior.delta$var, log = TRUE)
+		  prior.old1 = dmvnorm_arma(beta, prior.beta$mean, prior.beta$var)
     	post.old1 = Edgepartsum(lambda, u)
     	for (i1 in 1:inner[1]) {
 			beta.new = rmvnorm_arma(1, beta, proposal.var[1]*diag(P))
-			delta.new = rnorm(1, delta, proposal.var[2])
-      		prior.new1 = dmvnorm_arma(beta.new, prior.beta$mean, prior.beta$var) +
-      					dnorm(delta.new, prior.delta$mean, prior.delta$var, log = TRUE)
-			lambda = lambda_cal(X, beta.new, delta.new)
+     	 	prior.new1 = dmvnorm_arma(beta.new, prior.beta$mean, prior.beta$var)
+			lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta.new))
 			post.new1 = Edgepartsum(lambda, u)
       		loglike.diff = prior.new1+post.new1-prior.old1-post.old1
-      		if (log(runif(1, 0, 1)) < loglike.diff) {
+			if (log(runif(1, 0, 1)) < loglike.diff) {
         			beta = beta.new
-        			delta = delta.new
         			prior.old1 = prior.new1
         			post.old1 = post.new1
 	      	}
@@ -160,11 +153,12 @@ Inference = function(data, outer, inner, prior.beta, prior.delta, prior.eta, pri
         mu = mu_cpp(Y, eta)
     	post.old2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)
 		for (i2 in 1:inner[2]) {
-			eta.new = rmvnorm_arma(1, eta, proposal.var[3]*diag(Q))
+			eta.new = rmvnorm_arma(1, eta, proposal.var[2]*diag(Q))
       		prior.new2 = dmvnorm_arma(eta.new, prior.eta$mean, prior.eta$var) 	
         	mu = mu_cpp(Y, eta.new)
     		post.new2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)
     		loglike.diff = prior.new2+post.new2-prior.old2-post.old2
+    		      		if (is.na(loglike.diff)) browser()
       		if (log(runif(1, 0, 1)) < loglike.diff) {
         			eta = eta.new
         			prior.old2 = prior.new2
@@ -176,46 +170,64 @@ Inference = function(data, outer, inner, prior.beta, prior.delta, prior.eta, pri
         mu = mu_cpp(Y, eta)
 
 		for (i3 in 1:inner[3]) {
-			sigma2.new = exp(rnorm(1, log(sigma2), proposal.var[4]))
+			sigma2.new = exp(rnorm(1, log(sigma2), proposal.var[3]))
       		prior.new3 = dinvgamma(sigma2.new, prior.sigma2$a, prior.sigma2$b)
     		post.new3 = Timepartsum(mu, sqrt(sigma2.new), senders, timeinc)
     		loglike.diff = prior.new3+post.new3-prior.old3-post.old3
+    		      		if (is.na(loglike.diff)) browser()
       		if (log(runif(1, 0, 1)) < loglike.diff) {
         			sigma2 = sigma2.new
         			prior.old3 = prior.new3
         			post.old3 = post.new3
 	      	}
+		}
+		if (o > burn) {
+			betamat[o-burn, ] = beta
+			etamat[o-burn, ] = eta
+			sigma2mat[o-burn, ] = sigma2	
+			loglike[o-burn, ] = post.old1 + post.old3
 		}		
 	}
-	return(list(u = u, beta = beta, delta = delta, eta = eta, sigma2 = sigma2))
+	return(list(u = u, beta = betamat, eta = etamat, sigma2 = sigma2mat, loglike = loglike))
 }
 
-D = 50
+D = 100
 A = 5
-P = 4
-Q = 3
+P = 5
+#Q = 3
 X = array(rnorm(D*A*A*P), dim = c(D,A,A,P))
-Y = array(rnorm(D*A*Q), dim = c(D,A,Q))
+X[,,,1] = 1
+#Y = array(rnorm(D*A*Q), dim = c(D,A,Q))
+Q = 3
+Y = array(1, dim = c(D,A,Q))
+for (a in 1:A) {
+	Y[,a,2] = a
+	if (a != 1) {
+	 Y[,a,3] = 0
+	}
+}
 support = gibbs.measure.support(A-1)
-prior.beta = list(mean = rep(0, P), var = diag(P))
-prior.delta = list(mean = rep(0, 1), var = diag(1))
+prior.beta = list(mean = c(-3, rep(0, P-1)), var = diag(P))
 prior.eta = list(mean = rep(0, Q), var = diag(Q))
-prior.sigma2 = list(a = 4, b = 1)
-Nsamp = 2500
+prior.sigma2 = list(a = 3, b = 1)
+Nsamp = 20000
+outer = 5
+inner = c(5, 5, 1)
+burn = 0
 #Schein test
-result = matrix(NA, Nsamp, 2*(3+P+Q))
+result = matrix(NA, Nsamp, 2*(2+P+Q))
 for (n in 1:Nsamp) {
+	if (n %% 100 == 0) print(n)
 	beta = rmvnorm_arma(1, prior.beta$mean, prior.beta$var)
-	delta = rnorm(1, prior.delta$mean, prior.delta$var)
 	eta = rmvnorm_arma(1, prior.eta$mean, prior.eta$var)
 	sigma2 = rinvgamma(1, prior.sigma2$a, prior.sigma2$b)
-	initial = Generate(D, A, beta, delta, eta, sigma2, X, Y, support)
-	infer = Inference(initial$data, 5, c(5,5,5), prior.beta, prior.delta, prior.eta, prior.sigma2, initial,
-		  proposal.var = c(0.1, 0.1, 0.01, 0.1))
+	initial = Generate(D, A, beta, eta, sigma2, X, Y, support)
+	infer = Inference(initial$data, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigma2, 
+			initial = initial, proposal.var = c(0.01, 0.1, 0.01, 0.5))
 	result[n, ] = c(mean(vapply(initial$u, function(x) rowSums(x), rep(0, A))),
-				initial$beta, initial$delta, initial$eta, initial$sigma2, 
+				initial$beta, initial$eta, initial$sigma2, 
 				 mean(vapply(infer$u, function(x) rowSums(x), rep(0, A))),
-				infer$beta, infer$delta, infer$eta, infer$sigma2)
+				 infer$beta[outer,], infer$eta[outer,], infer$sigma2[outer,])			 
 }
-par(mfrow=c(2,6))
-GiR_PP_Plots(result[,c(1:(3+P+Q))], result[,c((4+P+Q):(2*(3+P+Q)))])
+par(mfrow=c(2,5))
+GiR_PP_Plots(result[,c(1:(2+P+Q))], result[,c((3+P+Q):(2*(2+P+Q)))])
