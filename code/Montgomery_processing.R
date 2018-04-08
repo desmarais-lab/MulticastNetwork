@@ -3,12 +3,13 @@ library(lubridate)
 load('~/Desktop/MulticastNetwork/code/Temporal_Email_Data.Rdata')
 Montgomery = Temporal_Email_Data$Montgomery
 email = Montgomery$email_data
+email = unique(email)
 email$timepoints =  as.numeric(as.POSIXct(strptime(email[,1], "%d %b %Y %H:%M:%S")))
 email = email[order(email$timepoints), ]
 edge = list()
-initial =  as.numeric(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S")))
+initialtime =  as.numeric(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S")))
 for (d in 1:nrow(email)) {
-	t_d = email[d, 21] - initial
+	t_d = email[d, 21] - initialtime
 	edge[[d]] = list(a_d = email[d,2], r_d = as.numeric(email[d,-c(1:2, 21)]), t_d = t_d)
 }
 
@@ -35,7 +36,7 @@ for (d in 2:D) {
 }
 
 
-send = function(data, a, r) {
+sendraw = function(data, a, r) {
 	sum(data[,2] == a & data[, 2+r]==1)
 }
 
@@ -43,7 +44,8 @@ send = function(data, a, r) {
 D = length(edge)
 A = length(Montgomery$manager_gender)
 P = 9
-X = array(1, dim = c(D,A,A,P))
+X = array(0, dim = c(D,A,A,P))
+X[,,,1] = 1
 timeunit = 3600
 for (d in 2:D) {
 	index = which(email$timepoints >= email$timepoints[d-1]-3*24*timeunit & email$timepoints < email$timepoints[d])
@@ -53,22 +55,22 @@ for (d in 2:D) {
 	outdegree = tabulate(sent, A)
 	indegree = colSums(received)
 	for (a in 1:A) {
-		for (r in 1:A) {
+		for (r in c(1:A)[-a]) {
 			X[d, a, r, 2] = outdegree[a]  
-			X[d, a, r, 3] = 	indegree[r]	
-			X[d, a, r, 4] = send(data, a, r)
-			X[d, a, r, 5] = sum(email[index,2] == r & email[index, 2+a]==1)
+			X[d, a, r, 3] = indegree[r]	
+			X[d, a, r, 4] = sendraw(data, a, r)
+			X[d, a, r, 5] = sendraw(data, r, a)
 			X[d, a, r, 6] = sum(sapply(c(1:A)[-c(a,r)], function(h) {
-				send(data, a, h) * send(data, h, r) / 10
+				sendraw(data, a, h) * sendraw(data, h, r) / 10
 				}))
 			X[d, a, r, 7] = sum(sapply(c(1:A)[-c(a,r)], function(h) {
-				send(data, h, a) * send(data, r, h)
+				sendraw(data, h, a) * sendraw(data, r, h)
 				})) / 10
 			X[d, a, r, 8] = sum(sapply(c(1:A)[-c(a,r)], function(h) {
-				send(data, h, a) * send(data, h, r)
+				sendraw(data, h, a) * sendraw(data, h, r)
 				})) / 10
 			X[d, a, r, 9] = sum(sapply(c(1:A)[-c(a,r)], function(h) {
-				send(data, a, h) * send(data, r, h)
+				sendraw(data, a, h) * sendraw(data, r, h)
 				}))	/10		
 		}
 	}
@@ -77,6 +79,23 @@ for (d in 2:D) {
 prior.beta = list(mean = c(-3, rep(0, P-1)), var = 2*diag(P))
 prior.eta = list(mean = c(5, rep(0, Q-1)), var = 2*diag(Q))
 prior.sigma2 = list(a = 2, b = 1)
-
+email$timepoints =  as.numeric(as.POSIXct(strptime(email[,1], "%d %b %Y %H:%M:%S")))
+trim = which(email$timepoints >=3*24*timeunit+email$timepoints[1])
+edge = edge[trim]
+X = X[trim,,,]
+Y = Y[trim,,]
 Montgomery_infer = Inference(edge, X, Y, 55000, c(5,1,1), 15000, prior.beta, prior.eta, prior.sigma2, initial = NULL,
-		  proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600)
+		  proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime)
+
+save(Montgomery_infer, file = "Montgomery_infer.RData")
+
+initial = list()
+initial$sender = email[1:21, 2]
+initial$receiver = email[1:21, 3:20]
+initial$time = email[1:21,1]
+Montgomery_PPC = PPC(length(edge), A, colMeans(Montgomery_infer$beta), colMeans(Montgomery_infer$eta), mean(Montgomery_infer$sigma2), 
+                     X, Y, timeunit = 3600, lasttime = email[min(trim-1), 21], Montgomery_infer$u, initial =initial)
+
+
+
+save(Montgomery_PPC, file = "Montgomery_PPC.RData")

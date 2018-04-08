@@ -172,6 +172,20 @@ arma::mat mu_cpp (arma::cube Y, arma::rowvec eta) {
 }
 
 // **********************************************************//
+//                     Calculate mu matrix                   //
+// **********************************************************//
+// [[Rcpp::export]]
+NumericVector mu_cpp_d (NumericMatrix Y, NumericVector eta) {
+  int A = Y.nrow();
+  NumericVector mu(A);
+    for (unsigned int a = 0; a < A; a++) {
+      NumericVector Y_a = Y(a, _);
+      mu[a] = sum(eta * Y_a);
+    }
+  return mu;
+}
+
+// **********************************************************//
 //                     Calculate lambda list                 //
 // **********************************************************//
 // [[Rcpp::export]]
@@ -227,4 +241,29 @@ List u_cpp (List lambda, List u) {
 		out[d] = u_d;
 	}
 	return out;
+}
+
+// **********************************************************//
+//                       Gibbs update on u                   //
+// **********************************************************//
+// [[Rcpp::export]]
+IntegerMatrix u_cpp_d (NumericMatrix lambda_d, IntegerMatrix u) {
+  int A = u.nrow();
+  NumericVector prob(2);
+  IntegerMatrix u_d = u;
+  IntegerVector Asample = sample_int(A, 0, A-1);
+  IntegerVector Rsample = sample_int(A, 0, A-1);
+    for (unsigned int i = 0; i < A; i++) {
+      int a = Asample[i];
+      for (unsigned int j = 0; j < A; j++) {
+        int r = Rsample[j];
+        if (r != a) {
+          double prob0 = sum(u_d(a,_)) - u_d(a,r);
+          prob[0] = (prob0 > 0);
+          prob[1] = exp(lambda_d(a, r));
+          u_d(a, r) = multinom_vec(prob)-1;
+        }
+      }
+    }
+  return u_d;
 }
