@@ -26,7 +26,7 @@ timeunit = 3600
 Y[1,,6] = rep(as.numeric(wday(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)
 Y[1,,7] = rep(pm(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S"))), A)
 for (d in 2:D) {
-	index = which(email$timepoints >= email$timepoints[d-1]-3*24*timeunit & email$timepoints < email$timepoints[d])
+	index = which(email$timepoints >= email$timepoints[d-1]-7*24*timeunit & email$timepoints < email$timepoints[d])
 	sent = email[index, 2]
 	received = email[index, 3:(2+A)]
 	Y[d, ,4] = tabulate(sent, A) 
@@ -48,7 +48,7 @@ X = array(0, dim = c(D,A,A,P))
 X[,,,1] = 1
 timeunit = 3600
 for (d in 2:D) {
-	index = which(email$timepoints >= email$timepoints[d-1]-3*24*timeunit & email$timepoints < email$timepoints[d])
+	index = which(email$timepoints >= email$timepoints[d-1]-7*24*timeunit & email$timepoints < email$timepoints[d])
 	data = email[index, ]
 	sent = data[, 2]
 	received = data[, 3:(2+A)]
@@ -80,7 +80,7 @@ prior.beta = list(mean = c(-3, rep(0, P-1)), var = 2*diag(P))
 prior.eta = list(mean = c(5, rep(0, Q-1)), var = 2*diag(Q))
 prior.sigma2 = list(a = 2, b = 1)
 email$timepoints =  as.numeric(as.POSIXct(strptime(email[,1], "%d %b %Y %H:%M:%S")))
-trim = which(email$timepoints >=3*24*timeunit+email$timepoints[1])
+trim = which(email$timepoints >=7*24*timeunit+email$timepoints[1])
 edge = edge[trim]
 X = X[trim,,,]
 Y = Y[trim,,]
@@ -89,13 +89,17 @@ Montgomery_infer = Inference(edge, X, Y, 55000, c(5,1,1), 15000, prior.beta, pri
 
 save(Montgomery_infer, file = "Montgomery_infer.RData")
 
+load("/Users/bomin8319/Desktop/MulticastNetwork/code/Montgomery_infer.RData")
 initial = list()
 initial$sender = email[1:21, 2]
 initial$receiver = email[1:21, 3:20]
 initial$time = email[1:21,1]
-Montgomery_PPC = PPC(length(edge), A, colMeans(Montgomery_infer$beta), colMeans(Montgomery_infer$eta), mean(Montgomery_infer$sigma2), 
-                     X, Y, timeunit = 3600, lasttime = email[min(trim-1), 21], Montgomery_infer$u, initial =initial)
+for (n in 3:100) {
+  Montgomery_PPC = PPC(length(edge), A, colMeans(Montgomery_infer$beta), colMeans(Montgomery_infer$eta), 
+                       mean(Montgomery_infer$sigma2), X, Y, timeunit = 3600, lasttime = email[min(trim-1), 21], 
+                       Montgomery_infer$u, initial =initial)
+  filename = paste0("Montgomery_PPC", n,".RData")
+  save(Montgomery_PPC, file = filename)
+}
 
 
-
-save(Montgomery_PPC, file = "Montgomery_PPC.RData")

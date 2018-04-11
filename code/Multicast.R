@@ -126,7 +126,7 @@ PPC = function(D, A, beta, eta, sigma2, X, Y, timeunit = 3600, lasttime, u, init
   time = as.numeric(as.POSIXct(strptime(initial$time, "%d %b %Y %H:%M:%S")))
   for (d in 1:D) {
     if (d %% 10 == 0) print(d)
-    index = which(time >= t_d-3*24*timeunit & time <= t_d)
+    index = which(time >= t_d-7*24*timeunit & time <= t_d)
     sent = sender[index]
     received = receiver[index, ]
     outdegree = tabulate(sent, A)

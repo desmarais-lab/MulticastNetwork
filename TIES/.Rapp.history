@@ -1,0 +1,883 @@
+library(readxl)#
+TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+time = as.numeric(TIES[,1])
+heat(TIES)
+head(TIES)
+library(readxl)#
+TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+time = as.numeric(TIES[,1])
+time
+sender = c(cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5))#
+sender = sender[-which(is.na(sender))] #105 unique senders#
+receiver = TIES$targetstate #169 unique targets#
+#
+node = sort(unique(union(sender, receiver))) #175 unique countries #
+#
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)#
+node2 = cbind(node[-175], COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)#
+node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))#
+node = as.data.frame(node2)#
+colnames(node)[1] = "COWcode"#
+rownames(node) = NULL#
+node = data.frame(ID = 1:175, node)#
+node[,2] =  as.numeric(as.character(node[,2]))#
+TIES <- cbind(TIES$caseid, TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5, TIES$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))
+TIES
+head(TIES)
+dim(TIES)
+length(TIES[,1])
+length(unique(TIES[,1]))
+TIES$time = vapply(TIES[,1], function(x) as.numeric(strptime(x, format = "%Y%m%d")), c(1))
+rm(list=ls())
+library(readxl)#
+	TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))
+head(TIES)
+library(readxl)#
+TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+time = as.numeric(TIES[,1])
+head(time)
+time = sapply(time, function(x) substr(x, 1, nchar(x)-2))
+time
+sender = c(cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5))
+sender
+cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)
+head(senders)
+senders[which(is.na(senders[,1])),1] = "II"
+senders
+sender = c(cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5))
+sender
+sender = sender[-which(is.na(sender))] #105 unique senders
+sender
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = "II"#
+sender = c(senders)
+sender
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = "II"#
+sender = c(senders)
+sender
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = "II"#
+sender = c(senders)#
+#
+sender = sender[-which(is.na(sender))
+]
+sender
+length(unique(sender))
+receiver = TIES$targetstate #169 unique targets
+node = sort(unique(union(sender, receiver))) #175 unique countries
+node
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)
+node
+node2 = cbind(node[-c(175, 176)], COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)
+node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))
+node2
+node2 = rbind(node2, c(NA, "International Institution"))
+node2
+head(node2)
+library(readxl)#
+TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+time = as.numeric(TIES[,1])#
+time = sapply(time, function(x) substr(x, 1, nchar(x)-2))#
+#
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = "II"#
+sender = c(senders)#
+#
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES$targetstate #169 unique targets#
+#
+node = sort(unique(union(sender, receiver))) #176 unique nodes #
+#
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)#
+node2 = cbind(node[-c(175, 176)], COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)#
+node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))#
+node2 = rbind(node2, c(NA, "II", "International Institution"))
+node2
+node = as.data.frame(node2)
+colnames(node)[1] = "COWcode"#
+rownames(node) = NULL
+node = data.frame(ID = 1:176, node)
+node
+node[,2] =  as.numeric(as.character(node[,2]))
+TIES <- cbind(TIES$caseid, TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5, TIES$targetstate)
+TIES
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))
+TIES
+TIES[209, 1] = "19650630"
+TIES = as.data.frame(TIES)#
+TIES[,1] = as.character(TIES[,1])
+TIES
+TIES[which(is.na(TIES[,2])),2] = 0
+which(is.na(TIES[,2]))
+TIES[which(is.na(TIES[,2])),2] = rep(0, sum(is.na(TIES[,2])))
+library(readxl)#
+TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+time = as.numeric(TIES[,1])#
+time = sapply(time, function(x) substr(x, 1, nchar(x)-2))#
+#
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = "II"#
+sender = c(senders)#
+#
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES$targetstate #169 unique targets#
+#
+node = sort(unique(union(sender, receiver))) #176 unique nodes #
+#
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)#
+node2 = cbind(node[-c(175, 176)], COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)#
+node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))#
+node2 = rbind(node2, c(NA, "II", "International Institution"))#
+node = as.data.frame(node2)#
+colnames(node)[1] = "COWcode"#
+rownames(node) = NULL#
+node = data.frame(ID = 1:176, node)#
+node[,2] =  as.numeric(as.character(node[,2]))#
+TIES <- cbind(TIES$caseid, TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5, TIES$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))#
+TIES[which(is.na(TIES[,2])),2] = rep(0, sum(is.na(TIES[,2])))#
+#
+#delete edges with missing senders (zero known sender) -> discontinuity issue?#
+#TIES = TIES[-which(is.na(TIES[,2])),]#
+TIES[209, 1] = "19650630"#
+TIES = as.data.frame(TIES)#
+TIES[,1] = as.character(TIES[,1])
+TIES
+node
+library(readxl)#
+TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+time = as.numeric(TIES[,1])#
+time = sapply(time, function(x) substr(x, 1, nchar(x)-2))#
+#
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = "II"#
+sender = c(senders)#
+#
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES$targetstate #169 unique targets#
+#
+node = sort(unique(union(sender, receiver))) #176 unique nodes #
+#
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)#
+node2 = cbind(node[-c(175, 176)], COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)#
+node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))#
+node2 = rbind(node2, c(0, "II", "International Institution"))#
+node = as.data.frame(node2)#
+colnames(node)[1] = "COWcode"#
+rownames(node) = NULL#
+node = data.frame(ID = 1:176, node)#
+node[,2] =  as.numeric(as.character(node[,2]))#
+TIES <- cbind(TIES$caseid, TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5, TIES$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))#
+TIES[which(is.na(TIES[,2])),2] = rep(0, sum(is.na(TIES[,2])))#
+#
+#delete edges with missing senders (zero known sender) -> discontinuity issue?#
+#TIES = TIES[-which(is.na(TIES[,2])),]#
+TIES[209, 1] = "19650630"#
+TIES = as.data.frame(TIES)#
+TIES[,1] = as.character(TIES[,1])
+TIES
+node
+TIES
+TIES$time = vapply(TIES[,1], function(x) as.numeric(strptime(x, format = "%Y%m%d")), c(1))
+TIES
+sum(is.na(TIES$time))
+TIES_reduced = TIES[-which(is.na(TIES$time)),]
+dim(TIES_reduced)
+TIES_reduced
+save(TIES_reduced, file = "TIES_reduced.RData")
+length(TIES$time)
+length(unique(TIES$time))
+(1412-781)/1412
+TIES = TIES_reduced
+data = TIES[which(TIES$time==d),]
+d = 1
+unique(TIES$time)
+d = unique(TIES$time)[1]
+data = TIES[which(TIES$time==d),]
+data
+nrow(data)
+init = 1#
+for (d in unique(TIES$time))) {#
+	data = TIES[which(TIES$time==d),]#
+	for (m in 1:nrow(data)) {#
+	sender = as.numeric(data[m,2:6])#
+	if (sum(is.na(sender)) > 0) {#
+	sender = sender[-which(is.na(sender))]#
+	}#
+	for (s in 1:length(sender)) {#
+		sender[s] = node[node[,2] == sender[s],1]#
+	}#
+	target = node[node[,2]==data[m,7],1]#
+	t_d = data[m,8]#
+	edge[[init] = list(a_d = sender, r_d = target, t_d = t_d)#
+	init = init+1	#
+	}#
+}
+init = 1#
+for (d in unique(TIES$time))) {#
+	data = TIES[which(TIES$time==d),]#
+	for (m in 1:nrow(data)) {#
+	sender = as.numeric(data[m,2:6])#
+	if (sum(is.na(sender)) > 0) {#
+	sender = sender[-which(is.na(sender))]#
+	}#
+	for (s in 1:length(sender)) {#
+		sender[s] = node[node[,2] == sender[s],1]#
+	}#
+	target = node[node[,2]==data[m,7],1]#
+	t_d = data[m,8]#
+	edge[[init]] = list(a_d = sender, r_d = target, t_d = t_d)#
+	init = init+1	#
+	}#
+}
+d
+data
+m = 1
+sender = as.numeric(data[m,2:6])
+sender
+TIES = TIES_reduced#
+for (i in 1:7) {#
+	TIES[,i] = as.character(TIES[,i])#
+}#
+init = 1#
+for (d in unique(TIES$time))) {#
+	data = TIES[which(TIES$time==d),]#
+	for (m in 1:nrow(data)) {#
+	sender = as.numeric(data[m,2:6])#
+	if (sum(is.na(sender)) > 0) {#
+	sender = sender[-which(is.na(sender))]#
+	}#
+	for (s in 1:length(sender)) {#
+		sender[s] = node[node[,2] == sender[s],1]#
+	}#
+	target = node[node[,2]==data[m,7],1]#
+	t_d = data[m,8]#
+	edge[[init]] = list(a_d = sender, r_d = target, t_d = t_d)#
+	init = init+1	#
+	}#
+}
+TIES = TIES_reduced#
+for (i in 1:7) {#
+	TIES[,i] = as.character(TIES[,i])#
+}#
+edge = list()#
+init = 1#
+for (d in unique(TIES$time))) {#
+	data = TIES[which(TIES$time==d),]#
+	for (m in 1:nrow(data)) {#
+	sender = as.numeric(data[m,2:6])#
+	if (sum(is.na(sender)) > 0) {#
+	sender = sender[-which(is.na(sender))]#
+	}#
+	for (s in 1:length(sender)) {#
+		sender[s] = node[node[,2] == sender[s],1]#
+	}#
+	target = node[node[,2]==data[m,7],1]#
+	t_d = data[m,8]#
+	edge[[init]] = list(a_d = sender, r_d = target, t_d = t_d)#
+	init = init+1	#
+	}#
+}
+TIES = TIES_reduced#
+for (i in 1:7) {#
+	TIES[,i] = as.character(TIES[,i])#
+}#
+edge = list()#
+init = 1#
+for (d in unique(TIES$time)) {#
+	data = TIES[which(TIES$time==d),]#
+	for (m in 1:nrow(data)) {#
+	sender = as.numeric(data[m,2:6])#
+	if (sum(is.na(sender)) > 0) {#
+	sender = sender[-which(is.na(sender))]#
+	}#
+	for (s in 1:length(sender)) {#
+		sender[s] = node[node[,2] == sender[s],1]#
+	}#
+	target = node[node[,2]==data[m,7],1]#
+	t_d = data[m,8]#
+	edge[[init]] = list(a_d = sender, r_d = target, t_d = t_d)#
+	init = init+1	#
+	}#
+}
+warnings()
+d
+d = 1
+d = unique(TIES$time)[1]
+d
+data = TIES[which(TIES$time==d),]
+data
+m = 1
+sender = as.numeric(data[m,2:6])
+sender
+sum(is.na(sender)) > 0
+sender = sender[-which(is.na(sender))]
+sender
+length(sender)
+for (s in 1:length(sender)) {#
+		sender[s] = node[node[,2] == sender[s],1]#
+	}
+sender
+node
+target = node[node[,2]==data[m,7],1]
+target
+t_d = data[m,8]
+t_d
+init
+init = 1
+TIES = TIES_reduced#
+for (i in 1:7) {#
+	TIES[,i] = as.character(TIES[,i])#
+}#
+edge = list()#
+init = 1#
+for (d in unique(TIES$time)) {#
+	data = TIES[which(TIES$time==d),]#
+	for (m in 1:nrow(data)) {#
+	sender = as.numeric(data[m,2:6])#
+	if (sum(is.na(sender)) > 0) {#
+	sender = sender[-which(is.na(sender))]#
+	} else {#
+		browser()#
+	}#
+	for (s in 1:length(sender)) {#
+		sender[s] = node[node[,2] == sender[s],1]#
+	}#
+	target = node[node[,2]==data[m,7],1]#
+	t_d = data[m,8]#
+	edge[[init]] = list(a_d = sender, r_d = target, t_d = t_d)#
+	init = init+1	#
+	}#
+}
+d
+data
+Q
+TIES = TIES_reduced#
+for (i in 1:7) {#
+	TIES[,i] = as.character(TIES[,i])#
+}#
+edge = list()#
+init = 1#
+for (d in unique(TIES$time)) {#
+	data = TIES[which(TIES$time==d),]#
+	for (m in 1:nrow(data)) {#
+	sender = as.numeric(data[m,2:6])#
+	if (sum(is.na(sender)) > 0) {#
+	sender = sender[-which(is.na(sender))]#
+	} #
+	for (s in 1:length(sender)) {#
+		hi = node[node[,2] == sender[s],1]#
+		if (length(hi) > 1) browsr()#
+		sender[s] = node[node[,2] == sender[s],1]#
+	}#
+	target = node[node[,2]==data[m,7],1]#
+	t_d = data[m,8]#
+	edge[[init]] = list(a_d = sender, r_d = target, t_d = t_d)#
+	init = init+1	#
+	}#
+}
+TIES = TIES_reduced#
+for (i in 1:7) {#
+	TIES[,i] = as.character(TIES[,i])#
+}#
+edge = list()#
+init = 1#
+for (d in unique(TIES$time)) {#
+	data = TIES[which(TIES$time==d),]#
+	for (m in 1:nrow(data)) {#
+	sender = as.numeric(data[m,2:6])#
+	if (sum(is.na(sender)) > 0) {#
+	sender = sender[-which(is.na(sender))]#
+	} #
+	for (s in 1:length(sender)) {#
+		hi = node[node[,2] == sender[s],1]#
+		if (length(hi) > 1) browser()#
+		sender[s] = node[node[,2] == sender[s],1]#
+	}#
+	target = node[node[,2]==data[m,7],1]#
+	t_d = data[m,8]#
+	edge[[init]] = list(a_d = sender, r_d = target, t_d = t_d)#
+	init = init+1	#
+	}#
+}
+hi
+sender
+s
+sender[s]
+node[,2] == sender[s]
+sender[s]
+node[,2]
+node
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")
+COW
+COW = unique(COW)
+COW
+node2 = cbind(node[-c(175, 176)], COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)#
+node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))#
+node2 = rbind(node2, c(0, "II", "International Institution"))#
+node = as.data.frame(node2)
+node
+Q
+library(readxl)#
+TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+time = as.numeric(TIES[,1])#
+time = sapply(time, function(x) substr(x, 1, nchar(x)-2))#
+#
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = "II"#
+sender = c(senders)#
+#
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES$targetstate #169 unique targets#
+#
+node = sort(unique(union(sender, receiver))) #176 unique nodes #
+#
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)#
+node2 = cbind(node[-c(175, 176)], COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)#
+node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))#
+node2 = rbind(node2, c(0, "II", "International Institution"))#
+node = as.data.frame(node2)#
+colnames(node)[1] = "COWcode"#
+rownames(node) = NULL
+node
+library(readxl)#
+TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+time = as.numeric(TIES[,1])#
+time = sapply(time, function(x) substr(x, 1, nchar(x)-2))#
+#
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = "II"#
+sender = c(senders)#
+#
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES$targetstate #169 unique targets#
+#
+node = sort(unique(union(sender, receiver))) #176 unique nodes #
+#
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)#
+node2 = cbind(node[-c(175, 176)], COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)
+node
+node2
+library(readxl)#
+TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+time = as.numeric(TIES[,1])#
+time = sapply(time, function(x) substr(x, 1, nchar(x)-2))#
+#
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = "II"#
+sender = c(senders)#
+#
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES$targetstate #169 unique targets#
+#
+node = sort(unique(union(sender, receiver))) #176 unique nodes #
+#
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)
+COW
+which(COW$CCode %in% node)
+which(COW$CCode == node)
+node[-c(175, 176)]
+sort(as.numeric(node[-c(175, 176)]))
+node2 = cbind(sort(as.numeric(node[-c(175, 176)])), COW[which(COW$CCode %in% node), c(1,3)])
+node2
+head(node2)
+COW
+tail(node2)
+library(readxl)#
+TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+time = as.numeric(TIES[,1])#
+time = sapply(time, function(x) substr(x, 1, nchar(x)-2))#
+#
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = "II"#
+sender = c(senders)#
+#
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES$targetstate #169 unique targets#
+#
+node = sort(unique(union(sender, receiver))) #176 unique nodes #
+#
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)
+node
+length(node)
+node = sort(as.numeric(unique(union(sender, receiver)))) #176 unique nodes
+node
+library(readxl)#
+TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+time = as.numeric(TIES[,1])#
+time = sapply(time, function(x) substr(x, 1, nchar(x)-2))#
+#
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = 2000#
+sender = c(senders)#
+#
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES$targetstate #169 unique targets#
+#
+node = sort(as.numeric(unique(union(sender, receiver)))) #176 unique nodes
+node
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)#
+#
+node2 = cbind(sort(as.numeric(node[-c(175, 176)])), COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)#
+node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))#
+node2 = rbind(node2, c(2000, "II", "International Institution"))#
+node = as.data.frame(node2)#
+colnames(node)[1] = "COWcode"#
+rownames(node) = NULL#
+node = data.frame(ID = 1:176, node)#
+node[,2] =  as.numeric(as.character(node[,2]))#
+TIES <- cbind(TIES$caseid, TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5, TIES$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))#
+TIES[which(is.na(TIES[,2])),2] = rep(0, sum(is.na(TIES[,2])))#
+#
+#delete edges with missing senders (zero known sender) -> discontinuity issue?#
+#TIES = TIES[-which(is.na(TIES[,2])),]#
+TIES[209, 1] = "19650630"#
+TIES = as.data.frame(TIES)#
+TIES[,1] = as.character(TIES[,1])#
+TIES$time = vapply(TIES[,1], function(x) as.numeric(strptime(x, format = "%Y%m%d")), c(1))#
+#
+TIES_reduced = TIES[-which(is.na(TIES$time)),]
+TIES_reduced
+library(readxl)#
+TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+time = as.numeric(TIES[,1])#
+time = sapply(time, function(x) substr(x, 1, nchar(x)-2))#
+#
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = 2000#
+sender = c(senders)#
+#
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES$targetstate #169 unique targets#
+#
+node = sort(as.numeric(unique(union(sender, receiver)))) #176 unique nodes #
+#
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)#
+#
+node2 = cbind(sort(as.numeric(node[-c(175, 176)])), COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)#
+node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))#
+node2 = rbind(node2, c(2000, "II", "International Institution"))#
+node = as.data.frame(node2)#
+colnames(node)[1] = "COWcode"#
+rownames(node) = NULL#
+node = data.frame(ID = 1:176, node)#
+node[,2] =  as.numeric(as.character(node[,2]))#
+TIES <- cbind(TIES$caseid, TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5, TIES$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))#
+TIES[which(is.na(TIES[,2])),2] = rep(2000, sum(is.na(TIES[,2])))#
+#
+#delete edges with missing senders (zero known sender) -> discontinuity issue?#
+#TIES = TIES[-which(is.na(TIES[,2])),]#
+TIES[209, 1] = "19650630"#
+TIES = as.data.frame(TIES)#
+TIES[,1] = as.character(TIES[,1])#
+TIES$time = vapply(TIES[,1], function(x) as.numeric(strptime(x, format = "%Y%m%d")), c(1))#
+#
+TIES_reduced = TIES[-which(is.na(TIES$time)),]
+TIES_reduced
+save(TIES_reduced, file = "TIES_reduced.RData")
+node
+TIES = TIES_reduced#
+for (i in 1:7) {#
+	TIES[,i] = as.character(TIES[,i])#
+}#
+edge = list()#
+init = 1#
+for (d in unique(TIES$time)) {#
+	data = TIES[which(TIES$time==d),]#
+	for (m in 1:nrow(data)) {#
+	sender = as.numeric(data[m,2:6])#
+	if (sum(is.na(sender)) > 0) {#
+	sender = sender[-which(is.na(sender))]#
+	} #
+	for (s in 1:length(sender)) {#
+		hi = node[node[,2] == sender[s],1]#
+		if (length(hi) > 1) browser()#
+		sender[s] = node[node[,2] == sender[s],1]#
+	}#
+	target = node[node[,2]==data[m,7],1]#
+	t_d = data[m,8]#
+	edge[[init]] = list(a_d = sender, r_d = target, t_d = t_d)#
+	init = init+1	#
+	}#
+}
+init
+edge
+node
+TIES = TIES_reduced#
+for (i in 1:7) {#
+	TIES[,i] = as.character(TIES[,i])#
+}#
+edge = list()#
+init = 1#
+for (d in unique(TIES$time)) {#
+	data = TIES[which(TIES$time==d),]#
+	for (m in 1:nrow(data)) {#
+		if (nrow(data) > 1) browser()#
+	sender = as.numeric(data[m,2:6])#
+	if (sum(is.na(sender)) > 0) {#
+	sender = sender[-which(is.na(sender))]#
+	} #
+	for (s in 1:length(sender)) {#
+		hi = node[node[,2] == sender[s],1]#
+		sender[s] = node[node[,2] == sender[s],1]#
+	}#
+	target = node[node[,2]==data[m,7],1]#
+	t_d = data[m,8]#
+	edge[[init]] = list(a_d = sender, r_d = target, t_d = t_d)#
+	init = init+1	#
+	}#
+}
+data
+edge[1:5]
+d
+Q
+TIES = TIES_reduced#
+for (i in 1:7) {#
+	TIES[,i] = as.character(TIES[,i])#
+}#
+edge = list()#
+init = 1#
+for (d in unique(TIES$time)) {#
+	data = TIES[which(TIES$time==d),]#
+	for (m in 1:nrow(data)) {#
+	sender = as.numeric(data[m,2:6])#
+	if (sum(is.na(sender)) > 0) {#
+	sender = sender[-which(is.na(sender))]#
+	} #
+	for (s in 1:length(sender)) {#
+		hi = node[node[,2] == sender[s],1]#
+		sender[s] = node[node[,2] == sender[s],1]#
+	}#
+	target = node[node[,2]==data[m,7],1]#
+	t_d = data[m,8]#
+	edge[[init]] = list(a_d = sender, r_d = target, t_d = t_d)#
+	init = init+1	#
+	}#
+}
+init
+edge[1200:1230]
+TIES$time
+timediff = sapply(2:length(edge), function(d) edge[[d]]$t_d - edge[[d-1]]$t_d)
+hist(timediff)
+hist(log(timediff))
+og(timediff)
+timediff
+hist(log(timediff/3600))
+hist(timediff/3600)
+hist(timediff/(3600*24))
+hist(timediff/(3600*24), breaks = 1000)
+timediff2 = timediff[-which(timediff==0)]
+hist(timediff2/(3600*24), breaks = 100)
+hist(log(timediff2/(3600*24)), breaks = 100)
+hist(log(timediff2/(3600*24)), breaks = 10)
+hist(timediff2/(3600*24), breaks = 10)
+hist(timediff2/(3600*24), breaks = 100)
+hist(timediff2/(3600*24), breaks = 100, prob = TRUE)
+lines(dexp(1:300, 10, col = 2))
+lines(dexp(1:300, 10), col = red)
+lines(dexp(1:300, 10), col = 2)
+dexp(1:300, 10)
+lines(dexp(1:300, 10)/sum(dexp(1:300, 10)), col = 2)
+hist(timediff2/(3600*24), breaks = 100, prob = TRUE)
+lines(dexp(seq(0.1:30, by = 0.1), 3)/sum(dexp(seq(0.1:30, by = 0.1), 3)), col = 2)
+lines(dexp(seq(0.1, 30, by = 0.1), 3)/sum(dexp(seq(0.1, 30, by = 0.1), 3)), col = 2)
+lines(dexp(seq(0.1, 30, by = 0.1),1)/sum(dexp(seq(0.1, 30, by = 0.1), 1)), col = 2)
+hist(timediff2/(3600*24), breaks = 100, prob = TRUE)
+lines(dexp(seq(0.1, 30, by = 0.1),0.5)/sum(dexp(seq(0.1, 30, by = 0.1), 0.5)), col = 2)
+hist(log(timediff2/(3600*24)), breaks = 100, prob = TRUE)
+hist(timediff2/(3600*24), breaks = 100, prob = TRUE)
+lines(dexp(seq(0.1, 30, by = 0.1),0.5)/sum(dexp(seq(0.1, 30, by = 0.1), 0.5)), col = 2)
+hist(timediff2, breaks = 100, prob = TRUE)
+lines(dexp(seq(0.1, 30, by = 0.1),0.5)/sum(dexp(seq(0.1, 30, by = 0.1), 0.5)), col = 2)
+hist(timediff2/(3600*24), breaks = 100, prob = TRUE)
+lines(dexp(seq(0.1, 30, by = 0.1),0.5)/sum(dexp(seq(0.1, 30, by = 0.1), 0.5)), col = 2)
+min(timediff2)
+length(timediff)
+length(edge)
+edge[which(timediff==0)+1]
+tieevents = edge[which(timediff==0) +1]
+tieevents[1]
+tieevents[1"2]
+tieevents = edge[which(timediff==0)]
+tieevents[1:2]
+tieevents[1:4]
+length(tieevents)
+tieevents[1:10]
+TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))
+head(TIES)
+library(readxl)#
+TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+time = as.numeric(TIES[,1])#
+time = sapply(time, function(x) substr(x, 1, nchar(x)-2))#
+#
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = 2000#
+sender = c(senders)#
+#
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES$targetstate #169 unique targets#
+#
+node = sort(as.numeric(unique(union(sender, receiver)))) #176 unique nodes #
+#
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)#
+#
+node2 = cbind(sort(as.numeric(node[-c(175, 176)])), COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)#
+node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))#
+node2 = rbind(node2, c(2000, "II", "International Institution"))#
+node = as.data.frame(node2)#
+colnames(node)[1] = "COWcode"#
+rownames(node) = NULL#
+node = data.frame(ID = 1:176, node)#
+node[,2] =  as.numeric(as.character(node[,2]))#
+TIES <- cbind(TIES$caseid, TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5, TIES$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))#
+TIES[which(is.na(TIES[,2])),2] = rep(2000, sum(is.na(TIES[,2])))#
+#
+#delete edges with missing senders (zero known sender) -> discontinuity issue?#
+#TIES = TIES[-which(is.na(TIES[,2])),]#
+TIES[209, 1] = "19650630"#
+TIES = as.data.frame(TIES)#
+TIES[,1] = as.character(TIES[,1])#
+TIES$time = vapply(TIES[,1], function(x) as.numeric(strptime(x, format = "%Y%m%d")), c(1))#
+#
+TIES_reduced = TIES[-which(is.na(TIES$time)),]#
+save(TIES_reduced, file = "TIES_reduced.RData")#
+#impute 113 cases for missing dates. #
+#day missing, plug in 01 unless previous event has same month #
+#day missing, plug in 30 or 31 if previous event has same month #
+#month & day missing, plug in next month (from previous) with 01#
+# for (d in 1:nrow(TIES)) {#
+	# if (is.na(TIES$time[d])) {#
+		# browser()#
+	# }#
+# }#
+# d = 37#
+# TIES[d, 1] = "19490401"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 94#
+# TIES[d, 1] = "19540501"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 100#
+# TIES[d, 1] = "19550630"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 133#
+# TIES[d, 1] = "19581001"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 143#
+# TIES[d, 1] = "19600331"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 148#
+# TIES[d, 1] = "19600731"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 155#
+# TIES[d, 1] = "19610601"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 190#
+# TIES[d, 1] = "19630401"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 191#
+# TIES[d, 1] = "19630801"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 198#
+# TIES[d, 1] = "19650101"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 199#
+# TIES[d, 1] = "19650131"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 223#
+# TIES[d, 1] = "19670531"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 241#
+# TIES[d, 1] = "19680131"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 284#
+# TIES[d, 1] = "19721001"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 300#
+# TIES[d, 1] = "19731031"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 312#
+# TIES[d, 1] = "19741101"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 316#
+# TIES[d, 1] = "19750630"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 317#
+# TIES[d, 1] = "19750701"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 318#
+# TIES[d, 1] = "19751201"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 319#
+# TIES[d, 1] = "19760101"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 321#
+# TIES[d, 1] = "19760801"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 325#
+# TIES[d, 1] = "19770101"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 326#
+# TIES[d, 1] = "19770115"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 343#
+# TIES[d, 1] = "19771225"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+# d = 344#
+# TIES[d, 1] = "19771231"#
+# TIES$time[d] = as.numeric(strptime(TIES[d,1], format = "%Y%m%d"))#
+TIES = TIES_reduced#
+for (i in 1:7) {#
+	TIES[,i] = as.character(TIES[,i])#
+}#
+edge = list()#
+init = 1#
+for (d in unique(TIES$time)) {#
+	data = TIES[which(TIES$time==d),]#
+	for (m in 1:nrow(data)) {#
+	sender = as.numeric(data[m,2:6])#
+	if (sum(is.na(sender)) > 0) {#
+	sender = sender[-which(is.na(sender))]#
+	} #
+	for (s in 1:length(sender)) {#
+		hi = node[node[,2] == sender[s],1]#
+		sender[s] = node[node[,2] == sender[s],1]#
+	}#
+	target = node[node[,2]==data[m,7],1]#
+	t_d = data[m,8]#
+	edge[[init]] = list(a_d = sender, r_d = target, t_d = t_d)#
+	init = init+1	#
+	}#
+}
+node
+save(edge, file = "TIES_edge.RData")#
+save(node, file = "TIES_node.RData")

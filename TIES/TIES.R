@@ -1,28 +1,36 @@
 library(readxl)
 TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))
 time = as.numeric(TIES[,1])
+time = sapply(time, function(x) substr(x, 1, nchar(x)-2))
 
-sender = c(cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5))
-sender = sender[-which(is.na(sender))] #105 unique senders
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)
+senders[which(is.na(senders[,1])),1] = 2000
+sender = c(senders)
+
+sender = sender[-which(is.na(sender))] #106 unique senders
 receiver = TIES$targetstate #169 unique targets
 
-node = sort(unique(union(sender, receiver))) #175 unique countries 
+node = sort(as.numeric(unique(union(sender, receiver)))) #176 unique nodes 
 
 COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")
 COW = unique(COW)
-node2 = cbind(node[-175], COW[which(COW$CCode %in% node), c(1,3)])
+
+node2 = cbind(sort(as.numeric(node[-c(175, 176)])), COW[which(COW$CCode %in% node), c(1,3)])
 node2 = as.matrix(node2)
 node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))
+node2 = rbind(node2, c(2000, "II", "International Institution"))
 node = as.data.frame(node2)
 colnames(node)[1] = "COWcode"
 rownames(node) = NULL
-node = data.frame(ID = 1:175, node)
+node = data.frame(ID = 1:176, node)
 node[,2] =  as.numeric(as.character(node[,2]))
 TIES <- cbind(TIES$caseid, TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5, TIES$targetstate)
 TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))
+TIES[which(is.na(TIES[,2])),2] = rep(2000, sum(is.na(TIES[,2])))
+
 #delete edges with missing senders (zero known sender) -> discontinuity issue?
-TIES = TIES[-which(is.na(TIES[,2])),]
-TIES[206, 1] = "19650630"
+#TIES = TIES[-which(is.na(TIES[,2])),]
+TIES[209, 1] = "19650630"
 TIES = as.data.frame(TIES)
 TIES[,1] = as.character(TIES[,1])
 TIES$time = vapply(TIES[,1], function(x) as.numeric(strptime(x, format = "%Y%m%d")), c(1))
@@ -119,6 +127,32 @@ TIES = TIES_reduced
 for (i in 1:7) {
 	TIES[,i] = as.character(TIES[,i])
 }
+edge = list()
+init = 1
+for (d in unique(TIES$time)) {
+	data = TIES[which(TIES$time==d),]
+	for (m in 1:nrow(data)) {
+	sender = as.numeric(data[m,2:6])
+	if (sum(is.na(sender)) > 0) {
+	sender = sender[-which(is.na(sender))]
+	} 
+	for (s in 1:length(sender)) {
+		hi = node[node[,2] == sender[s],1]
+		sender[s] = node[node[,2] == sender[s],1]
+	}
+	target = node[node[,2]==data[m,7],1]
+	t_d = data[m,8]
+	edge[[init]] = list(a_d = sender, r_d = target, t_d = t_d)
+	init = init+1	
+	}
+}
+save(edge, file = "TIES_edge.RData")
+save(node, file = "TIES_node.RData")
+
+timediff = sapply(2:length(edge), function(d) edge[[d]]$t_d - edge[[d-1]]$t_d)
+tieevents = edge[which(timediff==0)]
+
+
 #112 either day missing or month missing
 edge = list()
 initial = as.numeric(strptime("1945-01-01", format = "%Y-%m-%d"))
