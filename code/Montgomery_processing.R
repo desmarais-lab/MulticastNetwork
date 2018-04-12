@@ -91,10 +91,10 @@ save(Montgomery_infer, file = "Montgomery_infer.RData")
 
 load("/Users/bomin8319/Desktop/MulticastNetwork/code/Montgomery_infer.RData")
 initial = list()
-initial$sender = email[1:21, 2]
-initial$receiver = email[1:21, 3:20]
-initial$time = email[1:21,1]
-for (n in 3:100) {
+initial$sender = email[1:(min(trim)-1), 2]
+initial$receiver = email[1:(min(trim)-1), 3:20]
+initial$time = email[1:(min(trim)-1),1]
+for (n in 1:100) {
   Montgomery_PPC = PPC(length(edge), A, colMeans(Montgomery_infer$beta), colMeans(Montgomery_infer$eta), 
                        mean(Montgomery_infer$sigma2), X, Y, timeunit = 3600, lasttime = email[min(trim-1), 21], 
                        Montgomery_infer$u, initial =initial)

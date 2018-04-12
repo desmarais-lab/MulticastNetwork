@@ -1,60 +1,3 @@
-library(readxl)#
-TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
-time = as.numeric(TIES[,1])
-heat(TIES)
-head(TIES)
-library(readxl)#
-TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
-time = as.numeric(TIES[,1])
-time
-sender = c(cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5))#
-sender = sender[-which(is.na(sender))] #105 unique senders#
-receiver = TIES$targetstate #169 unique targets#
-#
-node = sort(unique(union(sender, receiver))) #175 unique countries #
-#
-COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
-COW = unique(COW)#
-node2 = cbind(node[-175], COW[which(COW$CCode %in% node), c(1,3)])#
-node2 = as.matrix(node2)#
-node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))#
-node = as.data.frame(node2)#
-colnames(node)[1] = "COWcode"#
-rownames(node) = NULL#
-node = data.frame(ID = 1:175, node)#
-node[,2] =  as.numeric(as.character(node[,2]))#
-TIES <- cbind(TIES$caseid, TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5, TIES$targetstate)#
-TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))
-TIES
-head(TIES)
-dim(TIES)
-length(TIES[,1])
-length(unique(TIES[,1]))
-TIES$time = vapply(TIES[,1], function(x) as.numeric(strptime(x, format = "%Y%m%d")), c(1))
-rm(list=ls())
-library(readxl)#
-	TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))
-head(TIES)
-library(readxl)#
-TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
-time = as.numeric(TIES[,1])
-head(time)
-time = sapply(time, function(x) substr(x, 1, nchar(x)-2))
-time
-sender = c(cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5))
-sender
-cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)
-senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)
-head(senders)
-senders[which(is.na(senders[,1])),1] = "II"
-senders
-sender = c(cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5))
-sender
-sender = sender[-which(is.na(sender))] #105 unique senders
-sender
-senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
-senders[which(is.na(senders[,1])),1] = "II"#
-sender = c(senders)
 sender
 senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
 senders[which(is.na(senders[,1])),1] = "II"#
@@ -881,3 +824,242 @@ for (d in unique(TIES$time)) {#
 node
 save(edge, file = "TIES_edge.RData")#
 save(node, file = "TIES_node.RData")
+library(readxl)#
+TIES<-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))
+TIES <- cbind(TIES$caseid, TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5, TIES$targetstate)
+head(TIES)
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))
+head(TIES)
+library(readxl)#
+TIES <-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+TIES <- cbind(TIES$caseid, TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5, TIES$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))#
+TIES[209, 1] = "19650630"#
+TIES = as.data.frame(TIES)#
+TIES[,1] = as.character(TIES[,1])#
+TIES$time = vapply(TIES[,1], function(x) as.numeric(strptime(x, format = "%Y%m%d")), c(1))#
+#
+TIES_reduced = TIES[-which(is.na(TIES$time)),]
+head(TIES_reduced)
+library(readxl)#
+TIES <-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+TIES <- cbind(TIES$caseid, TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5, TIES$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))
+TIES[209,]
+library(readxl)#
+TIES <-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+TIES <- cbind(TIES$caseid, TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5, TIES$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))#
+TIES[209, 1] = "19650630" #there is one weird data which has June 31th -> convert to 30#
+TIES = as.data.frame(TIES)#
+TIES[,1] = as.character(TIES[,1])#
+TIES$time = vapply(TIES[,1], function(x) as.numeric(strptime(x, format = "%Y%m%d")), c(1))#
+TIES_reduced = TIES[-which(is.na(TIES$time)),]
+library(readxl)#
+TIES <-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+TIES <- cbind(TIES$caseid, TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5, TIES$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))#
+TIES[209, 1] = "19650630" #there is one weird data which has June 31th -> convert to 30#
+TIES = as.data.frame(TIES)#
+TIES[,1] = as.character(TIES[,1])#
+TIES$time = vapply(TIES[,1], function(x) as.numeric(strptime(x, format = "%Y%m%d")), c(1))#
+TIES = TIES[-which(is.na(TIES$time)),] #delete missing dates
+head(TIES)
+head(TIES)
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = 2000#
+sender = c(senders)
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = 2000#
+sender = c(senders)
+library(readxl)#
+TIES <-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+TIES <- cbind(TIES$caseid, TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5, TIES$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))#
+TIES[209, 1] = "19650630" #there is one weird data which has June 31th -> convert to 30#
+TIES = as.data.frame(TIES)#
+TIES[,1] = as.character(TIES[,1])#
+TIES$time = vapply(TIES[,1], function(x) as.numeric(strptime(x, format = "%Y%m%d")), c(1))#
+TIES = TIES[-which(is.na(TIES$time)),] #delete missing dates #
+head(TIES)#
+#
+senders = cbind(TIES$sender1, TIES$sender2, TIES$sender3, TIES$sender4, TIES$sender5)#
+senders[which(is.na(senders[,1])),1] = 2000#
+sender = c(senders)
+senders
+library(readxl)#
+TIES_raw <-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+TIES <- cbind(TIES_raw$caseid, TIES_raw$sender1, TIES_raw$sender2, TIES_raw$sender3, TIES_raw$sender4, TIES_raw$sender5, TIES_raw$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))#
+TIES[209, 1] = "19650630" #there is one weird data which has June 31th -> convert to 30#
+TIES = as.data.frame(TIES)#
+TIES[,1] = as.character(TIES[,1])#
+TIES$time = vapply(TIES[,1], function(x) as.numeric(strptime(x, format = "%Y%m%d")), c(1))#
+TIES = TIES[-which(is.na(TIES$time)),] #delete missing dates #
+head(TIES)#
+#
+senders = cbind(TIES_raw$sender1, TIES_raw$sender2, TIES_raw$sender3, TIES_raw$sender4, TIES_raw$sender5)#
+senders[which(is.na(senders[,1])),1] = 2000#
+sender = c(senders)
+sender
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES$targetstate #169 unique targets
+rm(list=ls())
+library(readxl)#
+TIES_raw <-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+######Below generates node######
+senders = cbind(TIES_raw$sender1, TIES_raw$sender2, TIES_raw$sender3, TIES_raw$sender4, TIES_raw$sender5)#
+senders[which(is.na(senders[,1])),1] = 2000#
+sender = c(senders)#
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES$targetstate #169 unique targets#
+node = sort(as.numeric(unique(union(sender, receiver)))) #176 unique nodes #
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)#
+node2 = cbind(sort(as.numeric(node[-c(175, 176)])), COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)#
+node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))#
+node2 = rbind(node2, c(2000, "II", "International Institution"))#
+node = as.data.frame(node2)#
+colnames(node)[1] = "COWcode"#
+rownames(node) = NULL#
+node = data.frame(ID = 1:176, node)#
+node[,2] =  as.numeric(as.character(node[,2]))
+library(readxl)#
+TIES_raw <-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+######Below generates node######
+senders = cbind(TIES_raw$sender1, TIES_raw$sender2, TIES_raw$sender3, TIES_raw$sender4, TIES_raw$sender5)#
+senders[which(is.na(senders[,1])),1] = 2000#
+sender = c(senders)#
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES_raw$targetstate #169 unique targets#
+node = sort(as.numeric(unique(union(sender, receiver)))) #176 unique nodes #
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)#
+node2 = cbind(sort(as.numeric(node[-c(175, 176)])), COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)#
+node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))#
+node2 = rbind(node2, c(2000, "II", "International Institution"))#
+node = as.data.frame(node2)#
+colnames(node)[1] = "COWcode"#
+rownames(node) = NULL#
+node = data.frame(ID = 1:176, node)#
+node[,2] =  as.numeric(as.character(node[,2]))
+node
+TIES <- cbind(TIES_raw$caseid, TIES_raw$sender1, TIES_raw$sender2, TIES_raw$sender3, TIES_raw$sender4, TIES_raw$sender5, TIES_raw$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))#
+TIES[which(is.na(TIES[,2])),2] = rep(2000, sum(is.na(TIES[,2])))
+head(TIES)
+library(readxl)#
+TIES_raw <-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+######Below generates node (Line 6 - 22)######
+senders = cbind(TIES_raw$sender1, TIES_raw$sender2, TIES_raw$sender3, TIES_raw$sender4, TIES_raw$sender5)#
+senders[which(is.na(senders[,1])),1] = 2000#
+sender = c(senders)#
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES_raw$targetstate #169 unique targets#
+node = sort(as.numeric(unique(union(sender, receiver)))) #176 unique nodes #
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)#
+node2 = cbind(sort(as.numeric(node[-c(175, 176)])), COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)#
+node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))#
+node2 = rbind(node2, c(2000, "II", "International Institution"))#
+node = as.data.frame(node2)#
+colnames(node)[1] = "COWcode"#
+rownames(node) = NULL#
+node = data.frame(ID = 1:176, node)#
+node[,2] =  as.numeric(as.character(node[,2]))#
+#############################################
+#####Below generates edges (Line 27 - 34)#########
+TIES <- cbind(TIES_raw$caseid, TIES_raw$sender1, TIES_raw$sender2, TIES_raw$sender3, TIES_raw$sender4, TIES_raw$sender5, TIES_raw$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))#
+TIES[which(is.na(TIES[,2])),2] = rep(2000, sum(is.na(TIES[,2])))#
+TIES[209, 1] = "19650630"  #one weird date which has June 31th -> fix to 30th#
+TIES = as.data.frame(TIES)#
+TIES[,1] = as.character(TIES[,1])#
+TIES$time = vapply(TIES[,1], function(x) as.numeric(strptime(x, format = "%Y%m%d")), c(1))#
+TIES_reduced = TIES[-which(is.na(TIES$time)),] #delete unknown dates
+library(readxl)#
+TIES_raw <-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+######Below generates node (Line 6 - 22)######
+senders = cbind(TIES_raw$sender1, TIES_raw$sender2, TIES_raw$sender3, TIES_raw$sender4, TIES_raw$sender5)#
+senders[which(is.na(senders[,1])),1] = 2000#
+sender = c(senders)#
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES_raw$targetstate #169 unique targets#
+node = sort(as.numeric(unique(union(sender, receiver)))) #176 unique nodes #
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)#
+node2 = cbind(sort(as.numeric(node[-c(175, 176)])), COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)#
+node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))#
+node2 = rbind(node2, c(2000, "II", "International Institution"))#
+node = as.data.frame(node2)#
+colnames(node)[1] = "COWcode"#
+rownames(node) = NULL#
+node = data.frame(ID = 1:176, node)#
+node[,2] =  as.numeric(as.character(node[,2]))#
+#############################################
+#####Below generates edges (Line 27 - 34)#########
+TIES <- cbind(TIES_raw$caseid, TIES_raw$sender1, TIES_raw$sender2, TIES_raw$sender3, TIES_raw$sender4, TIES_raw$sender5, TIES_raw$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))#
+TIES[which(is.na(TIES[,2])),2] = rep(2000, sum(is.na(TIES[,2])))#
+TIES[209, 1] = "19650630"  #one weird date which has June 31th -> fix to 30th#
+TIES = as.data.frame(TIES)#
+TIES[,1] = as.character(TIES[,1])#
+TIES$time = vapply(TIES[,1], function(x) as.numeric(strptime(x, format = "%Y%m%d")), c(1))#
+TIES = TIES[-which(is.na(TIES$time)),] #delete unknown dates
+head(TIES)
+head(node)
+colnames(TIES) = c("date", "sender1", "sender2", "sender3", "sender4", "sender5", "target", "unixtime")
+head(TIES)
+dim(TIES)
+library(readxl)#
+TIES_raw <-as.data.frame(read_excel("/Users/bomin8319/Desktop/MulticastNetwork/TIES/TIESv4.xls", col_names = TRUE))#
+######Below generates node (Line 6 - 22)######
+senders = cbind(TIES_raw$sender1, TIES_raw$sender2, TIES_raw$sender3, TIES_raw$sender4, TIES_raw$sender5)#
+senders[which(is.na(senders[,1])),1] = 2000#
+sender = c(senders)#
+sender = sender[-which(is.na(sender))] #106 unique senders#
+receiver = TIES_raw$targetstate #169 unique targets#
+node = sort(as.numeric(unique(union(sender, receiver)))) #176 unique nodes #
+COW = read.csv("/Users/bomin8319/Desktop/MulticastNetwork/TIES/COW country codes.csv")#
+COW = unique(COW)#
+node2 = cbind(sort(as.numeric(node[-c(175, 176)])), COW[which(COW$CCode %in% node), c(1,3)])#
+node2 = as.matrix(node2)#
+node2 = rbind(node2, c(1000, "EEC/EU", "European Economic Community/European Union"))#
+node2 = rbind(node2, c(2000, "II", "International Institution"))#
+node = as.data.frame(node2)#
+colnames(node)[1] = "COWcode"#
+rownames(node) = NULL#
+node = data.frame(ID = 1:176, node)#
+node[,2] =  as.numeric(as.character(node[,2]))#
+#############################################
+#####Below generates edges (Line 27 - 35)#########
+TIES <- cbind(TIES_raw$caseid, TIES_raw$sender1, TIES_raw$sender2, TIES_raw$sender3, TIES_raw$sender4, TIES_raw$sender5, TIES_raw$targetstate)#
+TIES[,1] = sapply(TIES[,1], function(x) substr(x, 1, nchar(x)-2))#
+TIES[which(is.na(TIES[,2])),2] = rep(2000, sum(is.na(TIES[,2])))#
+TIES[209, 1] = "19650630"  #one weird date which has June 31th -> fix to 30th#
+TIES = as.data.frame(TIES)#
+TIES[,1] = as.character(TIES[,1])#
+TIES$time = vapply(TIES[,1], function(x) as.numeric(strptime(x, format = "%Y%m%d")), c(1))#
+TIES = TIES[-which(is.na(TIES$time)),] #delete unknown dates#
+colnames(TIES) = c("date", "sender1", "sender2", "sender3", "sender4", "sender5", "target", "unixtime")#
+###################################################
+head(node)#
+head(TIES)
+TIES$unixteim
+TIES$unixtime
+TIES_redundant = matrix(NA, nrow = 0, ncol = 8)#
+for (d in unique(TIES$unixtime)) {#
+	if (length(which(TIES$unixtime == d)) > 1) {#
+		TIES_redundant = rbind(TIES_redundant, TIES[which(TIES$unixtime == d),])#
+	}#
+}
+TIES_redundant
+head(TIES_redundant)
+tail(TIES_redundant)
+node
+dim(TIES_redundant)
+TIES_redundant

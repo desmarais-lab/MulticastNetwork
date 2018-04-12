@@ -29,7 +29,7 @@
 
 \if0\blind
 {
-  \title{\bf A Continuous-time Multicast Network Model}
+  \title{\bf A Continuous-time Multicast \\Network Model}
   \author{Bomin Kim\thanks{
     The authors gratefully acknowledge \textit{please remember to list all relevant funding sources in the unblinded version}}\hspace{.2cm}\\
     Department of Statistics, Pennsylvania State University,\\
@@ -69,7 +69,7 @@ the model to analyze emails sent between department managers in Montgomery count
 \spacingset{1.45} % DON'T change the spacing!
 \section{Introduction}\label{sec:intro}
 \section{A Continuous-time Multicast Network Model}\label{sec:generative process}
-Data generated under the model consists of $D$ unique edges. A single edge, indexed by $d \in [D]$, is represented by the three components: the sender $a_d \in [A]$, an indicator vector of recipients $\boldsymbol{r}_d = \{u_{dr} \}_{r=1}^{A}$, and the timestamp $t_d \in (0, \infty)$. For simplicity, we assume that edges are ordered by time such that $t_d < t_{d+1}$.
+Data generated under the model consists of $D$ unique edges. A single edge, indexed by $d \in [D]$, is represented by the three components: the sender $a_d \in [A]$, an indicator vector of recipients $\boldsymbol{r}_d = \{u_{dr} \}_{r=1}^{A}$, and the timestamp $t_d \in (0, \infty)$. For simplicity, we assume that edges are ordered by time such that $t_d \leq t_{d+1}$.
 \subsection{Tie Generating Process}\label{subsec: Tie}
 For every possible author--recipient pair $(a,r)_{a \neq r}$, we define the ``recipient intensity", which is the likelihood of edge $d$ being sent from $a$ to $r$:
 \begin{equation}
@@ -117,7 +117,7 @@ a_d &= \mbox{argmin}_{a}(\tau_{ad}),\\
 t_d &=t_{d-1} + \tau_{a_d d}.
 \end{aligned}
 \end{equation}
-Therefore, it is a sender-driven process in that the recipients and timestamp of an edge is determined by the sender's urgency to send the edge to chosen recipients. 
+Therefore, it is a sender-driven process in that the recipients and timestamp of an edge is determined by the sender's urgency to send the edge to chosen recipients. Note that  our generative process accounts for tied events such that in case of tied events (i.e., multiple senders generated same time increments $\tau_d$), we observe all of the tied events\footnote{The order of tied events do not matter.} .
 	\begin{algorithm}[H]
 		\spacingset{1}
 		\SetAlgoLined
@@ -135,9 +135,15 @@ Therefore, it is a sender-driven process in that the recipients and timestamp of
 					set $\mu_{ad} = g^{-1}(\boldsymbol{\eta}^\top \boldsymbol{y}_{ad})$\\
 					draw $\tau_{ad} \sim f_\tau(\mu_{ad}, \sigma_\tau^2)$
 				}
+				\textbf{For no tied events,}\\
 				set $a_d= \mbox{argmin}_{a}(\tau_{ad})$\\
 				set $\boldsymbol{r}_d = \boldsymbol{u}_{a_d d}$\\
-				set $t_d =t_{d-1} + \min_a\tau_{ad}$
+				set $t_d =t_{d-1} + \min_a\tau_{ad}$\\\\
+				\textbf{For $n$ tied events,} (i.e., $n$ senders generated same minimum time increments)\\
+				set $a_d, \ldots, a_{d+n}= \mbox{argmin}_{a}(\tau_{ad})$\\
+				set $\boldsymbol{r}_d=\boldsymbol{u}_{a_d d},\ldots,\boldsymbol{r}_{d+n}= ,\boldsymbol{u}_{a_{d+n} d}$\\
+				set $t_d, \ldots, t_{d+n}=t_{d-1} + \min_a\tau_{ad}$\\
+				jump to $d = d+n+1$
 			}
 			\label{alg:generative}
 		\end{algorithm}
@@ -159,10 +165,15 @@ New values for continuous variables $\boldsymbol{b},$ and $\boldsymbol{\eta}$ an
 P(\boldsymbol{b}| \boldsymbol{u}, \boldsymbol{x})\propto \prod_{d=1}^D
 \prod_{a=1}^A \frac{\exp\Big\{\mbox{log}\big(\text{I}( \lVert \boldsymbol{u}_{ad}\rVert_1 > 0)\big) + \sum\limits_{r \neq a} \lambda_{adr}u_{adr}\Big\}}{Z(\boldsymbol{\lambda}_{ad})},
 \end{equation}
-where the two variables share the conditional posterior and thus can be jointly sampled. Likewise, assuming uninformative priors on $\boldsymbol{\eta}$ (i.e., $N({0},\infty)$) and $\sigma_{\tau}^2$ (i.e., half-Cauchy($\infty$)), the conditional posterior is
+where the two variables share the conditional posterior and thus can be jointly sampled. Likewise, assuming uninformative priors on $\boldsymbol{\eta}$ (i.e., $N({0},\infty)$) and $\sigma_{\tau}^2$ (i.e., half-Cauchy($\infty$)), the conditional posterior for no-tied event case is
 \begin{equation}
 P(\boldsymbol{\eta}, \sigma_\tau^2| \boldsymbol{u}, \boldsymbol{y})\propto \prod_{d=1}^D\Big(f_{\tau}(\tau_{d}; \mu_{a_d d}, \sigma_\tau^2)\times \prod_{a\neq a_d}\big(1-F_{\tau}(\tau_{d}; \mu_{a d}, \sigma_\tau^2) \big)\Big).
 \end{equation}
+Since we assme the existence of tied-event, the conditional posterior of $\boldsymbol{\eta}$ and $\sigma_{\tau}^2$ should be written as
+\begin{equation}
+P(\boldsymbol{\eta}, \sigma_\tau^2| \boldsymbol{u}, \boldsymbol{y})\propto \prod_{m=1}^M\Big(\prod_{d:t_d=t_m^*}f_{\tau}(t_m^*-t_{m-1}^*; \mu_{a_d d}, \sigma_\tau^2)\times \prod_{a \notin \{a_d\}_{d:t_d=t_m^*}}\big(1-F_{\tau}(t_m^*-t_{m-1}^*; \mu_{a d}, \sigma_\tau^2) \big)\Big),
+\end{equation}
+where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq D$). If $M=D$ (i.e., no tied events), Equation (10) reduces to Equation (9).
 
  \begin{algorithm}[H]
  			\spacingset{1}
@@ -178,16 +189,16 @@ P(\boldsymbol{\eta}, \sigma_\tau^2| \boldsymbol{u}, \boldsymbol{y})\propto \prod
  					}
 	 			}
  			}
+ 		}
  		 		\For{n=1 to inner1}{
  		 			update $\boldsymbol{b}$ using Metropolis-Hastings --- Equation (8)
  				}
  		\For{n=1 to inner2}{
- 				update $\boldsymbol{\eta}$ and $\sigma_\tau^2$ using Metropolis-Hastings --- Equation (9)
+ 				update $\boldsymbol{\eta}$ and $\sigma_\tau^2$ using Metropolis-Hastings --- Equation (10)
  		}
  			\For{n=1 to inner3}{
- 				update $\sigma_\tau^2$ using Metropolis-Hastings --- Equation (9)
+ 				update $\sigma_\tau^2$ using Metropolis-Hastings --- Equation (10)
  			}
- 	}
  }
  	Summarize the results with: \\last chain of $\boldsymbol{b}$, and last chain of $\boldsymbol{\eta}$ and $\sigma_\tau^2$ 
  \end{algorithm}
@@ -208,7 +219,7 @@ illustrative examples. We then report a suite of experiments that test our metho
  	  	   \subsubsection{Montgomary County Data}\label{subsubsec:Montgomery}
  	   Our data come from the North Carolina county government email dataset collected by \cite{ben2017transparency} that includes internal email corpora covering the inboxes and outboxes of managerial-level employees of North Carolina county governments. Out of over twenty counties, we chose Montgomery County to 1) test our model using data with a lot of multicast edges (16.76\%), and 2) limit the scope of this initial application. The Montgomery County email network contains 680 emails, sent and received by 18 department managers over a period of 3 months (March--May) in 2012. 
  	   \subsubsection{Covariates}\label{subsec:Covariates_email}
-In the example of email networks, we form the covariate vector $\boldsymbol{x}_{adr}$ using time-varying network statistics based on the time interval prior to and including $t_{d-1}$. Along with intercept term, we compute eight network statistics \cite{PerryWolfe2012}, where the time interval tracks 3 days prior to the last email was sent $l_d = (t_{d-1}-96h, t_{d-1}]$. 
+In the example of email networks, we form the covariate vector $\boldsymbol{x}_{adr}$ using time-varying network statistics based on the time interval prior to and including $t_{d-1}$. Along with intercept term, we compute eight network statistics \cite{PerryWolfe2012}, where the time interval tracks 7 days prior to the last email was sent $l_d = (t_{d-1}-7\mbox{days}, t_{d-1}]$. 
 \begin{itemize}
 	 			\spacingset{1}
 	\item[1.] intercept $\boldsymbol{x}_{adr1} =1$;
