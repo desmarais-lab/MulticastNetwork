@@ -19,8 +19,8 @@ support = gibbs.measure.support(A-1)
 prior.beta = list(mean = c(-3, rep(0, P-1)), var = diag(P))
 prior.eta = list(mean = rep(0, Q), var = diag(Q))
 prior.sigma2 = list(a = 3, b = 1)
-Nsamp = 5000
-outer = 50
+Nsamp = 500
+outer = 5
 inner = c(5, 5, 1)
 burn = 0
 #Schein test

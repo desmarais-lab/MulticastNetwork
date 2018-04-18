@@ -13,6 +13,7 @@ for (d in 1:nrow(email)) {
 	edge[[d]] = list(a_d = email[d,2], r_d = as.numeric(email[d,-c(1:2, 21)]), t_d = t_d)
 }
 
+uniqtime = unique(email$timepoints)
 # construct time covariates Y
 D = length(edge)
 A = length(Montgomery$manager_gender)
@@ -26,7 +27,7 @@ timeunit = 3600
 Y[1,,6] = rep(as.numeric(wday(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)
 Y[1,,7] = rep(pm(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S"))), A)
 for (d in 2:D) {
-	index = which(email$timepoints >= email$timepoints[d-1]-7*24*timeunit & email$timepoints < email$timepoints[d])
+	index = which(email$timepoints >= uniqtime[which(uniqtime==email$timepoints[d])-1]-7*24*timeunit & email$timepoints < email$timepoints[d])
 	sent = email[index, 2]
 	received = email[index, 3:(2+A)]
 	Y[d, ,4] = tabulate(sent, A) 
@@ -48,7 +49,7 @@ X = array(0, dim = c(D,A,A,P))
 X[,,,1] = 1
 timeunit = 3600
 for (d in 2:D) {
-	index = which(email$timepoints >= email$timepoints[d-1]-7*24*timeunit & email$timepoints < email$timepoints[d])
+	index = which(email$timepoints >= uniqtime[which(uniqtime==email$timepoints[d])-1]-7*24*timeunit & email$timepoints < email$timepoints[d])
 	data = email[index, ]
 	sent = data[, 2]
 	received = data[, 3:(2+A)]
@@ -76,7 +77,7 @@ for (d in 2:D) {
 	}
 }
 
-prior.beta = list(mean = c(-3, rep(0, P-1)), var = 2*diag(P))
+prior.beta = list(mean = c(-3.5, rep(0, P-1)), var = 2*diag(P))
 prior.eta = list(mean = c(5, rep(0, Q-1)), var = 2*diag(Q))
 prior.sigma2 = list(a = 2, b = 1)
 email$timepoints =  as.numeric(as.POSIXct(strptime(email[,1], "%d %b %Y %H:%M:%S")))
@@ -88,6 +89,7 @@ Montgomery_infer = Inference(edge, X, Y, 55000, c(5,1,1), 15000, prior.beta, pri
 		  proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime)
 
 save(Montgomery_infer, file = "Montgomery_infer.RData")
+
 
 load("/Users/bomin8319/Desktop/MulticastNetwork/code/Montgomery_infer.RData")
 initial = list()

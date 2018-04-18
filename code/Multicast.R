@@ -97,16 +97,20 @@ Generate = function(D, A, beta, eta, sigma2, X, Y, support, timeunit = 3600) {
 	t_d = 0
 	lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta))
 	mu = mu_cpp(Y, eta)
-	for (d in 1:D) {
+	d = 1
+	while (d <= D) {
 		u[[d]] = matrix(0, A, A)
 		for (a in 1:A) {
 			u[[d]][a, -a] = r.gibbs.measure(lambda[[d]][a, -a], support) 
 		}
 		tau = rlnorm(A, mu[d, ], sqrt(sigma2))
+		for (n in 1:length(which(tau == min(tau)))) {
 		a_d = which(tau == min(tau))
 		r_d = u[[d]][a_d,]
 		t_d = t_d + min(tau) * timeunit
 		data[[d]] = list(a_d = a_d, r_d = r_d, t_d = t_d)
+		d = d+1
+		}
 	}
 	return(list(data = data, u = u, beta = beta, eta = eta, sigma2 = sigma2))
 }
@@ -124,7 +128,8 @@ PPC = function(D, A, beta, eta, sigma2, X, Y, timeunit = 3600, lasttime, u, init
   sender = initial$sender
   receiver = initial$receiver
   time = as.numeric(as.POSIXct(strptime(initial$time, "%d %b %Y %H:%M:%S")))
-  for (d in 1:D) {
+  d = 1
+  while (d <= D) {
     if (d %% 10 == 0) print(d)
     index = which(time >= t_d-7*24*timeunit & time <= t_d)
     sent = sender[index]
@@ -156,13 +161,16 @@ PPC = function(D, A, beta, eta, sigma2, X, Y, timeunit = 3600, lasttime, u, init
     u[[d]] = u_cpp_d(lambda[[d]], u[[d]])
     mu[d, ] = mu_cpp_d(Y[d,,], eta)
     tau = rlnorm(A, mu[d, ], sqrt(sigma2))
-    a_d = which(tau == min(tau))
-    r_d = u[[d]][a_d,]
-    t_d = t_d + min(tau) * timeunit
-    data[[d]] = list(a_d = a_d, r_d = r_d, t_d = t_d)
-    sender = c(sender, a_d)
-    receiver = rbind(receiver, r_d)
-    time = c(time, t_d)
+    for (n in 1:length(which(tau == min(tau)))) {
+      a_d = which(tau == min(tau))
+      r_d = u[[d]][a_d,]
+      t_d = t_d + min(tau) * timeunit
+      data[[d]] = list(a_d = a_d, r_d = r_d, t_d = t_d)
+      d = d+1
+      sender = c(sender, a_d)
+      receiver = rbind(receiver, r_d)
+      time = c(time, t_d)
+    }
   }
   return(data)
 }
@@ -253,5 +261,94 @@ Inference = function(data, X, Y, outer, inner, burn, prior.beta, prior.eta, prio
 		}		
 	}
 	return(list(u = u, beta = betamat, eta = etamat, sigma2 = sigma2mat, loglike = loglike))
+}
+
+
+Inference_ties = function(data, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigma2, initial = initial,
+                     proposal.var, timeunit = 3600, lasttime) {
+  D = dim(X)[1]
+  A = dim(X)[2]
+  P = dim(X)[4]
+  Q = dim(Y)[3]
+  
+  if (length(initial) > 0) {
+    u = initial$u
+    beta = initial$beta
+    eta = initial$eta
+    sigma2 = initial$sigma2
+  } else {
+    u = lapply(1:D, function(d) matrix(0, A, A))
+    beta = matrix(prior.beta$mean, nrow = 1)
+    eta = matrix(prior.eta$mean, nrow = 1)
+    sigma2 = prior.sigma2$b / (prior.sigma2$a-1)
+  }
+  #output matrix
+  betamat = matrix(beta, nrow = outer-burn, ncol = P)
+  etamat = matrix(eta, nrow = outer-burn, ncol = Q)
+  sigma2mat = matrix(sigma2, nrow = outer-burn, ncol = 1)
+  loglike = matrix(NA, nrow = outer-burn, ncol = 1)
+  senders = vapply(data, function(d) { d[[1]] }, c(1))
+  timestamps = vapply(data, function(d) { d[[3]] }, c(1))
+  uniqtime = unique(timestamps)
+  timeinc = c(timestamps[1]-lasttime, timestamps[-1]-timestamps[-length(timestamps)]) / timeunit
+  for (o in 1:outer) {
+    if (o %% 100 == 0) print(o)
+    lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta))
+    u = u_cpp(lambda, u)
+    for (d in 1:D) {
+      u[[d]][senders[d],] = data[[d]][[2]]
+    }
+    prior.old1 = dmvnorm_arma(beta, prior.beta$mean, prior.beta$var)
+    post.old1 = Edgepartsum(lambda, u)
+    for (i1 in 1:inner[1]) {
+      beta.new = rmvnorm_arma(1, beta, proposal.var[1]*diag(P))
+      prior.new1 = dmvnorm_arma(beta.new, prior.beta$mean, prior.beta$var)
+      lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta.new))
+      post.new1 = Edgepartsum(lambda, u)
+      loglike.diff = prior.new1+post.new1-prior.old1-post.old1
+      if (log(runif(1, 0, 1)) < loglike.diff) {
+        beta = beta.new
+        prior.old1 = prior.new1
+        post.old1 = post.new1
+      }
+    }
+    prior.old2 = dmvnorm_arma(eta, prior.eta$mean, prior.eta$var) 
+    mu = mu_cpp(Y, eta)
+    post.old2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)
+    for (i2 in 1:inner[2]) {
+      eta.new = rmvnorm_arma(1, eta, proposal.var[2]*diag(Q))
+      prior.new2 = dmvnorm_arma(eta.new, prior.eta$mean, prior.eta$var) 	
+      mu = mu_cpp(Y, eta.new)
+      post.new2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)
+      loglike.diff = prior.new2+post.new2-prior.old2-post.old2
+      if (log(runif(1, 0, 1)) < loglike.diff) {
+        eta = eta.new
+        prior.old2 = prior.new2
+        post.old2 = post.new2
+      }
+    }
+    prior.old3 = dinvgamma(sigma2, prior.sigma2$a, prior.sigma2$b) 
+    post.old3 = post.old2
+    mu = mu_cpp(Y, eta)
+    
+    for (i3 in 1:inner[3]) {
+      sigma2.new = exp(rnorm(1, log(sigma2), proposal.var[3]))
+      prior.new3 = dinvgamma(sigma2.new, prior.sigma2$a, prior.sigma2$b)
+      post.new3 = Timepartsum(mu, sqrt(sigma2.new), senders, timeinc)
+      loglike.diff = prior.new3+post.new3-prior.old3-post.old3
+      if (log(runif(1, 0, 1)) < loglike.diff) {
+        sigma2 = sigma2.new
+        prior.old3 = prior.new3
+        post.old3 = post.new3
+      }
+    }
+    if (o > burn) {
+      betamat[o-burn, ] = beta
+      etamat[o-burn, ] = eta
+      sigma2mat[o-burn, ] = sigma2	
+      loglike[o-burn, ] = post.old1 + post.old3
+    }		
+  }
+  return(list(u = u, beta = betamat, eta = etamat, sigma2 = sigma2mat, loglike = loglike))
 }
 
