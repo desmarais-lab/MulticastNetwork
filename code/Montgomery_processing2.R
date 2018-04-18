@@ -78,7 +78,7 @@ for (d in 2:D) {
 }
 
 prior.beta = list(mean = c(-3.5, rep(0, P-1)), var = 2*diag(P))
-prior.eta = list(mean = c(5, rep(0, Q-1)), var = 2*diag(Q))
+prior.eta = list(mean = c(7, rep(0, Q-1)), var = 2*diag(Q))
 prior.sigma2 = list(a = 2, b = 1)
 email$timepoints =  as.numeric(as.POSIXct(strptime(email[,1], "%d %b %Y %H:%M:%S")))
 trim = which(email$timepoints >=7*24*timeunit+email$timepoints[1])
@@ -96,11 +96,11 @@ initial = list()
 initial$sender = email[1:(min(trim)-1), 2]
 initial$receiver = email[1:(min(trim)-1), 3:20]
 initial$time = email[1:(min(trim)-1),1]
-for (n in 1:100) {
+for (n in 1:500) {
   Montgomery_PPC = PPC(length(edge), A, colMeans(Montgomery_infer$beta), colMeans(Montgomery_infer$eta), 
                        mean(Montgomery_infer$sigma2), X, Y, timeunit = 3600, lasttime = email[min(trim-1), 21], 
                        Montgomery_infer$u, initial =initial)
-  filename = paste0("Montgomery_PPC", n,".RData")
+  filename = paste0("Montgomery_PPCnew", n,".RData")
   save(Montgomery_PPC, file = filename)
 }
 

@@ -24,13 +24,13 @@ recipients = tabulate(rowSums(email[trim,3:20]), A-1)
 timeinc = diff(sort(email$timepoints)[43:max(trim)])/3600
 
 
-indegreedist = matrix(NA, 71, A)
-outdegreedist = matrix(NA, 71, A)
-recipientsdist = matrix(NA, 71, A-1)
-timedist = matrix(NA, 71, 621)
-setwd("/Users/bomin8319/Desktop/MulticastNetwork/code")
-for (n in 1:71) {
-	filename = paste0("Montgomery_PPC", n,".RData")
+indegreedist = matrix(NA, 500, A)
+outdegreedist = matrix(NA,  500, A)
+recipientsdist = matrix(NA,  500, A-1)
+timedist = matrix(NA, 500, 621)
+setwd("/Users/bomin8319/Desktop/MulticastNetwork/code/PPC")
+for (n in 1:500) {
+	filename = paste0("Montgomery_PPCnew", n,".RData")
 	load(filename)
 	outdegreedist[n, ] = tabulate(vapply(1:621, function(x) Montgomery_PPC[[x]]$a_d, c(1)), A)
 	indegreedist[n, ] = rowSums(sapply(1:621, function(x) Montgomery_PPC[[x]]$r_d))
@@ -43,17 +43,17 @@ par(mfrow = c(3,1))
 # indegreesum = table(floor(indegreedist/10))
 # boxplot(floor(indegreedist/10))
 
-boxplot(outdegreedist, ylim = c(0, 275), main = "outdegree")
+boxplot(outdegreedist, ylim = c(0, 175), main = "outdegree")
 lines(outdegree, col = 2)
 
-boxplot(indegreedist,ylim = c(0, 170),  main = "indegree")
+boxplot(indegreedist,ylim = c(0, 275),  main = "indegree")
 lines(indegree, col = 2)
 
 boxplot(recipientsdist, ylim = c(0, 515),  main = "receiver size")
 lines(recipients, col = 2)
 
 
-hi = quantile(c(timedist[,-1]), c(.05, .95 ))
+hi = quantile(c(timedist[,-1]), c(.025, .975 ))
 qqplot(c(timedist[,-1])[c(timedist[,-1])>=hi[1] & c(timedist[,-1])<=hi[2]], timeinc, xlab = "post", ylab = "obs", main = "timeinc")
 abline(0, 1, col = 2)
 

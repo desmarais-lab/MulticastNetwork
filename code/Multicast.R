@@ -130,32 +130,32 @@ PPC = function(D, A, beta, eta, sigma2, X, Y, timeunit = 3600, lasttime, u, init
   time = as.numeric(as.POSIXct(strptime(initial$time, "%d %b %Y %H:%M:%S")))
   d = 1
   while (d <= D) {
-    if (d %% 10 == 0) print(d)
-    index = which(time >= t_d-7*24*timeunit & time <= t_d)
-    sent = sender[index]
-    received = receiver[index, ]
-    outdegree = tabulate(sent, A)
-    indegree = colSums(received)
-    Y[d,,4] = outdegree
-    Y[d,,5] = indegree
-    Y[d,,6] = rep(as.numeric(wday(as.POSIXct(t_d, tz = getOption("tz"), origin = "1970-01-01")) %in% c(1, 7)), A)
-    Y[d,,7] = rep(as.numeric(pm(as.POSIXct(t_d, tz = getOption("tz"), origin = "1970-01-01"))), A)
-    for (a in 1:A) {
-      for (r in c(1:A)[-a]) {
-        X[d, a, r, 2] = outdegree[a]  
-        X[d, a, r, 3] = indegree[r]	
-        X[d, a, r, 4] = send(sent, received, a, r)
-        X[d, a, r, 5] = send(sent, received, r, a)
-        atoh = vapply(c(1:A)[-c(a,r)], function(h) {send(sent, received, a, h)}, c(1))
-        htoa = vapply(c(1:A)[-c(a,r)], function(h) {send(sent, received, h, a)}, c(1))
-        rtoh = vapply(c(1:A)[-c(a,r)], function(h) {send(sent, received, r, h)}, c(1))
-        htor = vapply(c(1:A)[-c(a,r)], function(h) {send(sent, received, h, r)}, c(1))
-        X[d, a, r, 6] = sum(atoh * htor) / 10
-        X[d, a, r, 7] = sum(htoa * rtoh) / 10
-        X[d, a, r, 8] = sum(htoa * htor) / 10
-        X[d, a, r, 9] = sum(atoh * rtoh) / 10		
-      }
-    }
+    # if (d %% 10 == 0) print(d)
+    # index = which(time >= t_d-7*24*timeunit & time <= t_d)
+    # sent = sender[index]
+    # received = receiver[index, ]
+    # outdegree = tabulate(sent, A)
+    # indegree = colSums(received)
+    # Y[d,,4] = outdegree
+    # Y[d,,5] = indegree
+    # Y[d,,6] = rep(as.numeric(wday(as.POSIXct(t_d, tz = getOption("tz"), origin = "1970-01-01")) %in% c(1, 7)), A)
+    # Y[d,,7] = rep(as.numeric(pm(as.POSIXct(t_d, tz = getOption("tz"), origin = "1970-01-01"))), A)
+    # for (a in 1:A) {
+    #   for (r in c(1:A)[-a]) {
+    #     X[d, a, r, 2] = outdegree[a]  
+    #     X[d, a, r, 3] = indegree[r]	
+    #     X[d, a, r, 4] = send(sent, received, a, r)
+    #     X[d, a, r, 5] = send(sent, received, r, a)
+    #     atoh = vapply(c(1:A)[-c(a,r)], function(h) {send(sent, received, a, h)}, c(1))
+    #     htoa = vapply(c(1:A)[-c(a,r)], function(h) {send(sent, received, h, a)}, c(1))
+    #     rtoh = vapply(c(1:A)[-c(a,r)], function(h) {send(sent, received, r, h)}, c(1))
+    #     htor = vapply(c(1:A)[-c(a,r)], function(h) {send(sent, received, h, r)}, c(1))
+    #     X[d, a, r, 6] = sum(atoh * htor) / 10
+    #     X[d, a, r, 7] = sum(htoa * rtoh) / 10
+    #     X[d, a, r, 8] = sum(htoa * htor) / 10
+    #     X[d, a, r, 9] = sum(atoh * rtoh) / 10		
+    #   }
+    # }
     
     lambda[[d]] = lambda_cpp(X[d,,,], beta)
     u[[d]] = u_cpp_d(lambda[[d]], u[[d]])
@@ -247,6 +247,139 @@ Inference = function(data, X, Y, outer, inner, burn, prior.beta, prior.eta, prio
       prior.new3 = dinvgamma(sigma2.new, prior.sigma2$a, prior.sigma2$b)
     	post.new3 = Timepartsum(mu, sqrt(sigma2.new), senders, timeinc)
     	loglike.diff = prior.new3+post.new3-prior.old3-post.old3
+    			if (log(runif(1, 0, 1)) < loglike.diff) {
+        			sigma2 = sigma2.new
+        			prior.old3 = prior.new3
+        			post.old3 = post.new3
+	      	}
+		}
+		if (o > burn) {
+			betamat[o-burn, ] = beta
+			etamat[o-burn, ] = eta
+			sigma2mat[o-burn, ] = sigma2	
+			loglike[o-burn, ] = post.old1 + post.old3
+		}		
+	}
+	return(list(u = u, beta = betamat, eta = etamat, sigma2 = sigma2mat, loglike = loglike))
+}
+
+# missing is a list object
+PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigma2, initial = initial,
+		proposal.var, timeunit = 3600, lasttime) {
+	D = dim(X)[1]
+	A = dim(X)[2]
+	P = dim(X)[4]
+	Q = dim(Y)[3]
+	
+	if (length(initial) > 0) {
+		u = initial$u
+		beta = initial$beta
+		eta = initial$eta
+		sigma2 = initial$sigma2
+	} else {
+		u = lapply(1:D, function(d) matrix(0, A, A))
+		beta = matrix(prior.beta$mean, nrow = 1)
+		eta = matrix(prior.eta$mean, nrow = 1)
+		sigma2 = prior.sigma2$b / (prior.sigma2$a-1)
+	}
+	#output matrix
+	betamat = matrix(beta, nrow = outer-burn, ncol = P)
+	etamat = matrix(eta, nrow = outer-burn, ncol = Q)
+	sigma2mat = matrix(sigma2, nrow = outer-burn, ncol = 1)
+	loglike = matrix(NA, nrow = outer-burn, ncol = 1)
+	senders = vapply(data, function(d) { d[[1]] }, c(1))
+	timestamps = vapply(data, function(d) { d[[3]] }, c(1))
+	timeinc = c(timestamps[1]-lasttime, timestamps[-1]-timestamps[-length(timestamps)]) / timeunit
+	timeinc[timeinc == 0] = runif(sum(timeinc==0), 0, min(timeinc[timeinc!=0]))
+		
+	senderpredict = matrix(NA, nrow = sum(missing[[1]]), ncol = outer)
+    receiverpredict = lapply(1:sum(missing[[2]]), function(d) {c()})
+    timepredict = matrix(NA, nrow = sum(missing[[3]]), ncol = outer)
+    sendermissing = which(missing[[1]]==1)
+    receivermissing = which(missing[[2]]==1)
+    timemissing = which(missing[[3]]==1)
+	
+	for (o in 1:outer) {
+		
+	#imputation
+    iter1 = 1
+    iter2 = 1
+    iter3 = 1
+    for (d in sendermissing) {
+        probi = Timepartindiv(mu[d,], sigma_tau, timeinc[d])
+        senders[d] = lmultinom(probi)
+        senderpredict[iter1, o] = senders[d]
+        iter1 = iter1+1
+    }
+    for (d in timemissing) {
+        timeinc[d] = rlnorm(1, mu[d, senders[d]], sigma_tau)
+        timepredict[iter2, o] = timeinc[d]
+        iter2 = iter2+1
+    }
+    
+    timeinc[timeinc==0] = runif(sum(timeinc==0), 0, min(timeinc[timeinc!=0]))
+    timestamps[-1] = timestamps[1]+cumsum(timeinc[-1])*timeunit
+    for (d in edge.trim) {
+        history.t = History(edge, timestamps, p.d, node, d, timeunit)
+        X[[d]] = Netstats_cpp(history.t, node, netstat)
+    }
+    for (d in receivermissing) {
+        vu = MultiplyXB(X[[d]], b.old)
+        lambda = lambda_cpp(p.d[d,], vu)
+        i = senders[d]
+        for (j in sample(node[-i], A-1)) {
+            probij = u_Gibbs(u[[d]][i, ], lambda[i,], delta, j)
+            u[[d]][i, j] = lmultinom(probij)-1
+        }
+        receiverpredict[[iter3]] = rbind(receiverpredict[[iter3]], u[[d]][i, ])
+        iter3 = iter3+1
+    }  
+
+	#run inference
+		if (o %% 100 == 0) print(o)
+		lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta))
+		u = u_cpp(lambda, u)
+		for (d in 1:D) {
+		  u[[d]][senders[d],] = data[[d]][[2]]
+		}
+		prior.old1 = dmvnorm_arma(beta, prior.beta$mean, prior.beta$var)
+    	post.old1 = Edgepartsum(lambda, u)
+    	for (i1 in 1:inner[1]) {
+			beta.new = rmvnorm_arma(1, beta, proposal.var[1]*diag(P))
+     		prior.new1 = dmvnorm_arma(beta.new, prior.beta$mean, prior.beta$var)
+			lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta.new))
+			post.new1 = Edgepartsum(lambda, u)
+      		loglike.diff = prior.new1+post.new1-prior.old1-post.old1
+			if (log(runif(1, 0, 1)) < loglike.diff) {
+        			beta = beta.new
+        			prior.old1 = prior.new1
+        			post.old1 = post.new1
+	      	}
+		}
+		prior.old2 = dmvnorm_arma(eta, prior.eta$mean, prior.eta$var) 
+    	mu = mu_cpp(Y, eta)
+   		post.old2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)
+		for (i2 in 1:inner[2]) {
+			eta.new = rmvnorm_arma(1, eta, proposal.var[2]*diag(Q))
+      		prior.new2 = dmvnorm_arma(eta.new, prior.eta$mean, prior.eta$var) 	
+      		mu = mu_cpp(Y, eta.new)
+    		post.new2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)
+    		loglike.diff = prior.new2+post.new2-prior.old2-post.old2
+      		if (log(runif(1, 0, 1)) < loglike.diff) {
+        			eta = eta.new
+        			prior.old2 = prior.new2
+        			post.old2 = post.new2
+	      	}
+		}
+		prior.old3 = dinvgamma(sigma2, prior.sigma2$a, prior.sigma2$b) 
+    	post.old3 = post.old2
+   	 	mu = mu_cpp(Y, eta)
+
+		for (i3 in 1:inner[3]) {
+			sigma2.new = exp(rnorm(1, log(sigma2), proposal.var[3]))
+     	 	prior.new3 = dinvgamma(sigma2.new, prior.sigma2$a, prior.sigma2$b)
+    		post.new3 = Timepartsum(mu, sqrt(sigma2.new), senders, timeinc)
+    		loglike.diff = prior.new3+post.new3-prior.old3-post.old3
     			if (log(runif(1, 0, 1)) < loglike.diff) {
         			sigma2 = sigma2.new
         			prior.old3 = prior.new3
