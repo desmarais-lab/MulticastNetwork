@@ -6,17 +6,6 @@
 
 using namespace Rcpp;
 
-// sortuniq
-NumericVector sortuniq(NumericVector x);
-RcppExport SEXP _MulticastNetwork_sortuniq(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(sortuniq(x));
-    return rcpp_result_gen;
-END_RCPP
-}
 // Mahalanobis
 arma::vec Mahalanobis(arma::mat x, arma::rowvec center, arma::mat cov);
 RcppExport SEXP _MulticastNetwork_Mahalanobis(SEXP xSEXP, SEXP centerSEXP, SEXP covSEXP) {
@@ -67,16 +56,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// priorsum
-double priorsum(arma::mat var, arma::rowvec mu, arma::mat x);
-RcppExport SEXP _MulticastNetwork_priorsum(SEXP varSEXP, SEXP muSEXP, SEXP xSEXP) {
+// transpose
+arma::mat transpose(arma::mat x);
+RcppExport SEXP _MulticastNetwork_transpose(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type var(varSEXP);
-    Rcpp::traits::input_parameter< arma::rowvec >::type mu(muSEXP);
     Rcpp::traits::input_parameter< arma::mat >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(priorsum(var, mu, x));
+    rcpp_result_gen = Rcpp::wrap(transpose(x));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -89,327 +76,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const IntegerVector& >::type x(xSEXP);
     Rcpp::traits::input_parameter< const signed >::type max(maxSEXP);
     rcpp_result_gen = Rcpp::wrap(tabulateC(x, max));
-    return rcpp_result_gen;
-END_RCPP
-}
-// transpose
-arma::mat transpose(arma::mat x);
-RcppExport SEXP _MulticastNetwork_transpose(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(transpose(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// callRMultinom
-IntegerVector callRMultinom(NumericVector x);
-RcppExport SEXP _MulticastNetwork_callRMultinom(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(callRMultinom(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// multinom_vec
-IntegerVector multinom_vec(int nSample, NumericVector props);
-RcppExport SEXP _MulticastNetwork_multinom_vec(SEXP nSampleSEXP, SEXP propsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type nSample(nSampleSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type props(propsSEXP);
-    rcpp_result_gen = Rcpp::wrap(multinom_vec(nSample, props));
-    return rcpp_result_gen;
-END_RCPP
-}
-// which_int
-int which_int(int value, IntegerVector x);
-RcppExport SEXP _MulticastNetwork_which_int(SEXP valueSEXP, SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type value(valueSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(which_int(value, x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// which_num
-int which_num(double value, NumericVector x);
-RcppExport SEXP _MulticastNetwork_which_num(SEXP valueSEXP, SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type value(valueSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(which_num(value, x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rdirichlet_cpp
-NumericMatrix rdirichlet_cpp(int num_samples, NumericVector alpha_m);
-RcppExport SEXP _MulticastNetwork_rdirichlet_cpp(SEXP num_samplesSEXP, SEXP alpha_mSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type num_samples(num_samplesSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type alpha_m(alpha_mSEXP);
-    rcpp_result_gen = Rcpp::wrap(rdirichlet_cpp(num_samples, alpha_m));
-    return rcpp_result_gen;
-END_RCPP
-}
-// which_cpp
-IntegerVector which_cpp(int value, NumericVector x);
-RcppExport SEXP _MulticastNetwork_which_cpp(SEXP valueSEXP, SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type value(valueSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(which_cpp(value, x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// expconst
-NumericVector expconst(NumericVector consts);
-RcppExport SEXP _MulticastNetwork_expconst(SEXP constsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type consts(constsSEXP);
-    rcpp_result_gen = Rcpp::wrap(expconst(consts));
-    return rcpp_result_gen;
-END_RCPP
-}
-// History
-List History(List edge, NumericVector timestamps, int A, int d, double timeunit);
-RcppExport SEXP _MulticastNetwork_History(SEXP edgeSEXP, SEXP timestampsSEXP, SEXP ASEXP, SEXP dSEXP, SEXP timeunitSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type edge(edgeSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type timestamps(timestampsSEXP);
-    Rcpp::traits::input_parameter< int >::type A(ASEXP);
-    Rcpp::traits::input_parameter< int >::type d(dSEXP);
-    Rcpp::traits::input_parameter< double >::type timeunit(timeunitSEXP);
-    rcpp_result_gen = Rcpp::wrap(History(edge, timestamps, A, d, timeunit));
-    return rcpp_result_gen;
-END_RCPP
-}
-// History2
-List History2(List edge, NumericVector timestamps, int A, IntegerMatrix timeintd, double timeunit);
-RcppExport SEXP _MulticastNetwork_History2(SEXP edgeSEXP, SEXP timestampsSEXP, SEXP ASEXP, SEXP timeintdSEXP, SEXP timeunitSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type edge(edgeSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type timestamps(timestampsSEXP);
-    Rcpp::traits::input_parameter< int >::type A(ASEXP);
-    Rcpp::traits::input_parameter< IntegerMatrix >::type timeintd(timeintdSEXP);
-    Rcpp::traits::input_parameter< double >::type timeunit(timeunitSEXP);
-    rcpp_result_gen = Rcpp::wrap(History2(edge, timestamps, A, timeintd, timeunit));
-    return rcpp_result_gen;
-END_RCPP
-}
-// Degree
-NumericMatrix Degree(List history, int A, int sender);
-RcppExport SEXP _MulticastNetwork_Degree(SEXP historySEXP, SEXP ASEXP, SEXP senderSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type history(historySEXP);
-    Rcpp::traits::input_parameter< int >::type A(ASEXP);
-    Rcpp::traits::input_parameter< int >::type sender(senderSEXP);
-    rcpp_result_gen = Rcpp::wrap(Degree(history, A, sender));
-    return rcpp_result_gen;
-END_RCPP
-}
-// Outdegree
-NumericMatrix Outdegree(IntegerMatrix timeintd, IntegerVector senders, int A);
-RcppExport SEXP _MulticastNetwork_Outdegree(SEXP timeintdSEXP, SEXP sendersSEXP, SEXP ASEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerMatrix >::type timeintd(timeintdSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type senders(sendersSEXP);
-    Rcpp::traits::input_parameter< int >::type A(ASEXP);
-    rcpp_result_gen = Rcpp::wrap(Outdegree(timeintd, senders, A));
-    return rcpp_result_gen;
-END_RCPP
-}
-// Indegree
-NumericMatrix Indegree(List history, int A, int sender);
-RcppExport SEXP _MulticastNetwork_Indegree(SEXP historySEXP, SEXP ASEXP, SEXP senderSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type history(historySEXP);
-    Rcpp::traits::input_parameter< int >::type A(ASEXP);
-    Rcpp::traits::input_parameter< int >::type sender(senderSEXP);
-    rcpp_result_gen = Rcpp::wrap(Indegree(history, A, sender));
-    return rcpp_result_gen;
-END_RCPP
-}
-// Dyadic
-IntegerMatrix Dyadic(List history, int A, int sender);
-RcppExport SEXP _MulticastNetwork_Dyadic(SEXP historySEXP, SEXP ASEXP, SEXP senderSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type history(historySEXP);
-    Rcpp::traits::input_parameter< int >::type A(ASEXP);
-    Rcpp::traits::input_parameter< int >::type sender(senderSEXP);
-    rcpp_result_gen = Rcpp::wrap(Dyadic(history, A, sender));
-    return rcpp_result_gen;
-END_RCPP
-}
-// Triadic
-NumericMatrix Triadic(List history, int A, int sender);
-RcppExport SEXP _MulticastNetwork_Triadic(SEXP historySEXP, SEXP ASEXP, SEXP senderSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type history(historySEXP);
-    Rcpp::traits::input_parameter< int >::type A(ASEXP);
-    Rcpp::traits::input_parameter< int >::type sender(senderSEXP);
-    rcpp_result_gen = Rcpp::wrap(Triadic(history, A, sender));
-    return rcpp_result_gen;
-END_RCPP
-}
-// Netstats_cpp
-List Netstats_cpp(List edge, NumericVector timestamps, IntegerMatrix timeintd, IntegerVector senders, int A, double timeunit, IntegerVector netstat);
-RcppExport SEXP _MulticastNetwork_Netstats_cpp(SEXP edgeSEXP, SEXP timestampsSEXP, SEXP timeintdSEXP, SEXP sendersSEXP, SEXP ASEXP, SEXP timeunitSEXP, SEXP netstatSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type edge(edgeSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type timestamps(timestampsSEXP);
-    Rcpp::traits::input_parameter< IntegerMatrix >::type timeintd(timeintdSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type senders(sendersSEXP);
-    Rcpp::traits::input_parameter< int >::type A(ASEXP);
-    Rcpp::traits::input_parameter< double >::type timeunit(timeunitSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type netstat(netstatSEXP);
-    rcpp_result_gen = Rcpp::wrap(Netstats_cpp(edge, timestamps, timeintd, senders, A, timeunit, netstat));
-    return rcpp_result_gen;
-END_RCPP
-}
-// inner
-double inner(arma::vec x, arma::vec y);
-RcppExport SEXP _MulticastNetwork_inner(SEXP xSEXP, SEXP ySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type x(xSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(inner(x, y));
-    return rcpp_result_gen;
-END_RCPP
-}
-// MultiplyXB
-arma::mat MultiplyXB(List X, arma::vec B);
-RcppExport SEXP _MulticastNetwork_MultiplyXB(SEXP XSEXP, SEXP BSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type X(XSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type B(BSEXP);
-    rcpp_result_gen = Rcpp::wrap(MultiplyXB(X, B));
-    return rcpp_result_gen;
-END_RCPP
-}
-// lmultinom
-int lmultinom(NumericVector lprops);
-RcppExport SEXP _MulticastNetwork_lmultinom(SEXP lpropsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type lprops(lpropsSEXP);
-    rcpp_result_gen = Rcpp::wrap(lmultinom(lprops));
-    return rcpp_result_gen;
-END_RCPP
-}
-// u_Gibbs
-NumericVector u_Gibbs(NumericVector u_di, NumericVector lambda_di, double delta, int j);
-RcppExport SEXP _MulticastNetwork_u_Gibbs(SEXP u_diSEXP, SEXP lambda_diSEXP, SEXP deltaSEXP, SEXP jSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type u_di(u_diSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type lambda_di(lambda_diSEXP);
-    Rcpp::traits::input_parameter< double >::type delta(deltaSEXP);
-    Rcpp::traits::input_parameter< int >::type j(jSEXP);
-    rcpp_result_gen = Rcpp::wrap(u_Gibbs(u_di, lambda_di, delta, j));
-    return rcpp_result_gen;
-END_RCPP
-}
-// Edgepart
-double Edgepart(arma::mat u, arma::mat lambda, double delta);
-RcppExport SEXP _MulticastNetwork_Edgepart(SEXP uSEXP, SEXP lambdaSEXP, SEXP deltaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type u(uSEXP);
-    Rcpp::traits::input_parameter< arma::mat >::type lambda(lambdaSEXP);
-    Rcpp::traits::input_parameter< double >::type delta(deltaSEXP);
-    rcpp_result_gen = Rcpp::wrap(Edgepart(u, lambda, delta));
-    return rcpp_result_gen;
-END_RCPP
-}
-// Edgepartsum
-double Edgepartsum(List X, arma::vec B, arma::mat u, double delta);
-RcppExport SEXP _MulticastNetwork_Edgepartsum(SEXP XSEXP, SEXP BSEXP, SEXP uSEXP, SEXP deltaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type X(XSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type B(BSEXP);
-    Rcpp::traits::input_parameter< arma::mat >::type u(uSEXP);
-    Rcpp::traits::input_parameter< double >::type delta(deltaSEXP);
-    rcpp_result_gen = Rcpp::wrap(Edgepartsum(X, B, u, delta));
-    return rcpp_result_gen;
-END_RCPP
-}
-// mu_vec
-NumericVector mu_vec(NumericVector timemat, int A, NumericVector eta);
-RcppExport SEXP _MulticastNetwork_mu_vec(SEXP timematSEXP, SEXP ASEXP, SEXP etaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type timemat(timematSEXP);
-    Rcpp::traits::input_parameter< int >::type A(ASEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type eta(etaSEXP);
-    rcpp_result_gen = Rcpp::wrap(mu_vec(timemat, A, eta));
-    return rcpp_result_gen;
-END_RCPP
-}
-// mu_mat
-NumericMatrix mu_mat(NumericMatrix timemat, int A, NumericVector eta);
-RcppExport SEXP _MulticastNetwork_mu_mat(SEXP timematSEXP, SEXP ASEXP, SEXP etaSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type timemat(timematSEXP);
-    Rcpp::traits::input_parameter< int >::type A(ASEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type eta(etaSEXP);
-    rcpp_result_gen = Rcpp::wrap(mu_mat(timemat, A, eta));
-    return rcpp_result_gen;
-END_RCPP
-}
-// Timepart
-double Timepart(NumericVector mu, double sigma_tau, double a_d, double t_d);
-RcppExport SEXP _MulticastNetwork_Timepart(SEXP muSEXP, SEXP sigma_tauSEXP, SEXP a_dSEXP, SEXP t_dSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type mu(muSEXP);
-    Rcpp::traits::input_parameter< double >::type sigma_tau(sigma_tauSEXP);
-    Rcpp::traits::input_parameter< double >::type a_d(a_dSEXP);
-    Rcpp::traits::input_parameter< double >::type t_d(t_dSEXP);
-    rcpp_result_gen = Rcpp::wrap(Timepart(mu, sigma_tau, a_d, t_d));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -427,69 +93,145 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// timefinder
-List timefinder(NumericVector timestamps, IntegerVector edgetrim, double timeunit);
-RcppExport SEXP _MulticastNetwork_timefinder(SEXP timestampsSEXP, SEXP edgetrimSEXP, SEXP timeunitSEXP) {
+// Timepartindiv
+NumericVector Timepartindiv(NumericVector mu, double sigma_tau, double timestamp);
+RcppExport SEXP _MulticastNetwork_Timepartindiv(SEXP muSEXP, SEXP sigma_tauSEXP, SEXP timestampSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type timestamps(timestampsSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type edgetrim(edgetrimSEXP);
-    Rcpp::traits::input_parameter< double >::type timeunit(timeunitSEXP);
-    rcpp_result_gen = Rcpp::wrap(timefinder(timestamps, edgetrim, timeunit));
+    Rcpp::traits::input_parameter< NumericVector >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< double >::type sigma_tau(sigma_tauSEXP);
+    Rcpp::traits::input_parameter< double >::type timestamp(timestampSEXP);
+    rcpp_result_gen = Rcpp::wrap(Timepartindiv(mu, sigma_tau, timestamp));
     return rcpp_result_gen;
 END_RCPP
 }
-// timefinder_vec
-arma::mat timefinder_vec(NumericVector timestamps, int d, double timeunit);
-RcppExport SEXP _MulticastNetwork_timefinder_vec(SEXP timestampsSEXP, SEXP dSEXP, SEXP timeunitSEXP) {
+// multinom_vec
+int multinom_vec(NumericVector x);
+RcppExport SEXP _MulticastNetwork_multinom_vec(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type timestamps(timestampsSEXP);
-    Rcpp::traits::input_parameter< int >::type d(dSEXP);
-    Rcpp::traits::input_parameter< double >::type timeunit(timeunitSEXP);
-    rcpp_result_gen = Rcpp::wrap(timefinder_vec(timestamps, d, timeunit));
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(multinom_vec(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// normalizer
+double normalizer(arma::vec lambda_da);
+RcppExport SEXP _MulticastNetwork_normalizer(SEXP lambda_daSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type lambda_da(lambda_daSEXP);
+    rcpp_result_gen = Rcpp::wrap(normalizer(lambda_da));
+    return rcpp_result_gen;
+END_RCPP
+}
+// Edgepartsum
+double Edgepartsum(List lambda, List u);
+RcppExport SEXP _MulticastNetwork_Edgepartsum(SEXP lambdaSEXP, SEXP uSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< List >::type u(uSEXP);
+    rcpp_result_gen = Rcpp::wrap(Edgepartsum(lambda, u));
+    return rcpp_result_gen;
+END_RCPP
+}
+// mu_cpp
+arma::mat mu_cpp(arma::cube Y, arma::rowvec eta);
+RcppExport SEXP _MulticastNetwork_mu_cpp(SEXP YSEXP, SEXP etaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::cube >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec >::type eta(etaSEXP);
+    rcpp_result_gen = Rcpp::wrap(mu_cpp(Y, eta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// mu_cpp_d
+NumericVector mu_cpp_d(NumericMatrix Y, NumericVector eta);
+RcppExport SEXP _MulticastNetwork_mu_cpp_d(SEXP YSEXP, SEXP etaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type eta(etaSEXP);
+    rcpp_result_gen = Rcpp::wrap(mu_cpp_d(Y, eta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// lambda_cpp
+arma::mat lambda_cpp(arma::cube X_d, arma::rowvec beta);
+RcppExport SEXP _MulticastNetwork_lambda_cpp(SEXP X_dSEXP, SEXP betaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::cube >::type X_d(X_dSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec >::type beta(betaSEXP);
+    rcpp_result_gen = Rcpp::wrap(lambda_cpp(X_d, beta));
+    return rcpp_result_gen;
+END_RCPP
+}
+// sample_int
+Rcpp::IntegerVector sample_int(int n, int min, int max);
+RcppExport SEXP _MulticastNetwork_sample_int(SEXP nSEXP, SEXP minSEXP, SEXP maxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type min(minSEXP);
+    Rcpp::traits::input_parameter< int >::type max(maxSEXP);
+    rcpp_result_gen = Rcpp::wrap(sample_int(n, min, max));
+    return rcpp_result_gen;
+END_RCPP
+}
+// u_cpp
+List u_cpp(List lambda, List u);
+RcppExport SEXP _MulticastNetwork_u_cpp(SEXP lambdaSEXP, SEXP uSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< List >::type u(uSEXP);
+    rcpp_result_gen = Rcpp::wrap(u_cpp(lambda, u));
+    return rcpp_result_gen;
+END_RCPP
+}
+// u_cpp_d
+IntegerMatrix u_cpp_d(NumericMatrix lambda_d, IntegerMatrix u);
+RcppExport SEXP _MulticastNetwork_u_cpp_d(SEXP lambda_dSEXP, SEXP uSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type lambda_d(lambda_dSEXP);
+    Rcpp::traits::input_parameter< IntegerMatrix >::type u(uSEXP);
+    rcpp_result_gen = Rcpp::wrap(u_cpp_d(lambda_d, u));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_MulticastNetwork_sortuniq", (DL_FUNC) &_MulticastNetwork_sortuniq, 1},
     {"_MulticastNetwork_Mahalanobis", (DL_FUNC) &_MulticastNetwork_Mahalanobis, 3},
     {"_MulticastNetwork_ei", (DL_FUNC) &_MulticastNetwork_ei, 1},
     {"_MulticastNetwork_dmvnorm_arma", (DL_FUNC) &_MulticastNetwork_dmvnorm_arma, 3},
     {"_MulticastNetwork_rmvnorm_arma", (DL_FUNC) &_MulticastNetwork_rmvnorm_arma, 3},
-    {"_MulticastNetwork_priorsum", (DL_FUNC) &_MulticastNetwork_priorsum, 3},
-    {"_MulticastNetwork_tabulateC", (DL_FUNC) &_MulticastNetwork_tabulateC, 2},
     {"_MulticastNetwork_transpose", (DL_FUNC) &_MulticastNetwork_transpose, 1},
-    {"_MulticastNetwork_callRMultinom", (DL_FUNC) &_MulticastNetwork_callRMultinom, 1},
-    {"_MulticastNetwork_multinom_vec", (DL_FUNC) &_MulticastNetwork_multinom_vec, 2},
-    {"_MulticastNetwork_which_int", (DL_FUNC) &_MulticastNetwork_which_int, 2},
-    {"_MulticastNetwork_which_num", (DL_FUNC) &_MulticastNetwork_which_num, 2},
-    {"_MulticastNetwork_rdirichlet_cpp", (DL_FUNC) &_MulticastNetwork_rdirichlet_cpp, 2},
-    {"_MulticastNetwork_which_cpp", (DL_FUNC) &_MulticastNetwork_which_cpp, 2},
-    {"_MulticastNetwork_expconst", (DL_FUNC) &_MulticastNetwork_expconst, 1},
-    {"_MulticastNetwork_History", (DL_FUNC) &_MulticastNetwork_History, 5},
-    {"_MulticastNetwork_History2", (DL_FUNC) &_MulticastNetwork_History2, 5},
-    {"_MulticastNetwork_Degree", (DL_FUNC) &_MulticastNetwork_Degree, 3},
-    {"_MulticastNetwork_Outdegree", (DL_FUNC) &_MulticastNetwork_Outdegree, 3},
-    {"_MulticastNetwork_Indegree", (DL_FUNC) &_MulticastNetwork_Indegree, 3},
-    {"_MulticastNetwork_Dyadic", (DL_FUNC) &_MulticastNetwork_Dyadic, 3},
-    {"_MulticastNetwork_Triadic", (DL_FUNC) &_MulticastNetwork_Triadic, 3},
-    {"_MulticastNetwork_Netstats_cpp", (DL_FUNC) &_MulticastNetwork_Netstats_cpp, 7},
-    {"_MulticastNetwork_inner", (DL_FUNC) &_MulticastNetwork_inner, 2},
-    {"_MulticastNetwork_MultiplyXB", (DL_FUNC) &_MulticastNetwork_MultiplyXB, 2},
-    {"_MulticastNetwork_lmultinom", (DL_FUNC) &_MulticastNetwork_lmultinom, 1},
-    {"_MulticastNetwork_u_Gibbs", (DL_FUNC) &_MulticastNetwork_u_Gibbs, 4},
-    {"_MulticastNetwork_Edgepart", (DL_FUNC) &_MulticastNetwork_Edgepart, 3},
-    {"_MulticastNetwork_Edgepartsum", (DL_FUNC) &_MulticastNetwork_Edgepartsum, 4},
-    {"_MulticastNetwork_mu_vec", (DL_FUNC) &_MulticastNetwork_mu_vec, 3},
-    {"_MulticastNetwork_mu_mat", (DL_FUNC) &_MulticastNetwork_mu_mat, 3},
-    {"_MulticastNetwork_Timepart", (DL_FUNC) &_MulticastNetwork_Timepart, 4},
+    {"_MulticastNetwork_tabulateC", (DL_FUNC) &_MulticastNetwork_tabulateC, 2},
     {"_MulticastNetwork_Timepartsum", (DL_FUNC) &_MulticastNetwork_Timepartsum, 4},
-    {"_MulticastNetwork_timefinder", (DL_FUNC) &_MulticastNetwork_timefinder, 3},
-    {"_MulticastNetwork_timefinder_vec", (DL_FUNC) &_MulticastNetwork_timefinder_vec, 3},
+    {"_MulticastNetwork_Timepartindiv", (DL_FUNC) &_MulticastNetwork_Timepartindiv, 3},
+    {"_MulticastNetwork_multinom_vec", (DL_FUNC) &_MulticastNetwork_multinom_vec, 1},
+    {"_MulticastNetwork_normalizer", (DL_FUNC) &_MulticastNetwork_normalizer, 1},
+    {"_MulticastNetwork_Edgepartsum", (DL_FUNC) &_MulticastNetwork_Edgepartsum, 2},
+    {"_MulticastNetwork_mu_cpp", (DL_FUNC) &_MulticastNetwork_mu_cpp, 2},
+    {"_MulticastNetwork_mu_cpp_d", (DL_FUNC) &_MulticastNetwork_mu_cpp_d, 2},
+    {"_MulticastNetwork_lambda_cpp", (DL_FUNC) &_MulticastNetwork_lambda_cpp, 2},
+    {"_MulticastNetwork_sample_int", (DL_FUNC) &_MulticastNetwork_sample_int, 3},
+    {"_MulticastNetwork_u_cpp", (DL_FUNC) &_MulticastNetwork_u_cpp, 2},
+    {"_MulticastNetwork_u_cpp_d", (DL_FUNC) &_MulticastNetwork_u_cpp_d, 2},
     {NULL, NULL, 0}
 };
 

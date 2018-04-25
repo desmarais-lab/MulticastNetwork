@@ -28,7 +28,7 @@ indegreedist = matrix(NA, 500, A)
 outdegreedist = matrix(NA,  500, A)
 recipientsdist = matrix(NA,  500, A-1)
 timedist = matrix(NA, 500, 621)
-setwd("/Users/bomin8319/Desktop/MulticastNetwork/code/PPC")
+setwd("/Users/bomin8319/Desktop/MulticastNetwork/code")
 for (n in 1:500) {
 	filename = paste0("Montgomery_PPCnew", n,".RData")
 	load(filename)
@@ -49,8 +49,8 @@ lines(outdegree, col = 2)
 boxplot(indegreedist,ylim = c(0, 275),  main = "indegree")
 lines(indegree, col = 2)
 
-boxplot(recipientsdist, ylim = c(0, 515),  main = "receiver size")
-lines(recipients, col = 2)
+boxplot(recipientsdist[,1:14], ylim = c(0, 515),  main = "receiver size")
+lines(recipients[1:14], col = 2)
 
 
 hi = quantile(c(timedist[,-1]), c(.025, .975 ))

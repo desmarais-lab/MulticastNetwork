@@ -308,13 +308,12 @@ Finally, we perform posterior predictive checks \cite{rubin1984bayesianly} to ev
 	\spacingset{1}
 	\caption{Generate new data for PPC}
 	\begin{algorithmic}
-		\STATE \textbf{Input}: number of new data to generate $R$,\\
+		\STATE \textbf{Input}: number of new data to generate $R$, covariates $\boldsymbol{x}$ and $\boldsymbol{y}$\\
 		estimated latent variables $(\boldsymbol{u}, \boldsymbol{b}, \boldsymbol{\eta},  \sigma_\tau^2)$\\
 		\vskip 0.1in
 		
 		\FOR{$r=1$ {\bfseries to}  $R$}
 		\FOR{$d = 1$ {\bfseries to}  $D$} 
-		\STATE  Compute $\boldsymbol{x}_{d}$ and $\boldsymbol{y}_{d}$ given $\{(a_{d}, \boldsymbol{r}_{d}, t_{d})\}_{[1:(d-1)]}$
 		\STATE	Draw ($a_{d}$, $\boldsymbol{r}_{d}$, $t_{d}$) following Section \ref{sec:generative process}\\
 		\ENDFOR
 		\STATE Store every $r^{th}$ new data $\{(a_{d}, \boldsymbol{r}_{d}, t_{d})\}_{d=1}^D$ 

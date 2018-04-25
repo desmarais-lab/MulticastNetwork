@@ -86,21 +86,29 @@ edge = edge[trim]
 X = X[trim,,,]
 Y = Y[trim,,]
 
+set.seed(1)
 missing = list()
-
+missing[[1]] = matrix(0, nrow = dim(Y)[1], 1)
+missing[[1]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1
+missing[[2]] = matrix(0, nrow = dim(Y)[1], A)
+missing[[2]][sample(1:(dim(Y)[1]*A), 1118, replace = FALSE)] = 1
+missing[[3]] = matrix(0, nrow = dim(Y)[1], 1)
+missing[[3]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1
 
 
 load("/Users/bomin8319/Desktop/MulticastNetwork/code/Montgomery_infer.RData")
 initial = list()
-initial$sender = email[1:(min(trim)-1), 2]
-initial$receiver = email[1:(min(trim)-1), 3:20]
-initial$time = email[1:(min(trim)-1),1]
-for (n in 1:100) {
-  Montgomery_PPE = PPC(length(edge), A, colMeans(Montgomery_infer$beta), colMeans(Montgomery_infer$eta), 
-                       mean(Montgomery_infer$sigma2), X, Y, timeunit = 3600, lasttime = email[min(trim-1), 21], 
-                       Montgomery_infer$u, initial =initial)
-  filename = paste0("Montgomery_PPC", n,".RData")
-  save(Montgomery_PPC, file = filename)
+initial$beta = colMeans(Montgomery_infer$beta)
+initial$eta =  colMeans(Montgomery_infer$eta)
+initial$u = Montgomery_infer$u
+initial$sigma2 = mean(Montgomery_infer$sigma2)
+setwd("/Users/bomin8319/Desktop/MulticastNetwork/code/PPE")
+Montgomery_PPE = list()
+for (n in 1:500) {
+	print(n)
+  Montgomery_PPE[[n]] = PPE(edge, missing, X, Y, 50, c(5,5,1), 0, prior.beta, prior.eta, prior.sigma2, initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime)
+  filename = paste0("Montgomery_PPE", n,".RData")
+  save(Montgomery_PPE, file = filename)
 }
 
 
