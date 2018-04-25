@@ -90,9 +90,9 @@ Y = Y[trim,,]
 Montgomery_infer = Inference(edge, X, Y, 55000, c(10,1,1), 15000, prior.beta, prior.eta, prior.sigma2, initialval = NULL,
 		  proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, timedist = "lognormal")
 
-Montgomery = list(edge = edge, X = X, Y = Y, initial = initial)
+Montgomery = list(edge = edge, X = X, Y = Y, lasttime = email[min(trim-1), 21])
 
-save(Montgomery_infer, file = "Montgomery_infer.RData")
+save(Montgomery, file = "Montgomery.RData")
 
 
 load("/Users/bomin8319/Desktop/Montgomery_infer.RData")

@@ -172,7 +172,6 @@ Generate = function(D, A, beta, eta, sigma2, X, Y, support, timeunit = 3600, tim
 #' @description Generate a collection of events according to the posterior predictive checks
 #'
 #' @param D number of events to be generated
-#' @param A vector of node id's (ID starting from 1)
 #' @param beta P-length vector of coefficients for recipients
 #' @param eta Q-length vector of coefficients for timestamps
 #' @param sigma2 variance parameter for the timestamps
@@ -180,25 +179,21 @@ Generate = function(D, A, beta, eta, sigma2, X, Y, support, timeunit = 3600, tim
 #' @param Y an array of dimension D x A x Q for covariates used for timestamps GLM
 #' @param timeunit hour (= 3600) or day (=3600*24) and so on
 #' @param u D-length list of latent receiver vectors
-#' @param initial sender, receiver, timestamps of the events used as initia history
+#' @param lasttime last timestamp of the event used as initial history (in unix.time format)
 #' @param timedist lognormal or exponential (will include others)
 #'
 #' @return generated data including (sender, recipients, timestamp)
 #'
 #' @export
-PPC = function(D, A, beta, eta, sigma2, X, Y, timeunit = 3600, u, initial = NULL, timedist = "lognormal") {
+PPC = function(D, beta, eta, sigma2, X, Y, timeunit = 3600, u, lasttime, timedist = "lognormal") {
   P = length(beta)
   Q = length(eta)
-  X = X
-  Y = Y
+  A = dim(X)[2]
   u = u
   data = list()
   lambda = list()
   mu = matrix(NA, D, A)
-  sender = initial$sender
-  receiver = initial$receiver
-  time = as.numeric(as.POSIXct(strptime(initial$time, "%d %b %Y %H:%M:%S")))
-  t_d = max(time)
+  t_d = lasttime
   d = 1
   while (d <= D) {
     lambda[[d]] = lambda_cpp(X[d,,,], beta)
@@ -215,9 +210,6 @@ PPC = function(D, A, beta, eta, sigma2, X, Y, timeunit = 3600, u, initial = NULL
       t_d = t_d + min(tau) * timeunit
       data[[d]] = list(a_d = a_d, r_d = r_d, t_d = t_d)
       d = d+1
-      sender = c(sender, a_d)
-      receiver = rbind(receiver, r_d)
-      time = c(time, t_d)
     }
   }
   return(data)

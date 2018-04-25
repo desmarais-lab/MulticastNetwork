@@ -2,11 +2,6 @@
 library(devtools)
 install_github("desmarais-lab/MulticastNetwork/pkg")
 
-#generate synthetic data
-
-
-
-
 #load our Montgomery county email data
 load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")
 
@@ -22,6 +17,9 @@ head(X[100, 1, , ])
 Y = Montgomery$Y
 head(Y[100, , ])
 
+#initial history before 7 days
+initial = Montgomery$initial
+
 #run inference to estimate beta, eta, u, and sigma2
 prior.beta = list(mean = rep(0, P), var = 2*diag(P))
 prior.eta = list(mean = rep(0, Q), var = 2*diag(Q))
@@ -32,4 +30,8 @@ inner = c(1, 1, 1)
 burn = 0
 
 Montgomery_infer = Inference(edge, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigma2, initialval = NULL,
-		  proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = , timedist = "lognormal")
+		  proposal.var = c(0.001, 0.001, 0.1), timeunit = 3600, lasttime = max(initial$time), timedist = "lognormal")
+
+Montgomery_PPC = PPC(length(edge), beta = colMeans(Montgomery_infer$beta), eta = colMeans(Montgomery_infer$eta), 
+                     sigma2 = mean(Montgomery_infer$sigma2), X, Y, timeunit = 3600, u = Montgomery_infer$u, 
+        			 lasttime = max(initial$time), timedist = "lognormal")

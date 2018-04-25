@@ -1,765 +1,998 @@
-plot(seq(0.1,10, by = 0.1), sapply(seq(0.1,10, by = 0.1), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim])))
-which(sapply(seq(0.1,10, by = 0.1), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))==max(sapply(seq(0.1,10, by = 0.1), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))))
-seq(0.1,10, by = 0.1)[48]
-sigma_tau
-sigma_tau.new
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- par[4]#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + dlnorm(val[i],mu[index[i]],sig, log = TRUE) + sum(plnorm(val[i],mu[-index[i]],sig, FALSE, TRUE))#
-    }#
-    -ll#
+library(smoothmest)#
+library(mvtnorm)#
+n = 1000#
+p = 10#
+X = matrix(rnorm(n*p), n, p)#
+s2 = rinvgamma(1, 0.1, 0.1)#
+lambda = 5#
+beta = rdoublex(p, 0, lambda)#
+Y = rnorm(n, X %*% beta, s2)#
+#least squares regression#
+beta_LSE = lm(Y~X)$coefficients#
+betas = matrix(NA, nrow = p, ncol = 10000)#
+w = matrix(NA, nrow = p, ncol = 10000)#
+sigma2 = matrix(NA, nrow = 1, ncol = 10000)#
+betas[,1] = 0#
+w[,1] = 1#
+sigma2[,1] = 1#
+for (n in 2:10000) {#
+	R = t(X)%*%X + diag(w[,n-1])#
+	Rinv = solve(R)#
+	betas[, n] = rmvnorm(1, Rinv %*% t(X) %*% Y, sigma2[,n-1]*Rinv)#
+	w[,n] = sapply(1:p, function(x) rinvgamma(1, lambda*sqrt(sigma2[,n-1])/abs(betas[x,n]),lambda^2))#
+	sigma2[,n] = rinvgamma(1, (n+p)/2, t(Y- X %*% betas[,n])%*%(Y- X %*% betas[,n])/2+t(betas[,n])%*%Rinv%*%betas[,n]/2)#
 }
-log.lik
-log.lik = function(mu, index, timeinc, s2) {#
-	ll = 0#
-	sig = sqrt(s2)#
-	for (i in 1:nrow(mu)) {#
-		 ll <- ll + dlnorm(timeinc[i],mu[i,index[i]],sig, log = TRUE) + sum(plnorm(timeinc[i],mu[i, -index[i]],sig, FALSE, TRUE))#
-	}#
-	return(ll)#
+n
+library(matlib)
+install.packages("matlib")
+inv(R)
+library(matlib)
+inv(R)
+library(smoothmest)#
+library(mvtnorm)#
+library(matlib)#
+n = 1000#
+p = 10#
+X = matrix(rnorm(n*p), n, p)#
+s2 = rinvgamma(1, 0.1, 0.1)#
+lambda = 5#
+beta = rdoublex(p, 0, lambda)#
+Y = rnorm(n, X %*% beta, s2)#
+#least squares regression#
+beta_LSE = lm(Y~X)$coefficients#
+betas = matrix(NA, nrow = p, ncol = 10000)#
+w = matrix(NA, nrow = p, ncol = 10000)#
+sigma2 = matrix(NA, nrow = 1, ncol = 10000)#
+betas[,1] = 0#
+w[,1] = 1#
+sigma2[,1] = 1#
+for (n in 2:10000) {#
+	R = t(X)%*%X + diag(w[,n-1])#
+	Rinv = inv(R)#
+	betas[, n] = rmvnorm(1, Rinv %*% t(X) %*% Y, sigma2[,n-1]*Rinv)#
+	w[,n] = sapply(1:p, function(x) rinvgamma(1, lambda*sqrt(sigma2[,n-1])/abs(betas[x,n]),lambda^2))#
+	sigma2[,n] = rinvgamma(1, (n+p)/2, t(Y- X %*% betas[,n])%*%(Y- X %*% betas[,n])/2+t(betas[,n])%*%Rinv%*%betas[,n]/2)#
 }
-log.lik(mu, senders[edge.trim], timeinc[edge.trim], sigma_tau)
-Timepartsum(mu, sqrt(sigma_tau), senders[edge.trim], timeinc[edge.trim])
-Timepartsum(mu, sqrt(sigma_tau.new), senders[edge.trim], timeinc[edge.trim])
-log.lik(mu, senders[edge.trim], timeinc[edge.trim], sigma_tau.new)
-dlnorm
-plnorm
-?plnorm
-log.lik <- function(par,val,index){#
-    mu <- par[1:3]#
-    sig <- par[4]#
-    ll <- 0#
-    for(i in 1:length(index)){#
-        ll <- ll + dlnorm(val[i],mu[index[i]],sig, log = TRUE) + sum(plnorm(val[i],mu[-index[i]],sig, FALSE, TRUE))#
-    }#
-    -ll#
+n
+library(smoothmest)#
+library(mvtnorm)#
+library(matlib)#
+n = 1000#
+p = 10#
+X = matrix(rnorm(n*p), n, p)#
+s2 = rinvgamma(1, 0.1, 0.1)#
+lambda = 5#
+beta = rdoublex(p, 0, lambda)#
+Y = rnorm(n, X %*% beta, s2)#
+#least squares regression#
+beta_LSE = lm(Y~X)$coefficients#
+betas = matrix(NA, nrow = p, ncol = 10000)#
+w = matrix(NA, nrow = p, ncol = 10000)#
+sigma2 = matrix(NA, nrow = 1, ncol = 10000)#
+betas[,1] = 0#
+w[,1] = 1#
+sigma2[,1] = 1#
+for (n in 2:10000) {#
+	R = t(X)%*%X + diag(w[,n-1])#
+	Rinv = inv(R)#
+	betas[, n] = rmvnorm(1, Rinv %*% t(X) %*% Y, sigma2[,n-1]*Rinv)#
+	w[,n] = sapply(1:p, function(x) rinvgamma(1, lambda*sqrt(sigma2[,n-1])/abs(betas[x,n]),lambda^2))#
+	sigma2[,n] = rinvgamma(1, (n+p)/2, t(Y- X %*% betas[,n])%*%(Y- X %*% betas[,n])/2+t(betas[,n])%*%Rinv%*%betas[,n]/2)#
+}
+plot(betas[1,], type = 'l')
+w = w[,-c(1:1000)]
+plot(w[1,], type = 'l')
+sigma2 = sigma2[,-c(1:1000)]
+plot(sigma2[1,], type = 'l')
+plot(sigma2, type = 'l')
+plot(betas[1,], type = 'l')
+betas = betas[,-c(1:1000)]
+plot(betas[1,], type = 'l')
+rowMeans(betas)
+beta
+beta_LSE
+#simulation#
+library(smoothmest)#
+library(mvtnorm)#
+library(matlib)#
+n = 1000#
+p = 10#
+X = matrix(rnorm(n*p), n, p)#
+s2 = rinvgamma(1, 0.1, 0.1)#
+#
+compare = list()#
+lambda_vals = c(0.1, 1, 5, 10, 25)#
+for (x in 1:5) {#
+lambda = lambda_vals[x]#
+beta = rdoublex(p, 0, lambda)#
+Y = rnorm(n, X %*% beta, s2)#
+#least squares regression#
+beta_LSE = lm(Y~X)$coefficients#
+betas = matrix(NA, nrow = p, ncol = 10000)#
+w = matrix(NA, nrow = p, ncol = 10000)#
+sigma2 = matrix(NA, nrow = 1, ncol = 10000)#
+betas[,1] = 0#
+w[,1] = 1#
+sigma2[,1] = 1#
+for (n in 2:10000) {#
+	R = t(X)%*%X + diag(w[,n-1])#
+	Rinv = inv(R)#
+	betas[, n] = rmvnorm(1, Rinv %*% t(X) %*% Y, sigma2[,n-1]*Rinv)#
+	w[,n] = sapply(1:p, function(x) rinvgamma(1, lambda*sqrt(sigma2[,n-1])/abs(betas[x,n]),lambda^2))#
+	sigma2[,n] = rinvgamma(1, (n+p)/2, t(Y- X %*% betas[,n])%*%(Y- X %*% betas[,n])/2+t(betas[,n])%*%Rinv%*%betas[,n]/2)#
+}#
+#delete burn-in#
+betas = betas[,-c(1:1000)]#
+w = w[,-c(1:1000)]#
+sigma2 = sigma2[,-c(1:1000)]#
+#
+compare[[x]] = rbind(rowMeans(betas), beta_LSE)#
+}
+#simulation#
+library(smoothmest)#
+library(mvtnorm)#
+library(matlib)#
+n = 1000#
+p = 10#
+X = matrix(rnorm(n*p), n, p)#
+s2 = rinvgamma(1, 0.1, 0.1)#
+#
+compare = list()#
+lambda_vals = c(0.1, 1, 5, 10, 25)#
+for (x in 1:5) {#
+lambda = lambda_vals[x]#
+beta = rdoublex(p, 0, lambda)#
+Y = rnorm(n, X %*% beta, s2)#
+#least squares regression#
+beta_LSE = lm(Y~X-1)$coefficients#
+betas = matrix(NA, nrow = p, ncol = 10000)#
+w = matrix(NA, nrow = p, ncol = 10000)#
+sigma2 = matrix(NA, nrow = 1, ncol = 10000)#
+betas[,1] = 0#
+w[,1] = 1#
+sigma2[,1] = 1#
+for (n in 2:10000) {#
+	R = t(X)%*%X + diag(w[,n-1])#
+	Rinv = inv(R)#
+	betas[, n] = rmvnorm(1, Rinv %*% t(X) %*% Y, sigma2[,n-1]*Rinv)#
+	w[,n] = sapply(1:p, function(x) rinvgamma(1, lambda*sqrt(sigma2[,n-1])/abs(betas[x,n]),lambda^2))#
+	sigma2[,n] = rinvgamma(1, (n+p)/2, t(Y- X %*% betas[,n])%*%(Y- X %*% betas[,n])/2+t(betas[,n])%*%Rinv%*%betas[,n]/2)#
+}#
+#delete burn-in#
+betas = betas[,-c(1:1000)]#
+w = w[,-c(1:1000)]#
+sigma2 = sigma2[,-c(1:1000)]#
+#
+compare[[x]] = rbind(rowMeans(betas), beta_LSE)#
+}
+lm(Y~X-1)
+Y
+X
+lm(Y~X+0)$coefficients
+lm(Y~X)$coefficients
+x
+compare[[1]]
+lambda
+beta
+beta_LSE = lm(Y~X-1)$coefficients
+dim(Y)
+length(Y)
+#simulation#
+library(smoothmest)#
+library(mvtnorm)#
+library(matlib)#
+n = 1000#
+p = 10#
+X = matrix(rnorm(n*p), n, p)#
+s2 = rinvgamma(1, 0.1, 0.1)#
+compare = list()#
+lambda_vals = c(0.1, 1, 5, 10, 25)#
+for (x in 1:5) {#
+lambda = lambda_vals[x]#
+beta = rdoublex(p, 0, lambda)#
+Y = rnorm(n, X %*% beta, s2)#
+#least squares regression#
+beta_LSE = lm(Y~X-1)$coefficients#
+betas = matrix(NA, nrow = p, ncol = 10000)#
+w = matrix(NA, nrow = p, ncol = 10000)#
+sigma2 = matrix(NA, nrow = 1, ncol = 10000)#
+betas[,1] = 0#
+w[,1] = 1#
+sigma2[,1] = 1#
+for (i in 2:10000) {#
+	R = t(X)%*%X + diag(w[,i-1])#
+	Rinv = inv(R)#
+	betas[, i] = rmvnorm(1, Rinv %*% t(X) %*% Y, sigma2[,i-1]*Rinv)#
+	w[,i] = sapply(1:p, function(x) rinvgamma(1, lambda*sqrt(sigma2[,i-1])/abs(betas[x,i]),lambda^2))#
+	sigma2[,i] = rinvgamma(1, (n+p)/2, t(Y- X %*% betas[,i])%*%(Y- X %*% betas[,i])/2+t(betas[,i])%*%Rinv%*%betas[,i]/2)#
+}#
+#delete burn-in#
+betas = betas[,-c(1:1000)]#
+w = w[,-c(1:1000)]#
+sigma2 = sigma2[,-c(1:1000)]#
+#
+compare[[x]] = rbind(rowMeans(betas), beta_LSE)#
+}
+x
+compare
+plot(betas[1,])
+library(smoothmest)#
+library(mvtnorm)#
+library(matlib)#
+n = 1000#
+p = 10#
+X = matrix(rnorm(n*p), n, p)#
+s2 = rinvgamma(1, 0.1, 0.1)#
+compare = list()#
+lambda_vals = c(0.1, 1, 5, 10, 25)
+x = 1
+lambda = lambda_vals[x]#
+beta = rdoublex(p, 0, lambda)#
+Y = rnorm(n, X %*% beta, s2)#
+#least squares regression#
+beta_LSE = lm(Y~X-1)$coefficients#
+betas = matrix(NA, nrow = p, ncol = 5000)#
+w = matrix(NA, nrow = p, ncol = 5000)#
+sigma2 = matrix(NA, nrow = 1, ncol = 5000)#
+betas[,1] = 0#
+w[,1] = 1
+sigma2[,1] = 1
+for (i in 2:5000) {#
+	R = t(X)%*%X + diag(w[,i-1])#
+	Rinv = inv(R)#
+	betas[, i] = rmvnorm(1, Rinv %*% t(X) %*% Y, sigma2[,i-1]*Rinv)#
+	w[,i] = sapply(1:p, function(x) rinvgamma(1, lambda*sqrt(sigma2[,i-1])/abs(betas[x,i]),lambda^2))#
+	sigma2[,i] = rinvgamma(1, (n+p)/2, t(Y- X %*% betas[,i])%*%(Y- X %*% betas[,i])/2+t(betas[,i])%*%Rinv%*%betas[,i]/2)#
+}
+plot(betas[1,], type = 'l')
+plot(w[1,], type = 'l')
+plot(sigma2[1,], type = 'l')
+#simulation#
+library(smoothmest)#
+library(mvtnorm)#
+library(matlib)#
+n = 1000#
+p = 10#
+X = matrix(rnorm(n*p), n, p)#
+s2 = rinvgamma(1, 0.1, 0.1)#
+compare = list()#
+lambda_vals = c(0.1, 1, 5, 10, 25)#
+for (x in 1:5) {#
+lambda = lambda_vals[x]#
+beta = rdoublex(p, 0, lambda)#
+Y = rnorm(n, X %*% beta, s2)#
+#least squares regression#
+beta_LSE = lm(Y~X-1)$coefficients#
+betas = matrix(NA, nrow = p, ncol = 5000)#
+w = matrix(NA, nrow = p, ncol = 5000)#
+sigma2 = matrix(NA, nrow = 1, ncol = 5000)#
+betas[,1] = 0#
+w[,1] = 1#
+sigma2[,1] = 1#
+for (i in 2:1000) {#
+	R = t(X)%*%X + diag(w[,i-1])#
+	Rinv = inv(R)#
+	betas[, i] = rmvnorm(1, Rinv %*% t(X) %*% Y, sigma2[,i-1]*Rinv)#
+	w[,i] = sapply(1:p, function(x) rinvgamma(1, lambda*sqrt(sigma2[,i-1])/abs(betas[x,i]),lambda^2))#
+	sigma2[,i] = rinvgamma(1, (n+p)/2, t(Y- X %*% betas[,i])%*%(Y- X %*% betas[,i])/2+t(betas[,i])%*%Rinv%*%betas[,i]/2)#
+}#
+#delete burn-in#
+betas = betas[,-c(1:100)]#
+w = w[,-c(1:100)]#
+sigma2 = sigma2[,-c(1:100)]#
+#
+compare[[x]] = rbind(rowMeans(betas), beta_LSE)#
+}
+#simulation#
+library(smoothmest)#
+library(mvtnorm)#
+library(matlib)#
+n = 500#
+p = 10#
+X = matrix(rnorm(n*p), n, p)#
+s2 = rinvgamma(1, 0.1, 0.1)#
+compare = list()#
+lambda_vals = c(0.1, 1, 5, 10, 25)#
+for (x in 1:5) {#
+lambda = lambda_vals[x]#
+beta = rdoublex(p, 0, lambda)#
+Y = rnorm(n, X %*% beta, s2)#
+#least squares regression#
+beta_LSE = lm(Y~X-1)$coefficients#
+betas = matrix(NA, nrow = p, ncol = 5000)#
+w = matrix(NA, nrow = p, ncol = 5000)#
+sigma2 = matrix(NA, nrow = 1, ncol = 5000)#
+betas[,1] = 0#
+w[,1] = 1#
+sigma2[,1] = 1#
+for (i in 2:1000) {#
+	R = t(X)%*%X + diag(w[,i-1])#
+	Rinv = inv(R)#
+	betas[, i] = rmvnorm(1, Rinv %*% t(X) %*% Y, sigma2[,i-1]*Rinv)#
+	w[,i] = sapply(1:p, function(x) rinvgamma(1, lambda*sqrt(sigma2[,i-1])/abs(betas[x,i]),lambda^2))#
+	sigma2[,i] = rinvgamma(1, (n+p)/2, t(Y- X %*% betas[,i])%*%(Y- X %*% betas[,i])/2+t(betas[,i])%*%Rinv%*%betas[,i]/2)#
+}#
+#delete burn-in#
+betas = betas[,-c(1:100)]#
+w = w[,-c(1:100)]#
+sigma2 = sigma2[,-c(1:100)]#
+#
+compare[[x]] = rbind(rowMeans(betas), beta_LSE)#
+}
+#simulation#
+library(smoothmest)#
+library(mvtnorm)#
+library(matlib)#
+n = 500#
+p = 10#
+X = matrix(rnorm(n*p), n, p)#
+s2 = rinvgamma(1, 0.1, 0.1)#
+compare = list()#
+lambda_vals = c(0.1, 1, 5, 10, 25)#
+for (x in 1:5) {#
+lambda = lambda_vals[x]#
+beta = rdoublex(p, 0, lambda)#
+Y = rnorm(n, X %*% beta, s2)#
+#least squares regression#
+beta_LSE = lm(Y~X-1)$coefficients#
+betas = matrix(NA, nrow = p, ncol = 1000)#
+w = matrix(NA, nrow = p, ncol = 1000)#
+sigma2 = matrix(NA, nrow = 1, ncol = 1000)#
+betas[,1] = 0#
+w[,1] = 1#
+sigma2[,1] = 1#
+for (i in 2:1000) {#
+	R = t(X)%*%X + diag(w[,i-1])#
+	Rinv = inv(R)#
+	betas[, i] = rmvnorm(1, Rinv %*% t(X) %*% Y, sigma2[,i-1]*Rinv)#
+	w[,i] = sapply(1:p, function(x) rinvgamma(1, lambda*sqrt(sigma2[,i-1])/abs(betas[x,i]),lambda^2))#
+	sigma2[,i] = rinvgamma(1, (n+p)/2, t(Y- X %*% betas[,i])%*%(Y- X %*% betas[,i])/2+t(betas[,i])%*%Rinv%*%betas[,i]/2)#
+}#
+#delete burn-in#
+betas = betas[,-c(1:100)]#
+w = w[,-c(1:100)]#
+sigma2 = sigma2[,-c(1:100)]#
+#
+compare[[x]] = rbind(rowMeans(betas), beta_LSE)#
+}
+w[,1] = 1
+#simulation#
+library(smoothmest)#
+library(mvtnorm)#
+library(matlib)#
+n = 500#
+p = 10#
+X = matrix(rnorm(n*p), n, p)#
+s2 = rinvgamma(1, 0.1, 0.1)#
+compare = list()#
+lambda_vals = c(0.1, 1, 5, 10, 25)#
+for (x in 1:5) {#
+lambda = lambda_vals[x]#
+beta = rdoublex(p, 0, lambda)#
+Y = rnorm(n, X %*% beta, s2)#
+#least squares regression#
+beta_LSE = lm(Y~X-1)$coefficients#
+betas = matrix(NA, nrow = p, ncol = 1000)#
+w = matrix(NA, nrow = p, ncol = 1000)#
+sigma2 = matrix(NA, nrow = 1, ncol = 1000)#
+betas[,1] = 0#
+w[,1] = 1#
+sigma2[,1] = 1#
+for (i in 2:1000) {#
+	R = t(X)%*%X + diag(w[,i-1])#
+	Rinv = inv(R)#
+	betas[, i] = rmvnorm(1, Rinv %*% t(X) %*% Y, sigma2[,i-1]*Rinv)#
+	w[,i] = sapply(1:p, function(x) rinvgamma(1, lambda*sqrt(sigma2[,i-1])/abs(betas[x,i]),lambda^2))#
+	sigma2[,i] = rinvgamma(1, (n+p)/2, t(Y- X %*% betas[,i])%*%(Y- X %*% betas[,i])/2+t(betas[,i])%*%Rinv%*%betas[,i]/2)#
+}#
+#delete burn-in#
+betas = betas[,-c(1:100)]#
+w = w[,-c(1:100)]#
+sigma2 = sigma2[,-c(1:100)]#
+#
+compare[[x]] = rbind(rowMeans(betas), beta_LSE)#
+}
+compare
+#simulation#
+library(smoothmest)#
+library(mvtnorm)#
+library(matlib)#
+n = 500#
+p = 10#
+X = matrix(rnorm(n*p), n, p)#
+s2 = rinvgamma(1, 0.1, 0.1)#
+compare = list()#
+lambda_vals = c(0.1, 1, 5, 10, 25)#
+for (x in 1:5) {#
+lambda = lambda_vals[x]#
+beta = rdoublex(p, 0, lambda)#
+Y = rnorm(n, X %*% beta, s2)#
+#least squares regression#
+beta_LSE = lm(Y~X-1)$coefficients#
+betas = matrix(NA, nrow = p, ncol = 1000)#
+w = matrix(NA, nrow = p, ncol = 1000)#
+sigma2 = matrix(NA, nrow = 1, ncol = 1000)#
+betas[,1] = 0#
+w[,1] = 1#
+sigma2[,1] = 1#
+for (i in 2:1000) {#
+	R = t(X)%*%X + diag(w[,i-1])#
+	Rinv = inv(R)#
+	betas[, i] = rmvnorm(1, Rinv %*% t(X) %*% Y, sigma2[,i-1]*Rinv)#
+	w[,i] = sapply(1:p, function(x) rinvgamma(1, lambda*sqrt(sigma2[,i-1])/abs(betas[x,i]),lambda^2))#
+	sigma2[,i] = rinvgamma(1, (n+p)/2, t(Y- X %*% betas[,i])%*%(Y- X %*% betas[,i])/2+t(betas[,i])%*%Rinv%*%betas[,i]/2)#
+}#
+#delete burn-in#
+betas = betas[,-c(1:100)]#
+w = w[,-c(1:100)]#
+sigma2 = sigma2[,-c(1:100)]#
+#
+compare[[x]] = rbind(rowMeans(betas), beta_LSE)#
+rownames(compare[[x]])[1] = "beta_LASSO"#
+}
+compare
+load('~/Desktop/MulticastNetwork/code/Temporal_Email_Data.Rdata')
+names(Temporal_Email_Data)
+Temporal_Email_Data[[1]]
+for (i in 1:17) {#
+ dim(Temporal_Email_Data[[i]]$email_data)#
+}
+for (i in 1:17) {#
+ print(dim(Temporal_Email_Data[[i]]$email_data))#
+}
+Caldwell = Temporal_Email_Data[[2]]
+Caldwell
+Caldwell_email = unique(Temporal_Email_Data[[2]]$email_data)
+Caldwell_email
+time = as.numeric(as.POSIXct(strptime(Caldwell_email[,1], "%d %b %Y %H:%M:%S")))
+time
+Caldwell_email = Caldwell_email[order(time),]
+Caldwell_email
+initialtime =  as.numeric(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S")))
+initialtime
+dim(Caldwell_email)
+edge = list()#
+initialtime =  as.numeric(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S")))#
+for (d in 1:nrow(email)) {#
+	t_d = as.numeric(as.POSIXct(strptime(Caldwell_email[d,1], "%d %b %Y %H:%M:%S")))#
+	edge[[d]] = list(a_d = email[d,2], r_d = as.numeric(email[d,-c(1:2)]), t_d = t_d)#
+}
+email = Caldwell_email#
+#
+edge = list()#
+initialtime =  as.numeric(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S")))#
+for (d in 1:nrow(email)) {#
+	t_d = as.numeric(as.POSIXct(strptime(Caldwell_email[d,1], "%d %b %Y %H:%M:%S")))#
+	edge[[d]] = list(a_d = email[d,2], r_d = as.numeric(email[d,-c(1:2)]), t_d = t_d)#
+}
+edge
+length(edge[[2]]$r_d)
+A = length(Caldwell$manager_gender)
+A
+head(email)
+head(edg)
+head(edge)
+# construct time covariates Y#
+D = length(edge)#
+A = length(Caldwell$manager_gender)#
+Q = 4#
+Y = array(1, dim = c(D,A,Q))#
+for (a in 1:A) {#
+	Y[,a,2] = 1* (Caldwell$manager_gender[a]=="Female")#
+	Y[,a,3] = 1* (Caldwell$manager_department[a]=="County Manager")#
+}#
+timeunit = 3600#
+Y[1,,6] = rep(as.numeric(wday(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+Y[1,,7] = rep(pm(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S"))), A)#
+for (d in 2:D) {#
+	index = which(email$timepoints >= uniqtime[which(uniqtime==email$timepoints[d])-1]-7*24*timeunit & email$timepoints < email$timepoints[d])#
+	sent = email[index, 2]#
+	received = email[index, 3:(2+A)]#
+	Y[d, ,4] = tabulate(sent, A) #
+	Y[d, ,5] = colSums(received)#
+	Y[d,,6] = rep(as.numeric(wday(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+	Y[d,,7] = rep(as.numeric(pm(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S")))), A)#
+}
+library(lubridate)
+# construct time covariates Y#
+D = length(edge)#
+A = length(Caldwell$manager_gender)#
+Q = 4#
+Y = array(1, dim = c(D,A,Q))#
+for (a in 1:A) {#
+	Y[,a,2] = 1* (Caldwell$manager_gender[a]=="Female")#
+	Y[,a,3] = 1* (Caldwell$manager_department[a]=="County Manager")#
+}#
+timeunit = 3600#
+Y[1,,6] = rep(as.numeric(wday(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+Y[1,,7] = rep(pm(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S"))), A)#
+for (d in 2:D) {#
+	index = which(email$timepoints >= uniqtime[which(uniqtime==email$timepoints[d])-1]-7*24*timeunit & email$timepoints < email$timepoints[d])#
+	sent = email[index, 2]#
+	received = email[index, 3:(2+A)]#
+	Y[d, ,4] = tabulate(sent, A) #
+	Y[d, ,5] = colSums(received)#
+	Y[d,,6] = rep(as.numeric(wday(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+	Y[d,,7] = rep(as.numeric(pm(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S")))), A)#
+}
+uniqtime = unique(time[order(time)])
+uniqtime
+length(uniqtime)
+dim(edge)
+length(edge)
+uniqtime = unique(time[order(time)])#
+#
+# construct time covariates Y#
+D = length(edge)#
+A = length(Caldwell$manager_gender)#
+Q = 4#
+Y = array(1, dim = c(D,A,Q))#
+for (a in 1:A) {#
+	Y[,a,2] = 1* (Caldwell$manager_gender[a]=="Female")#
+	Y[,a,3] = 1* (Caldwell$manager_department[a]=="County Manager")#
+}#
+timeunit = 3600#
+Y[1,,6] = rep(as.numeric(wday(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+Y[1,,7] = rep(pm(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S"))), A)#
+for (d in 2:D) {#
+	index = which(email$timepoints >= uniqtime[which(uniqtime==email$timepoints[d])-1]-7*24*timeunit & email$timepoints < email$timepoints[d])#
+	sent = email[index, 2]#
+	received = email[index, 3:(2+A)]#
+	Y[d, ,4] = tabulate(sent, A) #
+	Y[d, ,5] = colSums(received)#
+	Y[d,,6] = rep(as.numeric(wday(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+	Y[d,,7] = rep(as.numeric(pm(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S")))), A)#
+}
+A
+# construct time covariates Y#
+D = length(edge)#
+A = length(Caldwell$manager_gender)#
+Q = 4#
+Y = array(1, dim = c(D,A,Q))#
+for (a in 1:A) {#
+	Y[,a,2] = 1* (Caldwell$manager_gender[a]=="Female")#
+	Y[,a,3] = 1* (Caldwell$manager_department[a]=="County Manager")#
+}
+timeunit = 3600#
+Y[1,,6] = rep(as.numeric(wday(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+Y[1,,7] = rep(pm(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S"))), A)
+# construct time covariates Y#
+D = length(edge)#
+A = length(Caldwell$manager_gender)#
+Q = 7#
+Y = array(1, dim = c(D,A,Q))#
+for (a in 1:A) {#
+	Y[,a,2] = 1* (Caldwell$manager_gender[a]=="Female")#
+	Y[,a,3] = 1* (Caldwell$manager_department[a]=="County Manager")#
+}#
+timeunit = 3600#
+Y[1,,6] = rep(as.numeric(wday(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+Y[1,,7] = rep(pm(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S"))), A)#
+for (d in 2:D) {#
+	index = which(email$timepoints >= uniqtime[which(uniqtime==email$timepoints[d])-1]-7*24*timeunit & email$timepoints < email$timepoints[d])#
+	sent = email[index, 2]#
+	received = email[index, 3:(2+A)]#
+	Y[d, ,4] = tabulate(sent, A) #
+	Y[d, ,5] = colSums(received)#
+	Y[d,,6] = rep(as.numeric(wday(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+	Y[d,,7] = rep(as.numeric(pm(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S")))), A)#
+}
+Y
+Y[1,,]
+Y[100,,]
+email$timepoints
+email
+time
+for (i in 1:17) {#
+ print(dim(Temporal_Email_Data[[i]]$email_data))#
+}#
+#Caldwell email data#
+Caldwell_email = unique(Temporal_Email_Data[[2]]$email_data)#
+time = as.numeric(as.POSIXct(strptime(Caldwell_email[,1], "%d %b %Y %H:%M:%S")))#
+Caldwell_email = Caldwell_email[order(time),]#
+#
+email = Caldwell_email#
+#
+edge = list()#
+initialtime =  as.numeric(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S")))#
+for (d in 1:nrow(email)) {#
+	t_d = as.numeric(as.POSIXct(strptime(Caldwell_email[d,1], "%d %b %Y %H:%M:%S")))#
+	edge[[d]] = list(a_d = email[d,2], r_d = as.numeric(email[d,-c(1:2)]), t_d = t_d)#
 }#
 #
-y <- cbind(rlnorm(1000,0,5),rlnorm(1000,1,5),rlnorm(1000,2,5))#
+library(lubridate)#
+uniqtime = unique(time[order(time)])#
 #
-vals <- apply(y,1,min)#
-index <- apply(y,1,which.min)#
+# construct time covariates Y#
+D = length(edge)#
+A = length(Caldwell$manager_gender)#
+Q = 7#
+Y = array(1, dim = c(D,A,Q))#
+for (a in 1:A) {#
+	Y[,a,2] = 1* (Caldwell$manager_gender[a]=="Female")#
+	Y[,a,3] = 1* (Caldwell$manager_department[a]=="County Manager")#
+}#
+timeunit = 3600#
+Y[1,,6] = rep(as.numeric(wday(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+Y[1,,7] = rep(pm(as.POSIXct(strptime("01 Jan 2012 00:00:00", "%d %b %Y %H:%M:%S"))), A)#
+for (d in 2:D) {#
+	index = which(uniqtime >= uniqtime[which(uniqtime==uniqtime[d])-1]-7*24*timeunit & uniqtime < uniqtime[d])#
+	sent = email[index, 2]#
+	received = email[index, 3:(2+A)]#
+	Y[d, ,4] = tabulate(sent, A) #
+	Y[d, ,5] = colSums(received)#
+	Y[d,,6] = rep(as.numeric(wday(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+	Y[d,,7] = rep(as.numeric(pm(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S")))), A)#
+}#
 #
-optim(par = rep(1,4),fn=log.lik,val=vals,index=index)#
+sendraw = function(data, a, r) {#
+	sum(data[,2] == a & data[, 2+r]==1)#
+}
+Y[100,,]
+Y[100,2,]
+Y[120,,]
+Y[10,,]
+# construct recipient covariates X#
+D = length(edge)#
+A = length(Caldwell$manager_gender)#
+P = 7#
+X = array(0, dim = c(D,A,A,P))#
+X[,,,1] = 1#
+timeunit = 3600#
+for (d in 2:D) {#
+	index = which(uniqtime  >= uniqtime[which(uniqtime==uniqtime [d])-1]-7*24*timeunit & uniqtime  < uniqtime[d])#
+	data = email[index, ]#
+	sent = data[, 2]#
+	received = data[, 3:(2+A)]#
+	outdegree = tabulate(sent, A)#
+	indegree = colSums(received)#
+	for (a in 1:A) {#
+		for (r in c(1:A)[-a]) {#
+			X[d, a, r, 2] = outdegree[a]  #
+			X[d, a, r, 3] = indegree[r]	#
+			X[d, a, r, 4] = sendraw(data, a, r)#
+			X[d, a, r, 5] = sendraw(data, r, a)#
+			}#
+	  		X[d, a, , 6] = ifelse(outdegree[a] > 0, sum(X[d,a,,4]), 0)#
+	  		X[d, a, , 7] = X[d, a, , 2] * X[d, a, ,6] / 10#
+	}#
+}
+X[1,1,,]
+X[10,1,,]
+X[10,2,,]
+X[10,10,,]
+X[10,4,,]
+X[10,14,,]
+summary(X[,1,,])
+summary(X[,,,1])
+summary(X[,,,2])
+summary(X[,,,3])
+summary(X[,,,4])
+summary(X[,,,5])
+summary(X[,,,6])
+summary(X[,,,7])
+Caldwell$email = edge
+Caldwell$email
+trim = which(uniqtime >=7*24*timeunit+uniqtime[1])
+trim
+Caldwell = list()#
+Caldwell$email = edge[trim]#
+Caldwell$X = X[trim,,,]#
+Caldwell$Y = Y[trim,,,]
+Caldwell = list()#
+Caldwell$email = edge[trim]#
+Caldwell$X = X[trim,,,]#
+Caldwell$Y = Y[trim,,]
+Caldwell
+head(Caldwell)
+names(Caldwell)
+head(Caldwell$email)
+head(Caldwell$X)
+head(Caldwell$Y)
+dim(Caldwell$X)
+Caldwell$X[1:5,,]
+Caldwell$X[1:5,,,]
+=7*24*timeunit+uniqtime[1])#
 #
-s2grid = seq(3, 10, by = 0.1)#
-y = sapply(s2grid, function(x) log.lik(c(0,1,2,x), vals, index))#
-plot(s2grid, y)
-mu
-plot(seq(0.1,10, by = 0.01), sapply(seq(0.1,10, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim])))
-sigma_tau
-plot(seq(4,5, by = 0.1), sapply(seq(4,5, by = 0.1), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim])))
-plot(seq(4,5, by = 0.01), sapply(seq(4,5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim])))
-which(sapply(seq(4,5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))==max(sapply(seq(4,5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))))
-seq(4,5, by = 0.01)[83]
-sigma_tau.new
-u
-Q
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.05, 0.01, 0.25, 0.05)#
+Caldwell = list()#
+Caldwell$email = edge[trim]#
+Caldwell$X = X[trim,,,]#
+Caldwell$Y = Y[trim,,]
+Caldwell = list()#
+Caldwell$email = edge[trim]#
+Caldwell$X = X[trim,,,]#
+Caldwell$Y = Y[trim,,]
+dim(Caldwell$X)
+dim(Caldwell$Y)
+save(Caldwell, file = "Caldwell.RData")
+source("/Users/bomin8319/Desktop/MulticastNetwork/code/Multicast.R")#
+library(lubridate)#
+load('~/Desktop/MulticastNetwork/code/Temporal_Email_Data.Rdata')#
+Montgomery = Temporal_Email_Data$Montgomery#
+email = Montgomery$email_data#
+email = unique(email)#
+email$timepoints =  as.numeric(as.POSIXct(strptime(email[,1], "%d %b %Y %H:%M:%S")))#
+email = email[order(email$timepoints), ]#
+edge = list()#
+initialtime =  as.numeric(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S")))#
+for (d in 1:nrow(email)) {#
+	t_d = email[d, 21] - initialtime#
+	edge[[d]] = list(a_d = email[d,2], r_d = as.numeric(email[d,-c(1:2, 21)]), t_d = t_d)#
+}#
 #
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)
-document()
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.05, 0.01, 0.25, 0.05)#
+uniqtime = unique(email$timepoints)#
+# construct time covariates Y#
+D = length(edge)#
+A = length(Montgomery$manager_gender)#
+Q = 7#
+Y = array(1, dim = c(D,A,Q))#
+for (a in 1:A) {#
+	Y[,a,2] = 1* (Montgomery$manager_gender[a]=="Female")#
+	Y[,a,3] = 1* (Montgomery$manager_department[a]=="County Manager")#
+}#
+timeunit = 3600#
+Y[1,,6] = rep(as.numeric(wday(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+Y[1,,7] = rep(pm(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S"))), A)#
+for (d in 2:D) {#
+	index = which(email$timepoints >= uniqtime[which(uniqtime==email$timepoints[d])-1]-7*24*timeunit & email$timepoints < email$timepoints[d])#
+	sent = email[index, 2]#
+	received = email[index, 3:(2+A)]#
+	Y[d, ,4] = tabulate(sent, A) #
+	Y[d, ,5] = colSums(received)#
+	Y[d,,6] = rep(as.numeric(wday(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+	Y[d,,7] = rep(as.numeric(pm(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S")))), A)#
+}#
+sendraw = function(data, a, r) {#
+	sum(data[,2] == a & data[, 2+r]==1)#
+}#
 #
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)
-mu
-Q
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-mu
-u
-rowSums(u[[base.length+d]])
-mu
-eta
-timevec = rlnorm(A, mu, sqrt(sigma_tau))*timeunit
-timevec
-rlnorm(A, mu, sqrt(sigma_tau))
-i.d = which(timevec == min(timevec))
-i.d
-which_num(384*timeunit, vapply(1:length(edge), function(d) {edge[[d]][[3]]}, c(1)))
-base.length
-u
-Q
-document()
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.05, 0.01, 0.25, 0.05)#
+# construct recipient covariates X#
+D = length(edge)#
+A = length(Montgomery$manager_gender)#
+P = 11#
+X = array(0, dim = c(D,A,A,P))#
+X[,,,1] = 1#
+timeunit = 3600#
+for (d in 2:D) {#
+	index = which(email$timepoints >= uniqtime[which(uniqtime==email$timepoints[d])-1]-7*24*timeunit & email$timepoints < email$timepoints[d])#
+	data = email[index, ]#
+	sent = data[, 2]#
+	received = data[, 3:(2+A)]#
+	outdegree = tabulate(sent, A)#
+	indegree = colSums(received)#
+	for (a in 1:A) {#
+		for (r in c(1:A)[-a]) {#
+			X[d, a, r, 2] = outdegree[a]  #
+			X[d, a, r, 3] = indegree[r]	#
+			X[d, a, r, 4] = sendraw(data, a, r)#
+			X[d, a, r, 5] = sendraw(data, r, a)#
+			X[d, a, r, 6] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, a, h) * sendraw(data, h, r) / 10#
+				}))#
+			X[d, a, r, 7] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, h, a) * sendraw(data, r, h)#
+				})) / 10#
+			X[d, a, r, 8] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, h, a) * sendraw(data, h, r)#
+				})) / 10#
+			X[d, a, r, 9] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, a, h) * sendraw(data, r, h)#
+				}))	/10	#
+		}#
+	  X[d, a, , 10] = ifelse(outdegree[a] > 0, sum(X[d,a,,4]), 0)#
+	  X[d, a, , 11] = X[d, a, , 2] * X[d, a, , 10] / 10#
+	}#
+}#
 #
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-Q
-document()
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-par(mfrow=c(4,4), oma = c(3,3,3,3), mar = c(2,1,1,1))#
-    GiR_PP_Plots(Forward_stats, Backward_stats)
-outer
-Outer
-Inner
-u
-Forward_sample$u
-Backward_sample$u
-identical(Forward-sample$u, Backward_sample$u)
-identical(Forward_sample$u, Backward_sample$u)
-Forward_sample$u[[177]]
-length(Forward_sample$u)
-Backward$u[[177]]
-plot(Inference_samp$eta[2,])
-plot(Inference_samp$eta[2,], type = 'l')
-Q
-document()
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.05, 0.01, 0.25, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(50, 50, 50)
-Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-head(Forward_stats[,8])
-summary(Forward_stats[,8])
-summary(Backward_stats[,8])
-plot(Inference_samp$eta[2,])
-plot(Inference_samp$b[2,])
-plot(Inference_samp$b[6,])
-summary(Forward_stats[,6])
-summary(Backward_stats[,6])
-summary(Backward_stats[,5])
-summary(Forward_stats[,5])
-Q
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(50, 50, 50)
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-document()
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)
-Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-probij
-lmultinom(probij)
-node[-i]
-u[[d]]
-i
-j
-u[[d]][i,j]
-Q
-document()
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(50, 50, 50)
-Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-Q
-document()
-Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-X
-u
-initial$u
-initial$u[[177]]
-u[[177]]
-identical(initial$u, u)
-sum(unlist(initial$u)==initial$u)
-sum(unlist(initial$u)==unlist(u))
-length(u)
-177* 4*4
-sum(unlist(initial$u))
-sum(unlist(u))
-b.old
-ㅣ므ㅠㅇㅁ
-lambda
-X[[d]]
-Q
-document()
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(50, 50, 50)#
-Outer = 1#
-Inner = c(5, 5, 5)#
-#
-Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-Forward_sample$u
-Backward_sample$u
-Forward_sample$u[[177]]
-Backward_sample$u[[177]]
-Forward_sample$u[[176]]
-lambda
-Q
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 2), 0.5*diag(2))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(10, 10, 10)
-Schein <- Schein(50000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-Q
+prior.beta = list(mean = c(-3.5, rep(0, P-1)), var = 2*diag(P))#
+prior.eta = list(mean = c(7, rep(0, Q-1)), var = 2*diag(Q))#
+prior.sigma2 = list(a = 2, b = 1)#
+email$timepoints =  as.numeric(as.POSIXct(strptime(email[,1], "%d %b %Y %H:%M:%S")))#
+trim = which(email$timepoints >=7*24*timeunit+email$timepoints[1])#
+edge = edge[trim]#
+X = X[trim,,,]#
+Y = Y[trim,,]
+Montgomery_infer = Inference(edge, X, Y, 55000, c(10,1,1), 15000, prior.beta, prior.eta, prior.sigma2, initial = NULL,#
+		  proposal.var = c(0.00001, 0.002, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime)
+Montgomery_infer = Inference(edge, X, Y, 55000, c(10,1,1), 15000, prior.beta, prior.eta, prior.sigma2, initial = NULL,#
+		  proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime)
+plot(Montgomery_infer$sigma2, type = 'l')
+plot(Montgomery_infer$loglike, type = 'l')
+plot(Montgomery_infer$eta[,1], type = 'l')
+plot(Montgomery_infer$beta[,1], type = 'l')
+plot(Montgomery_infer$beta[,2], type = 'l')
+plot(Montgomery_infer$beta[,3], type = 'l')
+plot(Montgomery_infer$beta[,4], type = 'l')
+plot(Montgomery_infer$beta[,5], type = 'l')
+plot(Montgomery_infer$beta[,6], type = 'l')
+plot(Montgomery_infer$beta[,7], type = 'l')
+plot(Montgomery_infer$beta[,8], type = 'l')
+plot(Montgomery_infer$beta[,9], type = 'l')
+plot(Montgomery_infer$beta[,10], type = 'l')
+plot(Montgomery_infer$beta[,11], type = 'l')
+save(Montgomery_infer, file = "/Users/bomin8319/Desktop/Montgomery_infer.RData")
+data(car)
+data(cars)
+head(cars)
+plot(cars)
+?Data
+?data
+data(ChickWeight)
+head(ChickWeight)
+plot(ChickWeight)
+str(ChickWeight)
+table(ChickWeight$Chick)
+tabulate(ChickWeight$Chick)
+tabulate(ChickWeight$Diet)
+table(ChickWeight$Diet)
+library(devtools)
+setwd("/Users/bomin8319/Desktop/MulticastNetwork/pkg/R")
 document()
 check()
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 1), 0.5*diag(1))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
+library(Multicast)
+library(MulticastNetwork)
+?dinvgamma
+Generate
+?Generate
+?gibbs.measure.support
+document()
+document()
+check()
+document()
+document()
+document()
+check()
+document()
+document()
+?dinvgamma
+MCMCpack::dinvgamma
+?MCMCpack::dinvgamma
+?MCMCpack::dinvgamma
+document()
+library(MulticastNetwork)
+dinvgamma
+?dinvgamma
+document()
+document()
+check()
+install()
+load("/Users/bomin8319/Desktop/Montgomery_infer.RData")
+initial = list()#
+initial$sender = email[1:(min(trim)-1), 2]#
+initial$receiver = email[1:(min(trim)-1), 3:20]#
+initial$time = email[1:(min(trim)-1),1]
+source("/Users/bomin8319/Desktop/MulticastNetwork/code/Multicast.R")#
+library(lubridate)#
+load('~/Desktop/MulticastNetwork/code/Temporal_Email_Data.Rdata')#
+Montgomery = Temporal_Email_Data$Montgomery#
+email = Montgomery$email_data#
+email = unique(email)#
+email$timepoints =  as.numeric(as.POSIXct(strptime(email[,1], "%d %b %Y %H:%M:%S")))#
+email = email[order(email$timepoints), ]#
+edge = list()#
+initialtime =  as.numeric(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S")))#
+for (d in 1:nrow(email)) {#
+	t_d = email[d, 21] - initialtime#
+	edge[[d]] = list(a_d = email[d,2], r_d = as.numeric(email[d,-c(1:2, 21)]), t_d = t_d)#
+}#
 #
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(10, 10, 10)
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-document()
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 1), 0.5*diag(1))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
+uniqtime = unique(email$timepoints)#
+# construct time covariates Y#
+D = length(edge)#
+A = length(Montgomery$manager_gender)#
+Q = 7#
+Y = array(1, dim = c(D,A,Q))#
+for (a in 1:A) {#
+	Y[,a,2] = 1* (Montgomery$manager_gender[a]=="Female")#
+	Y[,a,3] = 1* (Montgomery$manager_department[a]=="County Manager")#
+}#
+timeunit = 3600#
+Y[1,,6] = rep(as.numeric(wday(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+Y[1,,7] = rep(pm(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S"))), A)#
+for (d in 2:D) {#
+	index = which(email$timepoints >= uniqtime[which(uniqtime==email$timepoints[d])-1]-7*24*timeunit & email$timepoints < email$timepoints[d])#
+	sent = email[index, 2]#
+	received = email[index, 3:(2+A)]#
+	Y[d, ,4] = tabulate(sent, A) #
+	Y[d, ,5] = colSums(received)#
+	Y[d,,6] = rep(as.numeric(wday(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+	Y[d,,7] = rep(as.numeric(pm(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S")))), A)#
+}#
+sendraw = function(data, a, r) {#
+	sum(data[,2] == a & data[, 2+r]==1)#
+}#
 #
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)
-mu
-timevec = rlnorm(A, mu, sqrt(sigma_tau))*timeunit
-timevec
-Q
-document()
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 1), 0.5*diag(1))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
+# construct recipient covariates X#
+D = length(edge)#
+A = length(Montgomery$manager_gender)#
+P = 11#
+X = array(0, dim = c(D,A,A,P))#
+X[,,,1] = 1#
+timeunit = 3600#
+for (d in 2:D) {#
+	index = which(email$timepoints >= uniqtime[which(uniqtime==email$timepoints[d])-1]-7*24*timeunit & email$timepoints < email$timepoints[d])#
+	data = email[index, ]#
+	sent = data[, 2]#
+	received = data[, 3:(2+A)]#
+	outdegree = tabulate(sent, A)#
+	indegree = colSums(received)#
+	for (a in 1:A) {#
+		for (r in c(1:A)[-a]) {#
+			X[d, a, r, 2] = outdegree[a]  #
+			X[d, a, r, 3] = indegree[r]	#
+			X[d, a, r, 4] = sendraw(data, a, r)#
+			X[d, a, r, 5] = sendraw(data, r, a)#
+			X[d, a, r, 6] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, a, h) * sendraw(data, h, r) / 10#
+				}))#
+			X[d, a, r, 7] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, h, a) * sendraw(data, r, h)#
+				})) / 10#
+			X[d, a, r, 8] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, h, a) * sendraw(data, h, r)#
+				})) / 10#
+			X[d, a, r, 9] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, a, h) * sendraw(data, r, h)#
+				}))	/10	#
+		}#
+	  X[d, a, , 10] = ifelse(outdegree[a] > 0, sum(X[d,a,,4]), 0)#
+	  X[d, a, , 11] = X[d, a, , 2] * X[d, a, , 10] / 10#
+	}#
+}#
 #
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-summary(Forward_stats[,9])
+prior.beta = list(mean = c(-3.5, rep(0, P-1)), var = 2*diag(P))#
+prior.eta = list(mean = c(7, rep(0, Q-1)), var = 2*diag(Q))#
+prior.sigma2 = list(a = 2, b = 1)#
+email$timepoints =  as.numeric(as.POSIXct(strptime(email[,1], "%d %b %Y %H:%M:%S")))#
+trim = which(email$timepoints >=7*24*timeunit+email$timepoints[1])#
+edge = edge[trim]#
+X = X[trim,,,]#
+Y = Y[trim,,]
+initial = list()#
+initial$sender = email[1:(min(trim)-1), 2]#
+initial$receiver = email[1:(min(trim)-1), 3:20]#
+initial$time = email[1:(min(trim)-1),1]
+initial$time
+as.numeric(as.POSIXct(strptime(initial$time, "%d %b %Y %H:%M:%S")))
+max(as.numeric(as.POSIXct(strptime(initial$time, "%d %b %Y %H:%M:%S"))))
+email[min(trim-1), 21]
 document()
-Schein <- Schein(100, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-head(Forward_stats)
-summary(Forward_stats[,9])
-summary(Backward_stats[,9])
-Q
+check()
 document()
-Schein <- Schein(100, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-sigma_tau.new
-sigma_tau
-prior.new3
-prior.old3
-Timepartsum(mu, sqrt(sigma_tau.new), senders[edge.trim], timeinc[edge.trim])
-post.old3
-prior.new3+post.new3-prior.old3-post.old3
-plot(seq(0.1, 5, by = 0.01), sapply(seq(0.1, 5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim])))
-which(sapply(seq(0.1, 5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))==max(sapply(seq(0.1, 5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))))
-seq(0.1, 5, by = 0.01)[20]
-Timepartsum(mu, sqrt(0.29), senders[edge.trim], timeinc[edge.trim])
-Timepartsum(mu, sqrt(0.291), senders[edge.trim], timeinc[edge.trim])
-Timepartsum(mu, sqrt(0.2988366#
-), senders[edge.trim], timeinc[edge.trim])
-post.old2
-post.old3
-etamat
-Timepartsum(mu, sqrt(sigma_tau), senders[edge.trim], timeinc[edge.trim])
-eta.old1
-eta.old
-eta.old[1]
-log(dinvgamma(sigma_tau, prior.tau[1], prior.tau[2]))
-prior.old3
-Timepartsum(mu, sqrt(sigma_tau), senders[edge.trim], timeinc[edge.trim])
-post.old3
-post.old2
-post.old2 =
-Timepartsum(mu, sqrt(sigma_tau), senders[edge.trim], timeinc[edge.trim])
-post.oold2
-post.old2
-Q
+check()
+rexp
 document()
-Schein <- Schein(50000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-post.old2
-post.old3
-Q
+check()
 document()
-Schein <- Schein(50000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-post.old2
-post.new2
-mu
-etamat
-Timepartsum(mu, sqrt(sigma_tau), senders[edge.trim], timeinc[edge.trim])
-post.old3
-Q
+check()
+install()
+rlnorm
+rlnorm(1)
+set.seed(1)
+rlnorm(1)
+set.seed(1)
+log(rnorm(1))
+set.seed(1)
+rlnorm(1)
+set.seed(1)
+exp(rnorm(1))
+documen()
 document()
-Schein <- Schein(1000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-par(mfrow=c(4,4), oma = c(3,3,3,3), mar = c(2,1,1,1))#
-    GiR_PP_Plots(Forward_stats, Backward_stats)
-plot(Inference_samp$eta[1,])
-plot(Inference_samp$eta[2,])
-Q
+check()
+install()
+hi = Inference(edge, X, Y, 550, c(10,1,1), 50, prior.beta, prior.eta, prior.sigma2, initial = NULL,#
+		  proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, timedist = "lognormal")
+head(hi)
+names(hi)
+plot(hi$loglike, type = 'l')
+plot(hi$beta[,1], type = 'l')
+plot(hi$beta[,2], type = 'l')
+plot(hi$beta[,32], type = 'l')
+plot(hi$beta[,3], type = 'l')
+plot(hi$eta[,3], type = 'l')
+plot(hi$sigma2, type = 'l')
 document()
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 1), 0.5*diag(1))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(10, 10, 10)
-Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
+check()
 document()
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-#timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 3), 0.5*diag(3))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)
-bse.data
-base.data
-Outer = 1#
-Inner = c(5, 5, 5)#
-#
-Schein <- Schein(500, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-par(mfrow=c(4,4), oma = c(3,3,3,3), mar = c(2,1,1,1))#
-    GiR_PP_Plots(Forward_stats, Backward_stats)
-head(Forward_stats)
-summary(Forward_stats[,11])
-summary(Backward_stats[,11])
-Q
-document()
-Outer = 1#
-Inner = c(5, 5, 5)#
-#
-Schein <- Schein(50000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-mu
-eta.old
-eta.new
-timemat
-Q
-document()
-Outer = 1#
-Inner = c(5, 5, 5)#
-#
-Schein <- Schein(50000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-loglike.diff
-mu
-etamat
-prior.new3
-prior.old3
-sigma_tau
-sigma_tau.new
-post.old3
-post.new2
-post.new3
-plot(seq(0.1, 5, by = 0.01), sapply(seq(0.1, 5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim])))
-which(sapply(seq(0.1, 5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))==max(sapply(seq(0.1, 5, by = 0.01), function(x) Timepartsum(mu, sqrt(x), senders[edge.trim], timeinc[edge.trim]))))
-seq(0.1, 5, by = 0.01)[491]
-Q
-document()
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-timestat = c("timeofday", "dayofweek")#
-#timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 3), 0.5*diag(3))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(10, 10, 10)
-library(MulticastNetwork)#
-library(FastGP)#
-library(MCMCpack)#
-library(LaplacesDemon)#
-set.seed(526113322)#
-nDocs = 100#
-node = 1:4#
-netstat = c("dyadic")#
-#timestat = c("timeofday", "dayofweek")#
-timestat = c()#
-L = 3#
-P = 6#
-prior.b = list(rep(0.5, P), 0.5* diag(P))#
-prior.delta = c(-4, 0.1)#
-#prior.eta = list(rep(2.5, length(node) + length(timestat)), 0.5*diag(length(node) +length(timestat)))#
-prior.eta = list(rep(2.5, 1), 0.5*diag(1))#
-prior.tau =  c(2,1)#
-sigma.Q = c(0.075, 0.005, 0.25, 0.05)#
-#
-b = prior.b[[1]]#
-eta = prior.eta[[1]]#
-delta = prior.delta[1]#
-sigma_tau = prior.tau[2]/(prior.tau[1]-1)#
-support = gibbs.measure.support(length(node)-1)#
-base.data = GenerateDocs(500, node, b, eta, delta, sigma_tau, support, netstat, timestat,#
-                        base.data= NULL, backward = FALSE, base = TRUE)#
-Outer = 5#
-Inner = c(10, 10, 10)
-Schein <- Schein(5000, nDocs, node, prior.b, prior.delta, prior.eta, prior.tau, sigma.Q, Outer, Inner,#
-               netstat = c("dyadic"), timestat = timestat,#
-              base.data = base.data, generate_PP_plots = TRUE)
-par(mfrow=c(4,4), oma = c(3,3,3,3), mar = c(2,1,1,1))#
-    GiR_PP_Plots(Forward_stats, Backward_stats)
-summary(Forward_stats[,9])
-summary(Backard_stats[,9])
-summary(Backward_stats[,9])
-summary(Backward_stats[,7])
-summary(Forward_stats[,7])
-Q
+check()
+install()
