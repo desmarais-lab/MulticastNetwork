@@ -29,6 +29,10 @@ Timepartsum <- function(mumat, sigma_tau, senders, timestamps) {
     .Call('_MulticastNetwork_Timepartsum', PACKAGE = 'MulticastNetwork', mumat, sigma_tau, senders, timestamps)
 }
 
+Timepartsum2 <- function(mumat, senders, timestamps) {
+    .Call('_MulticastNetwork_Timepartsum2', PACKAGE = 'MulticastNetwork', mumat, senders, timestamps)
+}
+
 Timepartindiv <- function(mu, sigma_tau, timestamp) {
     .Call('_MulticastNetwork_Timepartindiv', PACKAGE = 'MulticastNetwork', mu, sigma_tau, timestamp)
 }

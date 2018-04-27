@@ -155,7 +155,7 @@ Generate = function(D, A, beta, eta, sigma2, X, Y, support, timeunit = 3600, tim
 		if (timedist == "lognormal") {
             tau = rlnorm(A, mu[d, ], sqrt(sigma2))
         } else {
-            tau = rexp(A, exp(mu[d, ]))
+            tau = rexp(A, 1/exp(mu[d, ]))
         }
 		for (n in 1:length(which(tau == min(tau)))) {
 		a_d = which(tau == min(tau))
@@ -202,7 +202,7 @@ PPC = function(D, beta, eta, sigma2, X, Y, timeunit = 3600, u, lasttime, timedis
     if (timedist == "lognormal") {
         tau = rlnorm(A, mu[d, ], sqrt(sigma2))
     } else {
-        tau = rexp(A, exp(mu[d, ]))
+        tau = rexp(A, 1/exp(mu[d, ]))
     }
     for (n in 1:length(which(tau == min(tau)))) {
       a_d = which(tau == min(tau))

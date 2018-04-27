@@ -101,6 +101,24 @@ double Timepartsum (NumericMatrix mumat, double sigma_tau,
     return timesum;
 }
 
+// **********************************************************//
+//           Likelihood evaluation of Timepart--exp          //
+// **********************************************************//
+// [[Rcpp::export]]
+double Timepartsum2 (NumericMatrix mumat, IntegerVector senders, NumericVector timestamps){
+    int D = senders.size();
+    double timesum = 0;
+    for (unsigned int d = 0; d < D; d++) {
+        int a_d = senders[d] - 1;
+        timesum += R::dexp(timestamps[d], 1/exp(mumat(d, a_d)), TRUE);
+        for (unsigned int i = 0; i < mumat.ncol(); i++) {
+        if (i != a_d) {
+            timesum += R::pexp(timestamps[d], 1/exp(mumat(d, i)), FALSE, TRUE);
+    	  }
+        }
+    }
+    return timesum;
+}
 
 // **********************************************************//
 //              Likelihood evaluation of Timepart            //

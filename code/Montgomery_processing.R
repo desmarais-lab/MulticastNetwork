@@ -1,4 +1,6 @@
-source("/Users/bomin8319/Desktop/MulticastNetwork/code/Multicast.R")
+#source("/Users/bomin8319/Desktop/MulticastNetwork/code/Multicast.R")
+
+library(MulticastNetwork)
 library(lubridate)
 load('~/Desktop/MulticastNetwork/code/Temporal_Email_Data.Rdata')
 Montgomery = Temporal_Email_Data$Montgomery
@@ -90,7 +92,10 @@ Y = Y[trim,,]
 Montgomery_infer = Inference(edge, X, Y, 55000, c(10,1,1), 15000, prior.beta, prior.eta, prior.sigma2, initialval = NULL,
 		  proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, timedist = "lognormal")
 
-Montgomery = list(edge = edge, X = X, Y = Y, lasttime = email[min(trim-1), 21])
+dimnames(X)[[4]] = c("intercept", "outdegree", "indegree", "send", "receive", "2send", "2receive", "sibling", "cosibling", "Nreceive", "outdegree*Nrecieve")
+dimnames(Y)[[3]] = c("intercept", "female", "manager", "outdegree", "indegree", "weekend", "pm")
+
+Montgomery = list(edge = edge, X = X, Y = Y, lasttime = email[min(trim-1), 21] - initialtime )
 
 save(Montgomery, file = "Montgomery.RData")
 
@@ -102,7 +107,7 @@ initial$receiver = email[1:(min(trim)-1), 3:20]
 initial$time = email[1:(min(trim)-1),1]
 for (n in 1:500) {
   Montgomery_PPC = PPC(length(edge), A, colMeans(Montgomery_infer$beta), colMeans(Montgomery_infer$eta), 
-                       mean(Montgomery_infer$sigma2), X, Y, timeunit = 3600, lasttime = email[min(trim-1), 21], 
+                       mean(Montgomery_infer$sigma2), X, Y, timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, 
                        Montgomery_infer$u, initial =initial)
   filename = paste0("Montgomery_PPCnew", n,".RData")
   save(Montgomery_PPC, file = filename)

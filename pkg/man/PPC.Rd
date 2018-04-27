@@ -4,13 +4,11 @@
 \alias{PPC}
 \title{PPC}
 \usage{
-PPC(D, A, beta, eta, sigma2, X, Y, timeunit = 3600, u, initial = NULL,
+PPC(D, beta, eta, sigma2, X, Y, timeunit = 3600, u, lasttime,
   timedist = "lognormal")
 }
 \arguments{
 \item{D}{number of events to be generated}
-
-\item{A}{vector of node id's (ID starting from 1)}
 
 \item{beta}{P-length vector of coefficients for recipients}
 
@@ -26,7 +24,7 @@ PPC(D, A, beta, eta, sigma2, X, Y, timeunit = 3600, u, initial = NULL,
 
 \item{u}{D-length list of latent receiver vectors}
 
-\item{initial}{sender, receiver, timestamps of the events used as initia history}
+\item{lasttime}{last timestamp of the event used as initial history (in unix.time format)}
 
 \item{timedist}{lognormal or exponential (will include others)}
 }

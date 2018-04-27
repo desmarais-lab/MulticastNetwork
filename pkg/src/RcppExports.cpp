@@ -93,6 +93,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// Timepartsum2
+double Timepartsum2(NumericMatrix mumat, IntegerVector senders, NumericVector timestamps);
+RcppExport SEXP _MulticastNetwork_Timepartsum2(SEXP mumatSEXP, SEXP sendersSEXP, SEXP timestampsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type mumat(mumatSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type senders(sendersSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type timestamps(timestampsSEXP);
+    rcpp_result_gen = Rcpp::wrap(Timepartsum2(mumat, senders, timestamps));
+    return rcpp_result_gen;
+END_RCPP
+}
 // Timepartindiv
 NumericVector Timepartindiv(NumericVector mu, double sigma_tau, double timestamp);
 RcppExport SEXP _MulticastNetwork_Timepartindiv(SEXP muSEXP, SEXP sigma_tauSEXP, SEXP timestampSEXP) {
@@ -222,6 +235,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MulticastNetwork_transpose", (DL_FUNC) &_MulticastNetwork_transpose, 1},
     {"_MulticastNetwork_tabulateC", (DL_FUNC) &_MulticastNetwork_tabulateC, 2},
     {"_MulticastNetwork_Timepartsum", (DL_FUNC) &_MulticastNetwork_Timepartsum, 4},
+    {"_MulticastNetwork_Timepartsum2", (DL_FUNC) &_MulticastNetwork_Timepartsum2, 3},
     {"_MulticastNetwork_Timepartindiv", (DL_FUNC) &_MulticastNetwork_Timepartindiv, 3},
     {"_MulticastNetwork_multinom_vec", (DL_FUNC) &_MulticastNetwork_multinom_vec, 1},
     {"_MulticastNetwork_normalizer", (DL_FUNC) &_MulticastNetwork_normalizer, 1},
