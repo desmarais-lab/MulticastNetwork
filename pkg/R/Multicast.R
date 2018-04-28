@@ -409,12 +409,12 @@ PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, p
     	missingr = which(missing[[2]][d,]==1)
     	data[[d]][[2]][missingr] = u[[d]][senders[d], missingr]
         for (it in 1:length(missingr)) {
-        	receiverpredict[iter3, o] = data[[d]][[2]][missingr[it]]
+        	receiverpredict[iter2, o] = data[[d]][[2]][missingr[it]]
         	iter2 = iter2+1
         }
     }  
     for (d in timemissing) {
-    	tau_new = rlnorm(1, mu[d, senders[d]], MHprop.var)
+    	tau_new = rnorm(1, timeinc[d], MHprop.var)
     	prior.new0 = dlnorm(tau_new, mu[d, senders[d]], sqrt(sigma2), TRUE)
     	prior.old0 = dlnorm(timeinc[d], mu[d, senders[d]], sqrt(sigma2), TRUE)
     	post.new0 = Timepartindiv(mu[d,], sqrt(sigma2), tau_new)[senders[d]]

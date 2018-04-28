@@ -1,4 +1,5 @@
-source("/Users/bomin8319/Desktop/MulticastNetwork/code/Multicast.R")
+#source("/Users/bomin8319/Desktop/MulticastNetwork/code/Multicast.R")
+library(MulticastNetwork)
 library(lubridate)
 load('~/Desktop/MulticastNetwork/code/Temporal_Email_Data.Rdata')
 Montgomery = Temporal_Email_Data$Montgomery
@@ -44,7 +45,7 @@ sendraw = function(data, a, r) {
 # construct recipient covariates X
 D = length(edge)
 A = length(Montgomery$manager_gender)
-P = 9
+P = 11
 X = array(0, dim = c(D,A,A,P))
 X[,,,1] = 1
 timeunit = 3600
@@ -72,8 +73,10 @@ for (d in 2:D) {
 				})) / 10
 			X[d, a, r, 9] = sum(sapply(c(1:A)[-c(a,r)], function(h) {
 				sendraw(data, a, h) * sendraw(data, r, h)
-				}))	/10		
+				}))	/10	
 		}
+	  X[d, a, , 10] = ifelse(outdegree[a] > 0, sum(X[d,a,,4]), 0)
+	  X[d, a, , 11] = X[d, a, , 2] * X[d, a, , 10] / 10
 	}
 }
 
@@ -96,7 +99,7 @@ missing[[3]] = matrix(0, nrow = dim(Y)[1], 1)
 missing[[3]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1
 
 
-load("/Users/bomin8319/Desktop/MulticastNetwork/code/Montgomery_infer.RData")
+load("/Users/bomin8319/Desktop/MulticastNetwork/Montgomery_infer.RData")
 initial = list()
 initial$beta = colMeans(Montgomery_infer$beta)
 initial$eta =  colMeans(Montgomery_infer$eta)
@@ -106,7 +109,7 @@ setwd("/Users/bomin8319/Desktop/MulticastNetwork/code/PPE")
 Montgomery_PPE = list()
 for (n in 1:500) {
 	print(n)
-  Montgomery_PPE[[n]] = PPE(edge, missing, X, Y, 50, c(5,5,1), 0, prior.beta, prior.eta, prior.sigma2, initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime)
+  Montgomery_PPE[[n]] = PPE(edge, missing, X, Y, 50, c(5,5,1), 0, prior.beta, prior.eta, prior.sigma2, initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, MHprop.var = 0.1, timedist = "lognormal")
   filename = paste0("Montgomery_PPE", n,".RData")
   save(Montgomery_PPE, file = filename)
 }
