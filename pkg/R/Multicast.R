@@ -168,53 +168,6 @@ Generate = function(D, A, beta, eta, sigma2, X, Y, support, timeunit = 3600, tim
 	return(list(data = data, u = u, beta = beta, eta = eta, sigma2 = sigma2))
 }
 
-#' @title PPC
-#' @description Generate a collection of events according to the posterior predictive checks
-#'
-#' @param D number of events to be generated
-#' @param beta P-length vector of coefficients for recipients
-#' @param eta Q-length vector of coefficients for timestamps
-#' @param sigma2 variance parameter for the timestamps
-#' @param X an array of dimension D x A x A x P for covariates used for Gibbs measure
-#' @param Y an array of dimension D x A x Q for covariates used for timestamps GLM
-#' @param timeunit hour (= 3600) or day (=3600*24) and so on
-#' @param u D-length list of latent receiver vectors
-#' @param lasttime last timestamp of the event used as initial history (in unix.time format)
-#' @param timedist lognormal or exponential (will include others)
-#'
-#' @return generated data including (sender, recipients, timestamp)
-#'
-#' @export
-PPC = function(D, beta, eta, sigma2, X, Y, timeunit = 3600, u, lasttime, timedist = "lognormal") {
-  P = length(beta)
-  Q = length(eta)
-  A = dim(X)[2]
-  u = u
-  data = list()
-  lambda = list()
-  mu = matrix(NA, D, A)
-  t_d = lasttime
-  d = 1
-  while (d <= D) {
-    lambda[[d]] = lambda_cpp(X[d,,,], beta)
-    u[[d]] = u_cpp_d(lambda[[d]], u[[d]])
-    mu[d, ] = mu_cpp_d(Y[d,,], eta)
-    if (timedist == "lognormal") {
-        tau = rlnorm(A, mu[d, ], sqrt(sigma2))
-    } else {
-        tau = rexp(A, 1/exp(mu[d, ]))
-    }
-    for (n in 1:length(which(tau == min(tau)))) {
-      a_d = which(tau == min(tau))
-      r_d = u[[d]][a_d,]
-      t_d = t_d + min(tau) * timeunit
-      data[[d]] = list(a_d = a_d, r_d = r_d, t_d = t_d)
-      d = d+1
-    }
-  }
-  return(data)
-}
-
 #' @title Inference
 #' @description Iterate Markov Chain Monte Carlo (MCMC) algorithm to infer the parameters
 #'
@@ -331,6 +284,52 @@ Inference = function(data, X, Y, outer, inner, burn, prior.beta, prior.eta, prio
 		}		
 	}
 	return(list(u = u, beta = betamat, eta = etamat, sigma2 = sigma2mat, loglike = loglike))
+}
+
+
+#' @title PPC
+#' @description Generate a collection of events according to the posterior predictive checks
+#'
+#' @param D number of events to be generated
+#' @param beta P-length vector of coefficients for recipients
+#' @param eta Q-length vector of coefficients for timestamps
+#' @param sigma2 variance parameter for the timestamps
+#' @param X an array of dimension D x A x A x P for covariates used for Gibbs measure
+#' @param Y an array of dimension D x A x Q for covariates used for timestamps GLM
+#' @param timeunit hour (= 3600) or day (=3600*24) and so on
+#' @param u D-length list of latent receiver vectors
+#' @param timedist lognormal or exponential (will include others)
+#'
+#' @return generated data including (sender, recipients, timestamp)
+#'
+#' @export
+PPC = function(D, beta, eta, sigma2, X, Y, timeunit = 3600, u, timedist = "lognormal") {
+    P = length(beta)
+    Q = length(eta)
+    A = dim(X)[2]
+    u = u
+    data = list()
+    lambda = list()
+    mu = matrix(NA, D, A)
+    d = 1
+    while (d <= D) {
+        lambda[[d]] = lambda_cpp(X[d,,,], beta)
+        u[[d]] = u_cpp_d(lambda[[d]], u[[d]])
+        mu[d, ] = mu_cpp_d(Y[d,,], eta)
+        if (timedist == "lognormal") {
+            tau = rlnorm(A, mu[d, ], sqrt(sigma2))
+        } else {
+            tau = rexp(A, 1/exp(mu[d, ]))
+        }
+        for (n in 1:length(which(tau == min(tau)))) {
+            a_d = which(tau == min(tau))
+            r_d = u[[d]][a_d,]
+            t_d = min(tau) * timeunit
+            data[[d]] = list(a_d = a_d, r_d = r_d, t_d = t_d)
+            d = d+1
+        }
+    }
+    return(data)
 }
 
 

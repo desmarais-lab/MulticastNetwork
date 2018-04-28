@@ -4,8 +4,7 @@
 \alias{PPC}
 \title{PPC}
 \usage{
-PPC(D, beta, eta, sigma2, X, Y, timeunit = 3600, u, lasttime,
-  timedist = "lognormal")
+PPC(D, beta, eta, sigma2, X, Y, timeunit = 3600, u, timedist = "lognormal")
 }
 \arguments{
 \item{D}{number of events to be generated}
@@ -23,8 +22,6 @@ PPC(D, beta, eta, sigma2, X, Y, timeunit = 3600, u, lasttime,
 \item{timeunit}{hour (= 3600) or day (=3600*24) and so on}
 
 \item{u}{D-length list of latent receiver vectors}
-
-\item{lasttime}{last timestamp of the event used as initial history (in unix.time format)}
 
 \item{timedist}{lognormal or exponential (will include others)}
 }

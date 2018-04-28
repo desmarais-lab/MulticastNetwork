@@ -23,6 +23,7 @@ Y = Y[,,c(1:5)]    #use few covariates for this application
 
 P = dim(X)[4]
 Q = dim(Y)[3]
+A = dim(Y)[2]
 #run inference to estimate beta, eta, u, and sigma2
 prior.beta = list(mean = rep(0, P), var = 2*diag(P))
 prior.eta = list(mean = rep(0, Q), var = 2*diag(Q))
@@ -49,5 +50,32 @@ plot(Montgomery_infer$loglike, type = 'l')
 
 # generate data from the model estimates
 Montgomery_PPC = PPC(length(edge), beta = colMeans(Montgomery_infer$beta), eta = colMeans(Montgomery_infer$eta), 
-                     sigma2 = mean(Montgomery_infer$sigma2), X, Y, timeunit = 3600, u = Montgomery_infer$u, 
-        			 lasttime = Montgomery$lasttime, timedist = "lognormal")
+                     sigma2 = mean(Montgomery_infer$sigma2), X, Y, timeunit = 3600, u = Montgomery_infer$u, timedist = "lognormal")
+
+# prediction experiment
+# hide 10% of senders, receivers, and timestamps
+set.seed(1)
+missing = list()
+#missingness of senders
+missing[[1]] = matrix(0, nrow = dim(Y)[1], 1)    
+missing[[1]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1
+#missingness of receivers
+missing[[2]] = matrix(0, nrow = dim(Y)[1], A)    
+missing[[2]][sample(1:(dim(Y)[1]*A), 1118, replace = FALSE)] = 1
+#missingness of timestamps
+missing[[3]] = matrix(0, nrow = dim(Y)[1], 1)
+missing[[3]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1
+
+# use parameter estimates as initial values
+initial = list()
+initial$beta = colMeans(Montgomery_infer$beta)
+initial$eta =  colMeans(Montgomery_infer$eta)
+initial$u = Montgomery_infer$u
+initial$sigma2 = mean(Montgomery_infer$sigma2)
+
+#will generate 10 predictions (iterate two steps: imputation -> inference)
+Montgomery_PPE = PPE(edge, missing, X, Y, 10, c(5,5,1), 0, prior.beta, prior.eta, prior.sigma2, 
+                     initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, 
+                     lasttime = Montgomery$lasttime, MHprop.var = 0.1, timedist = "lognormal")
+
+
