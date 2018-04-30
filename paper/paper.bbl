@@ -7,10 +7,73 @@ ben Aaron, J., Denny, M., Desmarais, B. \harvardand\ Wallach, H.
   experiment evaluating openness in local governments', {\em Public
   Administration Review} {\bf 77}(1),~68--77.
 
+\harvarditem[Blei et~al.]{Blei, Ng \harvardand\ Jordan}{2003}{Blei2003}
+Blei, D.~M., Ng, A.~Y. \harvardand\ Jordan, M.~I.  \harvardyearleft
+  2003\harvardyearright , `Latent dirichlet allocation', {\em J. Mach. Learn.
+  Res.} {\bf 3},~993--1022.
+
+\harvarditem[Burgess et~al.]{Burgess, Jackson \harvardand\
+  Edwards}{2004}{burgess2004email}
+Burgess, A., Jackson, T. \harvardand\ Edwards, J.  \harvardyearleft
+  2004\harvardyearright , Email overload: Tolerance levels of employees within
+  the workplace, {\em in} `Innovations Through Information Technology: 2004
+  Information Resources Management Association International Conference, New
+  Orleans, Louisiana, USA, May 23-26, 2004', Vol.~1, IGI Global, p.~205.
+
+\harvarditem{Butts}{2008}{Butts2008}
+Butts, C.~T.  \harvardyearleft 2008\harvardyearright , `A relational event
+  framework for social action', {\em Sociological Methodology} {\bf
+  38}(1),~155--200.
+
+\harvarditem[Chatterjee et~al.]{Chatterjee, Diaconis
+  et~al.}{2013}{chatterjee2013estimating}
+Chatterjee, S., Diaconis, P. et~al.  \harvardyearleft 2013\harvardyearright ,
+  `Estimating and understanding exponential random graph models', {\em The
+  Annals of Statistics} {\bf 41}(5),~2428--2461.
+
+\harvarditem{Desmarais \harvardand\ Cranmer}{2017}{desmarais2017statistical}
+Desmarais, B.~A. \harvardand\ Cranmer, S.~J.  \harvardyearleft
+  2017\harvardyearright , Statistical inference in political networks research,
+  {\em in} J.~N. Victor, A.~H. Montgomery \harvardand\ M.~Lubell, eds, `The
+  Oxford Handbook of Political Networks', Oxford University Press.
+
 \harvarditem{Fellows \harvardand\ Handcock}{2017}{fellows2017removing}
 Fellows, I. \harvardand\ Handcock, M.  \harvardyearleft 2017\harvardyearright ,
   Removing phase transitions from gibbs measures, {\em in} `Artificial
   Intelligence and Statistics', pp.~289--297.
+
+\harvarditem[Hunter et~al.]{Hunter, Handcock, Butts, Goodreau \harvardand\
+  Morris}{2008}{hunter2008ergm}
+Hunter, D.~R., Handcock, M.~S., Butts, C.~T., Goodreau, S.~M. \harvardand\
+  Morris, M.  \harvardyearleft 2008\harvardyearright , `ergm: A package to fit,
+  simulate and diagnose exponential-family models for networks', {\em Journal
+  of statistical software} {\bf 24}(3),~nihpa54860.
+
+\harvarditem{Kanungo \harvardand\ Jain}{2008}{kanungo2008modeling}
+Kanungo, S. \harvardand\ Jain, V.  \harvardyearleft 2008\harvardyearright ,
+  `Modeling email use: a case of email system transition', {\em System Dynamics
+  Review} {\bf 24}(3),~299--319.
+
+\harvarditem[Krafft et~al.]{Krafft, Moore, Desmarais \harvardand\
+  Wallach}{2012}{Krafft2012}
+Krafft, P., Moore, J., Desmarais, B. \harvardand\ Wallach, H.~M.
+  \harvardyearleft 2012\harvardyearright , Topic-partitioned multinetwork
+  embeddings, {\em in} F.~Pereira, C.~Burges, L.~Bottou \harvardand\
+  K.~Weinberger, eds, `Advances in Neural Information Processing Systems 25',
+  Curran Associates, Inc., pp.~2807--2815.
+
+\harvarditem[Lim et~al.]{Lim, Chen \harvardand\ Buntine}{2013}{lim2013twitter}
+Lim, K.~W., Chen, C. \harvardand\ Buntine, W.  \harvardyearleft
+  2013\harvardyearright , Twitter-network topic model: A full bayesian
+  treatment for social network and text modeling, {\em in} `NIPS2013 Topic
+  Model workshop', pp.~1--5.
+
+\harvarditem[McCallum et~al.]{McCallum, Corrada-Emmanuel \harvardand\
+  Wang}{2005}{mccallum2005author}
+McCallum, A., Corrada-Emmanuel, A. \harvardand\ Wang, X.  \harvardyearleft
+  2005\harvardyearright , The author-recipient-topic model for topic and role
+  discovery in social networks, with application to enron and academic email,
+  {\em in} `Workshop on Link Analysis, Counterterrorism and Security', p.~33.
 
 \harvarditem[Morgan et~al.]{Morgan, Bapat \harvardand\
   Kobayashi}{2014}{morgan2014threat}
@@ -25,6 +88,16 @@ Perry, P.~O. \harvardand\ Wolfe, P.~J.  \harvardyearleft 2013\harvardyearright
   of the Royal Statistical Society: Series B (Statistical Methodology)} {\bf
   75}(5),~821--849.
 
+\harvarditem{Pew}{2016}{pew2016}
+Pew, R.~C.  \harvardyearleft 2016\harvardyearright , `Social media fact sheet',
+  {\em Accessed on 03/07/17} .
+
+\harvarditem[Robins et~al.]{Robins, Pattison, Kalish \harvardand\
+  Lusher}{2007}{robins2007introduction}
+Robins, G., Pattison, P., Kalish, Y. \harvardand\ Lusher, D.  \harvardyearleft
+  2007\harvardyearright , `An introduction to exponential random graph (p*)
+  models for social networks', {\em Social networks} {\bf 29}(2),~173--191.
+
 \harvarditem{Rubin et~al.}{1984}{rubin1984bayesianly}
 Rubin, D.~B. et~al.  \harvardyearleft 1984\harvardyearright , `Bayesianly
   justifiable and relevant frequency calculations for the applied
@@ -34,6 +107,11 @@ Rubin, D.~B. et~al.  \harvardyearleft 1984\harvardyearright , `Bayesianly
 Snijders, T.~A.  \harvardyearleft 1996\harvardyearright , `Stochastic
   actor-oriented models for network change', {\em Journal of mathematical
   sociology} {\bf 21}(1-2),~149--172.
+
+\harvarditem{Sz{\'o}stek}{2011}{szostek2011dealing}
+Sz{\'o}stek, A.~M.  \harvardyearleft 2011\harvardyearright , `?dealing with my
+  emails?: Latent user needs in email management.', {\em Computers in Human
+  Behavior} {\bf 27}(2),~723--729.
 
 \harvarditem{Tanner \harvardand\ Wong}{1987}{tanner1987calculation}
 Tanner, M.~A. \harvardand\ Wong, W.~H.  \harvardyearleft 1987\harvardyearright

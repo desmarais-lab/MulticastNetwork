@@ -68,6 +68,8 @@ the model to analyze emails sent between department managers in Montgomery count
 \newpage
 \spacingset{1.45} % DON'T change the spacing!
 \section{Introduction}\label{sec:intro}
+In recent decades, real-time digitized textual communication has developed into a ubiquitous form of social and professional interaction \citep{kanungo2008modeling, szostek2011dealing, burgess2004email, pew2016}. From the perspective of the computational social scientist, this has lead to a growing need for methods of modeling interactions that manifest as text exchanged in continuous time. A number of models that build upon topic modeling through Latent Dirichlet Allocation \citep{Blei2003} to incorporate link data as well as textual content have been developed recently \citep{mccallum2005author,lim2013twitter,Krafft2012}. These models are innovative in their extensions that incorporate network tie information. However, none of the models that are currently available in the literature integrate the rich random-graph structure offered by state of the art models for network structure---such as the exponential random graph model (ERGM) \citep{robins2007introduction,chatterjee2013estimating,hunter2008ergm}. The ERGM is the canonical model for modeling the structure of a static network. It is flexible enough to specify a generative model that accounts for nearly any pattern of tie formation (e.g., reciprocity, clustering, popularity effects) \citep{desmarais2017statistical}. Several models have been developed that handle time-stamped ties in which tie formation is governed by structural dynamics similar to those used in ERGMs \citep{PerryWolfe2012,Butts2008,snijders1996stochastic}, however, none of the models explicitly allows multicast---edge with single sender multiple recipients---which is a common property of digitalized textual interactions such as emails and online messages. We develop the continuous-time multicast network model which simultaneously models the multiple recipient selection processs and the time-to-next interactions which jointly govern time-stamped tie formation.
+
 \section{A Continuous-time Multicast Network Model}\label{sec:generative process}
 Data generated under the model consists of $D$ unique edges. A single edge, indexed by $d \in [D]$, is represented by the three components: the sender $a_d \in [A]$, an indicator vector of recipients $\boldsymbol{r}_d = \{u_{dr} \}_{r=1}^{A}$, and the timestamp $t_d \in (0, \infty)$. For simplicity, we assume that edges are ordered by time such that $t_d \leq t_{d+1}$.
 \subsection{Tie Generating Process}\label{subsec: Tie}
@@ -202,15 +204,15 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
  }
  	Summarize the results with: \\last chain of $\boldsymbol{b}$, and last chain of $\boldsymbol{\eta}$ and $\sigma_\tau^2$ 
  \end{algorithm}
- 
+ \iffalse
  \section{Getting It Right}\label{sec:GiR}
  \begin{figure}[H]
  	\centering
- 	\includegraphics[width=1\textwidth, trim = 0.5cm 1cm 0.5cm 1cm, clip=true]{Multicast_Schein.pdf}	
+ 	\includegraphics[width=1\textwidth, trim = 0.5cm 1cm 0.5cm 1cm, clip=true]{plots_paper/Multicast_Schein.pdf}	
  	\caption {Schein test results when we run 5 outer iterations and 5 inner iterations using 20,000 samples (with $D = 100, A = 5, P = 5, Q = 3$)}
  	\label{figure:GiR}
  \end{figure}
- 
+\fi
 \section{Case Studies}\label{sec:case studies}
 We now present two case studies applying our method to 1) county government emails (single sender multiple recipients) and 2) international sanctions (multiple senders single recipient). For each case study,
 we formulate the network statistics $\boldsymbol{x}$ and timestamp statistics $\boldsymbol{y}$ and ground them in
@@ -245,6 +247,18 @@ For time-related covariates $\boldsymbol{y}_{ad}$ in Section \ref{subsec:Time}, 
 	\item[7.] am/pm $\boldsymbol{y}_{ad7}= I(t_{d-1}= \mbox{pm})$;
 \end{itemize}
 \subsubsection{Parameter Estimation and Interpretation}\label{subsubsec:Result_email}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{plots_paper/best-1.png}	
+		\caption {Posterior distribution of $\boldsymbol{b}$ estimates.}
+		\label{figure:betaresults}
+	\end{figure}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=0.89\textwidth]{plots_paper/etaest-1.png}	
+		\caption {Posterior distribution of $\boldsymbol{\eta}$ estimates.}
+		\label{figure:etaresults}
+	\end{figure}
 \subsection{Case Study 2: International Sanctions}\label{subsec:International Sanctions}
 \subsubsection{Threat and Imposition of Sanctions (TIES) Data}\label{subsubsec:TIES}
 We processed the threat and imposition of sanctions (TIES) data \citep{morgan2014threat} that includes the records of international sanctions---defined as actions that one or more countries take to limit or end their economic relations with a target country in an effort to persuade that country to change one or more of its policies---from 1945 to 2005.

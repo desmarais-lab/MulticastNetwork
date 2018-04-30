@@ -1,0 +1,129 @@
+library(MulticastNetwork)
+load('~/Desktop/MulticastNetwork/Lab/Montgomery.RData')
+load("/Users/bomin8319/Desktop/MulticastNetwork/Montgomery_infer.RData")
+head(Montgomery_infer)
+names(Montgomery_infer)
+Montgomery_infer$beta
+plot(Montgomery_infer$beta[,1], type = 'l')
+dim(Montgomery_infer$beta)
+library(ggplot2)
+library(anytime)#
+library(ggplot2)#
+library(MCMCpack)#
+library(reshape2)#
+library(gridExtra)#
+library(ggrepel)#
+library(RColorBrewer)
+dimnames(Montgomery$X)
+colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]
+head(Montgomery_infer$beta)
+40000/40
+beta = data.frame(sapply(1:1000, function(i) Montgomery_infer$beta[i,]))
+head(beta)
+beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[i,])))
+head(bet)
+head(beta)
+colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]#
+beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[i,])))#
+colnames(beta)[6:7] = c("twosend", "tworeceive")
+head(beta)
+dim(beta)
+colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]#
+beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[40*i,])))#
+colnames(beta)[6:7] = c("twosend", "tworeceive")
+head(beta)
+beta.est = reshape(beta)
+beta.est = melt(beta)
+head(beta.est)
+ggplot(data = beta.est, aes(y = value, colour = variable)) + geom_boxplot()
+ggplot(data = beta.est, aes(x = variable, y = value, colour = variable)) + geom_boxplot()
+ggplot(data = beta.est[,-1], aes(x = variable, y = value, colour = variable)) + geom_boxplot()
+head(beta)
+beta.est = melt(beta[-1])#
+ggplot(data = beta.est, aes(x = variable, y = value, colour = variable)) + geom_boxplot()
+plot(beta[,7], type = 'l')
+ggplot(data = beta.est, aes(x = variable, y = value, colour = variable)) + geom_boxplot()
+colnames(beta.est)[2] = "beta"#
+ggplot(data = beta.est, aes(x = variable, y = beta, colour = variable)) + geom_boxplot()
+ggplot(data = beta.est, aes(x = variable, y = beta, fill = variable)) + geom_boxplot()
+ggplot(data = beta.est, aes(x = variable, y = beta, fill = variable)) + geom_boxplot()+coord_flip()
+ggplot(data = beta.est, aes(x = variable, y = beta, fill = variable)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "black", size = 0.5)
+ggplot(data = beta.est, aes(x = variable, y = beta, fill = variable)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5)
+ggplot(data = beta.est, aes(x = variable, y = beta, fill = variable)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.2)
+colnames(beta.est)[1] = "network statistics"#
+colnames(beta.est)[2] = "beta"#
+ggplot(data = beta.est, aes(x = network statistics, y = beta, fill = variable)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.2)
+colnames(beta.est)[1] = "netstats"#
+colnames(beta.est)[2] = "beta"#
+ggplot(data = beta.est, aes(x = netstats, y = beta, fill = variable)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.2)
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "netstats"#
+colnames(beta.est)[2] = "beta"#
+ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.2)
+ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.3, linetype = "dashed")
+ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")
+ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(y = NULL)
+ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL)
+ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Network Statistics")
+colnames(Montgomery_infer$eta) = dimnames(Montgomery$Y)[[3]]#
+eta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$eta[40*i,])))#
+3ta.est = melt(3eta[-1])#
+colnames(eta.est)[1] = "netstats"#
+colnames(eta.est)[2] = "eta"
+colnames(Montgomery_infer$eta) = dimnames(Montgomery$Y)[[3]]#
+eta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$eta[40*i,])))#
+eta.est = melt(eeta[-1])#
+colnames(eta.est)[1] = "netstats"#
+colnames(eta.est)[2] = "eta"
+colnames(Montgomery_infer$eta) = dimnames(Montgomery$Y)[[3]]#
+eta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$eta[40*i,])))#
+eta.est = melt(eta[-1])#
+colnames(eta.est)[1] = "netstats"#
+colnames(eta.est)[2] = "eta"
+head(eta.est)
+ggplot(data = eta.est, aes(x = netstats, y = eta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Time-related Statistics")
+colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]#
+beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[40*i,])))#
+colnames(beta)[6:7] = c("twosend", "tworeceive")#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "netstats"#
+colnames(beta.est)[2] = "beta"#
+ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "X")
+colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]#
+beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[40*i,])))#
+colnames(beta)[6:7] = c("twosend", "tworeceive")#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "netstats"#
+colnames(beta.est)[2] = "beta"#
+ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+colnames(Montgomery_infer$eta) = dimnames(Montgomery$Y)[[3]]#
+eta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$eta[40*i,])))#
+eta.est = melt(eta[-1])#
+colnames(eta.est)[1] = "netstats"#
+colnames(eta.est)[2] = "eta"#
+ggplot(data = eta.est, aes(x = netstats, y = eta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]#
+beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[40*i,])))#
+colnames(beta)[6:7] = c("twosend", "tworeceive")#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "netstats"#
+colnames(beta.est)[2] = "b"#
+ggplot(data = beta.est, aes(x = netstats, y = b, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]#
+beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[40*i,])))#
+colnames(beta)[6:7] = c("twosend", "tworeceive")
+dim(beta)
+head(beta)
+beta = beta[,c(1,11:2)]
+beta.est = melt(beta[-1])
+colnames(beta.est)[1] = "netstats"#
+colnames(beta.est)[2] = "b"
+head(beta.est)
+ggplot(data = beta.est, aes(x = netstats, y = b, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]#
+beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[40*i,])))#
+colnames(beta)[6:7] = c("twosend", "tworeceive")#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "netstats"#
+colnames(beta.est)[2] = "b"#
+ggplot(data = beta.est, aes(x = netstats, y = b, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
