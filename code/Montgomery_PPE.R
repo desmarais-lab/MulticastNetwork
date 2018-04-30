@@ -115,4 +115,20 @@ for (n in 1:500) {
 }
 
 
+load("/Users/bomin8319/Desktop/MulticastNetwork/Montgomery_infer2.RData")
+initial2 = list()
+initial2$beta = colMeans(Montgomery_infer2$beta)
+initial2$eta =  colMeans(Montgomery_infer2$eta)
+initial2$u = Montgomery_infer2$u
+initial2$sigma2 = mean(Montgomery_infer2$sigma2)
+
+Montgomery_PPE2 = list()
+for (n in 1:500) {
+	print(n)
+  Montgomery_PPE2[[n]] = PPE(edge, missing, X, Y, 50, c(5,5,1), 0, prior.beta, prior.eta, prior.sigma2, initial = initial2, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, MHprop.var = 0.1, timedist = "exponential")
+  filename = paste0("Montgomery_PPE2", n,"exp.RData")
+  save(Montgomery_PPE2, file = filename)
+}
+
+
 

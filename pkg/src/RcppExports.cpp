@@ -119,6 +119,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// Timepartindiv2
+NumericVector Timepartindiv2(NumericVector mu, double timestamp);
+RcppExport SEXP _MulticastNetwork_Timepartindiv2(SEXP muSEXP, SEXP timestampSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< double >::type timestamp(timestampSEXP);
+    rcpp_result_gen = Rcpp::wrap(Timepartindiv2(mu, timestamp));
+    return rcpp_result_gen;
+END_RCPP
+}
 // multinom_vec
 int multinom_vec(NumericVector x);
 RcppExport SEXP _MulticastNetwork_multinom_vec(SEXP xSEXP) {
@@ -237,6 +249,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MulticastNetwork_Timepartsum", (DL_FUNC) &_MulticastNetwork_Timepartsum, 4},
     {"_MulticastNetwork_Timepartsum2", (DL_FUNC) &_MulticastNetwork_Timepartsum2, 3},
     {"_MulticastNetwork_Timepartindiv", (DL_FUNC) &_MulticastNetwork_Timepartindiv, 3},
+    {"_MulticastNetwork_Timepartindiv2", (DL_FUNC) &_MulticastNetwork_Timepartindiv2, 2},
     {"_MulticastNetwork_multinom_vec", (DL_FUNC) &_MulticastNetwork_multinom_vec, 1},
     {"_MulticastNetwork_normalizer", (DL_FUNC) &_MulticastNetwork_normalizer, 1},
     {"_MulticastNetwork_Edgepartsum", (DL_FUNC) &_MulticastNetwork_Edgepartsum, 2},

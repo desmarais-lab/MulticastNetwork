@@ -333,6 +333,51 @@ PPC = function(D, beta, eta, sigma2, X, Y, timeunit = 3600, u, timedist = "logno
 }
 
 
+#' @title PPC_misssing
+#' @description Generate a collection of events according to the posterior predictive checks
+#'
+#' @param D number of events to be generated
+#' @param beta P-length vector of coefficients for recipients
+#' @param eta Q-length vector of coefficients for timestamps
+#' @param sigma2 variance parameter for the timestamps
+#' @param X an array of dimension D x A x A x P for covariates used for Gibbs measure
+#' @param Y an array of dimension D x A x Q for covariates used for timestamps GLM
+#' @param timeunit hour (= 3600) or day (=3600*24) and so on
+#' @param u D-length list of latent receiver vectors
+#' @param timedist lognormal or exponential (will include others)
+#'
+#' @return generated data including (sender, recipients, timestamp)
+#'
+#' @export
+PPC_missing = function(D, beta, eta, sigma2, X, Y, timeunit = 3600, u, timedist = "lognormal") {
+    P = length(beta)
+    Q = length(eta)
+    A = dim(X)[2]
+    u = u
+    data = list()
+    lambda = list()
+    mu = matrix(NA, D, A)
+    d = 1
+    while (d <= D) {
+        lambda[[d]] = lambda_cpp(X[d,,,], beta)
+        u[[d]] = u_cpp_d(lambda[[d]], u[[d]])
+        mu[d, ] = mu_cpp_d(Y[d,,], eta)
+        if (timedist == "lognormal") {
+            tau = rlnorm(A, mu[d, ], sqrt(sigma2))
+        } else {
+            tau = rexp(A, 1/exp(mu[d, ]))
+        }
+        for (n in 1:length(which(tau == min(tau)))) {
+            a_d = which(tau == min(tau))
+            r_d = u[[d]][a_d,]
+            t_d = min(tau) * timeunit
+            data[[d]] = list(a_d = a_d, r_d = r_d, t_d = t_d)
+            d = d+1
+        }
+    }
+    return(data)
+}
+
 #' @title PPE
 #' @description Posterior predictive experiments for
 #'
@@ -399,7 +444,11 @@ PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, p
     iter2 = 1
     iter3 = 1
     for (d in sendermissing) {
-        probi = Timepartindiv(mu[d,], sqrt(sigma2), timeinc[d])
+        if (timedist == "lognormal") {
+            probi = Timepartindiv(mu[d,], sqrt(sigma2), timeinc[d])
+        } else {
+            probi = Timepartindiv2(mu[d,], timeinc[d])
+        }
         senders[d] = multinom_vec(exp(probi))
         senderpredict[iter1, o] = senders[d]
         iter1 = iter1+1
@@ -414,10 +463,17 @@ PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, p
     }  
     for (d in timemissing) {
     	tau_new = rnorm(1, timeinc[d], MHprop.var)
-    	prior.new0 = dlnorm(tau_new, mu[d, senders[d]], sqrt(sigma2), TRUE)
-    	prior.old0 = dlnorm(timeinc[d], mu[d, senders[d]], sqrt(sigma2), TRUE)
-    	post.new0 = Timepartindiv(mu[d,], sqrt(sigma2), tau_new)[senders[d]]
-    	post.old0 = Timepartindiv(mu[d,], sqrt(sigma2), timeinc[d])[senders[d]]
+        if (timedist == "lognormal") {
+            prior.new0 = dlnorm(tau_new, mu[d, senders[d]], sqrt(sigma2), TRUE)
+            prior.old0 = dlnorm(timeinc[d], mu[d, senders[d]], sqrt(sigma2), TRUE)
+            post.new0 = Timepartindiv(mu[d,], sqrt(sigma2), tau_new)[senders[d]]
+            post.old0 = Timepartindiv(mu[d,], sqrt(sigma2), timeinc[d])[senders[d]]
+        } else {
+            prior.new0 = dexp(tau_new, 1/exp(mu[d, senders[d]]), TRUE)
+            prior.old0 = dexp(timeinc[d], 1/exp(mu[d, senders[d]]), TRUE)
+            post.new0 = Timepartindiv2(mu[d,], tau_new)[senders[d]]
+            post.old0 = Timepartindiv2(mu[d,], timeinc[d])[senders[d]]
+        }
 		loglike.diff = prior.new0+post.new0-prior.old0-post.old0
     	if (log(runif(1, 0, 1)) < loglike.diff) {
         	timeinc[d] = tau_new
@@ -453,7 +509,7 @@ PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, p
    		if (timedist == "lognormal") {
             post.old2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)
         } else {
-            post.old2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)
+            post.old2 = Timepartsum2(mu, senders, timeinc)
         }
 		for (i2 in 1:inner[2]) {
 			eta.new = rmvnorm_arma(1, eta, proposal.var[2]*diag(Q))
@@ -462,7 +518,7 @@ PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, p
     		if (timedist == "lognormal") {
                 post.new2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)
             } else {
-                post.new2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)
+                post.new2 = Timepartsum2(mu, senders, timeinc)
             }
             loglike.diff = prior.new2+post.new2-prior.old2-post.old2
       		if (log(runif(1, 0, 1)) < loglike.diff) {

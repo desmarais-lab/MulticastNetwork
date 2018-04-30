@@ -139,6 +139,24 @@ NumericVector Timepartindiv (NumericVector mu, double sigma_tau, double timestam
 }
 
 // **********************************************************//
+//              Likelihood evaluation of Timepart            //
+// **********************************************************//
+// [[Rcpp::export]]
+NumericVector Timepartindiv2 (NumericVector mu, double timestamp){
+    int A = mu.size();
+    NumericVector out(A);
+    for (unsigned int a = 0; a < A; a++) {
+        out[a] += R::dexp(timestamp, 1/exp(mu[a]), TRUE);
+        for (unsigned int i = 0; i < A; i++) {
+            if (i != a) {
+                out[a] += R::pexp(timestamp, 1/exp(mu[i]), FALSE, TRUE);
+            }
+        }
+    }
+    return out;
+}
+
+// **********************************************************//
 //                    Multinomial Sampler                    //
 // **********************************************************//
 // [[Rcpp::export]]

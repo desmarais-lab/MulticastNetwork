@@ -37,6 +37,10 @@ Timepartindiv <- function(mu, sigma_tau, timestamp) {
     .Call('_MulticastNetwork_Timepartindiv', PACKAGE = 'MulticastNetwork', mu, sigma_tau, timestamp)
 }
 
+Timepartindiv2 <- function(mu, timestamp) {
+    .Call('_MulticastNetwork_Timepartindiv2', PACKAGE = 'MulticastNetwork', mu, timestamp)
+}
+
 multinom_vec <- function(x) {
     .Call('_MulticastNetwork_multinom_vec', PACKAGE = 'MulticastNetwork', x)
 }
