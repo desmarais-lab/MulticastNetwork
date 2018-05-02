@@ -221,20 +221,22 @@ illustrative examples. We then report a suite of experiments that test our metho
  	  	   \subsubsection{Montgomary County Data}\label{subsubsec:Montgomery}
  	   Our data come from the North Carolina county government email dataset collected by \cite{ben2017transparency} that includes internal email corpora covering the inboxes and outboxes of managerial-level employees of North Carolina county governments. Out of over twenty counties, we chose Montgomery County to 1) test our model using data with a lot of multicast edges (16.76\%), and 2) limit the scope of this initial application. The Montgomery County email network contains 680 emails, sent and received by 18 department managers over a period of 3 months (March--May) in 2012. 
  	   \subsubsection{Covariates}\label{subsec:Covariates_email}
-In the example of email networks, we form the covariate vector $\boldsymbol{x}_{adr}$ using time-varying network statistics based on the time interval prior to and including $t_{d-1}$. Along with intercept term, we compute eight network statistics \cite{PerryWolfe2012}, where the time interval tracks 7 days prior to the last email was sent $l_d = (t_{d-1}-7\mbox{days}, t_{d-1}]$. 
-\begin{itemize}
-	 			\spacingset{1}
-	\item[1.] intercept $\boldsymbol{x}_{adr1} =1$;
-	\item[2.] outdegree $\boldsymbol{x}_{adr2} =\sum\limits_{d^\prime: t_{d^\prime} \in l_d} I(a_{d^\prime} = a)$;
-	\item[3.] indegree $\boldsymbol{x}_{adr3}=\sum\limits_{d^\prime: t_{d^\prime} \in l_d} I(u_{d^\prime r} = 1)$;
-	\item[4.] send $\boldsymbol{x}_{adr4}=\sum\limits_{d^\prime: t_{d^\prime} \in l_d} I(a_{d^\prime} = a)I(u_{d^\prime r} = 1)$;
-	\item[5.] receive $\boldsymbol{x}_{adr5}=\mbox{send}(r,a)$;
-	\item[6.] 2-send $\boldsymbol{x}_{adr6} = \sum\limits_{h \neq a, r} \mbox{send}(a,h)\mbox{send}(h,r)$;
-	\item[7.] 2-receive $\boldsymbol{x}_{adr7}= \sum\limits_{h \neq a, r} \mbox{send}(h,a)\mbox{send}(r,h)$;
-	\item[8.] sibling $\boldsymbol{x}_{adr8}=\sum\limits_{h \neq a, r} \mbox{send}(h,a)\mbox{send}(h,r)$;
-	\item[9.] cosibling $\boldsymbol{x}_{adr9}=\sum\limits_{h \neq a, r} \mbox{send}(a,h)\mbox{send}(r,h)$;
-\end{itemize}
-where $I(\cdot)$ is an indicator function.\\ \newline
+	In the example of email networks, we form the covariate vector $\boldsymbol{x}_{adr}$ using time-varying network statistics based on the time interval prior to and including $t_{d-1}$. Along with intercept term, we compute the network statistics \citep{PerryWolfe2012}, where the time interval tracks 7 days prior to the last email was sent $l_d = (t_{d-1}-7\mbox{days}, t_{d-1}]$. 
+	\begin{itemize}
+		\spacingset{1}
+		\item[1.] intercept $\boldsymbol{x}_{adr1} =1$;
+		\item[2.] outdegree $\boldsymbol{x}_{adr2} =\sum\limits_{d^\prime: t_{d^\prime} \in l_d} I(a_{d^\prime} = a)$;
+		\item[3.] indegree $\boldsymbol{x}_{adr3}=\sum\limits_{d^\prime: t_{d^\prime} \in l_d} I(u_{d^\prime r} = 1)$;
+		\item[4.] send $\boldsymbol{x}_{adr4}=\sum\limits_{d^\prime: t_{d^\prime} \in l_d} I(a_{d^\prime} = a)I(u_{d^\prime r} = 1)$;
+		\item[5.] receive $\boldsymbol{x}_{adr5}=\mbox{send}(r,a)$;
+		\item[6.] 2-send $\boldsymbol{x}_{adr6} = \sum\limits_{h \neq a, r} \mbox{send}(a,h)\mbox{send}(h,r)$;
+		\item[7.] 2-receive $\boldsymbol{x}_{adr7}= \sum\limits_{h \neq a, r} \mbox{send}(h,a)\mbox{send}(r,h)$;
+		\item[8.] sibling $\boldsymbol{x}_{adr8}=\sum\limits_{h \neq a, r} \mbox{send}(h,a)\mbox{send}(h,r)$;
+		\item[9.] cosibling $\boldsymbol{x}_{adr9}=\sum\limits_{h \neq a, r} \mbox{send}(a,h)\mbox{send}(r,h)$;
+		\item[10.] Nreceive $\boldsymbol{x}_{adr10}=\sum\limits_{d^\prime: t_{d^\prime} \in l_d} \sum\limits_{r=1}^A I(a_{d^\prime} = a)I(u_{d^\prime r} = 1)$;
+		\item[11.] outdegree$*$Nreceive $\boldsymbol{x}_{adr11} = \boldsymbol{x}_{adr2}\times\boldsymbol{x}_{adr10}$
+	\end{itemize}
+	where $I(\cdot)$ is an indicator function, and the last covariate is the interaction term between outdegree and Nreceive.\\ \newline
 For time-related covariates $\boldsymbol{y}_{ad}$ in Section \ref{subsec:Time}, we form the covariate vector $\boldsymbol{y}_{ad}$ using the seven statistics which may possibly effect ``time to send the next document". Note that these statistics could depend on $a$ only, $d$ (or $t_d$) only, or both $a$ and $d$. Specifically, the statistics are
 \begin{itemize}
 	\spacingset{1}
@@ -334,7 +336,17 @@ Finally, we perform posterior predictive checks \cite{rubin1984bayesianly} to ev
 		\ENDFOR
 	\end{algorithmic}
 \end{algorithm}       
-
+\subsection{Montgomery County Data}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.49\textwidth]{plots_paper/outdegreenew-1.png}	
+		\includegraphics[width=0.49\textwidth]{plots_paper/indegreenew-1.png}	
+				\includegraphics[width=0.49\textwidth]{plots_paper/recipientsizenew-1.png}	
+								\includegraphics[width=0.31\textwidth]{plots_paper/timeppnew.pdf}
+		\caption {PPC results.}
+		\label{figure:outdegree}
+	\end{figure}
+\subsection{International Sanctions}
 \section{Conclusion}\label{sec:conclusion}
 \newpage
 \bibliographystyle{agsm}
