@@ -3,44 +3,44 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: paper.aux
 The style file: agsm.bst
 Database file #1: multicastnetwork.bib
-You've used 20 entries,
+You've used 26 entries,
             2909 wiz_defined-function locations,
-            781 strings with 8710 characters,
-and the built_in function-call counts, 84865 in all, are:
-= -- 13721
-> -- 1206
+            816 strings with 9717 characters,
+and the built_in function-call counts, 107913 in all, are:
+= -- 17403
+> -- 1569
 < -- 1
-+ -- 6512
-- -- 364
-* -- 7361
-:= -- 16976
-add.period$ -- 20
-call.type$ -- 20
-change.case$ -- 280
-chr.to.int$ -- 20
-cite$ -- 20
-duplicate$ -- 359
-empty$ -- 747
-format.name$ -- 436
-if$ -- 15296
++ -- 8260
+- -- 474
+* -- 9328
+:= -- 21645
+add.period$ -- 26
+call.type$ -- 26
+change.case$ -- 361
+chr.to.int$ -- 26
+cite$ -- 26
+duplicate$ -- 467
+empty$ -- 960
+format.name$ -- 565
+if$ -- 19444
 int.to.chr$ -- 5
 int.to.str$ -- 0
-missing$ -- 20
-newline$ -- 63
-num.names$ -- 214
-pop$ -- 83
+missing$ -- 29
+newline$ -- 81
+num.names$ -- 279
+pop$ -- 121
 preamble$ -- 1
-purify$ -- 300
+purify$ -- 390
 quote$ -- 0
-skip$ -- 305
+skip$ -- 387
 stack$ -- 0
-substring$ -- 19365
-swap$ -- 80
-text.length$ -- 281
+substring$ -- 24533
+swap$ -- 100
+text.length$ -- 365
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 80
+type$ -- 98
 warning$ -- 0
-while$ -- 458
+while$ -- 592
 width$ -- 0
-write$ -- 271
+write$ -- 351

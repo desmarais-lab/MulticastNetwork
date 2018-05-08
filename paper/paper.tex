@@ -57,8 +57,8 @@
 \bigskip
 \begin{abstract}
 We introduce the continuous-time multicast network model---a generative model for directed edges with multiple recipients or multiple senders. To define the model, we
-integrate a dynamic version of the exponential random graph model (ERGM) and generalized linear model approach to understand who communicates with whom, and when. We use
-the model to analyze emails sent between department managers in Montgomery county government in North Carolina, and international sanctions data concerning the threats and use of economic sanctions by states. Our applications demonstrate that the model is effective at predicting and explaining continuous-time networks involving edges with multiple recipients or senders.
+integrate a dynamic version of the exponential random graph model (ERGM) and generalized linear model (GLM) approach to jointly understand who communicates with whom, and when. We use
+the model to analyze emails sent between department managers in Montgomery county government in North Carolina. Our application demonstrates that the model is effective at predicting and explaining continuous-time networks involving edges with multiple recipients.
 	\end{abstract}
 
 \noindent%
@@ -68,10 +68,15 @@ the model to analyze emails sent between department managers in Montgomery count
 \newpage
 \spacingset{1.45} % DON'T change the spacing!
 \section{Introduction}\label{sec:intro}
-In recent decades, real-time digitized textual communication has developed into a ubiquitous form of social and professional interaction \citep{kanungo2008modeling, szostek2011dealing, burgess2004email, pew2016}. From the perspective of the computational social scientist, this has lead to a growing need for methods of modeling interactions that manifest as text exchanged in continuous time. A number of models that build upon topic modeling through Latent Dirichlet Allocation \citep{Blei2003} to incorporate link data as well as textual content have been developed recently \citep{mccallum2005author,lim2013twitter,Krafft2012}. These models are innovative in their extensions that incorporate network tie information. However, none of the models that are currently available in the literature integrate the rich random-graph structure offered by state of the art models for network structure---such as the exponential random graph model (ERGM) \citep{robins2007introduction,chatterjee2013estimating,hunter2008ergm}. The ERGM is the canonical model for modeling the structure of a static network. It is flexible enough to specify a generative model that accounts for nearly any pattern of tie formation (e.g., reciprocity, clustering, popularity effects) \citep{desmarais2017statistical}. Several models have been developed that handle time-stamped ties in which tie formation is governed by structural dynamics similar to those used in ERGMs \citep{PerryWolfe2012,Butts2008,snijders1996stochastic}, however, none of the models explicitly allows multicast---edge with single sender multiple recipients---which is a common property of digitalized textual interactions such as emails and online messages. We develop the continuous-time multicast network model which simultaneously models the multiple recipient selection processs and the time-to-next interactions which jointly govern time-stamped tie formation.
+In recent decades, real-time digitized textual communication has developed into a ubiquitous form of social and professional interaction \citep{kanungo2008modeling, szostek2011dealing, burgess2004email, pew2016}. From the perspective of the computational social scientist, this has led to a growing need for methods of modeling interactions that manifest as text exchanged in continuous time. A number of models that build upon topic modeling through Latent Dirichlet Allocation \citep{Blei2003} to incorporate link data as well as textual content have been developed recently \citep{mccallum2005author,lim2013twitter,Krafft2012}. These models are innovative in their extensions that incorporate network tie information. However, none of the models that are currently available in the literature integrate the rich random-graph structure offered by state of the art models for network structure---such as the exponential random graph model (ERGM) \citep{robins2007introduction,chatterjee2013estimating,hunter2008ergm}. The ERGM is the canonical model for modeling the structure of a static network. It is flexible enough to specify a generative model that accounts for nearly any pattern of tie formation such as reciprocity, clustering, popularity effects \citep{desmarais2017statistical}. 
+
+Several network models have been developed that handle time-stamped ties in which tie formation is governed by structural dynamics similar to those used in the ERGM \citep{Butts2008,Vu2011,snijders1996stochastic}. Those models are very useful to understand which traits and behaviours are predictive of interactions, however, none of the models explicitly allows multicast---edge with a single sender multiple recipients---which is a common property of digitalized textual interactions such as emails and online messages. For instance, \cite{snijders2007modeling} develops the co-evolution model which assumes that the network structure (``network") and the individual attributes (``behaviour") evolve simultaneously in a dynamic process, however, the model does not allow simultaneous changes within ``networks" or ``behaviour"---all within changes are ordered.
+Relatedly, \cite{PerryWolfe2012} treat multicast interactions via duplication (i.e., obtain pairwise interactions from the original multicast), but their model parameter estimation relies on likelihood approximation which leads to bias. Concentrating on better handling of multicast, we develop the continuous-time multicast network model which simultaneously models the two components that govern time-stamped tie formation: 1) the recipient selection processs that allows multiple senders or receivers, and 2) the time-to-next interactions with flexible distributional choices.
+
+In what follows, we introduce the continuous-time multicast network model by describing how we assume the generatve process of a time-stamped network data (Section 2), and deriving the sampling equations for Bayesian inference (Section 3), and apply the model to the Montgomery county government email data (Section 4). Finally, the paper finishes in Section 5 with conclusion and discussion.
 
 \section{A Continuous-time Multicast Network Model}\label{sec:generative process}
-Data generated under the model consists of $D$ unique edges. A single edge, indexed by $d \in [D]$, is represented by the three components: the sender $a_d \in [A]$, an indicator vector of recipients $\boldsymbol{r}_d = \{u_{dr} \}_{r=1}^{A}$, and the timestamp $t_d \in (0, \infty)$. For simplicity, we assume that edges are ordered by time such that $t_d \leq t_{d+1}$.
+Data generated under the model consists of $D$ unique edges. A single edge, indexed by $d \in [D]$, is represented by the three components: the sender $a_d \in [A]$, an indicator vector of recipients $\boldsymbol{r}_d = \{u_{dr} \}_{r=1}^{A}$, and the timestamp $t_d \in (0, \infty)$. For simplicity, we assume that edges are ordered by time such that $t_d \leq t_{d+1}$. While the model can be applied for networks with multiple senders and a single receiver, specifically by modifying $a_d$ to be an indicator vector of senders $\boldsymbol{a}_d = \{u_{dr} \}_{a=1}^{A}$ and $r_d$ be the single recipient, here we only present the generative process for those involving a single sender but multiple receivers.
 \subsection{Tie Generating Process}\label{subsec: Tie}
 For every possible author--recipient pair $(a,r)_{a \neq r}$, we define the ``recipient intensity", which is the likelihood of edge $d$ being sent from $a$ to $r$:
 \begin{equation}
@@ -79,19 +84,19 @@ For every possible author--recipient pair $(a,r)_{a \neq r}$, we define the ``re
 \end{equation}
 where $\boldsymbol{b}$ is $P$--dimensional vector of coefficients and $\boldsymbol{x}_{adr}$ is a set of network features which vary depending on the hypotheses regarding canonical processes relevant to network theory such as popularity, reciprocity, and transitivity. In addition, we include intercept term to account for the average (or baseline) number of recipients. We place a Normal prior $\boldsymbol{b} \sim N(\boldsymbol{\mu}_b, \Sigma_b)$.
 
-Next, we hypothesize ``If $a$ were the sender of edge $d$, who would be the recipient(s)?" To do this, we draw each sender's set of recipients from a non-empty Gibbs measure \cite{fellows2017removing}---a probability measure we defined in order to 1) allow multiple recipients or ``multicast", 2) prevent from obtaining zero recipient, and 3) ensure tractable normalizing constant. Because we allows multicast, we draw a binary (0/1) vector $\boldsymbol{u}_{ad}= (u_{ad1},
-\ldots, u_{adA})$
+Next, we hypothesize ``If $a$ were the sender of edge $d$, who would be the recipient(s)?" To do this, we draw each sender's set of recipients from the multivariate Bernoulli (MB) distribution \citep{dai2013multivariate}---a model to estimate the structure of graphs with binary nodes---with probability of 1 being logit($\lambda_{adr}$). In order to avoid the model degeneracy from having an empty recipient set, we define a probability measure ``MB$_{Gibbs}$" motivated by the non-empty Gibbs measure \citep{fellows2017removing} which excludes the all-zero vector from the support of MB distirbution. As a result, we 1) allow multiple recipients or ``multicast", 2) prevent from obtaining zero recipient, and 3) ensure tractable normalizing constant. To be specific, we draw a binary vector $\boldsymbol{u}_{ad}= (u_{ad1},
+\ldots, u_{adA})$ 
 \begin{equation} \boldsymbol{u}_{ad}  \sim
-\mbox{Gibbs}(\boldsymbol{\lambda}_{ad}),
+\mbox{MB}_{Gibbs}(\boldsymbol{\lambda}_{ad}),
 \end{equation}
-where $\boldsymbol{\lambda}_{id}= \{\lambda_{adr}\}_{r=1}^A$. In particular, we define $\mbox{Gibbs}(\boldsymbol{\lambda}_{ad})$ as
+where $\boldsymbol{\lambda}_{id}= \{\lambda_{adr}\}_{r=1}^A$. In particular, we define $\mbox{MB}_{Gibbs}(\boldsymbol{\lambda}_{ad})$ as
 \begin{equation}
 \begin{aligned}
 &p(\boldsymbol{u}_{ad}|\delta, \boldsymbol{\lambda}_{ad}) = \frac{\exp\Big\{\mbox{log}\big(\text{I}( \lVert \boldsymbol{u}_{ad}\rVert_1 > 0 )\big) + \sum_{r\neq a} \lambda_{adr}u_{adr}\Big\}}{Z(\boldsymbol{\lambda}_{ad})} ,
 \end{aligned}
 \label{eqn:Gibbs}
 \end{equation}
-where $Z(\boldsymbol{\lambda}_{ad})= \prod_{r \neq a} \big(\mbox{exp}(\lambda_{adr}) + 1\big)-1$ is the normalizing constant and $\lVert \cdot \rVert_1$ is the $l_1$--norm. This is equivalent to assume independent Bernoulli trial on each $u_{adr}$ with probability of 1 being logit($\lambda_{adr}$), excluding the case when all $u_{adr}=0$. We provide the derivation of the normalizing constant as a tractable form in the supplementary material. 
+where $Z(\boldsymbol{\lambda}_{ad})= \prod_{r \neq a} \big(\mbox{exp}(\lambda_{adr}) + 1\big)-1$ is the normalizing constant and $\lVert \cdot \rVert_1$ is the $l_1$--norm. Again, this is equivalent to assume independent Bernoulli trial on each $u_{adr}$ with probability of 1 being logit($\lambda_{adr}$), excluding the case when all $u_{adr}=0$. We provide the derivation of the normalizing constant as a tractable form in the supplementary material. 
 
 
 \subsection{Time Generating Process}\label{subsec:Time}
@@ -101,17 +106,17 @@ Similarly, we hypothesize ``If $a$ were the sender of edge $d$, when would it be
 \end{equation}
 where $\boldsymbol{\eta}$ is $Q$--dimensional vector of coefficients with a Normal prior $\boldsymbol{\eta} \sim N(\boldsymbol{\mu}_\eta,\Sigma_\eta)$, $\boldsymbol{y}_{ad}$ is a set of time-related covariates, e.g., any feature that could affect timestamps of the edge, and $g(\cdot)$ is the appropriate link function such as identity, log, or inverse. 
 
-In modeling ``when", we do not directly model the timestamp $t_d$. Instead, we assume that each sender's the time-increment or ``time to next edge" (i.e., $\tau_{d} = t_d-t_{d-1}$) is drawn from a specific distribution in the exponential family.  We follow the generalized linear model framework:
+In modeling ``when", we do not directly model the timestamp $t_d$. Instead, we assume that each sender's the time-increment or ``time to next interaction" (i.e., $\tau_{d} = t_d-t_{d-1}$) is drawn from a specific distribution in the exponential family.  We follow the generalized linear model (GLM) framework \citep{nelder1972generalized}:
 \begin{equation}
 \begin{aligned}
 E(\tau_{ad}) &= \mu_{ad},\\
 V(\tau_{ad}) &= V(\mu_{ad}),
 \end{aligned}
 \end{equation}
-where $\tau_{ad}$ is a positive real number. Possible choices of distribution include Exponential, Weibull, Gamma, and lognormal\footnote{lognormal distribution is not exponential family but can be used via modeling of $\log(\tau_d)$.} distributions, which are commonly used in time-to-event modeling. Based on the choice of distribution, we may introduce any additional parameter (e.g., $\sigma_\tau^2$) to account for the variance. We use $f_\tau(\cdot; \mu, \sigma_\tau^2)$ and $F_\tau(\cdot; \mu, \sigma_\tau^2)$ to denote the probability density function (p.d.f) and cumulative density function (c.d.f), respectively, with mean $\mu$ and variance $\sigma^2$.
+where $\tau_{ad}$ here is a positive real number. Possible choices of distribution include Exponential, Weibull, Gamma, and lognormal\footnote{lognormal distribution is not exponential family but can be used via modeling of $\log(\tau_d)$.} distributions, which are commonly used in time-to-event modeling \citep{rao2000applied,rizopoulos2012joint}. Based on the choice of distribution, we may introduce any additional parameter (e.g., $\sigma_\tau^2$) to account for the variance. We use $f_\tau(\cdot; \mu, \sigma_\tau^2)$ and $F_\tau(\cdot; \mu, \sigma_\tau^2)$ to denote the probability density function (p.d.f) and cumulative density function (c.d.f), respectively, with mean $\mu$ and variance $\sigma^2$.
 
 \subsection{Observed Data}\label{subsec:Observed}
-Finally, we choose the sender, recipients, and timestamp---which will be observed---by selecting the sender--recipient-set pair with the smallest time-increment \cite{snijders1996stochastic}:
+Finally, we choose the sender, recipients, and timestamp---which will be observed---by selecting the sender--recipient-set pair with the smallest time-increment \citep{snijders1996stochastic}:
 \begin{equation}
 \begin{aligned}
 a_d &= \mbox{argmin}_{a}(\tau_{ad}),\\
@@ -119,18 +124,17 @@ a_d &= \mbox{argmin}_{a}(\tau_{ad}),\\
 t_d &=t_{d-1} + \tau_{a_d d}.
 \end{aligned}
 \end{equation}
-Therefore, it is a sender-driven process in that the recipients and timestamp of an edge is determined by the sender's urgency to send the edge to chosen recipients. Note that  our generative process accounts for tied events such that in case of tied events (i.e., multiple senders generated same time increments $\tau_d$), we observe all of the tied events\footnote{The order of tied events do not matter.} .
-	\begin{algorithm}[H]
+Therefore, it is a sender-driven process in that the recipients and timestamp of an edge is determined by the sender's urgency to send the edge to chosen recipients. Note that  our generative process accounts for tied events such that in case of tied events (i.e., multiple senders generated exactly same time increments $\tau_d$), we observe all of the tied events without assigning the orders of tied events. Algorithm \ref{alg:generative} summarizes the generative process in Section \ref{sec:generative process}.
+	\begin{algorithm}[ht]
 		\spacingset{1}
 		\SetAlgoLined
 		\caption{Generating Process}
 		\For{d=1 to D}{
 			\For{a=1 to $A$}{
-				\For{r=1 to $A$}{
-					\If {r $\neq$ a} {
+				\For{r=1 to $A$ (r $\neq$ a)}{
 						form $\boldsymbol{x}_{adr}$\\
 						set $\lambda_{adr} = {\boldsymbol{b}}^{\top}\boldsymbol{x}_{adr}$
-					}  }
+					}  
 					draw $\boldsymbol{u}_{ad}  \sim
 					\mbox{Gibbs}(\boldsymbol{\lambda}_{ad})$\\
 					form $\boldsymbol{y}_{ad}$\\
@@ -151,7 +155,8 @@ Therefore, it is a sender-driven process in that the recipients and timestamp of
 		\end{algorithm}
 \spacingset{1.45}
 \section{Posterior Inference}\label{sec:inference}
-Our inference goal is to invert the generative process to obtain the posterior distribution over the unknown parameters, conditioned on the observed data and hyperparamters $(\boldsymbol{\mu}_b, \Sigma_b, \boldsymbol{\mu}_\eta, \Sigma_\eta)$. We draw the samples using Markov chain Monte Carlo (MCMC) methods, repeatedly resampling the value of each parameter from its conditional posterior given the observed data, hyperparamters, and the current values of the other parameters. We express each parameter’s conditional posterior in a closed form using the data augmentation schemes in $\boldsymbol{u}$ \cite{tanner1987calculation}. In this section, we provide each latent variable's conditional posterior. \\ \newline
+Our inference goal is to invert the generative process to obtain the posterior distribution over the unknown parameters, conditioned on the observed data and hyperparamters $(\boldsymbol{\mu}_b, \Sigma_b, \boldsymbol{\mu}_\eta, \Sigma_\eta)$. We draw the samples using Markov chain Monte Carlo (MCMC) methods, repeatedly resampling the value of each parameter from its conditional posterior given the observed data, hyperparamters, and the current values of the other parameters. We express each parameter’s conditional posterior in a closed form using the data augmentation schemes in $\boldsymbol{u}$ \cite{tanner1987calculation}. In this section, we provide each latent variable's conditional posterior. 
+
 First, since $u_{adr}$ is a binary random variable, new values may be sampled directly using
 \begin{equation}
 \begin{aligned}
@@ -161,7 +166,8 @@ First, since $u_{adr}$ is a binary random variable, new values may be sampled di
 \end{aligned}
 \label{eqn:latentreceiver}
 \end{equation}
-where $I(\cdot)$ is the indicator function that is used to prevent from the instances where a sender chooses zero number of recipients.\\ \newline
+where $I(\cdot)$ is the indicator function that is used to prevent from the instances where a sender chooses zero number of recipients.
+
 New values for continuous variables $\boldsymbol{b},$ and $\boldsymbol{\eta}$ and $\sigma^2_\tau$ (if applicable) cannot be sampled directly from their conditional posteriors, but may instead be obtained using the Metropolis--Hastings algorithm. With uninformative priors (i.e., $N({0},\infty)$), the conditional posterior over $\boldsymbol{b}$ is
 \begin{equation}
 P(\boldsymbol{b}| \boldsymbol{u}, \boldsymbol{x})\propto \prod_{d=1}^D
@@ -175,8 +181,7 @@ Since we assme the existence of tied-event, the conditional posterior of $\bolds
 \begin{equation}
 P(\boldsymbol{\eta}, \sigma_\tau^2| \boldsymbol{u}, \boldsymbol{y})\propto \prod_{m=1}^M\Big(\prod_{d:t_d=t_m^*}f_{\tau}(t_m^*-t_{m-1}^*; \mu_{a_d d}, \sigma_\tau^2)\times \prod_{a \notin \{a_d\}_{d:t_d=t_m^*}}\big(1-F_{\tau}(t_m^*-t_{m-1}^*; \mu_{a d}, \sigma_\tau^2) \big)\Big),
 \end{equation}
-where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq D$). If $M=D$ (i.e., no tied events), Equation (10) reduces to Equation (9).
-
+where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq D$). If $M=D$ (i.e., no tied events), Equation (10) reduces to Equation (9). Algorithm \ref{alg:MCMC} provides the pseudocode.
  \begin{algorithm}[H]
  			\spacingset{1}
  	\SetAlgoLined
@@ -185,10 +190,8 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
  	\For{o=1 to outer}{
  	 		\For{d=1 to D}{
  			\For{a = 1 to A}{
- 				\For{r = a to A}{
- 					\If {r $\neq$ a} {
+ 				\For{r = 1 to A (r $\neq$ a)}{
  						update $u_{adr}$ using Gibbs update --- Equation (7)
- 					}
 	 			}
  			}
  		}
@@ -196,23 +199,15 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
  		 			update $\boldsymbol{b}$ using Metropolis-Hastings --- Equation (8)
  				}
  		\For{n=1 to inner2}{
- 				update $\boldsymbol{\eta}$ and $\sigma_\tau^2$ using Metropolis-Hastings --- Equation (10)
+ 				update $\boldsymbol{\eta}$ using Metropolis-Hastings --- Equation (10)
  		}
  			\For{n=1 to inner3}{
  				update $\sigma_\tau^2$ using Metropolis-Hastings --- Equation (10)
  			}
  }
  	Summarize the results with: \\last chain of $\boldsymbol{b}$, and last chain of $\boldsymbol{\eta}$ and $\sigma_\tau^2$ 
+ 				\label{alg:MCMC}
  \end{algorithm}
- \iffalse
- \section{Getting It Right}\label{sec:GiR}
- \begin{figure}[H]
- 	\centering
- 	\includegraphics[width=1\textwidth, trim = 0.5cm 1cm 0.5cm 1cm, clip=true]{plots_paper/Multicast_Schein.pdf}	
- 	\caption {Schein test results when we run 5 outer iterations and 5 inner iterations using 20,000 samples (with $D = 100, A = 5, P = 5, Q = 3$)}
- 	\label{figure:GiR}
- \end{figure}
-\fi
 \section{Case Studies}\label{sec:case studies}
 We now present two case studies applying our method to 1) county government emails (single sender multiple recipients) and 2) international sanctions (multiple senders single recipient). For each case study,
 we formulate the network statistics $\boldsymbol{x}$ and timestamp statistics $\boldsymbol{y}$ and ground them in
@@ -221,7 +216,7 @@ illustrative examples. We then report a suite of experiments that test our metho
  	  	   \subsubsection{Montgomary County Data}\label{subsubsec:Montgomery}
  	   Our data come from the North Carolina county government email dataset collected by \cite{ben2017transparency} that includes internal email corpora covering the inboxes and outboxes of managerial-level employees of North Carolina county governments. Out of over twenty counties, we chose Montgomery County to 1) test our model using data with a lot of multicast edges (16.76\%), and 2) limit the scope of this initial application. The Montgomery County email network contains 680 emails, sent and received by 18 department managers over a period of 3 months (March--May) in 2012. 
  	   \subsubsection{Covariates}\label{subsec:Covariates_email}
-	In the example of email networks, we form the covariate vector $\boldsymbol{x}_{adr}$ using time-varying network statistics based on the time interval prior to and including $t_{d-1}$. Along with intercept term, we compute the network statistics \citep{PerryWolfe2012}, where the time interval tracks 7 days prior to the last email was sent $l_d = (t_{d-1}-7\mbox{days}, t_{d-1}]$. 
+	In the example of email networks, we form the covariate vector $\boldsymbol{x}_{adr}$ using time-varying network statistics based on the time interval prior to and including $t_{d-1}$. Along with intercept term, we compute the network statistics \citep{PerryWolfe2012}, where the time interval tracks 7 days prior to the last email was sent $l_d = (t_{d-1}-7\mbox{days}, t_{d-1}]$. Specifically, we use
 	\begin{itemize}
 		\spacingset{1}
 		\item[1.] intercept $\boldsymbol{x}_{adr1} =1$;
@@ -234,10 +229,11 @@ illustrative examples. We then report a suite of experiments that test our metho
 		\item[8.] sibling $\boldsymbol{x}_{adr8}=\sum\limits_{h \neq a, r} \mbox{send}(h,a)\mbox{send}(h,r)$;
 		\item[9.] cosibling $\boldsymbol{x}_{adr9}=\sum\limits_{h \neq a, r} \mbox{send}(a,h)\mbox{send}(r,h)$;
 		\item[10.] Nreceive $\boldsymbol{x}_{adr10}=\sum\limits_{d^\prime: t_{d^\prime} \in l_d} \sum\limits_{r=1}^A I(a_{d^\prime} = a)I(u_{d^\prime r} = 1)$;
-		\item[11.] outdegree$*$Nreceive $\boldsymbol{x}_{adr11} = \boldsymbol{x}_{adr2}\times\boldsymbol{x}_{adr10}$
+		\item[11.] outdegree$*$Nreceive $\boldsymbol{x}_{adr11} = \boldsymbol{x}_{adr2}\times\boldsymbol{x}_{adr10};$
 	\end{itemize}
-	where $I(\cdot)$ is an indicator function, and the last covariate is the interaction term between outdegree and Nreceive.\\ \newline
-For time-related covariates $\boldsymbol{y}_{ad}$ in Section \ref{subsec:Time}, we form the covariate vector $\boldsymbol{y}_{ad}$ using the seven statistics which may possibly effect ``time to send the next document". Note that these statistics could depend on $a$ only, $d$ (or $t_d$) only, or both $a$ and $d$. Specifically, the statistics are
+	where $I(\cdot)$ is an indicator function, and the last covariate is the interaction term between outdegree and Nreceive. As with the nodal (2, 3, 10, 11) and dyadic (4, 5) effects, the triadic (6--9) effects are designed so that their coefficient have a straightforward interpretation, which are illustrated in the next section.
+	
+For time-related covariates $\boldsymbol{y}_{ad}$ in Section \ref{subsec:Time}, we form the covariate vector $\boldsymbol{y}_{ad}$ using the seven statistics which may possibly effect ``time to send the next document". Note that these statistics could depend on $a$ only (nodal effect), $d$ (or $t_d$) only (temporal effect), or both $a$ and $d$ (nodal \& temporal effect). Specifically, the statistics are defined as
 \begin{itemize}
 	\spacingset{1}
 	\item[1.] intercept $\boldsymbol{y}_{ad1} =1$;
@@ -246,7 +242,7 @@ For time-related covariates $\boldsymbol{y}_{ad}$ in Section \ref{subsec:Time}, 
 	\item[4.] gender $\boldsymbol{y}_{ad4}=I(a= \mbox{female})$;
 	\item[5.] manager $\boldsymbol{y}_{ad5}=I(a= \mbox{County Manager})$;
 	\item[6.] weekend $\boldsymbol{y}_{ad6} = I(t_{d-1}= \mbox{weekend})$;
-	\item[7.] am/pm $\boldsymbol{y}_{ad7}= I(t_{d-1}= \mbox{pm})$;
+	\item[7.] am/pm $\boldsymbol{y}_{ad7}= I(t_{d-1}= \mbox{pm})$.
 \end{itemize}
 \subsubsection{Parameter Estimation and Interpretation}\label{subsubsec:Result_email}
 	\begin{figure}[H]
@@ -352,8 +348,8 @@ Finally, we perform posterior predictive checks \cite{rubin1984bayesianly} to ev
 \bibliographystyle{agsm}
 \bibliography{multicastnetwork}
 \begin{appendices}
-\section{Normalizing constant of Gibbs measure}\label{sec: non-empty Gibbs measure}
-The non-empty Gibbs measure \cite{fellows2017removing} defines the probability of author $a$ selecting the binary recipient vector $\boldsymbol{u}_{ad}$ as
+\section{Normalizing constant of MB$_{Gibbs}$}\label{sec: non-empty Gibbs measure}
+Our probability measure ``MB$_{Gibbs}$''---the multivariate Bernoulli distribution with non-empty Gibbs measure \citep{fellows2017removing}---defines the probability of author $a$ selecting the binary recipient vector $\boldsymbol{u}_{ad}$ as
 \begin{equation*} 
 \begin{aligned}
 & P(\boldsymbol{u}_{ad}|\boldsymbol{\lambda}_{ad} ) = \frac{\exp\Big\{ \mbox{log}\big(\text{I}(\lVert \boldsymbol{u}_{ad} \rVert_1 > 0)\big) + \sum_{r \neq a} \lambda_{adr}u_{adr} \Big\}}{Z(\boldsymbol{\lambda}_{ad})}.

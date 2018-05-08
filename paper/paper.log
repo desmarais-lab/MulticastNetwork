@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  2 MAY 2018 14:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  8 MAY 2018 15:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -317,27 +317,16 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
 Non-PDF special ignored!
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-
-Underfull \hbox (badness 10000) in paragraph at lines 149--149
+ [4]
+Underfull \hbox (badness 10000) in paragraph at lines 153--153
 
  []
 
-[4]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-
-Underfull \hbox (badness 10000) in paragraph at lines 154--156
-
- []
-
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 163--166
-
- []
-
-
-Overfull \hbox (1.92033pt too wide) detected at line 177
+[5] [6]
+Overfull \hbox (1.92033pt too wide) detected at line 183
 \OML/cmm/m/it/12 P\OT1/cmr/m/n/12 ([]\OML/cmm/m/it/12 ; ^^[[]\OMS/cmsy/m/n/12 j
 []\OML/cmm/m/it/12 ; []\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 / [] [] [] \OML/cmm/m
 /it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 t[] \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m
@@ -348,38 +337,32 @@ Overfull \hbox (1.92033pt too wide) detected at line 177
 m/it/12 ;
  []
 
-[6]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [7] [8]
-Underfull \hbox (badness 10000) in paragraph at lines 239--241
-
- []
-
-<plots_paper/best-1.png, id=48, 2264.46pt x 1252.68pt>
+[7] [8] <plots_paper/best-1.png, id=48, 2264.46pt x 1252.68pt>
 File: plots_paper/best-1.png Graphic file (type png)
 
 <use plots_paper/best-1.png>
-Package pdftex.def Info: plots_paper/best-1.png used on input line 254.
+Package pdftex.def Info: plots_paper/best-1.png used on input line 250.
 (pdftex.def)             Requested size: 462.26999pt x 255.71155pt.
 
 <plots_paper/etaest-1.png, id=49, 2264.46pt x 1250.6725pt>
 File: plots_paper/etaest-1.png Graphic file (type png)
 
 <use plots_paper/etaest-1.png>
-Package pdftex.def Info: plots_paper/etaest-1.png used on input line 260.
+Package pdftex.def Info: plots_paper/etaest-1.png used on input line 256.
 (pdftex.def)             Requested size: 411.42pt x 227.22963pt.
  [9] [10 <./plots_paper/best-1.png> <./plots_paper/etaest-1.png>]
 
 LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 30
-8.
+4.
 
 [11] [12] <plots_paper/outdegreenew-1.png, id=65, 2275.50125pt x 1254.6875pt>
 File: plots_paper/outdegreenew-1.png Graphic file (type png)
 
 <use plots_paper/outdegreenew-1.png>
-Package pdftex.def Info: plots_paper/outdegreenew-1.png used on input line 342.
+Package pdftex.def Info: plots_paper/outdegreenew-1.png used on input line 338.
 
 (pdftex.def)             Requested size: 226.51483pt x 124.8826pt.
 
@@ -387,7 +370,7 @@ Package pdftex.def Info: plots_paper/outdegreenew-1.png used on input line 342.
 File: plots_paper/indegreenew-1.png Graphic file (type png)
 
 <use plots_paper/indegreenew-1.png>
-Package pdftex.def Info: plots_paper/indegreenew-1.png used on input line 343.
+Package pdftex.def Info: plots_paper/indegreenew-1.png used on input line 339.
 (pdftex.def)             Requested size: 226.51483pt x 125.69603pt.
 
 <plots_paper/recipientsizenew-1.png, id=67, 2264.46pt x 1254.6875pt>
@@ -395,26 +378,26 @@ File: plots_paper/recipientsizenew-1.png Graphic file (type png)
 
 <use plots_paper/recipientsizenew-1.png>
 Package pdftex.def Info: plots_paper/recipientsizenew-1.png used on input line 
-344.
+340.
 (pdftex.def)             Requested size: 226.51483pt x 125.49524pt.
 
 <plots_paper/timeppnew.pdf, id=68, 505.57161pt x 451.4487pt>
 File: plots_paper/timeppnew.pdf Graphic file (type pdf)
 
 <use plots_paper/timeppnew.pdf>
-Package pdftex.def Info: plots_paper/timeppnew.pdf used on input line 345.
+Package pdftex.def Info: plots_paper/timeppnew.pdf used on input line 341.
 (pdftex.def)             Requested size: 143.30257pt x 127.96158pt.
  [13] [14 <./plots_paper/outdegreenew-1.png> <./plots_paper/indegreenew-1.png> 
 <./plots_paper/recipientsizenew-1.png> <./plots_paper/timeppnew.pdf>] (./paper.
-bbl [15]) [16] [17] [18] (./paper.aux) ) 
+bbl [15] [16]) [17] [18] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 4406 strings out of 493089
- 60390 string characters out of 6134842
- 154884 words of memory out of 5000000
- 7809 multiletter control sequences out of 15000+600000
- 17593 words of font info for 61 fonts, out of 8000000 for 9000
+ 4416 strings out of 493089
+ 60565 string characters out of 6134842
+ 155158 words of memory out of 5000000
+ 7819 multiletter control sequences out of 15000+600000
+ 18432 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 38i,21n,26p,1952b,678s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,18n,24p,1329b,677s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/font
 s/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts
@@ -438,7 +421,7 @@ cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmsy8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mti10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 ti12.pfb>
-Output written on paper.pdf (18 pages, 1451487 bytes).
+Output written on paper.pdf (18 pages, 1457955 bytes).
 PDF statistics:
  221 PDF objects out of 1000 (max. 8388607)
  153 compressed objects within 2 object streams

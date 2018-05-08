@@ -31,6 +31,11 @@ Chatterjee, S., Diaconis, P. et~al.  \harvardyearleft 2013\harvardyearright ,
   `Estimating and understanding exponential random graph models', {\em The
   Annals of Statistics} {\bf 41}(5),~2428--2461.
 
+\harvarditem[Dai et~al.]{Dai, Ding, Wahba et~al.}{2013}{dai2013multivariate}
+Dai, B., Ding, S., Wahba, G. et~al.  \harvardyearleft 2013\harvardyearright ,
+  `Multivariate bernoulli distribution', {\em Bernoulli} {\bf
+  19}(4),~1465--1483.
+
 \harvarditem{Desmarais \harvardand\ Cranmer}{2017}{desmarais2017statistical}
 Desmarais, B.~A. \harvardand\ Cranmer, S.~J.  \harvardyearleft
   2017\harvardyearright , Statistical inference in political networks research,
@@ -82,6 +87,10 @@ Morgan, T.~C., Bapat, N. \harvardand\ Kobayashi, Y.  \harvardyearleft
   1945--2005: Updating the ties dataset', {\em Conflict Management and Peace
   Science} {\bf 31}(5),~541--558.
 
+\harvarditem{Nelder \harvardand\ Baker}{1972}{nelder1972generalized}
+Nelder, J.~A. \harvardand\ Baker, R.~J.  \harvardyearleft 1972\harvardyearright
+  , {\em Generalized linear models}, Wiley Online Library.
+
 \harvarditem{Perry \harvardand\ Wolfe}{2013}{PerryWolfe2012}
 Perry, P.~O. \harvardand\ Wolfe, P.~J.  \harvardyearleft 2013\harvardyearright
   , `Point process modelling for directed interaction networks', {\em Journal
@@ -91,6 +100,15 @@ Perry, P.~O. \harvardand\ Wolfe, P.~J.  \harvardyearleft 2013\harvardyearright
 \harvarditem{Pew}{2016}{pew2016}
 Pew, R.~C.  \harvardyearleft 2016\harvardyearright , `Social media fact sheet',
   {\em Accessed on 03/07/17} .
+
+\harvarditem{Rao}{2000}{rao2000applied}
+Rao, P.  \harvardyearleft 2000\harvardyearright , `Applied survival analysis:
+  regression modeling of time to event data', {\em Journal of the American
+  Statistical Association} {\bf 95}(450),~681--681.
+
+\harvarditem{Rizopoulos}{2012}{rizopoulos2012joint}
+Rizopoulos, D.  \harvardyearleft 2012\harvardyearright , {\em Joint models for
+  longitudinal and time-to-event data: With applications in R}, CRC Press.
 
 \harvarditem[Robins et~al.]{Robins, Pattison, Kalish \harvardand\
   Lusher}{2007}{robins2007introduction}
@@ -108,6 +126,12 @@ Snijders, T.~A.  \harvardyearleft 1996\harvardyearright , `Stochastic
   actor-oriented models for network change', {\em Journal of mathematical
   sociology} {\bf 21}(1-2),~149--172.
 
+\harvarditem[Snijders et~al.]{Snijders, Steglich \harvardand\
+  Schweinberger}{2007}{snijders2007modeling}
+Snijders, T., Steglich, C. \harvardand\ Schweinberger, M.  \harvardyearleft
+  2007\harvardyearright , {\em Modeling the coevolution of networks and
+  behavior}, na.
+
 \harvarditem{Sz{\'o}stek}{2011}{szostek2011dealing}
 Sz{\'o}stek, A.~M.  \harvardyearleft 2011\harvardyearright , `?dealing with my
   emails?: Latent user needs in email management.', {\em Computers in Human
@@ -117,5 +141,12 @@ Sz{\'o}stek, A.~M.  \harvardyearleft 2011\harvardyearright , `?dealing with my
 Tanner, M.~A. \harvardand\ Wong, W.~H.  \harvardyearleft 1987\harvardyearright
   , `The calculation of posterior distributions by data augmentation', {\em
   Journal of the American statistical Association} {\bf 82}(398),~528--540.
+
+\harvarditem[Vu et~al.]{Vu, Hunter, Smyth \harvardand\ Asuncion}{2011}{Vu2011}
+Vu, D.~Q., Hunter, D., Smyth, P. \harvardand\ Asuncion, A.~U.  \harvardyearleft
+  2011\harvardyearright , Continuous-time regression models for longitudinal
+  networks, {\em in} J.~Shawe-Taylor, R.~Zemel, P.~Bartlett, F.~Pereira
+  \harvardand\ K.~Weinberger, eds, `Advances in Neural Information Processing
+  Systems 24', Curran Associates, Inc., pp.~2492--2500.
 
 \end{thebibliography}

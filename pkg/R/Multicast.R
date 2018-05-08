@@ -332,57 +332,10 @@ PPC = function(D, beta, eta, sigma2, X, Y, timeunit = 3600, u, timedist = "logno
     return(data)
 }
 
-
-#' @title PPC_misssing
-#' @description Generate a collection of events according to the posterior predictive checks
-#'
-#' @param D number of events to be generated
-#' @param beta P-length vector of coefficients for recipients
-#' @param eta Q-length vector of coefficients for timestamps
-#' @param sigma2 variance parameter for the timestamps
-#' @param X an array of dimension D x A x A x P for covariates used for Gibbs measure
-#' @param Y an array of dimension D x A x Q for covariates used for timestamps GLM
-#' @param timeunit hour (= 3600) or day (=3600*24) and so on
-#' @param u D-length list of latent receiver vectors
-#' @param timedist lognormal or exponential (will include others)
-#'
-#' @return generated data including (sender, recipients, timestamp)
-#'
-#' @export
-PPC_missing = function(D, beta, eta, sigma2, X, Y, timeunit = 3600, u, timedist = "lognormal") {
-    P = length(beta)
-    Q = length(eta)
-    A = dim(X)[2]
-    u = u
-    data = list()
-    lambda = list()
-    mu = matrix(NA, D, A)
-    d = 1
-    while (d <= D) {
-        lambda[[d]] = lambda_cpp(X[d,,,], beta)
-        u[[d]] = u_cpp_d(lambda[[d]], u[[d]])
-        mu[d, ] = mu_cpp_d(Y[d,,], eta)
-        if (timedist == "lognormal") {
-            tau = rlnorm(A, mu[d, ], sqrt(sigma2))
-        } else {
-            tau = rexp(A, 1/exp(mu[d, ]))
-        }
-        for (n in 1:length(which(tau == min(tau)))) {
-            a_d = which(tau == min(tau))
-            r_d = u[[d]][a_d,]
-            t_d = min(tau) * timeunit
-            data[[d]] = list(a_d = a_d, r_d = r_d, t_d = t_d)
-            d = d+1
-        }
-    }
-    return(data)
-}
-
 #' @title PPE
 #' @description Posterior predictive experiments for
 #'
 #' @param data list of tie data with 3 elements (1: sender, 2: recipient, 3: timestamp in unix.time format)
-#' @param missing list of indicators denoting missingness of sender, receiver, and timestamps
 #' @param X an array of dimension D x A x A x P for covariates used for Gibbs measure
 #' @param Y an array of dimension D x A x Q for covariates used for timestamps GLM
 #' @param outer size of outer iterations
@@ -401,13 +354,13 @@ PPC_missing = function(D, beta, eta, sigma2, X, Y, timeunit = 3600, u, timedist 
 #' @return generated data including (sender, recipients, timestamp)
 #'
 #' @export
-PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigma2, initial = NULL,
+PPE = function(data, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigma2, initial = NULL,
 		proposal.var, timeunit = 3600, lasttime, MHprop.var, timedist = "lognormal") {
 	D = dim(X)[1]
 	A = dim(X)[2]
 	P = dim(X)[4]
 	Q = dim(Y)[3]
-	
+		
 	if (length(initial) > 0) {
 		u = initial$u
 		beta = matrix(initial$beta, nrow = 1)
@@ -419,24 +372,30 @@ PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, p
 		eta = matrix(prior.eta$mean, nrow = 1)
 		sigma2 = prior.sigma2$b / (prior.sigma2$a-1)
 	}
+	lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta))
 	mu = mu_cpp(Y, eta)
-	#output matrix
-	betamat = matrix(beta, nrow = outer-burn, ncol = P)
-	etamat = matrix(eta, nrow = outer-burn, ncol = Q)
-	sigma2mat = matrix(sigma2, nrow = outer-burn, ncol = 1)
-	loglike = matrix(NA, nrow = outer-burn, ncol = 1)
+	
 	senders = vapply(data, function(d) { d[[1]] }, c(1))
+	receivers = t(vapply(data, function(d) { d[[2]] }, rep(0, A)))
 	timestamps = vapply(data, function(d) { d[[3]] }, c(1))
+    sendermissing = which(is.na(senders))
+    receivermissing = which(is.na(rowSums(receivers)))
+    timemissing = which(is.na(timestamps))
+	#output
+	senderpredict = matrix(NA, nrow = length(sendermissing), ncol = outer-burn)
+	senderprob = matrix(0, nrow = length(sendermissing), ncol = A)
+    receiverpredict = matrix(NA, nrow = sum(is.na(receivers)), ncol = outer-burn)
+    receiverprob = matrix(0, nrow = sum(is.na(receivers)), ncol = 2)
+    timepredict = matrix(NA, nrow = length(timemissing), ncol = outer-burn)
+	
+	#initialize missing times 
+	for (d in timemissing) {
+		lower = max(timestamps[1:(d-1)], na.rm = TRUE)+1
+		upper = min(timestamps[(d+1):D], na.rm = TRUE)-1
+		timestamps[d] = 	sample(lower:upper, 1)
+	}
 	timeinc = c(timestamps[1]-lasttime, timestamps[-1]-timestamps[-length(timestamps)]) / timeunit
 	timeinc[timeinc == 0] = runif(sum(timeinc==0), 0, min(timeinc[timeinc!=0]))
-		
-	senderpredict = matrix(NA, nrow = sum(missing[[1]]), ncol = outer)
-    receiverpredict = matrix(NA, nrow = sum(missing[[2]]), ncol = outer)
-    timepredict = matrix(NA, nrow = sum(missing[[3]]), ncol = outer)
-    sendermissing = which(missing[[1]]==1)
-    receivermissing = which(rowSums(missing[[2]]) > 0)
-    timemissing = which(missing[[3]]==1)
-	timeinc[timemissing] = vapply(timemissing, function(d) rlnorm(1, mu[d, senders[d]], sqrt(sigma2)), c(1))
 	for (o in 1:outer) {
 		
 	#imputation
@@ -445,19 +404,27 @@ PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, p
     iter3 = 1
     for (d in sendermissing) {
         if (timedist == "lognormal") {
-            probi = Timepartindiv(mu[d,], sqrt(sigma2), timeinc[d])
+            probi = exp(Timepartindiv(mu[d,], sqrt(sigma2), timeinc[d]))
         } else {
-            probi = Timepartindiv2(mu[d,], timeinc[d])
+            probi = exp(Timepartindiv2(mu[d,], timeinc[d]))
         }
-        senders[d] = multinom_vec(exp(probi))
-        senderpredict[iter1, o] = senders[d]
+        senders[d] = multinom_vec(probi)
+        if (o > burn) {
+        	senderprob[iter1, ] = senderprob[iter1, ] + probi
+        	senderpredict[iter1, o-burn] = senders[d]
+        }
         iter1 = iter1+1
     }
     for (d in receivermissing) {
-    	missingr = which(missing[[2]][d,]==1)
-    	data[[d]][[2]][missingr] = u[[d]][senders[d], missingr]
+    	missingr = which(is.na(receivers[d,]))
         for (it in 1:length(missingr)) {
-        	receiverpredict[iter2, o] = data[[d]][[2]][missingr[it]]
+        	receiversample = u[[d]][senders[d], missingr[it]]
+        	data[[d]][[2]][missingr[it]] = receiversample
+        	if (o > burn) {
+        		logitprob = ifelse(sum(data[[d]][[2]][-missingr[it]])==0, 1, exp(lambda[[d]][senders[d], missingr[it]])/(exp(lambda[[d]][senders[d], missingr[it]])+1))
+        		receiverprob[iter2, ] = receiverprob[iter2, ] + c(1-logitprob, logitprob)
+        		receiverpredict[iter2, o-burn] = receiversample 
+        	}
         	iter2 = iter2+1
         }
     }  
@@ -478,14 +445,15 @@ PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, p
     	if (log(runif(1, 0, 1)) < loglike.diff) {
         	timeinc[d] = tau_new
 	    }
-        timepredict[iter3, o] = timeinc[d]
+	    if (o > burn) {
+        	timepredict[iter3, o-burn] = timeinc[d]
+        }
         iter3 = iter3+1
     }    
     timeinc[timeinc==0] = runif(sum(timeinc==0), 0, min(timeinc[timeinc!=0]))
 
 	#run inference
 		if (o %% 100 == 0) print(o)
-		lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta))
 		u = u_cpp(lambda, u)
 		for (d in 1:D) {
 		  u[[d]][senders[d],] = data[[d]][[2]]
@@ -504,6 +472,7 @@ PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, p
         			post.old1 = post.new1
 	      	}
 		}
+		lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta))
 		prior.old2 = dmvnorm_arma(eta, prior.eta$mean, prior.eta$var) 
     	mu = mu_cpp(Y, eta)
    		if (timedist == "lognormal") {
@@ -544,12 +513,8 @@ PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, p
 	      	}
 		}
         }
-		if (o > burn) {
-			betamat[o-burn, ] = beta
-			etamat[o-burn, ] = eta
-			sigma2mat[o-burn, ] = sigma2	
-			loglike[o-burn, ] = post.old1 + post.old3
-		}		
 	}
-	return(list(senderpredict = senderpredict, receiverpredict = receiverpredict, timepredict = timepredict))
+	return(list(sendermissing = sendermissing, receivermissing = receivermissing, timemissing = timemissing,
+				senderpredict = senderpredict, receiverpredict = receiverpredict, timepredict = timepredict,
+				senderprob = senderprob / (outer-burn), receiverprob = receiverprob / (outer-burn)))
 }

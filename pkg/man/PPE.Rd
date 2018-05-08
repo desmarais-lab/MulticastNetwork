@@ -4,14 +4,12 @@
 \alias{PPE}
 \title{PPE}
 \usage{
-PPE(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta,
-  prior.sigma2, initial = NULL, proposal.var, timeunit = 3600, lasttime,
-  MHprop.var, timedist = "lognormal")
+PPE(data, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigma2,
+  initial = NULL, proposal.var, timeunit = 3600, lasttime, MHprop.var,
+  timedist = "lognormal")
 }
 \arguments{
 \item{data}{list of tie data with 3 elements (1: sender, 2: recipient, 3: timestamp in unix.time format)}
-
-\item{missing}{list of indicators denoting missingness of sender, receiver, and timestamps}
 
 \item{X}{an array of dimension D x A x A x P for covariates used for Gibbs measure}
 
