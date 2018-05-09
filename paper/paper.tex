@@ -361,8 +361,15 @@ Lastly, we evaluate the model's ability to predict ties from the Montgomery Coun
 	
 The goal of this task is to provide an effective answer to the question ``how are we filling in the missing information of the emails?" as well as to offer one standard way to determine the time-increment distribution in Section \ref{subsec:Time}. To do this, we compare the predictive performance from two distributions---lognormal and Exponential. We particularly choose Exponential distribution as an alternative to what we used earlier (i.e., lognormal) since Exponential is the most commonly specified distribution for time-to-event data which is also used in the stochastic actor oriented models \citep{snijders1996stochastic} as well as their extensions \citep{snijders2007modeling}.
 
-After running the experiment, we compare the prediction accuracy 
-
+After running the experiment, we measure the predictive performance of two separate time distributions using 500 predicted samples, which are depicted in Figure \ref{figure:PPEresults}.
+	\begin{figure}[!b]
+		\centering
+		\includegraphics[width=0.33\textwidth]{plots_paper/outdegreenew-1.png}	
+		\includegraphics[width=0.33\textwidth]{plots_paper/indegreenew-1.png}	
+		\includegraphics[width=0.33\textwidth]{plots_paper/recipientsizenew-1.png}	
+		\caption {PPE results}
+		\label{figure:PPEresults}
+	\end{figure}
 	
 \subsection{Case Study 2: International Sanctions}\label{subsec:International Sanctions}
 \subsubsection{Threat and Imposition of Sanctions (TIES) Data}\label{subsubsec:TIES}

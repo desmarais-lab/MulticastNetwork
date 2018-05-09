@@ -431,17 +431,17 @@ PPE = function(data, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigm
     for (d in timemissing) {
     	tau_new = rnorm(1, timeinc[d], MHprop.var)
         if (timedist == "lognormal") {
-            prior.new0 = dlnorm(tau_new, mu[d, senders[d]], sqrt(sigma2), TRUE)
-            prior.old0 = dlnorm(timeinc[d], mu[d, senders[d]], sqrt(sigma2), TRUE)
+            #prior.new0 = dlnorm(tau_new, mu[d, senders[d]], sqrt(sigma2), TRUE)
+            #prior.old0 = dlnorm(timeinc[d], mu[d, senders[d]], sqrt(sigma2), TRUE)
             post.new0 = Timepartindiv(mu[d,], sqrt(sigma2), tau_new)[senders[d]]
             post.old0 = Timepartindiv(mu[d,], sqrt(sigma2), timeinc[d])[senders[d]]
         } else {
-            prior.new0 = dexp(tau_new, 1/exp(mu[d, senders[d]]), TRUE)
-            prior.old0 = dexp(timeinc[d], 1/exp(mu[d, senders[d]]), TRUE)
+            #prior.new0 = dexp(tau_new, 1/exp(mu[d, senders[d]]), TRUE)
+            #prior.old0 = dexp(timeinc[d], 1/exp(mu[d, senders[d]]), TRUE)
             post.new0 = Timepartindiv2(mu[d,], tau_new)[senders[d]]
             post.old0 = Timepartindiv2(mu[d,], timeinc[d])[senders[d]]
         }
-		loglike.diff = prior.new0+post.new0-prior.old0-post.old0
+		loglike.diff = post.new0-post.old0
     	if (log(runif(1, 0, 1)) < loglike.diff) {
         	timeinc[d] = tau_new
 	    }

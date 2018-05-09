@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  8 MAY 2018 22:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  8 MAY 2018 23:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -396,42 +396,58 @@ LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 35
 0.
 
 [14 <./plots_paper/outdegreenew-1.png> <./plots_paper/indegreenew-1.png> <./plo
-ts_paper/recipientsizenew-1.png> <./plots_paper/timeppnew.pdf>] [15] [16]
-(./paper.bbl [17] [18]) [19] [20] (./paper.aux) ) 
+ts_paper/recipientsizenew-1.png> <./plots_paper/timeppnew.pdf>] [15]
+File: plots_paper/outdegreenew-1.png Graphic file (type png)
+
+<use plots_paper/outdegreenew-1.png>
+Package pdftex.def Info: plots_paper/outdegreenew-1.png used on input line 367.
+
+(pdftex.def)             Requested size: 152.54994pt x 84.10382pt.
+File: plots_paper/indegreenew-1.png Graphic file (type png)
+ <use plots_paper/indegreenew-1.png>
+Package pdftex.def Info: plots_paper/indegreenew-1.png used on input line 368.
+(pdftex.def)             Requested size: 152.54994pt x 84.64108pt.
+File: plots_paper/recipientsizenew-1.png Graphic file (type png)
+
+<use plots_paper/recipientsizenew-1.png>
+Package pdftex.def Info: plots_paper/recipientsizenew-1.png used on input line 
+369.
+(pdftex.def)             Requested size: 152.54994pt x 84.50587pt.
+ [16] [17] (./paper.bbl [18] [19])
+[20] [21] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 4411 strings out of 493089
- 60622 string characters out of 6134842
- 155272 words of memory out of 5000000
- 7819 multiletter control sequences out of 15000+600000
+ 4412 strings out of 493089
+ 60641 string characters out of 6134842
+ 155281 words of memory out of 5000000
+ 7820 multiletter control sequences out of 15000+600000
  15675 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,18n,24p,2431b,636s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf
--dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2015/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2015/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2015/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2015/texmf-dist/fonts
-/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/local/texlive/2015/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2015/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmti12.pfb>
-Output written on paper.pdf (20 pages, 1474847 bytes).
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmmi6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmib10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/c
+mextra/cmmib8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8
+.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.
+pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pf
+b></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></
+usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></u
+sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on paper.pdf (21 pages, 1475320 bytes).
 PDF statistics:
- 227 PDF objects out of 1000 (max. 8388607)
- 156 compressed objects within 2 object streams
+ 230 PDF objects out of 1000 (max. 8388607)
+ 158 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 
