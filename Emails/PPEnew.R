@@ -110,3 +110,7 @@ colnames(receiver)[3] = "logit"
 ggplot(data = receiver, aes(x = dist, y = logit, fill = dist))+geom_boxplot()
 ggplot(data = receiver, aes(x = logit, fill = dist))+geom_histogram(position = "dodge")
 boxplot(sapply(1:62, function(d) predprob[d,truesender[d]]), sapply(1:62, function(d) predprob2[d,truesender[d]]))
+
+
+
+
