@@ -1,4 +1,12 @@
+<<<<<<< Updated upstream
 This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  9 MAY 2018 14:40
+=======
+<<<<<<< HEAD
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  9 MAY 2018 14:59
+=======
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  9 MAY 2018 14:40
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -577,6 +585,7 @@ LaTeX Warning: Reference `alg:PPE' on page 15 undefined on input line 318.
 
 LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 35
 4.
+<<<<<<< Updated upstream
 
 
 LaTeX Warning: Reference `subsec:Time' on page 15 undefined on input line 366.
@@ -586,6 +595,72 @@ Package natbib Warning: Citation `snijders1996stochastic' on page 15 undefined
 on input line 366.
 
 
+=======
+
+
+LaTeX Warning: Reference `subsec:Time' on page 15 undefined on input line 366.
+
+<<<<<<< HEAD
+[14 <./plots_paper/outdegreenew-1.png> <./plots_paper/indegreenew-1.png> <./plo
+ts_paper/recipientsizenew-1.png> <./plots_paper/timeppnew.pdf>] [15]
+<plots_paper/senderpredict-1.png, id=143, 1420.30624pt x 1247.66125pt>
+File: plots_paper/senderpredict-1.png Graphic file (type png)
+
+<use plots_paper/senderpredict-1.png>
+Package pdftex.def Info: plots_paper/senderpredict-1.png used on input line 367
+.
+(pdftex.def)             Requested size: 228.82138pt x 201.0006pt.
+
+<plots_paper/receiverpredict2-1.png, id=144, 1405.25pt x 1405.25pt>
+File: plots_paper/receiverpredict2-1.png Graphic file (type png)
+
+<use plots_paper/receiverpredict2-1.png>
+Package pdftex.def Info: plots_paper/receiverpredict2-1.png used on input line 
+368.
+(pdftex.def)             Requested size: 228.82138pt x 228.81143pt.
+ [16 <./plots_paper/senderpredict-1.png> <./plots_paper/receiverpredict2-1.png>
+] [17] (./paper.bbl [18] [19]) [20]
+[21] (./paper.aux) ) 
+Here is how much of TeX's memory you used:
+ 4422 strings out of 493089
+ 60980 string characters out of 6134842
+ 155281 words of memory out of 5000000
+ 7828 multiletter control sequences out of 15000+600000
+ 15675 words of font info for 55 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 38i,18n,24p,2431b,636s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmmi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+ib10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cmextr
+a/cmmib8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
+6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.p
+fb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb>
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></u
+sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr
+/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/l
+ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/lo
+cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on paper.pdf (21 pages, 1644080 bytes).
+PDF statistics:
+ 234 PDF objects out of 1000 (max. 8388607)
+ 158 compressed objects within 2 object streams
+=======
+
+Package natbib Warning: Citation `snijders1996stochastic' on page 15 undefined 
+on input line 366.
+
+
+>>>>>>> Stashed changes
 Package natbib Warning: Citation `snijders2007modeling' on page 15 undefined on
  input line 366.
 
@@ -674,6 +749,10 @@ Output written on paper.pdf (22 pages, 1492255 bytes).
 PDF statistics:
  237 PDF objects out of 1000 (max. 8388607)
  163 compressed objects within 2 object streams
+<<<<<<< Updated upstream
+=======
+>>>>>>> origin/master
+>>>>>>> Stashed changes
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
