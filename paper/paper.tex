@@ -30,7 +30,7 @@
 
 \if0\blind
 {
-  \title{\bf A Continuous-time Multicast \\Network Model}
+  \title{\bf A Hyper-edge Event Model}
   \author{Bomin Kim\thanks{
     The authors gratefully acknowledge \textit{please remember to list all relevant funding sources in the unblinded version}}\hspace{.2cm}\\
     Department of Statistics, Pennsylvania State University,\\
@@ -43,23 +43,21 @@
     Microsoft Research NYC}
   \maketitle
 } \fi
-
 \if1\blind
 {
   \bigskip
   \bigskip
   \bigskip
   \begin{center}
-    {\LARGE\bf A Continuous-time Multicast Network Model}
+    {\LARGE\bf A Hyper-edge Event Model}
 \end{center}
   \medskip
 } \fi
 
 \bigskip
 \begin{abstract}
-We introduce the continuous-time multicast network model---a generative model for directed edges with multiple recipients or multiple senders. To define the model, we
-integrate a dynamic version of the exponential random graph model (ERGM) and generalized linear model (GLM) approach to jointly understand who communicates with whom, and when. We use
-the model to analyze emails sent between department managers in Montgomery county government in North Carolina. Our application demonstrates that the model is effective at predicting and explaining continuous-time networks involving edges with multiple recipients.
+We introduce the hyper-edge event model (HeEM)---a generative model for directed edges with multiple recipients or multiple senders. To define the model, we
+integrate a dynamic version of the exponential random graph model (ERGM) and generalized linear model (GLM) approach to jointly understand who communicates with whom, and when. We use the model to analyze emails sent between department managers in Montgomery county government in North Carolina. Our application demonstrates that the model is effective at predicting and explaining time-stamped network data involving edges with multiple recipients.
 	\end{abstract}
 
 \noindent%
@@ -69,16 +67,16 @@ the model to analyze emails sent between department managers in Montgomery count
 \newpage
 \spacingset{1.45} % DON'T change the spacing!
 \section{Introduction}\label{sec:intro}
-In recent decades, real-time digitized textual communication has developed into a ubiquitous form of social and professional interaction \citep{kanungo2008modeling, szostek2011dealing, burgess2004email, pew2016}. From the perspective of the computational social scientist, this has led to a growing need for methods of modeling interactions that manifest as text exchanged in continuous time. A number of models that build upon topic modeling through Latent Dirichlet Allocation \citep{Blei2003} to incorporate link data as well as textual content have been developed recently \citep{mccallum2005author,lim2013twitter,Krafft2012}. These models are innovative in their extensions that incorporate network tie information. However, none of the models that are currently available in the literature integrate the rich random-graph structure offered by state of the art models for network structure---such as the exponential random graph model (ERGM) \citep{robins2007introduction,chatterjee2013estimating,hunter2008ergm}. The ERGM is the canonical model for modeling the structure of a static network. It is flexible enough to specify a generative model that accounts for nearly any pattern of tie formation such as reciprocity, clustering, popularity effects \citep{desmarais2017statistical}. 
+In recent decades, real-time digitized textual communication has developed into a ubiquitous form of social and professional interaction \citep{kanungo2008modeling, szostek2011dealing, burgess2004email, pew2016}. From the perspective of the computational social scientist, this has led to a growing need for methods of modeling interactions that manifest as text exchanged in continuous time. A number of models that build upon topic modeling through Latent Dirichlet Allocation \citep{Blei2003} to incorporate link data as well as textual content have been developed recently \citep{mccallum2005author,lim2013twitter,Krafft2012}. These models are innovative in their extensions that incorporate network information. However, none of the models that are currently available in the literature integrate the rich random-graph structure offered by state of the art models for network structure---such as the exponential random graph model (ERGM) \citep{robins2007introduction,chatterjee2013estimating,hunter2008ergm}. The ERGM is the canonical model for modeling the structure of a static network. It is flexible enough to specify a generative model that accounts for nearly any pattern of edge formation such as reciprocity, clustering, popularity effects \citep{desmarais2017statistical}. 
 
-Several network models have been developed that handle time-stamped ties in which tie formation is governed by structural dynamics similar to those used in the ERGM \citep{Butts2008,Vu2011,snijders1996stochastic}. Those models are very useful to understand which traits and behaviours are predictive of interactions, however, none of the models explicitly allows multicast---edge with a single sender multiple recipients---which is a common property of digitalized textual interactions such as emails and online messages. For instance, \cite{snijders2007modeling} develops the co-evolution model which assumes that the network structure (``network") and the individual attributes (``behaviour") evolve simultaneously in a dynamic process, however, the model does not allow simultaneous changes within ``networks" or ``behaviour"---all within changes are ordered.
-Relatedly, \cite{PerryWolfe2012} treat multicast interactions via duplication (i.e., obtain pairwise interactions from the original multicast), but their model parameter estimation relies on likelihood approximation which leads to bias. Concentrating on better handling of multicast, we develop the continuous-time multicast network model which simultaneously models the two components that govern time-stamped tie formation: 1) the recipient selection processs that allows multiple senders or receivers, and 2) the time-to-next interactions with flexible distributional choices.
+Several network models have been developed that handle time-stamped events in which edge formation is governed by structural dynamics similar to those used in the ERGM \citep{Butts2008,Vu2011,snijders1996stochastic}. Those models are very useful to understand which traits and behaviours are predictive of interactions, however, none of the models explicitly allows hyper-edges---a connection between two or more vertices\footnote{A hyper-edge connecting just two nodes is simply a usual dyadic edge.}---which is a common property of digitalized textual interactions such as emails and online messages. For instance, \cite{snijders2007modeling} develops the co-evolution model which assumes that the network structure (``network") and the individual attributes (``behaviour") evolve simultaneously in a dynamic process, however, the model does not allow simultaneous changes within ``networks" or ``behaviour"---all within changes are ordered.
+Relatedly, \cite{PerryWolfe2012} treat multicast interactions---one type of directed hyper-edge which involve one sender and multiple receivers---via duplication (i.e., obtain pairwise interactions from the original multicast), but their model parameter estimation relies on likelihood approximation which leads to bias. Concentrating on better handling of hyper-edges, we develop the hyper-edge event model (HeEM) which simultaneously models the two components that govern time-stamped event formation: 1) the recipient selection processs that allows multiple senders or receivers, and 2) the time-to-next interactions with flexible distributional choices.
 
-In what follows, we introduce the continuous-time multicast network model by describing how we assume the generatve process of a time-stamped network data (Section 2), and deriving the sampling equations for Bayesian inference (Section 3). Then, we apply the model to the Montgomery county government email data and perform two model validation tasks (Section 4). Finally, the paper finishes in Section 5 with conclusion and discussion.
+In what follows, we introduce the HeEM by describing how we assume the generatve process of a time-stamped event data (Section 2), and deriving the sampling equations for Bayesian inference (Section 3). Then, we apply the model to the Montgomery county government email data and perform two model validation tasks (Section 4). Finally, the paper finishes in Section 5 with conclusion and discussion.
 
-\section{A Continuous-time Multicast Network Model}\label{sec:generative process}
-Data generated under the model consists of $D$ unique edges. A single edge, indexed by $d \in [D]$, is represented by the three components: the sender $a_d \in [A]$, an indicator vector of recipients $\boldsymbol{r}_d = \{u_{dr} \}_{r=1}^{A}$, and the timestamp $t_d \in (0, \infty)$. For simplicity, we assume that edges are ordered by time such that $t_d \leq t_{d+1}$. While the model can be applied for networks with multiple senders and a single receiver, specifically by modifying $a_d$ to be an indicator vector of senders $\boldsymbol{a}_d = \{u_{dr} \}_{a=1}^{A}$ and $r_d$ be the single recipient, here we only present the generative process for those involving a single sender but multiple receivers.
-\subsection{Tie Generating Process}\label{subsec: Tie}
+\section{A Hyper-Edge Event Model (HeEM)}\label{sec:generative process}
+Data generated under the model consists of $D$ unique edges. A single edge, indexed by $d \in [D]$, is represented by the three components: the sender $a_d \in [A]$, an indicator vector of recipients $\boldsymbol{r}_d = \{u_{dr} \}_{r=1}^{A}$, and the timestamp $t_d \in (0, \infty)$. For simplicity, we assume that edges are ordered by time such that $t_d \leq t_{d+1}$. While the model can be applied for two type of hyper-edges---edges with (1) a single sender and multiple receivers, and (2) multiple senders and a single receiver---here we only present the generative process for those involving a single sender and multiple receivers (i.e., multicast). For the latter case of hyper-edges, we treat $a_d$ to be an indicator vector of senders $\boldsymbol{a}_d = \{u_{dr} \}_{a=1}^{A}$ and $r_d$ to be the single recipient.
+\subsection{Edge Generating Process}\label{subsec: Tie}
 For every possible author--recipient pair $(a,r)_{a \neq r}$, we define the ``recipient intensity", which is the likelihood of edge $d$ being sent from $a$ to $r$:
 \begin{equation}
 \lambda_{adr} = {\boldsymbol{b}}^{\top}\boldsymbol{x}_{adr},
@@ -133,12 +131,10 @@ Therefore, it is a sender-driven process in that the recipients and timestamp of
 		\For{d=1 to D}{
 			\For{a=1 to $A$}{
 				\For{r=1 to $A$ (r $\neq$ a)}{
-						form $\boldsymbol{x}_{adr}$\\
 						set $\lambda_{adr} = {\boldsymbol{b}}^{\top}\boldsymbol{x}_{adr}$
 					}  
 					draw $\boldsymbol{u}_{ad}  \sim
 					\mbox{Gibbs}(\boldsymbol{\lambda}_{ad})$\\
-					form $\boldsymbol{y}_{ad}$\\
 					set $\mu_{ad} = g^{-1}(\boldsymbol{\eta}^\top \boldsymbol{y}_{ad})$\\
 					draw $\tau_{ad} \sim f_\tau(\mu_{ad}, \sigma_\tau^2)$
 				}
@@ -209,14 +205,12 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
  	Summarize the results with: \\last chain of $\boldsymbol{b}$, and last chain of $\boldsymbol{\eta}$ and $\sigma_\tau^2$ 
  				\label{alg:MCMC}
  \end{algorithm}
-\section{Case Studies}\label{sec:case studies}
-We now present two case studies applying our method to 1) county government emails (single sender multiple recipients) and 2) international sanctions (multiple senders single recipient). For each case study,
-we formulate the network statistics $\boldsymbol{x}$ and timestamp statistics $\boldsymbol{y}$ and ground them in
-illustrative examples. We then report a suite of experiments that test our method’s ability to form the posterior distribution over latent variables for different types of data. 
- 	   \subsection{Case Study 1: County Government Emails}\label{subsec:Emails}
- 	  	   \subsubsection{Montgomary County Data}\label{subsubsec:Montgomery}
+ 	   \section{Application to Montgomary County Emails}\label{subsec:Emails}
+ 	  We now present a case study applying our method to Montgomery county government email data. For this case study,
+ 	  we formulate the network statistics $\boldsymbol{x}$ and timestamp statistics $\boldsymbol{y}$ and ground them in illustrative examples. We then report a suite of experiments that test our method’s ability to form the posterior distribution over latent variables. 
+ 	  	   \subsection{Data}\label{subsec:Montgomery}
  	   Our data come from the North Carolina county government email dataset collected by \cite{ben2017transparency} that includes internal email corpora covering the inboxes and outboxes of managerial-level employees of North Carolina county governments. Out of over twenty counties, we chose Montgomery County to 1) test our model using data with a lot of multicast edges (16.76\%), and 2) limit the scope of this initial application. The Montgomery County email network contains 680 emails, sent and received by 18 department managers over a period of 3 months (March--May) in 2012. 
- 	   \subsubsection{Covariates}\label{subsec:Covariates_email}
+ 	   \subsection{Covariates}\label{subsec:Covariates_email}
 	In the example of email networks, we form the covariate vector $\boldsymbol{x}_{adr}$ using time-varying network statistics based on the time interval prior to and including $t_{d-1}$. Along with intercept term, we compute the network statistics \citep{PerryWolfe2012}, where the time interval tracks 7 days prior to the last email was sent $l_d = (t_{d-1}-7\mbox{days}, t_{d-1}]$. To be specific, we use
 	\begin{itemize}
 		\spacingset{1}
@@ -251,7 +245,7 @@ For time-related covariates $\boldsymbol{y}_{ad}$ in Section \ref{subsec:Time}, 
 	\item[6.] weekend ${y}_{ad6} = I(t_{d-1}= \mbox{weekend})$;
 	\item[7.] am/pm ${y}_{ad7}= I(t_{d-1}= \mbox{pm})$.
 \end{itemize}
-\subsubsection{Parameter Estimation and Interpretation}\label{subsubsec:Result_email}
+\subsection{Parameter Estimation and Interpretation}\label{subsec:Result_email}
 Based on some preliminary experiments, we choose lognormal distribution to model time-to-next-email in Montgomery county email data, thus we estimate the variance parameter $\sigma_\tau^2$ with the prior specified as inverse-Gamma($2, 1$). In this section, we present the results based on 55,000 MCMC outer iterations with a burn-in of 15,000, where we thin by keeping every 40th sample. While the inner iterations for $\boldsymbol{\eta}$ and $\sigma_\tau^2$ are fixed as 1, we use 10 inner iterations for $\boldsymbol{b}$ to adjust for its slower convergence rate.
 	\begin{figure}[!b]
 	\centering
@@ -260,12 +254,12 @@ Based on some preliminary experiments, we choose lognormal distribution to model
 	\label{figure:betaresults}
 \end{figure}
 	
-Figure \ref{figure:betaresults} shows the boxplots summarizing posterior samples of the network effect coefficients $\boldsymbol{b}$. Since we use logit probability of $\lambda_{adr}$ for tie generating process (Section \ref{subsec: Tie}), we have
+Figure \ref{figure:betaresults} shows the boxplots summarizing posterior samples of $\boldsymbol{b}$. Since we use logit probability of $\lambda_{adr}$ for edge generating process (Section \ref{subsec: Tie}), we have
 \begin{equation*}
 \mbox{logit}(\lambda_{adr})=\log\Big(\frac{\lambda_{adr}}{1-\lambda_{adr}}\Big) =b_{1}+b_{2} x_{adr2}\ldots+b_{11}x_{adr11},
 \end{equation*}
 and can interpret the parameter estimates in terms of odds ratio $\frac{\lambda_{adr}}{1-\lambda_{adr}}=\exp(b_{1}+b_{2} x_{adr2}\ldots+b_{11}x_{adr11})$.
-Firstly, we can see that the effect of send (i.e., ``number of times the actor $a$ sent emails to the actor $r$ over the last week'') is positive, implying that if the actor $a$ sent $n$ number of emails to $r$ last week, then the actor $a$ is approximately $\exp(0.274\times n)\approx(1.315)^n$ times more likely to send an email to $r$. Similar interpretation can be applied for the statistics indegree and Nrecieve. For example, as the actor $r$ received $n$ emails and the actor $a$ sent emails to $n$ rececievers over the last week, the actor $a$ is $\exp(0.086\times n)\approx(1.091)^n $ times and $\exp(0.047\times n)\approx(1.048)^n$ times, respectively, more likely to send an email to $r$. On the other hand, outdegree statistic has negative effect---i.e., if the actor $a$ sent $n$ number of emails to anyone last week, then the actor $a$ is approximately $\exp(-0.109\times n)\approx(0.897)^n$ times likely to send an email to $r$---possibly due to its multicollinearity with the statistics send and Nreceive. This can be interpreted as ``if the actor $a$ sent large number of emails over the last week but 1) not to $r$ (excluding the effect of send) or 2) no broadcast or multicast emails (excluding the effect of Nreceive)'' then the actor $a$ is less likely to send an email to $r$. Rest of statistics are not statistically significant because their 95\% credible interval do not include 0. Surprisingly, none of the triadic effects seem to have significant effect on the tie generating process.
+Firstly, we can see that the effect of send (i.e., ``number of times the actor $a$ sent emails to the actor $r$ over the last week'') is positive, implying that if the actor $a$ sent $n$ number of emails to $r$ last week, then the actor $a$ is approximately $\exp(0.274\times n)\approx(1.315)^n$ times more likely to send an email to $r$. Similar interpretation can be applied for the statistics indegree and Nrecieve. For example, as the actor $r$ received $n$ emails and the actor $a$ sent emails to $n$ rececievers over the last week, the actor $a$ is $\exp(0.086\times n)\approx(1.091)^n $ times and $\exp(0.047\times n)\approx(1.048)^n$ times, respectively, more likely to send an email to $r$. On the other hand, outdegree statistic has negative effect---i.e., if the actor $a$ sent $n$ number of emails to anyone last week, then the actor $a$ is approximately $\exp(-0.109\times n)\approx(0.897)^n$ times likely to send an email to $r$---possibly due to its multicollinearity with the statistics send and Nreceive. This can be interpreted as ``if the actor $a$ sent large number of emails over the last week but 1) not to $r$ (excluding the effect of send) or 2) no broadcast or multicast emails (excluding the effect of Nreceive)'' then the actor $a$ is less likely to send an email to $r$. Rest of statistics are not statistically significant because their 95\% credible interval do not include 0. Surprisingly, none of the triadic effects seem to have significant effect on the edge generating process.
 
 	Figure \ref{figure:etaresults} shows the boxplots summarizing posterior samples of the time-related coefficients $\boldsymbol{\eta}$. For this specific datset, we assume lognormal distribution (Section \ref{subsec:Time}) with the unit of time being an hour, so that the interpretation of $\hat{\boldsymbol{\eta}}$ should be based on
 \begin{equation*}
@@ -274,16 +268,16 @@ Firstly, we can see that the effect of send (i.e., ``number of times the actor $
 &\mu_{ad} = \eta_{1}+\eta_{2} y_{ad2}\ldots+\eta_{7}y_{ad7}.
 \end{aligned}
 \end{equation*}
-To begin with, the posterior estimates of two temporal effects---weekend and pm---indicate that if the ${(d-1)}^{th}$ email was sent during the weekend or after 12pm, then the time to $d^{th}$ email is expected to take $\exp(1.552)\approx(4.722)$ hours and $\exp(0.980)\approx(2.665)$ hours longer, respectively, compared to their counterparts (i.e., weekdays and am). On the contrary, the statistics manager, outdegree, and indegree turn out to shorten the time to next email. For example, being a county manager (i.e., the manager of the managers) lowers the expected $\log(\tau_{ad})$ by -1.070, since he or she needs to respond fastly to emails with important decisions. In addition, the manager in general sends or receives a lot more emails which may shorten the response time. This argument is supported by the posterior estimates for outdegree and indegree, where the estimated coefficients are approximately -0.206 and -0.060, respectively. Gender of the department manager is shown to have no significant effect on time-to-next-email. The posterior mean estimate of the variance parameter $\sigma^2_\tau$ is 14.093 with its 95\% credible interval $(12.709, 15.555)$, indicating that there exists huge variability in the time-increments in this data.
-	\begin{figure}[!t]
+	\begin{figure}[!b]
 		\centering
 		\includegraphics[width=0.89\textwidth]{plots_paper/etaest-1.png}	
 		\caption {Posterior distribution of $\boldsymbol{\eta}$ estimates.}
 		\label{figure:etaresults}
 	\end{figure}
-	\subsubsection{Posterior Predictive Checks}\label{subsubsec:PPC_email} 	   
-	We perform posterior predictive checks \cite{rubin1984bayesianly} to evaluate the appropriateness of our model specification for the Montgomery County email data. We formally generated entirely new data, by simulating ties and timestamps $\{(a_{d}, \boldsymbol{r}_{d}, t_{d})\}_{d=1}^D$ from the genenerative process in Section \ref{sec:generative process}, conditional upon a set of inferred parameter values from the inference in Section \ref{subsubsec:Result_email}. For the test of goodness-of-fit in terms of network dynamics, we use multiple network statistics that summarize meaningful aspects of the Montgomery County email data: outdegree distribution, indegree distribution, recipient size distribution, and time-increments probability-probability (PP) plot. We then generated 500 synthetic networks from the posterior predictive distribution, according to Algorithm \ref{alg:PPC}.
-	\begin{algorithm}[!t]
+To begin with, the posterior estimates of two temporal effects---weekend and pm---indicate that if the ${(d-1)}^{th}$ email was sent during the weekend or after 12pm, then the time to $d^{th}$ email is expected to take $\exp(1.552)\approx 4.722$ hours and $\exp(0.980)\approx2.665$ hours longer, respectively, compared to their counterparts (i.e., weekdays and am). On the contrary, the statistics manager, outdegree, and indegree turn out to shorten the time to next email. For example, being a county manager (i.e., the manager of the managers) lowers the expected $\log(\tau_{ad})$ by -1.070, since he or she needs to respond fastly to emails with important decisions. In addition, the manager in general sends or receives a lot more emails which may shorten the response time. This argument is supported by the posterior estimates for outdegree and indegree, where the estimated coefficients are approximately -0.206 and -0.060, respectively. Gender of the department manager is shown to have no significant effect on time-to-next-email. The posterior mean estimate of the variance parameter $\sigma^2_\tau$ is 14.093 with its 95\% credible interval $(12.709, 15.555)$, indicating that there exists huge variability in the time-increments in this data.
+	\subsection{Posterior Predictive Checks}\label{subsec:PPC_email} 	   
+	We perform posterior predictive checks \cite{rubin1984bayesianly} to evaluate the appropriateness of our model specification for the Montgomery County email data. We formally generated entirely new data, by simulating time-stamped events $\{(a_{d}, \boldsymbol{r}_{d}, t_{d})\}_{d=1}^D$ from the genenerative process in Section \ref{sec:generative process}, conditional upon a set of inferred parameter values from the inference in Section \ref{subsec:Result_email}. For the test of goodness-of-fit in terms of network dynamics, we use multiple network statistics that summarize meaningful aspects of the Montgomery County email data: outdegree distribution, indegree distribution, recipient size distribution, and time-increments probability-probability (PP) plot. We then generated 500 synthetic networks from the posterior predictive distribution, according to Algorithm \ref{alg:PPC}.
+	\begin{algorithm}[!b]
 		\spacingset{1}
 		\caption{Generate new data for PPC}
 		\begin{algorithmic}
@@ -300,8 +294,6 @@ To begin with, the posterior estimates of two temporal effects---weekend and pm-
 		\end{algorithmic}
 		 				\label{alg:PPC}
 	\end{algorithm}       
-
-	Figure \ref{figure:PPCresults} illustrates the results of poterior predictive checks. Upper two plots show node-specific degree distributions, where the left one is the boxplots of 500 posterior predictive outdegree statistic and the right plot is the same one for indegree statistic. For both plots, the x-axis represents the node id's from 1 to 18, and the y-axis represents the number of emails sent or received by the node. When compared with the observed outdegree and indegree statistics (red lines), our model recovers the overall distribution of ties across the nodes. For example, node 1 and 10 show significantly higher level of both sending and receiving activities relative to the rest, and the model-simulated data captures those big jumps, without using node-specific indicators. Outdegree distribution of some low-activity nodes are not precisely recovered, however, indegree distribution looks much better. Since we use more information in the recipient selection process (i.e., network effects) while we only rely on minimum time-increments when choosing the observed sender, these results are expected. Lower left plot is the distribution of recipient sizes, where the x-axis spans over the size of recipients 1 to 14 (which is the maximum size of observed recipients) and the y-axis denotes the number of documents with x-number of recipients. The result shows that our model is underestimating single-receiver documents while overestimating documents with two, three, and four recipients. One explanation behind what we observe is that the model is trying to recover so-called ``broadcast'' emails, which are the documents with $\geq 10$ number of recipients, so that the intercept estimate $b_1$ is slightly moved toward right. To improve the goodness of fit for recipient sizes, we can add more covariates (e.g., sender indicators) or assign strong prior structure on $b_1$. In the end, the plot on the lower right is the PP plot for time-increments, which is a graphical measure commonly used for assessing how closely two data sets agree, by plotting the two cumulative distribution functions against each other. The resulting goodness of fit of the diagonal line gives a measure of the difference between the distribution of simulated time-increments and the observed ones, and our PP plot shows that we have great performance in reproducing the observed time distribution.
 	\begin{figure}[!t]
 		\centering
 		\includegraphics[width=0.495\textwidth]{plots_paper/outdegreenew-1.png}	
@@ -311,16 +303,18 @@ To begin with, the posterior estimates of two temporal effects---weekend and pm-
 		\caption {PPC results: outdegree distribution (\textit{upper left}), indegree distribution (\textit{upper right}), recipient size distribution (\textit{lower left}), and time-increments probability-probability (PP) plot  (\textit{lower right}). Red lines in the first three plot depict the observed statistics, and the red line in the last plot is the diagonal line connecting $(0, 0)$ and $(1, 1)$.}
 		\label{figure:PPCresults}
 	\end{figure}
-	\subsubsection{Prediction Experiment}\label{subsubsec:Experiment_email}
+	Figure \ref{figure:PPCresults} illustrates the results of poterior predictive checks. Upper two plots show node-specific degree distributions, where the left one is the boxplots of 500 posterior predictive outdegree statistic and the right plot is the same one for indegree statistic. For both plots, the x-axis represents the node id's from 1 to 18, and the y-axis represents the number of emails sent or received by the node. When compared with the observed outdegree and indegree statistics (red lines), our model recovers the overall distribution of sending and receiving activities across the nodes. For example, node 1 and 10 show significantly higher level of both sending and receiving activities relative to the rest, and the model-simulated data captures those big jumps, without using node-specific indicators. Outdegree distribution of some low-activity nodes are not precisely recovered, however, indegree distribution looks much better. Since we use more information in the recipient selection process (i.e., network effects) while we only rely on minimum time-increments when choosing the observed sender, these results are expected. Lower left plot is the distribution of recipient sizes, where the x-axis spans over the size of recipients 1 to 14 (which is the maximum size of observed recipients) and the y-axis denotes the number of documents with x-number of recipients. The result shows that our model is underestimating single-receiver documents while overestimating documents with two, three, and four recipients. One explanation behind what we observe is that the model is trying to recover so-called ``broadcast'' emails, which are the documents with $\geq 10$ number of recipients, so that the intercept estimate $b_1$ is slightly moved toward right. To improve the goodness of fit for recipient sizes, we can add more covariates (e.g., sender indicators) or assign strong prior structure on $b_1$. In the end, the plot on the lower right is the PP plot for time-increments, which is a graphical measure commonly used for assessing how closely two data sets agree, by plotting the two cumulative distribution functions against each other. The resulting goodness of fit of the diagonal line gives a measure of the difference between the distribution of simulated time-increments and the observed ones, and our PP plot shows that we have great performance in reproducing the observed time distribution.
+	\subsection{Prediction Experiment}\label{subsec:Experiment_email}
 	
-The HeEM ({\bf Hyper-edge event model})	has many component parts that need to be specified by the user (i.e., the selection of the event timing features ($\bm{y}$), the recipient selection features $(\bm{x}$), and the event time distribution ($g$)). Many of these components will be specified based on user expertise (e.g., regarding which features would drive recipient selection), but some decisions may require a data-driven approach to model specification. For example, though theoretical considerations may inform the specification of features, subject-matter expertise is unlikely to inform the decision regarding the family of the event time distribution. Furthermore, since different distribution families (and model specifications more generally) may involve different size parameter spaces, any data-driven approach to model comparison must guard against over-fitting the data. In this section we present a general-purpose approach to evaluating a HeEM specification using out-of-sample prediction. We illustrate this approach by comparing alternative distributional families for the event timing component of the model.
-
+The HeEM has many component parts that need to be specified by the user (i.e., the selection of the event timing features $\bm{y}$, the recipient selection features $\bm{x}$, and the event time distribution $f$). Many of these components will be specified based on user expertise (e.g., regarding which features would drive recipient selection), but some decisions may require a data-driven approach to model specification. For example, though theoretical considerations may inform the specification of features, subject-matter expertise is unlikely to inform the decision regarding the family of the event time distribution. Furthermore, since different distribution families (and model specifications more generally) may involve different size parameter spaces, any data-driven approach to model comparison must guard against over-fitting the data. In this section we present a general-purpose approach to evaluating the HeEM specification using out-of-sample prediction. We illustrate this approach by comparing alternative distributional families for the event timing component of the model.
+\iffalse
 Good example article: \url{https://projecteuclid.org/download/pdfview_1/euclid.ba/1457383101}
-	
-Lastly, we evaluate the model's ability to predict ties from the Montgomery County email data, conditioned on their ``training" part of the data. To perform the experiment, we separately formed a test split of each three components---sender, recipients, and timestamps---by randomly selecting ``test" data with probability $p=0.1$. Any missing variables were imputed by drawing samples from their conditional posterior distributions, given the observed data, parameter estimates, and current values of test data. We then run inference to update the latent variables given the imputed and observed data. We iterate the two steps---imputation and inference---multiple times to obtain enough number of estimates for ``test" data. Algorithm \ref{alg:PPE} outlines this procedure in detail, including the full conditional distributions for missing sender, recciever, and timestamps.	
+	\fi
+
+We evaluate the model's ability to predict edges and timestamps from the Montgomery County email data, conditioned on their ``training" part of the data. To perform the experiment, we separately formed a test split of each three components---sender, recipients, and timestamps---by randomly selecting ``test" data with probability $p=0.1$. Any missing variables were imputed by drawing samples from their conditional posterior distributions, given the observed data, parameter estimates, and current values of test data. We then run inference to update the latent variables given the imputed and observed data. We iterate the two steps---imputation and inference---multiple times to obtain enough number of estimates for ``test" data. Algorithm \ref{alg:PPE} outlines this procedure in detail.	
 	\begin{algorithm}[!t]
 		\spacingset{1}
-		\caption{Out-of-Sample Tie Predictions}
+		\caption{Out-of-Sample Predictions}
 		\label{alg:PPE}
 		\begin{algorithmic}
 			\STATE {\bfseries Input:} data $ \{ (a_d, \boldsymbol{r}_d, t_d)\}_{d=1}^D$, 
@@ -375,14 +369,15 @@ After running the experiment, we measure the predictive performance of two separ
 		\caption {PPE results}
 		\label{figure:PPEresults}
 	\end{figure}
-	
+\iffalse
 \subsection{Case Study 2: International Sanctions}\label{subsec:International Sanctions}
 \subsubsection{Threat and Imposition of Sanctions (TIES) Data}\label{subsubsec:TIES}
 We processed the threat and imposition of sanctions (TIES) data \citep{morgan2014threat} that includes the records of international sanctions---defined as actions that one or more countries take to limit or end their economic relations with a target country in an effort to persuade that country to change one or more of its policies---from 1945 to 2005.
 \subsubsection{Covariates}\label{subsec:Covariates_sanction}
 \subsubsection{Parameter Estimation and Interpretation}\label{subsubsec:Result_sanction}
 	\subsubsection{Posterior Predictive Checks}\label{subsubsec:PPC_sanction} 	 
-		\subsubsection{Prediction Experiment}\label{subsubsec:Experiment_sanction}  
+		\subsubsection{Prediction Experiment}\label{subsubsec:Experiment_sanction} 
+		\fi 
 \section{Conclusion}\label{sec:conclusion}
 \newpage
 \bibliographystyle{agsm}
