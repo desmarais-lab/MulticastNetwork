@@ -42,6 +42,12 @@ Desmarais, B.~A. \harvardand\ Cranmer, S.~J.  \harvardyearleft
   {\em in} J.~N. Victor, A.~H. Montgomery \harvardand\ M.~Lubell, eds, `The
   Oxford Handbook of Political Networks', Oxford University Press.
 
+\harvarditem{Fan \harvardand\ Shelton}{2009}{fan2009learning}
+Fan, Y. \harvardand\ Shelton, C.~R.  \harvardyearleft 2009\harvardyearright ,
+  Learning continuous-time social network dynamics, {\em in} `Proceedings of
+  the Twenty-Fifth Conference on Uncertainty in Artificial Intelligence', AUAI
+  Press, pp.~161--168.
+
 \harvarditem{Fellows \harvardand\ Handcock}{2017}{fellows2017removing}
 Fellows, I. \harvardand\ Handcock, M.  \harvardyearleft 2017\harvardyearright ,
   Removing phase transitions from gibbs measures, {\em in} `Artificial
@@ -79,13 +85,6 @@ McCallum, A., Corrada-Emmanuel, A. \harvardand\ Wang, X.  \harvardyearleft
   2005\harvardyearright , The author-recipient-topic model for topic and role
   discovery in social networks, with application to enron and academic email,
   {\em in} `Workshop on Link Analysis, Counterterrorism and Security', p.~33.
-
-\harvarditem[Morgan et~al.]{Morgan, Bapat \harvardand\
-  Kobayashi}{2014}{morgan2014threat}
-Morgan, T.~C., Bapat, N. \harvardand\ Kobayashi, Y.  \harvardyearleft
-  2014\harvardyearright , `Threat and imposition of economic sanctions
-  1945--2005: Updating the ties dataset', {\em Conflict Management and Peace
-  Science} {\bf 31}(5),~541--558.
 
 \harvarditem{Nelder \harvardand\ Baker}{1972}{nelder1972generalized}
 Nelder, J.~A. \harvardand\ Baker, R.~J.  \harvardyearleft 1972\harvardyearright
