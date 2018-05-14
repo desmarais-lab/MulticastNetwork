@@ -69,8 +69,7 @@ integrate a dynamic version of the exponential random graph model (ERGM) and gen
 \section{Introduction}\label{sec:intro}
 In recent decades, real-time digitized textual communication has developed into a ubiquitous form of social and professional interaction \citep{kanungo2008modeling, szostek2011dealing, burgess2004email, pew2016}. From the perspective of the computational social scientist, this has led to a growing need for methods of modeling interactions that manifest as text exchanged in continuous time. A number of models that build upon topic modeling through Latent Dirichlet Allocation \citep{Blei2003} to incorporate link data as well as textual content have been developed recently \citep{mccallum2005author,lim2013twitter,Krafft2012}. These models are innovative in their extensions that incorporate network information. However, none of the models that are currently available in the literature integrate the rich random-graph structure offered by state of the art models for network structure---such as the exponential random graph model (ERGM) \citep{robins2007introduction,chatterjee2013estimating,hunter2008ergm}. The ERGM is the canonical model for modeling the structure of a static network. It is flexible enough to specify a generative model that accounts for nearly any pattern of edge formation such as reciprocity, clustering, popularity effects \citep{desmarais2017statistical}. 
 
-Several network models have been developed that handle time-stamped events in which edge formation is governed by structural dynamics similar to those used in the ERGM \citep{Butts2008,Vu2011,snijders1996stochastic}. Those models are very useful to understand which traits and behaviours are predictive of interactions, however, none of the models explicitly allows hyper-edges---a connection between two or more vertices\footnote{A hyper-edge connecting just two nodes is simply a usual dyadic edge.}---which is a common property of digitalized textual interactions such as emails and online messages. For instance, \cite{snijders2007modeling} develops the co-evolution model which assumes that the network structure (``network") and the individual attributes (``behaviour") evolve simultaneously in a dynamic process, however, the model does not allow simultaneous changes within ``networks" or ``behaviour"---all within changes are ordered.
-Relatedly, \cite{PerryWolfe2012} treat multicast interactions---one type of directed hyper-edge which involve one sender and multiple receivers---via duplication (i.e., obtain pairwise interactions from the original multicast), but their model parameter estimation relies on likelihood approximation which leads to bias. Similarly, \cite{fan2009learning} treats multicast emails as multiple single-recipient edges and randomly jitter the sent times, to avoid the violation of continous-time model assumption. Concentrating on better handling of hyper-edges, we develop the hyper-edge event model (HeEM) which simultaneously models the two components that govern time-stamped event formation: 1) the recipient selection processs that allows multiple senders or receivers, and 2) the time-to-next interactions with flexible distributional choices.
+Several network models have been developed that handle time-stamped events in which edge formation is governed by structural dynamics similar to those used in the ERGM \citep{Butts2008,Vu2011,snijders1996stochastic}. Those models are very useful to understand which traits and behaviours are predictive of interactions, however, none of the models explicitly allows hyper-edges---a connection between two or more vertices generated simultaneously\footnote{A hyper-edge connecting just two nodes is simply a usual dyadic edge.}---which is a common property of digitalized textual interactions such as emails and online messages. For instance, \cite{PerryWolfe2012} treat multicast interactions---one type of directed hyper-edge which involve one sender and multiple receivers---via duplication (i.e., obtain pairwise interactions from the original multicast), but their model parameter estimation relies on likelihood approximation which leads to bias. Similarly, \cite{fan2009learning} treats multicast emails as multiple single-recipient edges and randomly jitter the sent times, to avoid the violation of continous-time model assumption. Concentrating on better handling of hyper-edges, we develop the hyper-edge event model (HeEM) which simultaneously models the two components that govern time-stamped event formation: 1) the recipient selection processs that allows multiple senders or receivers, and 2) the time-to-next interactions with flexible distributional choices.
 
 In what follows, we introduce the HeEM by describing how we assume the generatve process of a time-stamped event data (Section 2), and deriving the sampling equations for Bayesian inference (Section 3). Then, we apply the model to the Montgomery county government email data and perform two model validation tasks (Section 4). Finally, the paper finishes in Section 5 with conclusion and discussion.
 
@@ -183,7 +182,7 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
  			\spacingset{1}
  	\SetAlgoLined
  	\caption{MCMC Algorithm}
- 	set initial values of $\boldsymbol{b}, \boldsymbol{\eta}, \sigma_\tau^2$\\
+ 	set initial values of $\boldsymbol{b}, \boldsymbol{\eta}$, (and $\sigma_\tau^2$)\\
  	\For{o=1 to outer}{
  	 		\For{d=1 to D}{
  			\For{a = 1 to A}{
@@ -197,12 +196,10 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
  				}
  		\For{n=1 to inner2}{
  				update $\boldsymbol{\eta}$ using Metropolis-Hastings --- Equation (10)
+ 				(if needed) update $\sigma_\tau^2$ using Metropolis-Hastings --- Equation (10)
  		}
- 			\For{n=1 to inner3}{
- 				update $\sigma_\tau^2$ using Metropolis-Hastings --- Equation (10)
- 			}
  }
- 	Summarize the results with: \\last chain of $\boldsymbol{b}$, and last chain of $\boldsymbol{\eta}$ and $\sigma_\tau^2$ 
+ 	Summarize the results with: \\last chain of $\boldsymbol{b}$, and last chain of $\boldsymbol{\eta}$ (and $\sigma_\tau^2$) 
  				\label{alg:MCMC}
  \end{algorithm}
  	   \section{Application to Montgomary County Emails}\label{subsec:Emails}
@@ -337,7 +334,7 @@ We evaluate the model's ability to predict edges and timestamps from the Montgom
 			\FOR{$a=1$ {\bfseries to} $A$}
 			\STATE compute $\pi_{a} $ using $P(a_d= a | \cdot)=f_{\tau}(\tau_{d}; \mu_{a_dd}, \sigma_\tau^2)\times \prod_{a\neq a_d}\big(1-F_{\tau}(\tau_{d}; \mu_{a d}, \sigma_\tau^2) \big)$
 			\ENDFOR
-			\STATE draw $a_d \sim \mbox{Multinomial}(\pi)$
+			\STATE draw $a_d \sim \mbox{Multinomial}(\pi_a)$
 			\ENDIF
 			\FOR{$r\in [A]_{\backslash a_d}$}
 			\IF{$r_{dr}=$ NA}
@@ -345,13 +342,7 @@ We evaluate the model's ability to predict edges and timestamps from the Montgom
 			\ENDIF
 			\ENDFOR
 			\IF{$t_d=$ NA}
-			\STATE draw $\boldsymbol{\tau}^{new}_d$ from proposal distribution (e.g., $\boldsymbol{\tau}^{new}_d \sim N(\boldsymbol{\tau}^{old}_d, \sigma^2_{prop})$)
-			\STATE use Metropolis-Hastings to decide accept or reject using the probability
-			\begin{equation*}
-			\footnotesize
-			\frac{f_{\tau}(\tau^{new}_{d}; \mu_{a_d d}, \sigma_\tau^2)\times \prod_{a\neq a_d}\big(1-F_{\tau}(\tau_{d}; \mu_{a d}, \sigma_\tau^2) \big) }{f_{\tau}(\tau^{old}_{d}; \mu_{a_d d}, \sigma_\tau^2)\times \prod_{a\neq a_d}\big(1-F_{\tau}(\tau_{d}; \mu_{a d}, \sigma_\tau^2) \big)},
-			\end{equation*}
-			where $\boldsymbol{\tau}^{old}_d$ is from earlier iteration.
+			\STATE draw $\boldsymbol{\tau}^{new}_d$ from $f_{\tau}(\tau^{new}_{d}; \mu_{a_d d}, \sigma_\tau^2)\times \prod_{a\neq a_d}\big(1-F_{\tau}(\tau_{d}; \mu_{a d}, \sigma_\tau^2) \big)$ via importance sampling (e.g., proposal distribution $g \sim \mbox{halfcauchy}(5)$)
 			\ENDIF
 			\STATE run inference and update $(\boldsymbol{b}, \boldsymbol{\eta},\boldsymbol{u}, \sigma^2_\tau)$ given the imputed and observed data
 			\ENDFOR
@@ -360,7 +351,7 @@ We evaluate the model's ability to predict edges and timestamps from the Montgom
 		\end{algorithmic}
 	\end{algorithm}
 	
-The goal of this task is to provide an effective answer to the question ``how are we filling in the missing information of the emails?" as well as to offer one standard way to determine the time-increment distribution in Section \ref{subsec:Time}. To do this, we compare the predictive performance from two distributions---lognormal and Exponential. We particularly choose Exponential distribution as an alternative to what we used earlier (i.e., lognormal) since Exponential is the most commonly specified distribution for time-to-event data which is also used in the stochastic actor oriented models \citep{snijders1996stochastic} as well as their extensions \citep{snijders2007modeling}.
+The goal of this task is to provide an effective answer to the question ``how are we filling in the missing information of the emails?" as well as to offer one standard way to determine the time-increment distribution in Section \ref{subsec:Time}. To do this, we compare the predictive performance from two distributions---lognormal and exponential. We particularly choose exponential distribution as an alternative to what we used earlier (i.e., lognormal) since exponential is the most commonly specified distribution for time-to-event data which is also used in the stochastic actor oriented models \citep{snijders1996stochastic} as well as their extensions \citep{snijders2007modeling}.
 
 After running the experiment, we measure the predictive performance of two separate time distributions using 500 predicted samples, which are depicted in Figure \ref{figure:PPEresults}.
 	\begin{figure}[!b]

@@ -135,7 +135,7 @@ NumericVector Timepartindiv (NumericVector mu, double sigma_tau, double timestam
             }
         }
     }
-    return out;
+    return exp(out);
 }
 
 // **********************************************************//
@@ -153,7 +153,7 @@ NumericVector Timepartindiv2 (NumericVector mu, double timestamp){
             }
         }
     }
-    return out;
+    return exp(out);
 }
 
 // **********************************************************//

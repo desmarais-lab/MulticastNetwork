@@ -78,6 +78,8 @@ save(Montgomery_PPE2, file = "/Users/bomin8319/Desktop/MulticastNetwork/Emails/M
 
 
 names(Montgomery_PPE)
+
+#################
 truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)
 predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)
 predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)
@@ -97,9 +99,9 @@ predprob = Montgomery_PPE$receiverprob
 predprob2 = Montgomery_PPE2$receiverprob
 
 probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1])
-probtrue[probtrue==1] = 0.999
+#probtrue[probtrue==1] = 0.999
 probtrue2 = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1])
-probtrue2[probtrue2==1] = 0.999
+#probtrue2[probtrue2==1] = 0.999
 
 receiver = data.frame(probtrue = log(probtrue /(1-probtrue)), dist = rep("lognormal", 1118))
 receiver = rbind(receiver, data.frame(probtrue = log(probtrue2/(1-probtrue2)), dist = rep("exponential", 1118)))
@@ -109,7 +111,7 @@ receiver = melt(receiver)
 colnames(receiver)[3] = "logit"
 ggplot(data = receiver, aes(x = dist, y = logit, fill = dist))+geom_boxplot()
 ggplot(data = receiver, aes(x = logit, fill = dist))+geom_histogram(position = "dodge")
-boxplot(sapply(1:62, function(d) predprob[d,truesender[d]]), sapply(1:62, function(d) predprob2[d,truesender[d]]))
+#boxplot(sapply(1:62, function(d) predprob[d,truesender[d]]), sapply(1:62, function(d) predprob2[d,truesender[d]]))
 
 
 

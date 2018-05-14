@@ -7,6 +7,7 @@
 #' @importFrom combinat permn
 #' @importFrom lubridate wday hour
 #' @importFrom MCMCpack rinvgamma dinvgamma
+#' @importFrom LaplacesDemon rhalfcauchy dhalfcauchy
 
 
 #' @title gibbs.measure.support
@@ -404,9 +405,9 @@ PPE = function(data, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigm
     iter3 = 1
     for (d in sendermissing) {
         if (timedist == "lognormal") {
-            probi = exp(Timepartindiv(mu[d,], sqrt(sigma2), timeinc[d]))
+            probi = Timepartindiv(mu[d,], sqrt(sigma2), timeinc[d])
         } else {
-            probi = exp(Timepartindiv2(mu[d,], timeinc[d]))
+            probi = Timepartindiv2(mu[d,], timeinc[d])
         }
         senders[d] = multinom_vec(probi)
         if (o > burn) {
@@ -421,30 +422,41 @@ PPE = function(data, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigm
         	receiversample = u[[d]][senders[d], missingr[it]]
         	data[[d]][[2]][missingr[it]] = receiversample
         	if (o > burn) {
-        		logitprob = ifelse(sum(data[[d]][[2]][-missingr[it]])==0, 1, exp(lambda[[d]][senders[d], missingr[it]])/(exp(lambda[[d]][senders[d], missingr[it]])+1))
+        		logitprob = ifelse(sum(data[[d]][[2]][-missingr[it]])==0, 0.999, exp(lambda[[d]][senders[d], missingr[it]])/(exp(lambda[[d]][senders[d], missingr[it]])+1))
         		receiverprob[iter2, ] = receiverprob[iter2, ] + c(1-logitprob, logitprob)
         		receiverpredict[iter2, o-burn] = receiversample 
         	}
         	iter2 = iter2+1
         }
     }  
+    # for (d in timemissing) {
+    	# tau_new = rnorm(1, timeinc[d], MHprop.var)
+        # if (timedist == "lognormal") {
+            # post.new0 = Timepartindiv(mu[d,], sqrt(sigma2), tau_new)[senders[d]]
+            # post.old0 = Timepartindiv(mu[d,], sqrt(sigma2), timeinc[d])[senders[d]]
+        # } else {
+            # post.new0 = Timepartindiv2(mu[d,], tau_new)[senders[d]]
+            # post.old0 = Timepartindiv2(mu[d,], timeinc[d])[senders[d]]
+        # }
+		# loglike.diff = post.new0-post.old0
+    	# if (log(runif(1, 0, 1)) < loglike.diff) {
+        	# timeinc[d] = tau_new
+	    # }
+	    # if (o > burn) {
+        	# timepredict[iter3, o-burn] = timeinc[d]
+        # }
+        # iter3 = iter3+1
+    # } 
+    tau_raw = rhalfcauchy(5000, 5)
+    fstar = dhalfcauchy(tau_raw, 5)   
     for (d in timemissing) {
-    	tau_new = rnorm(1, timeinc[d], MHprop.var)
-        if (timedist == "lognormal") {
-            #prior.new0 = dlnorm(tau_new, mu[d, senders[d]], sqrt(sigma2), TRUE)
-            #prior.old0 = dlnorm(timeinc[d], mu[d, senders[d]], sqrt(sigma2), TRUE)
-            post.new0 = Timepartindiv(mu[d,], sqrt(sigma2), tau_new)[senders[d]]
-            post.old0 = Timepartindiv(mu[d,], sqrt(sigma2), timeinc[d])[senders[d]]
-        } else {
-            #prior.new0 = dexp(tau_new, 1/exp(mu[d, senders[d]]), TRUE)
-            #prior.old0 = dexp(timeinc[d], 1/exp(mu[d, senders[d]]), TRUE)
-            post.new0 = Timepartindiv2(mu[d,], tau_new)[senders[d]]
-            post.old0 = Timepartindiv2(mu[d,], timeinc[d])[senders[d]]
-        }
-		loglike.diff = post.new0-post.old0
-    	if (log(runif(1, 0, 1)) < loglike.diff) {
-        	timeinc[d] = tau_new
-	    }
+    	if (timedist == "lognormal") {
+    		f = vapply(tau_raw, function(x) Timepartindiv(mu[d,], sqrt(sigma2), x)[senders[d]], c(1))
+    	} else {
+    		f = vapply(tau_raw, function(x) Timepartindiv2(mu[d,], x)[senders[d]], c(1))
+    	}
+    	tau_new = sample(tau_raw, 1, prob = f/fstar)
+        timeinc[d] = tau_new
 	    if (o > burn) {
         	timepredict[iter3, o-burn] = timeinc[d]
         }
@@ -453,7 +465,7 @@ PPE = function(data, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigm
     timeinc[timeinc==0] = runif(sum(timeinc==0), 0, min(timeinc[timeinc!=0]))
 
 	#run inference
-		if (o %% 100 == 0) print(o)
+		if (o %% 1 == 0) print(o)
 		u = u_cpp(lambda, u)
 		for (d in 1:D) {
 		  u[[d]][senders[d],] = data[[d]][[2]]
