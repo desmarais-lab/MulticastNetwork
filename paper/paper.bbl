@@ -7,6 +7,10 @@ ben Aaron, J., Denny, M., Desmarais, B. \harvardand\ Wallach, H.
   experiment evaluating openness in local governments', {\em Public
   Administration Review} {\bf 77}(1),~68--77.
 
+\harvarditem{Blattner}{2009}{blattner2009b}
+Blattner, M.  \harvardyearleft 2009\harvardyearright , `B-rank: A top n
+  recommendation algorithm', {\em arXiv preprint arXiv:0908.2741} .
+
 \harvarditem[Blei et~al.]{Blei, Ng \harvardand\ Jordan}{2003}{Blei2003}
 Blei, D.~M., Ng, A.~Y. \harvardand\ Jordan, M.~I.  \harvardyearleft
   2003\harvardyearright , `Latent dirichlet allocation', {\em J. Mach. Learn.
@@ -53,6 +57,12 @@ Fellows, I. \harvardand\ Handcock, M.  \harvardyearleft 2017\harvardyearright ,
   Removing phase transitions from gibbs measures, {\em in} `Artificial
   Intelligence and Statistics', pp.~289--297.
 
+\harvarditem[Ghoshal et~al.]{Ghoshal, Zlati{\'c}, Caldarelli \harvardand\
+  Newman}{2009}{ghoshal2009random}
+Ghoshal, G., Zlati{\'c}, V., Caldarelli, G. \harvardand\ Newman, M.
+  \harvardyearleft 2009\harvardyearright , `Random hypergraphs and their
+  applications', {\em Physical Review E} {\bf 79}(6),~066118.
+
 \harvarditem[Hunter et~al.]{Hunter, Handcock, Butts, Goodreau \harvardand\
   Morris}{2008}{hunter2008ergm}
 Hunter, D.~R., Handcock, M.~S., Butts, C.~T., Goodreau, S.~M. \harvardand\
@@ -69,6 +79,19 @@ Hyndman, R.~J. \harvardand\ Koehler, A.~B.  \harvardyearleft
 Kanungo, S. \harvardand\ Jain, V.  \harvardyearleft 2008\harvardyearright ,
   `Modeling email use: a case of email system transition', {\em System Dynamics
   Review} {\bf 24}(3),~299--319.
+
+\harvarditem[Karypis et~al.]{Karypis, Aggarwal, Kumar \harvardand\
+  Shekhar}{1999}{karypis1999multilevel}
+Karypis, G., Aggarwal, R., Kumar, V. \harvardand\ Shekhar, S.  \harvardyearleft
+  1999\harvardyearright , `Multilevel hypergraph partitioning: applications in
+  vlsi domain', {\em IEEE Transactions on Very Large Scale Integration (VLSI)
+  Systems} {\bf 7}(1),~69--79.
+
+\harvarditem[Klamt et~al.]{Klamt, Haus \harvardand\
+  Theis}{2009}{klamt2009hypergraphs}
+Klamt, S., Haus, U.-U. \harvardand\ Theis, F.  \harvardyearleft
+  2009\harvardyearright , `Hypergraphs and cellular networks', {\em PLoS
+  computational biology} {\bf 5}(5),~e1000385.
 
 \harvarditem[Krafft et~al.]{Krafft, Moore, Desmarais \harvardand\
   Wallach}{2012}{Krafft2012}
@@ -152,5 +175,23 @@ Vu, D.~Q., Hunter, D., Smyth, P. \harvardand\ Asuncion, A.~U.  \harvardyearleft
   networks, {\em in} J.~Shawe-Taylor, R.~Zemel, P.~Bartlett, F.~Pereira
   \harvardand\ K.~Weinberger, eds, `Advances in Neural Information Processing
   Systems 24', Curran Associates, Inc., pp.~2492--2500.
+
+\harvarditem{Zhang \harvardand\ Liu}{2010}{zhang2010hypergraph}
+Zhang, Z.-K. \harvardand\ Liu, C.  \harvardyearleft 2010\harvardyearright , `A
+  hypergraph model of social tagging networks', {\em Journal of Statistical
+  Mechanics: Theory and Experiment} {\bf 2010}(10),~P10005.
+
+\harvarditem[Zhang et~al.]{Zhang, Zhou \harvardand\
+  Zhang}{2010}{zhang2010personalized}
+Zhang, Z.-K., Zhou, T. \harvardand\ Zhang, Y.-C.  \harvardyearleft
+  2010\harvardyearright , `Personalized recommendation via integrated diffusion
+  on user--item--tag tripartite graphs', {\em Physica A: Statistical Mechanics
+  and its Applications} {\bf 389}(1),~179--186.
+
+\harvarditem[Zlati{\'c} et~al.]{Zlati{\'c}, Ghoshal \harvardand\
+  Caldarelli}{2009}{zlatic2009hypergraph}
+Zlati{\'c}, V., Ghoshal, G. \harvardand\ Caldarelli, G.  \harvardyearleft
+  2009\harvardyearright , `Hypergraph topological quantities for tagged social
+  networks', {\em Physical Review E} {\bf 80}(3),~036118.
 
 \end{thebibliography}
