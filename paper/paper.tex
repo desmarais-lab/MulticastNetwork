@@ -353,12 +353,11 @@ We evaluate the model's ability to predict edges and timestamps from the Montgom
 	
 The goal of this task is to provide an effective answer to the question ``how are we filling in the missing information of the emails?" as well as to offer one standard way to determine the time-increment distribution in Section \ref{subsec:Time}. To do this, we compare the predictive performance from two distributions---lognormal and exponential. We particularly choose exponential distribution as an alternative to what we used earlier (i.e., lognormal) since exponential is the most commonly specified distribution for time-to-event data which is also used in the stochastic actor oriented models \citep{snijders1996stochastic} as well as their extensions \citep{snijders2007modeling}.
 
-After running the experiment, we measure the predictive performance of two separate time distributions using 500 predicted samples, which are depicted in Figure \ref{figure:PPEresults}.
-	\begin{figure}[!b]
+After running the experiment, we measure the predictive performance of two separate time distributions using 500 predicted samples, which are depicted in Figure \ref{figure:PPEresults}. First, we compare the correct sender probability for missing documents $\{d:a_d=\mbox{NA}\}$, which corresponds to $\pi_{a_{d}}$ in Algorithm \ref{alg:PPE}. The plot on the left shows that lognormal distribution reaches higher correct sender probability than exponential distribution, although their centers (e.g., medians) are similar. Secondly, we compute similar measure for recipients---correct recipient probability $P(r_{dr} = r^{obs}_{dr})$ in Algorithm \ref{alg:PPE} where $r^{obs}_{dr}$ is either 1 (received) or 0 (not received)---and visually compare the two distributions in logit scale (i.e., $\log(\frac{P(r_{dr} = r^{obs}_{dr})}{1-P(r_{dr} = r^{obs}_{dr})})$). Since the edge generating process (Section \ref{subsec: Tie}) is not directly affected by the choice of timestamp distribution, there is no significant difference between lognormal and exponential in their performance of predicting unknown recipients.
+	\begin{figure}[!t]
 		\centering
-		\includegraphics[width=0.495\textwidth]{plots_paper/senderpredict-1.png}	
-		\includegraphics[width=0.495\textwidth]{plots_paper/receiverpredict2-1.png}	
-		\caption {PPE results}
+		\includegraphics[width=1\textwidth]{plots_paper/PPEplot-1.png}	
+		\caption {Comparison of predictive performance between lognormal and exponential distributions: boxplots for correct sender probability (\textit{left}), distribution of correct recipient probability in logit (\textit{middle}), and boxplots for median absolute percentage error (\textit{right}).}
 		\label{figure:PPEresults}
 	\end{figure}
 \iffalse
