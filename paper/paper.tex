@@ -8,6 +8,7 @@
 \usepackage[algo2e]{algorithm2e}
 \usepackage{algorithmic}  
 \usepackage{algorithm}
+\usepackage{mathtools}
 \usepackage[toc,page]{appendix}
 %\pdfminorversion=4
 % NOTE: To produce blinded version, replace "0" with "1" below.
@@ -20,7 +21,7 @@
 \addtolength{\textheight}{1.3in}%
 \addtolength{\topmargin}{-.8in}%
 
-
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \begin{document}
 \def\spacingset#1{\renewcommand{\baselinestretch}%
 {#1}\small\normalsize} \spacingset{1}
@@ -297,7 +298,7 @@ To begin with, the posterior estimates of two temporal effects---weekend and pm-
 		\includegraphics[width=0.495\textwidth]{plots_paper/indegreenew-1.png}	
 		\includegraphics[width=0.495\textwidth]{plots_paper/recipientsizenew-1.png}	
 		\includegraphics[width=0.31\textwidth]{plots_paper/timeppnew.pdf}
-		\caption {PPC results: outdegree distribution (\textit{upper left}), indegree distribution (\textit{upper right}), recipient size distribution (\textit{lower left}), and time-increments probability-probability (PP) plot  (\textit{lower right}). Red lines in the first three plot depict the observed statistics, and the red line in the last plot is the diagonal line connecting $(0, 0)$ and $(1, 1)$.}
+		\caption {PPC results from lognormal distribution: outdegree distribution (\textit{upper left}), indegree distribution (\textit{upper right}), recipient size distribution (\textit{lower left}), and time-increments probability-probability (PP) plot  (\textit{lower right}). Red lines in the first three plot depict the observed statistics, and the red line in the last plot is the diagonal line connecting $(0, 0)$ and $(1, 1)$.}
 		\label{figure:PPCresults}
 	\end{figure}
 
@@ -351,15 +352,18 @@ We evaluate the model's ability to predict edges and timestamps from the Montgom
 		\end{algorithmic}
 	\end{algorithm}
 	
-The goal of this task is to provide an effective answer to the question ``how are we filling in the missing information of the emails?" as well as to offer one standard way to determine the time-increment distribution in Section \ref{subsec:Time}. To do this, we compare the predictive performance from two distributions---lognormal and exponential. We particularly choose exponential distribution as an alternative to what we used earlier (i.e., lognormal) since exponential is the most commonly specified distribution for time-to-event data which is also used in the stochastic actor oriented models \citep{snijders1996stochastic} as well as their extensions \citep{snijders2007modeling}.
-
-After running the experiment, we measure the predictive performance of two separate time distributions using 500 predicted samples, which are depicted in Figure \ref{figure:PPEresults}. First, we compare the correct sender probability for missing documents $\{d:a_d=\mbox{NA}\}$, which corresponds to $\pi_{a_{d}}$ in Algorithm \ref{alg:PPE}. The plot on the left shows that lognormal distribution reaches higher correct sender probability than exponential distribution, although their centers (e.g., medians) are similar. Secondly, we compute similar measure for recipients---correct recipient probability $P(r_{dr} = r^{obs}_{dr})$ in Algorithm \ref{alg:PPE} where $r^{obs}_{dr}$ is either 1 (received) or 0 (not received)---and visually compare the two distributions in logit scale (i.e., $\log(\frac{P(r_{dr} = r^{obs}_{dr})}{1-P(r_{dr} = r^{obs}_{dr})})$). Since the edge generating process (Section \ref{subsec: Tie}) is not directly affected by the choice of timestamp distribution, there is no significant difference between lognormal and exponential in their performance of predicting unknown recipients.
+Here, we specifically compare the predictive performance from two distributions---lognormal and exponential. We particularly choose exponential distribution as an alternative to what we used earlier (i.e., lognormal) since exponential is the most commonly specified distribution for time-to-event data which is also used in the stochastic actor oriented models \citep{snijders1996stochastic} as well as their extensions \citep{snijders2007modeling}. We run the experiment and measure the predictive performance of two separate time distributions using 500 predicted samples, which are depicted in Figure \ref{figure:PPEresults}. First, we compare the correct sender probability for missing documents $\{d:a_d=\mbox{NA}\}$, which corresponds to $\pi_{a_{d}}$ in Algorithm \ref{alg:PPE}. The plot on the left shows that lognormal distribution reaches higher correct sender probability than exponential distribution, although their centers (e.g., medians) are similar. Secondly, we compute similar measure for recipients---correct recipient probability $P(r_{dr} = r^{obs}_{dr})$ in Algorithm \ref{alg:PPE} where $r^{obs}_{dr}$ is either 1 (received) or 0 (not received)---and visually compare the two distributions in logit scale (i.e., $\log(\frac{P(r_{dr} = r^{obs}_{dr})}{1-P(r_{dr} = r^{obs}_{dr})})$). Since the edge generating process (Section \ref{subsec: Tie}) is not directly affected by the choice of timestamp distribution, there is no significant difference between lognormal and exponential in their performance of predicting unknown recipients. Finally, prediction errors for missing timestamps are measured using the median absolute percentage error (MdAPE) \citep{hyndman2006another}, where we take the median of absolute percentage errors $p_{di}$ for $i=1,\ldots,500$ for $d$th document, calculated as follows:
 	\begin{figure}[!t]
 		\centering
 		\includegraphics[width=1\textwidth]{plots_paper/PPEplot-1.png}	
 		\caption {Comparison of predictive performance between lognormal and exponential distributions: boxplots for correct sender probability (\textit{left}), distribution of correct recipient probability in logit (\textit{middle}), and boxplots for median absolute percentage error (\textit{right}).}
 		\label{figure:PPEresults}
 	\end{figure}
+\begin{equation*}
+p_{di} = \abs*{\frac{\tau^{obs}_d - \tau^{pred}_{di}}{\tau^{obs}_d}},
+\end{equation*}
+and we present boxplots for the MdAPE estimates on the right plot. As expected, we have huge benefit in the performance of timestamp prediction when we choose lognormal distribution over exponential. This difference can be explained by our variance estimate $\hat{\sigma}_\tau^2= 14.093$ in Section \ref{subsec:Result_email}, because exponential distribution omits the extra information on time-increments contained in the large variance estimate. All our findings in this section is further revealed in the PPC results from exponential distribution, which are attached in Appendix \ref{sec: PPCexp}. As illustrated above, we can use this out-of-sample prediction task for two usage---1) provide an effective answer to the question ``how are we filling in the missing information of the emails?" and 2) offer one standard way to determine the time-increment distribution in Section \ref{subsec:Time}. 
+
 \iffalse
 \subsection{Case Study 2: International Sanctions}\label{subsec:International Sanctions}
 \subsubsection{Threat and Imposition of Sanctions (TIES) Data}\label{subsubsec:TIES}
@@ -374,7 +378,7 @@ We processed the threat and imposition of sanctions (TIES) data \citep{morgan201
 \bibliographystyle{agsm}
 \bibliography{multicastnetwork}
 \begin{appendices}
-\section{Normalizing constant of MB$_{Gibbs}$}\label{sec: non-empty Gibbs measure}
+\section{Normalizing Constant of MB$_{Gibbs}$}\label{sec: non-empty Gibbs measure}
 Our probability measure ``MB$_{Gibbs}$''---the multivariate Bernoulli distribution with non-empty Gibbs measure \citep{fellows2017removing}---defines the probability of author $a$ selecting the binary recipient vector $\boldsymbol{u}_{ad}$ as
 \begin{equation*} 
 \begin{aligned}
@@ -424,6 +428,16 @@ Finally, the closed form expression for the normalizing constant is  \begin{equa
 \begin{aligned}Z(\boldsymbol{\lambda}_{ad}) = \prod_{r \neq a } \big(\mbox{exp}(\lambda_{adr}) + 1\big)-1.
 \end{aligned}  
 \end{equation*}
- 
+\newpage
+ \section{PPC Results from Exponential Distribution}\label{sec: PPCexp}
+ 	\begin{figure}[H]
+ 		\centering
+ 		\includegraphics[width=0.495\textwidth]{plots_paper/outdegree_exp-1.png}	
+ 		\includegraphics[width=0.495\textwidth]{plots_paper/indegree_exp-1.png}	
+ 		\includegraphics[width=0.495\textwidth]{plots_paper/recipientsize_exp-1.png}	
+ 		\includegraphics[width=0.31\textwidth]{plots_paper/timepp_exp-1.png}
+ 		\caption {PPC results from exponential distribution: outdegree distribution (\textit{upper left}), indegree distribution (\textit{upper right}), recipient size distribution (\textit{lower left}), and time-increments probability-probability (PP) plot  (\textit{lower right}). Red lines in the first three plot depict the observed statistics, and the red line in the last plot is the diagonal line connecting $(0, 0)$ and $(1, 1)$.}
+ 		\label{figure:PPCexp}
+ 	\end{figure}
 	\end{appendices}
 \end{document}

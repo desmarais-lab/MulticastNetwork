@@ -63,7 +63,8 @@ outdegreedist = matrix(NA,  500, A)
 recipientsdist = matrix(NA,  500, A-1)
 timedist = matrix(NA, 500, 621)
 #setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC")
-setwd("/Users/bomin8319/")
+#setwd("/Users/bomin8319/")
+setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC2")
 
 for (n in 1:500) {
 	filename = paste0("Montgomery_PPCnew", n,".RData")
@@ -143,6 +144,66 @@ outdegree1 = data.frame(Outdegree = degreedist1)
 colnames(outdegree1) = c("Outdegree", "Nodes")
 ggplot(data = data, aes(x = Outdegree, y = Nodes)) +geom_boxplot() + geom_line(data = outdegree1, group = 1, col = 'red')
 
+#################################
+
+indegreedist = matrix(NA, 500, A)
+outdegreedist = matrix(NA,  500, A)
+recipientsdist = matrix(NA,  500, A-1)
+timedist = matrix(NA, 500, 621)
+#setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC")
+#setwd("/Users/bomin8319/")
+setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC2")
+
+for (n in 1:500) {
+	filename = paste0("Montgomery_PPCnew2", n,".RData")
+	load(filename)
+	outdegreedist[n, ] = tabulate(vapply(1:621, function(x) Montgomery_PPC2[[x]]$a_d, c(1)), A)
+	indegreedist[n, ] = rowSums(sapply(1:621, function(x) Montgomery_PPC2[[x]]$r_d))
+	recipientsdist[n, ] = tabulate(vapply(1:621, function(x) sum(Montgomery_PPC2[[x]]$r_d), c(1)), A-1)
+	timedist[n, ] = vapply(1:621, function(x) Montgomery_PPC2[[x]]$t_d, c(1))/ timeunit
+} 
+
+outdegreedist = data.frame(outdegreedist)
+colnames(outdegreedist)=1:18
+library(ggplot2)
+library(reshape)
+data = melt(outdegreedist)
+colnames(data) = c("Node", "Outdegree")
+
+outdegree = data.frame(Node = 1:18, Outdegree = outdegree)
+ggplot(data = data, aes(x = Node, y = Outdegree)) +geom_boxplot() + geom_line(data = outdegree, col = 'red')
+
+indegreedist = data.frame(indegreedist)
+colnames(indegreedist)=1:18
+library(ggplot2)
+library(reshape)
+data = melt(indegreedist)
+colnames(data) = c("Node", "Indegree")
+
+indegree = data.frame(Node = 1:18, Indegree = indegree)
+ggplot(data = data, aes(x = Node, y = Indegree)) +geom_boxplot() + geom_line(data = indegree, col = 'red')
+
+recipientsdist = data.frame(recipientsdist[,1:14])
+colnames(recipientsdist)=1:14
+library(ggplot2)
+library(reshape)
+data = melt(recipientsdist)
+colnames(data) = c("RecipientSize", "Documents")
+
+recipients = data.frame(RecipientSize = 1:14, Documents = recipients[1:14])
+ggplot(data = data, aes(x = RecipientSize, y = Documents) )+geom_boxplot() + geom_line(data = recipients, col = 'red')
+
+uniqueValues = quantile(c(timedist[,-1], timeinc), seq(0, 1, length = 500))
+  qx1 = numeric(length(uniqueValues))
+  	qx2 = numeric(length(uniqueValues))
+ 		
+  	for (j in 1:length(uniqueValues)) {
+  		qx1[j] = mean(c(timedist[,-1]) <= uniqueValues[j])
+  		qx2[j] = mean(c(timeinc) <= uniqueValues[j])
+}
+
+time = data.frame(Simulated = qx1, Observed = qx2)
+ggplot(data = time, aes(x = Simulated, y = Observed)) + geom_point() + geom_abline(intercept = 0, slope = 1, col = 'red')
 
 #################################
 set.seed(1)

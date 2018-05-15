@@ -114,3 +114,12 @@ for (n in 1:500) {
 
 
 
+setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC2")
+for (n in 1:500) {
+	print(n)
+    Montgomery_PPC2 = PPC(length(edge), beta = colMeans(Montgomery_infer2$beta), eta = colMeans(Montgomery_infer2$eta),
+    sigma2 = mean(Montgomery_infer2$sigma2), X, Y, timeunit = 3600, u = Montgomery_infer2$u, timedist = "exponential")
+  filename = paste0("Montgomery_PPCnew2", n,".RData")
+  save(Montgomery_PPC2, file = filename)
+}
+

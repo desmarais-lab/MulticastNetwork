@@ -115,3 +115,15 @@ for (n in 1:500) {
 
 
 
+
+load("/Users/bomin8319/Desktop/Montgomery_infer2.RData")
+initial = list()
+initial$sender = email[1:(min(trim)-1), 2]
+initial$receiver = email[1:(min(trim)-1), 3:20]
+initial$time = email[1:(min(trim)-1),1]
+for (n in 1:500) {
+  Montgomery_PPC = PPC(length(edge), A, colMeans(Montgomery_infer2$beta), colMeans(Montgomery_infer2$eta), 
+                       mean(Montgomery_infer2$sigma2), X, Y, timeunit = 3600, Montgomery_infer2$u, timedist = "exponential")
+  filename = paste0("Montgomery_PPCnew", n,".RData")
+  save(Montgomery_PPC, file = filename)
+}
