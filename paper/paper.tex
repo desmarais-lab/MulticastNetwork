@@ -200,14 +200,14 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
  				(if needed) update $\sigma_\tau^2$ using Metropolis-Hastings --- Equation (10)
  		}
  }
- 	Summarize the results with: \\last chain of $\boldsymbol{b}$, and last chain of $\boldsymbol{\eta}$ (and $\sigma_\tau^2$) 
+ 	Summarize the results with: last chain of $\boldsymbol{b}$, and last chain of $\boldsymbol{\eta}$ (and $\sigma_\tau^2$) 
  				\label{alg:MCMC}
  \end{algorithm}
  	   \section{Application to Montgomary County Emails}\label{subsec:Emails}
  	  We now present a case study applying our method to Montgomery county government email data. For this case study,
  	  we formulate the network statistics $\boldsymbol{x}$ and timestamp statistics $\boldsymbol{y}$ and ground them in illustrative examples. We then report a suite of experiments that test our method’s ability to form the posterior distribution over latent variables. 
  	  	   \subsection{Data}\label{subsec:Montgomery}
- 	   Our data come from the North Carolina county government email dataset collected by \cite{ben2017transparency} that includes internal email corpora covering the inboxes and outboxes of managerial-level employees of North Carolina county governments. Out of over twenty counties, we chose Montgomery County to 1) test our model using data with a lot of multicast edges (16.76\%), and 2) limit the scope of this initial application. The Montgomery County email network contains 680 emails, sent and received by 18 department managers over a period of 3 months (March--May) in 2012. 
+ 	   Our data come from the North Carolina county government email dataset collected by \cite{ben2017transparency} that includes internal email corpora covering the inboxes and outboxes of managerial-level employees of North Carolina county governments. Out of over twenty counties, we chose Montgomery County to 1) test our model using data with a lot of hyper-edges (16.76\%), all of which are a single sender multiple receiver cases, and 2) limit the scope of this initial application. To summarize, Montgomery County email network contains 680 emails, sent and received by 18 department managers over a period of 3 months (March--May) in 2012. 
  	   \subsection{Covariates}\label{subsec:Covariates_email}
 	In the example of email networks, we form the covariate vector $\boldsymbol{x}_{adr}$ using time-varying network statistics based on the time interval prior to and including $t_{d-1}$. Along with intercept term, we compute the network statistics \citep{PerryWolfe2012}, where the time interval tracks 7 days prior to the last email was sent $l_d = (t_{d-1}-7\mbox{days}, t_{d-1}]$. To be specific, we use
 	\begin{itemize}
@@ -374,7 +374,11 @@ We processed the threat and imposition of sanctions (TIES) data \citep{morgan201
 		\subsubsection{Prediction Experiment}\label{subsubsec:Experiment_sanction} 
 		\fi 
 \section{Conclusion}\label{sec:conclusion}
-\newpage
+Motivated by the relational event model \citep{Butts2008} and its variants for time-stamped networks, the hyper-edge event model (HeEM) can effectively learn the underlying edge generating and timestamp generating structures of event data, while allowing flexibity in the covariate specifications and the distributional assumption of time-increments.
+Accounting for the hyper-edge, we make better use of events with hyper-edges than modeling them as duplicate edges. In modeling the timestamps of the events, our generalized linear model (GLM) based formulation eliminates the need to stick with one distribution (e.g., exponential distribution), and we also provide an algorithm for predictive experiment that helps to learn which distribution better fits the data. To sum, the HeEM's flexible generative process thus leads to more accurate and precise inference on model parameters.
+
+We have demonstrated effectiveness of our model by analyzing Montgomery County government emails, which includes numerous hyper-edges. The estimated covariate effects reveal that the HeEM is able to understand the structural dynamics similar to those used in the exponential random graph model (ERGM), while the model additionally allows separate covariates and the corresponding parameters for edge and timestamp generating processes. Although we illustrate the entire framework and application in the context
+of one type of hyper-edges, a single sender and multiple recipients, our model can be easily extended to allow the opposite case, a single recipient and multiple senders, by slight modification of the generating process. This extension involves promissing applications including international sanctions and co-sponsorship of bills. Furthermore, while currently the model's applicability is limited to small-sized networks since we assume fixed set of nodes across entire timepoints, we can adjust the model to allow time-varying nodes or improve its computational efficiency such that the model is well applicable to large-scale networks. Considering the recent explosion of network dataset with huge number of nodes (e.g., online comnunications), the development of model adjustments for better applicability are objects of future work.
 \bibliographystyle{agsm}
 \bibliography{multicastnetwork}
 \begin{appendices}
@@ -428,7 +432,6 @@ Finally, the closed form expression for the normalizing constant is  \begin{equa
 \begin{aligned}Z(\boldsymbol{\lambda}_{ad}) = \prod_{r \neq a } \big(\mbox{exp}(\lambda_{adr}) + 1\big)-1.
 \end{aligned}  
 \end{equation*}
-\newpage
  \section{PPC Results from Exponential Distribution}\label{sec: PPCexp}
  	\begin{figure}[H]
  		\centering
