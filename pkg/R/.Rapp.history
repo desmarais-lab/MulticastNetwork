@@ -1,110 +1,3 @@
-sapply(1:1118, function(d) predprob[d,truereceiver[d]])
-d
-truereceiver[d]
-d
-predprob = Montgomery_PPE$receiverprob
-receiver = data.frame(probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1]), dist = rep("lognormal", 1118))
-receiver
-d = 1
-truereceiver[d]
-predprob[1,]
-receiver = data.frame(probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1]), dist = rep("lognormal", 1118))#
-receiver = rbind(receiver, data.frame(probtrue = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1]), dist = rep("exponential", 1118)))#
-library(ggplot2)#
-library(reshape)
-receiver = melt(receiver)#
-colnames(receiver)[3] = "correct"#
-ggplot(data = receiver, aes(x = dist, y = correct, fill = dist))+geom_boxplot()
-head(receiver)
-hist(receiver[,3])
-hist(log(receiver[,3]))
-receiver = data.frame(probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1]), dist = rep("lognormal", 1118))
-head(receiver)
-receiver[,1] = exp(receiver[,1])/(exp(receiver[,1])+1)
-head(receiver)
-hist(receiver[,1])
-PPE
-receiver = data.frame(probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1]), dist = rep("lognormal", 1118))#
-receiver = rbind(receiver, data.frame(probtrue = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1]), dist = rep("exponential", 1118)))
-receiver = melt(receiver)#
-colnames(receiver)[3] = "correct"#
-ggplot(data = receiver, aes(x = dist, y = correct, fill = dist))+geom_boxplot()
-ggplot(data = receiver, aes(x = dist, y = correct, fill = dist))+geom_histogram(position = "dodge")
-ggplot(data = receiver, aes(x = correct, fill = dist))+geom_histogram(position = "dodge")
-probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1])
-receiver = data.frame(probtrue = log(probtrue) - log(1-probtrue), dist = rep("lognormal", 1118))
-receiver
-receiver = data.frame(probtrue = log(probtrue /(1-probtrue)), dist = rep("lognormal", 1118))
-receiver
-probtrue2 = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1])
-truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
-predprob = Montgomery_PPE$receiverprob#
-predprob2 = Montgomery_PPE2$receiverprob#
-#
-probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1])#
-probtrue2 = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1])#
-receiver = data.frame(probtrue = log(probtrue /(1-probtrue)), dist = rep("lognormal", 1118))#
-receiver = rbind(receiver, data.frame(probtrue = log(probtrue2/(1-probtrue2)), dist = rep("exponential", 1118)))
-receiver = rbind(receiver, data.frame(probtrue = log(probtrue2/(1-probtrue2)), dist = rep("exponential", 1118)))#
-library(ggplot2)#
-library(reshape)#
-receiver = melt(receiver)#
-colnames(receiver)[3] = "correct"#
-ggplot(data = receiver, aes(x = correct, fill = dist))+geom_histogram(position = "dodge")
-ggplot(data = receiver, aes(x = dist, y = correct, fill = dist))+geom_boxplot()
-summary(log(probtrue /(1-probtrue)))
-summary(log(probtrue2/(1-probtrue2)))
-truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
-predprob = Montgomery_PPE$receiverprob#
-predprob2 = Montgomery_PPE2$receiverprob#
-#
-probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1])#
-probtrue[probtrue==1] = 0.999#
-probtrue2 = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1])#
-probtrue2[probtrue2==1] = 0.999#
-#
-receiver = data.frame(probtrue = log(probtrue /(1-probtrue)), dist = rep("lognormal", 1118))#
-receiver = rbind(receiver, data.frame(probtrue = log(probtrue2/(1-probtrue2)), dist = rep("exponential", 1118)))#
-library(ggplot2)#
-library(reshape)#
-receiver = melt(receiver)#
-colnames(receiver)[3] = "correct"#
-ggplot(data = receiver, aes(x = dist, y = correct, fill = dist))+geom_boxplot()
-summary(log(probtrue /(1-probtrue)))
-summary(log(probtrue2/(1-probtrue2)))
-ggplot(data = receiver, aes(x = correct, fill = dist))+geom_histogram(position = "dodge")
-truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
-predprob = Montgomery_PPE$receiverprob#
-predprob2 = Montgomery_PPE2$receiverprob#
-#
-probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1])#
-probtrue[probtrue==1] = 0.999#
-probtrue2 = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1])#
-probtrue2[probtrue2==1] = 0.999#
-#
-receiver = data.frame(probtrue = log(probtrue /(1-probtrue)), dist = rep("lognormal", 1118))#
-receiver = rbind(receiver, data.frame(probtrue = log(probtrue2/(1-probtrue2)), dist = rep("exponential", 1118)))#
-library(ggplot2)#
-library(reshape)#
-receiver = melt(receiver)#
-colnames(receiver)[3] = "logit"#
-ggplot(data = receiver, aes(x = dist, y = correct, fill = dist))+geom_boxplot()
-truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
-predprob = Montgomery_PPE$receiverprob#
-predprob2 = Montgomery_PPE2$receiverprob#
-#
-probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1])#
-probtrue[probtrue==1] = 0.999#
-probtrue2 = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1])#
-probtrue2[probtrue2==1] = 0.999#
-#
-receiver = data.frame(probtrue = log(probtrue /(1-probtrue)), dist = rep("lognormal", 1118))#
-receiver = rbind(receiver, data.frame(probtrue = log(probtrue2/(1-probtrue2)), dist = rep("exponential", 1118)))#
-library(ggplot2)#
-library(reshape)#
-receiver = melt(receiver)#
-colnames(receiver)[3] = "logit"#
-ggplot(data = receiver, aes(x = dist, y = logit, fill = dist))+geom_boxplot()
 ggplot(data = receiver, aes(x = logit, fill = dist))+geom_histogram(position = "dodge")
 sample
 library(devtools)
@@ -295,16 +188,6 @@ hist(sample(tau_raw, 1000, prob = f/fstar, replace = TRUE)#
 )
 hist(sample(tau_raw, 10000, prob = f/fstar, replace = TRUE)#
 )
-hist(sample(tau_raw, 10000, prob = f/fstar, replace = TRUE)#
-)
-hist(sample(tau_raw, 10000, prob = f/fstar, replace = TRUE)#
-)
-hist(sample(tau_raw, 10000, prob = f/fstar, replace = TRUE)#
-)
-hist(sample(tau_raw, 10000, prob = f/fstar, replace = TRUE)#
-)
-hist(sample(tau_raw, 10000, prob = f/fstar, replace = TRUE)#
-)
 hist(tau_raw)
 Q
 document()
@@ -382,8 +265,6 @@ Montgomery_PPE = PPE(edge, X, Y, 50, c(5,5,1), 0, prior.beta, prior.eta, prior.s
                      initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, #
                      lasttime = Montgomery$lasttime, MHprop.var = 0.15, timedist = "lognormal")
 ifelse(sum(data[[d]][[2]][-missingr[it]])==0, log(0.999/0.001), lambda[[d]][senders[d], missingr[it]])
-ifelse(sum(data[[d]][[2]][-missingr[it]])==0, log(0.999/0.001), lambda[[d]][senders[d], missingr[it]])
-ifelse(sum(data[[d]][[2]][-missingr[it]])==0, log(0.999/0.001), lambda[[d]][senders[d], missingr[it]])
 Q
 document()
 install()
@@ -401,7 +282,6 @@ install()
 Montgomery_PPE = PPE(edge, X, Y, 550, c(5,5,1), 50, prior.beta, prior.eta, prior.sigma2, #
                      initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, #
                      lasttime = Montgomery$lasttime, MHprop.var = 0.15, timedist = "lognormal")
-ㅃ
 ㅃ
 Q
 document()
@@ -571,14 +451,78 @@ library(reshape)#
 time = melt(time)#
 colnames(time)[3] = "MAPE"#
 ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
-predtime = Montgomery_PPE$timepredict#
-predtime2 = Montgomery_PPE2$timepredict#
-#
-time = data.frame(MAPE = sapply(1:62, function(d) 100/mean(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAPE = sapply(1:62, function(d) 100/mean(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
-library(ggplot2)#
-library(reshape)#
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
+library(devtools)
+document()
+rexp
+?rexp
+summary(rexp(10000, 10))
+summary(rexp(10000, 1/10))
+document()
+load('~/Desktop/MulticastNetwork/Montgomery_infer2.RData')
+Montgomery_PPC2 = PPC(length(edge), beta = colMeans(Montgomery_infer2$beta), eta = colMeans(Montgomery_infer2$eta),#
+    sigma2 = mean(Montgomery_infer2$sigma2), X, Y, timeunit = 3600, u = Montgomery_infer2$u, timedist = "exponential")
+edge = Montgomery$edge#
+X = Montgomery$X#
+Y = Montgomery$Y#
+P = dim(X)[4]#
+Q = dim(Y)[3]#
+A = dim(Y)[2]
+load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")#
+edge = Montgomery$edge#
+X = Montgomery$X#
+Y = Montgomery$Y#
+P = dim(X)[4]#
+Q = dim(Y)[3]#
+A = dim(Y)[2]
+Montgomery_PPC2 = PPC(length(edge), beta = colMeans(Montgomery_infer2$beta), eta = colMeans(Montgomery_infer2$eta),#
+    sigma2 = mean(Montgomery_infer2$sigma2), X, Y, timeunit = 3600, u = Montgomery_infer2$u, timedist = "exponential")
+mu[d,]
+exp(mu[d, ])
+rexp(A, 1/exp(mu[d, ]))
+tau = rexp(A, 1/exp(mu[d, ]))
+tau
+which(tau==min(tau))
+mu[d,16]
+exp(1)
+exp(2)
+exp(-1)
+exp(-2)
+tau = rexp(A, 1/exp(mu[d, ]))
+tau
+rlnorm(A, mu[d, ], sqrt(sigma2))
+mu[d,]
+rlnorm(A, mu[d, ], sqrt(sigma2))
+rlnorm(A, mu[d, ], sqrt(sigma2))
+rlnorm(A, mu[d, ], sqrt(sigma2))
+rlnorm(A, mu[d, ], sqrt(sigma2))
+rlnorm(A, mu[d, ], sqrt(sigma2))
+Q
+document()
+load('~/Desktop/MulticastNetwork/Montgomery_infer.RData')
+colMeans(Montgomery_infer$b)
+load('~/Desktop/MulticastNetwork/Montgomery_infer2.RData')
+colMeans(Montgomery_infer$b)
+colMeans(Montgomery_infer2$b)
+colMeans(Montgomery_infer$eta)
+colMeans(Montgomery_infer2$eta)
+Montgomery_infer2 = Inference(edge, X, Y, 55000, c(10,1,1), 15000, prior.beta, prior.eta, prior.sigma2, initialval = NULL,#
+proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, timedist = "exponential")
+prior.beta = list(mean = c(-3.5, rep(0, P-1)), var = 2*diag(P))#
+prior.eta = list(mean = c(7, rep(0, Q-1)), var = 2*diag(Q))#
+prior.sigma2 = list(a = 2, b = 1)
+Montgomery_infer2 = Inference(edge, X, Y, 55000, c(10,1,1), 15000, prior.beta, prior.eta, prior.sigma2, initialval = NULL,#
+proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, timedist = "exponential")
+rm(list=ls())
+library(MulticastNetwork)#
+#load our Montgomery county email data#
+load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")#
+names(Montgomery)
+edge = Montgomery$edge
+X = Montgomery$X
+Y = Montgomery$Y
+P = dim(X)[4]#
+Q = dim(Y)[3]#
+A = dim(Y)[2]
+prior.beta = list(mean = c(-3.5, rep(0, P-1)), var = 2*diag(P))#
+prior.eta = list(mean = c(7, rep(0, Q-1)), var = 2*diag(Q))#
+prior.sigma2 = list(a = 2, b = 1)
