@@ -2,56 +2,45 @@ This is BibTeX, Version 0.99d (TeX Live 2015)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: ba-sample.aux
 The style file: bib/ba.bst
-Database file #1: bib/multicastnetwork.bib
-Warning--I didn't find a database entry for "akaike"
-Warning--I didn't find a database entry for "dyke"
-Warning--I didn't find a database entry for "greene"
-Warning--I didn't find a database entry for "hilbe"
-Warning--I didn't find a database entry for "akivarsq"
-Warning--I didn't find a database entry for "kstuart"
-Warning--I didn't find a database entry for "hilbetech"
-Warning--I didn't find a database entry for "hilbeglm"
-Warning--I didn't find a database entry for "maddalacntrsq"
-Warning--I didn't find a database entry for "companion"
-You've used 29 entries,
+Database file #1: bib/baHEM.bib
+You've used 38 entries,
             2760 wiz_defined-function locations,
-            788 strings with 10246 characters,
-and the built_in function-call counts, 18380 in all, are:
-= -- 1500
-> -- 734
-< -- 15
-+ -- 271
-- -- 234
-* -- 1393
-:= -- 2820
-add.period$ -- 119
-call.type$ -- 29
-change.case$ -- 204
-chr.to.int$ -- 29
-cite$ -- 29
-duplicate$ -- 1325
-empty$ -- 1402
-format.name$ -- 324
-if$ -- 3645
+            834 strings with 11764 characters,
+and the built_in function-call counts, 23893 in all, are:
+= -- 1950
+> -- 964
+< -- 21
++ -- 359
+- -- 309
+* -- 1815
+:= -- 3681
+add.period$ -- 153
+call.type$ -- 38
+change.case$ -- 263
+chr.to.int$ -- 38
+cite$ -- 38
+duplicate$ -- 1712
+empty$ -- 1812
+format.name$ -- 427
+if$ -- 4721
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 281
-newline$ -- 183
-num.names$ -- 122
-pop$ -- 525
+missing$ -- 368
+newline$ -- 237
+num.names$ -- 158
+pop$ -- 678
 preamble$ -- 1
-purify$ -- 188
+purify$ -- 247
 quote$ -- 0
-skip$ -- 516
+skip$ -- 663
 stack$ -- 0
-substring$ -- 914
-swap$ -- 768
-text.length$ -- 1
+substring$ -- 1197
+swap$ -- 991
+text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 255
+type$ -- 330
 warning$ -- 0
-while$ -- 136
+while$ -- 178
 width$ -- 0
-write$ -- 415
-(There were 10 warnings)
+write$ -- 540

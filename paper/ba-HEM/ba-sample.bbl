@@ -1,10 +1,25 @@
-\begin{thebibliography}{29}
+\begin{thebibliography}{38}
 \newcommand{\enquote}[1]{``#1''}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
 \expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
 \ifx\endbibitem\undefined \let\endbibitem\relax\fi
+
+\bibitem[{Altman et~al.(2004)Altman, Gill, and McDonald}]{altman2004numerical}
+Altman, M., Gill, J., and McDonald, M.~P. (2004).
+\newblock {\em Numerical issues in statistical computing for the social
+  scientist\/}, volume 508.
+\newblock John Wiley \& Sons.
+\endbibitem
+
+\bibitem[{ben Aaron et~al.(2017)ben Aaron, Denny, Desmarais, and
+  Wallach}]{ben2017transparency}
+ben Aaron, J., Denny, M., Desmarais, B., and Wallach, H. (2017).
+\newblock \enquote{Transparency by Conformity: A Field Experiment Evaluating
+  Openness in Local Governments.}
+\newblock {\em Public Administration Review\/}, 77(1): 68--77.
+\endbibitem
 
 \bibitem[{Blattner(2009)}]{blattner2009b}
 Blattner, M. (2009).
@@ -67,6 +82,14 @@ Fellows, I. and Handcock, M. (2017).
 \newblock In {\em Artificial Intelligence and Statistics\/}, 289--297.
 \endbibitem
 
+\bibitem[{Geweke(2004)}]{geweke2004getting}
+Geweke, J. (2004).
+\newblock \enquote{Getting it right: Joint distribution tests of posterior
+  simulators.}
+\newblock {\em Journal of the American Statistical Association\/}, 99(467):
+  799--804.
+\endbibitem
+
 \bibitem[{Ghoshal et~al.(2009)Ghoshal, Zlati{\'c}, Caldarelli, and
   Newman}]{ghoshal2009random}
 Ghoshal, G., Zlati{\'c}, V., Caldarelli, G., and Newman, M. (2009).
@@ -81,6 +104,12 @@ Hunter, D.~R., Handcock, M.~S., Butts, C.~T., Goodreau, S.~M., and Morris, M.
 \newblock \enquote{ergm: A package to fit, simulate and diagnose
   exponential-family models for networks.}
 \newblock {\em Journal of statistical software\/}, 24(3): nihpa54860.
+\endbibitem
+
+\bibitem[{Hyndman and Koehler(2006)}]{hyndman2006another}
+Hyndman, R.~J. and Koehler, A.~B. (2006).
+\newblock \enquote{Another look at measures of forecast accuracy.}
+\newblock {\em International journal of forecasting\/}, 22(4): 679--688.
 \endbibitem
 
 \bibitem[{Kanungo and Jain(2008)}]{kanungo2008modeling}
@@ -129,6 +158,12 @@ McCallum, A., Corrada-Emmanuel, A., and Wang, X. (2005).
   33.
 \endbibitem
 
+\bibitem[{McCullough(2009)}]{mccullough2009accuracy}
+McCullough, B.~D. (2009).
+\newblock \enquote{The accuracy of econometric software.}
+\newblock {\em Handbook of computational econometrics\/}, 55--79.
+\endbibitem
+
 \bibitem[{Nelder and Baker(1972)}]{nelder1972generalized}
 Nelder, J.~A. and Baker, R.~J. (1972).
 \newblock {\em Generalized linear models\/}.
@@ -171,6 +206,20 @@ Robins, G., Pattison, P., Kalish, Y., and Lusher, D. (2007).
 \newblock {\em Social networks\/}, 29(2): 173--191.
 \endbibitem
 
+\bibitem[{Rubin et~al.(1984)}]{rubin1984bayesianly}
+Rubin, D.~B. et~al. (1984).
+\newblock \enquote{Bayesianly justifiable and relevant frequency calculations
+  for the applied statistician.}
+\newblock {\em The Annals of Statistics\/}, 12(4): 1151--1172.
+\endbibitem
+
+\bibitem[{Snijders et~al.(2007)Snijders, Steglich, and
+  Schweinberger}]{snijders2007modeling}
+Snijders, T., Steglich, C., and Schweinberger, M. (2007).
+\newblock {\em Modeling the coevolution of networks and behavior\/}.
+\newblock na.
+\endbibitem
+
 \bibitem[{Snijders(1996)}]{snijders1996stochastic}
 Snijders, T.~A. (1996).
 \newblock \enquote{Stochastic actor-oriented models for network change.}
@@ -182,6 +231,14 @@ Sz{\'o}stek, A.~M. (2011).
 \newblock \enquote{?Dealing with My Emails?: Latent user needs in email
   management.}
 \newblock {\em Computers in Human Behavior\/}, 27(2): 723--729.
+\endbibitem
+
+\bibitem[{Tanner and Wong(1987)}]{tanner1987calculation}
+Tanner, M.~A. and Wong, W.~H. (1987).
+\newblock \enquote{The calculation of posterior distributions by data
+  augmentation.}
+\newblock {\em Journal of the American statistical Association\/}, 82(398):
+  528--540.
 \endbibitem
 
 \bibitem[{Vu et~al.(2011)Vu, Hunter, Smyth, and Asuncion}]{Vu2011}
@@ -206,6 +263,15 @@ Zhang, Z.-K., Zhou, T., and Zhang, Y.-C. (2010).
   user--item--tag tripartite graphs.}
 \newblock {\em Physica A: Statistical Mechanics and its Applications\/},
   389(1): 179--186.
+\endbibitem
+
+\bibitem[{Zhao et~al.(2016)Zhao, Wang, Cumberworth, Gsponer, de~Freitas,
+  Bouchard-C{\^o}t{\'e} et~al.}]{zhao2016bayesian}
+Zhao, T., Wang, Z., Cumberworth, A., Gsponer, J., de~Freitas, N.,
+  Bouchard-C{\^o}t{\'e}, A., et~al. (2016).
+\newblock \enquote{Bayesian analysis of continuous time Markov chains with
+  application to phylogenetic modelling.}
+\newblock {\em Bayesian Analysis\/}, 11(4): 1203--1237.
 \endbibitem
 
 \bibitem[{Zlati{\'c} et~al.(2009)Zlati{\'c}, Ghoshal, and
