@@ -74,7 +74,7 @@ Several network models have been developed that handle time-stamped events in wh
 
 Concentrating on developing a statistical network model with better handling of hyperedges, we introduce the hyperedge event model (HEM) which simultaneously models the two components that govern time-stamped event formation: 1) the recipient selection processs that allows multiple senders or receivers, and 2) the time-to-next interactions with flexible distributional choices. In what follows, we introduce the HEM by describing how we assume the generatve process of a time-stamped event data (Section 2), and deriving the sampling equations for Bayesian inference (Section 3). Then, we apply the model to the Montgomery county government email data and perform two model validation tasks (Section 4). Finally, the paper finishes in Section 5 with conclusion and discussion.
 
-\section{The Hyperedge Event Model (HEM)}\label{sec:generative process}
+\section{The Hyperedge Event Model}\label{sec:generative process}
 Data generated under the model consists of $D$ unique edges. A single edge, indexed by $d \in [D]$, is represented by the three components: the sender $a_d \in [A]$, an indicator vector of recipients $\boldsymbol{r}_d = \{u_{dr} \}_{r=1}^{A}$, and the timestamp $t_d \in (0, \infty)$. For simplicity, we assume that edges are ordered by time such that $t_d \leq t_{d+1}$. While the model can be applied for two type of hyperedges---edges with (1) a single sender and multiple receivers, and (2) multiple senders and a single receiver---here we only present the generative process for those involving a single sender and multiple receivers (i.e., multicast). For the latter case of hyperedges, we treat $a_d$ to be an indicator vector of senders $\boldsymbol{a}_d = \{u_{dr} \}_{a=1}^{A}$ and $r_d$ to be the single recipient.
 \subsection{Edge Generating Process}\label{subsec: Tie}
 For every possible author--recipient pair $(a,r)_{a \neq r}$, we define the ``recipient intensity", which is the likelihood of edge $d$ being sent from $a$ to $r$:
@@ -125,32 +125,33 @@ t_d &=t_{d-1} + \tau_{a_d d}.
 \end{equation}
 Therefore, it is a sender-driven process in that the recipients and timestamp of an edge is determined by the sender's urgency to send the edge to chosen recipients. Note that  our generative process accounts for tied events such that in case of tied events (i.e., multiple senders generated exactly same time increments $\tau_d$), we observe all of the tied events without assigning the orders of tied events. Algorithm \ref{alg:generative} summarizes the generative process in Section \ref{sec:generative process}.
 	\begin{algorithm}[ht]
-		\spacingset{1}
+			\spacingset{1}
 		\SetAlgoLined
 		\caption{Generating Process}
-		\For{d=1 to D}{
-			\For{a=1 to $A$}{
-				\For{r=1 to $A$ (r $\neq$ a)}{
-						set $\lambda_{adr} = {\boldsymbol{b}}^{\top}\boldsymbol{x}_{adr}$
-					}  
-					draw $\boldsymbol{u}_{ad}  \sim
-					\mbox{Gibbs}(\boldsymbol{\lambda}_{ad})$\\
-					set $\mu_{ad} = g^{-1}(\boldsymbol{\eta}^\top \boldsymbol{y}_{ad})$\\
-					draw $\tau_{ad} \sim f_\tau(\mu_{ad}, \sigma_\tau^2)$
-				}
-				\textbf{For no tied events,}\\
-				set $a_d= \mbox{argmin}_{a}(\tau_{ad})$\\
-				set $\boldsymbol{r}_d = \boldsymbol{u}_{a_d d}$\\
-				set $t_d =t_{d-1} + \min_a\tau_{ad}$\\\\
-				\textbf{For $n$ tied events,} (i.e., $n$ senders generated same minimum time increments)\\
-				set $a_d, \ldots, a_{d+n}= \mbox{argmin}_{a}(\tau_{ad})$\\
-				set $\boldsymbol{r}_d=\boldsymbol{u}_{a_d d},\ldots,\boldsymbol{r}_{d+n}= ,\boldsymbol{u}_{a_{d+n} d}$\\
-				set $t_d, \ldots, t_{d+n}=t_{d-1} + \min_a\tau_{ad}$\\
-				jump to $d = d+n+1$
-			}
-			\label{alg:generative}
-		\end{algorithm}
-\spacingset{1.45}
+		\begin{algorithmic}
+			\FOR{d=1 to D}
+			\FOR{a=1 to $A$}
+			\FOR{r=1 to $A$ (r $\neq$ a)}
+			\STATE	set $\lambda_{adr} = {\boldsymbol{b}}^{\top}\boldsymbol{x}_{adr}$
+			\ENDFOR
+			\STATE	draw $\boldsymbol{u}_{ad}  \sim
+			\mbox{Gibbs}(\boldsymbol{\lambda}_{ad})$
+			\STATE		set $\mu_{ad} = g^{-1}(\boldsymbol{\eta}^\top \boldsymbol{y}_{ad})$
+			\STATE		draw $\tau_{ad} \sim f_\tau(\mu_{ad}, \sigma_\tau^2)$
+			\ENDFOR
+			\STATE	\textbf{For no tied events,}
+			\STATE	set $a_d= \mbox{argmin}_{a}(\tau_{ad})$\
+			\STATE		set $\boldsymbol{r}_d = \boldsymbol{u}_{a_d d}$
+			\STATE	set $t_d =t_{d-1} + \min_a\tau_{ad}$
+			\STATE	\textbf{For $n$ tied events,} (i.e., $n$ senders generated same minimum time increments)\\
+			\STATE	set $a_d, \ldots, a_{d+n}= \mbox{argmin}_{a}(\tau_{ad})$
+			\STATE	set $\boldsymbol{r}_d=\boldsymbol{u}_{a_d d},\ldots,\boldsymbol{r}_{d+n}= ,\boldsymbol{u}_{a_{d+n} d}$
+			\STATE	set $t_d, \ldots, t_{d+n}=t_{d-1} + \min_a\tau_{ad}$
+			\STATE		jump to $d = d+n+1$
+			\ENDFOR
+		\end{algorithmic}
+		\label{alg:generative}
+	\end{algorithm}
 \section{Posterior Inference}\label{sec:inference}
 Our inference goal is to invert the generative process to obtain the posterior distribution over the unknown parameters, conditioned on the observed data and hyperparamters $(\boldsymbol{\mu}_b, \Sigma_b, \boldsymbol{\mu}_\eta, \Sigma_\eta)$. We draw the samples using Markov chain Monte Carlo (MCMC) methods, repeatedly resampling the value of each parameter from its conditional posterior given the observed data, hyperparamters, and the current values of the other parameters. We express each parameter’s conditional posterior in a closed form using the data augmentation schemes in $\boldsymbol{u}$ \citep{tanner1987calculation}. In this section, we provide each latent variable's conditional posterior. 
 
@@ -180,31 +181,34 @@ where $f_{\tau}(\tau_{d}; \mu_{a_d d}, \sigma_\tau^2)$ is the probability that t
 &P(\boldsymbol{\eta}, \sigma_\tau^2| \boldsymbol{u}, \boldsymbol{y})\\&\propto \prod_{m=1}^M\Big(\prod_{d:t_d=t_m^*}f_{\tau}(t_m^*-t_{m-1}^*; \mu_{a_d d}, \sigma_\tau^2)\times \prod_{a \notin \{a_d\}_{d:t_d=t_m^*}}\big(1-F_{\tau}(t_m^*-t_{m-1}^*; \mu_{a d}, \sigma_\tau^2) \big)\Big),
 \end{aligned}
 \end{equation}
-where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq D$). If $M=D$ (i.e., no tied events), Equation (10) reduces to Equation (9). Algorithm \ref{alg:MCMC} provides the pseudocode.
- \begin{algorithm}[H]
- 			\spacingset{1}
- 	\SetAlgoLined
- 	\caption{MCMC Algorithm}
- 	set initial values of $\boldsymbol{b}, \boldsymbol{\eta}$, (and $\sigma_\tau^2$)\\
- 	\For{o=1 to outer}{
- 	 		\For{d=1 to D}{
- 			\For{a = 1 to A}{
- 				\For{r = 1 to A (r $\neq$ a)}{
- 						update $u_{adr}$ using Gibbs update --- Equation (7)
-	 			}
- 			}
- 		}
- 		 		\For{n=1 to inner1}{
- 		 			update $\boldsymbol{b}$ using Metropolis-Hastings --- Equation (8)
- 				}
- 		\For{n=1 to inner2}{
- 				update $\boldsymbol{\eta}$ using Metropolis-Hastings --- Equation (10)\\
- 				(if needed) update $\sigma_\tau^2$ using Metropolis-Hastings --- Equation (10)
- 		}
- }
- 	Summarize the results with: last chain of $\boldsymbol{b}$, and last chain of $\boldsymbol{\eta}$ (and $\sigma_\tau^2$) 
- 				\label{alg:MCMC}
- \end{algorithm}
+where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq D$). If $M=D$ (i.e., no tied events), equation (10) reduces to equation (9). Algorithm \ref{alg:MCMC} provides the pseudocode.
+\begin{algorithm}[H]
+	\spacingset{1}
+	\SetAlgoLined
+	\caption{MCMC Algorithm}
+	\begin{algorithmic}
+		\STATE set initial values of $\boldsymbol{b}, \boldsymbol{\eta}$, (and $\sigma_\tau^2$)\\
+		\FOR{o=1 to outer}
+		\FOR{d=1 to D}
+		\FOR{a = 1 to A}
+		\FOR{r = 1 to A (r $\neq$ a)}
+		\STATE update $u_{adr}$ using Gibbs update --- equation (7)
+		\ENDFOR
+		\ENDFOR
+		\ENDFOR
+		\FOR{n=1 to inner1}
+		\STATE update $\boldsymbol{b}$ using Metropolis-Hastings --- equation (8)
+		\ENDFOR
+		\FOR{n=1 to inner2}
+		\STATE update $\boldsymbol{\eta}$ using Metropolis-Hastings --- equation (10)
+		\STATE (if needed) update $\sigma_\tau^2$ using Metropolis-Hastings --- equation (10)
+		\ENDFOR
+		
+		\ENDFOR
+		\STATE	Summarize the results with: last chain of $\boldsymbol{b}$, and last chain of $\boldsymbol{\eta}$ (and $\sigma_\tau^2$) 
+	\end{algorithmic}
+	\label{alg:MCMC}
+\end{algorithm}
  	   \section{Application to Montgomary County Emails}\label{subsec:Emails}
  	  We now present a case study applying our method to Montgomery county government email data. For this case study,
  	  we formulate the network statistics $\boldsymbol{x}$ and timestamp statistics $\boldsymbol{y}$ and ground them in illustrative examples. We then report a suite of experiments that test our method’s ability to form the posterior distribution over latent variables. 
@@ -281,7 +285,7 @@ Note that our time generating process in Section \ref{subsec:Time} is sender-ori
 				\ENDIF
 				\FOR{$r\in [A]_{\backslash a_d}$}
 				\IF{$r_{dr}=$ NA}
-				\STATE draw $r_{dr}$ using $P(r_{dr}= 1 | \cdot)$ and $P(r_{dr}= 0| \cdot)$---Equation (7)
+				\STATE draw $r_{dr}$ using $P(r_{dr}= 1 | \cdot)$ and $P(r_{dr}= 0| \cdot)$---equation (7)
 				\ENDIF
 				\ENDFOR
 				\IF{$t_d=$ NA}

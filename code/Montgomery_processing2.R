@@ -117,6 +117,7 @@ for (n in 1:500) {
 Montgomery_infer2 = Inference(edge, X, Y, 55000, c(10,1,1), 15000, prior.beta, prior.eta, prior.sigma2, initialval = NULL,
 proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = Montgomery$lasttime, timedist = "exponential")
 
+save(Montgomery_infer2, file = "/Users/bomin8319/Desktop/Montgomery_infer2.RData")
 
 setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC2")
 for (n in 1:500) {

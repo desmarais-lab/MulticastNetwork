@@ -1,0 +1,57 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: ba-sample.aux
+The style file: bib/ba.bst
+Database file #1: bib/multicastnetwork.bib
+Warning--I didn't find a database entry for "akaike"
+Warning--I didn't find a database entry for "dyke"
+Warning--I didn't find a database entry for "greene"
+Warning--I didn't find a database entry for "hilbe"
+Warning--I didn't find a database entry for "akivarsq"
+Warning--I didn't find a database entry for "kstuart"
+Warning--I didn't find a database entry for "hilbetech"
+Warning--I didn't find a database entry for "hilbeglm"
+Warning--I didn't find a database entry for "maddalacntrsq"
+Warning--I didn't find a database entry for "companion"
+You've used 29 entries,
+            2760 wiz_defined-function locations,
+            788 strings with 10246 characters,
+and the built_in function-call counts, 18380 in all, are:
+= -- 1500
+> -- 734
+< -- 15
++ -- 271
+- -- 234
+* -- 1393
+:= -- 2820
+add.period$ -- 119
+call.type$ -- 29
+change.case$ -- 204
+chr.to.int$ -- 29
+cite$ -- 29
+duplicate$ -- 1325
+empty$ -- 1402
+format.name$ -- 324
+if$ -- 3645
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 281
+newline$ -- 183
+num.names$ -- 122
+pop$ -- 525
+preamble$ -- 1
+purify$ -- 188
+quote$ -- 0
+skip$ -- 516
+stack$ -- 0
+substring$ -- 914
+swap$ -- 768
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 255
+warning$ -- 0
+while$ -- 136
+width$ -- 0
+write$ -- 415
+(There were 10 warnings)
