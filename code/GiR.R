@@ -21,10 +21,10 @@ prior.eta = list(mean = rep(0, Q), var = diag(Q))
 prior.sigma2 = list(a = 3, b = 1)
 Nsamp = 10^5
 outer = 10
-inner = c(5, 5, 1)
+inner = c(5, 5, 5)
 burn = 0
 #Schein test
-result = matrix(NA, Nsamp, 2*(3+P+Q))
+result = matrix(NA, Nsamp, 2*(5+P+Q))
 for (n in 1:Nsamp) {
   if (n %% 100 == 0) print(n)
   beta = rmvnorm_arma(1, prior.beta$mean, prior.beta$var)
@@ -35,11 +35,45 @@ for (n in 1:Nsamp) {
                     initial = initial, proposal.var = c(0.01, 0.1, 0.01, 0.5), lasttime = 0)
   initial2 = Generate(D, A, infer$beta[outer,], infer$eta[outer,], infer$sigma2[outer,], X, Y, support)                  
   result[n, ] = c(mean(vapply(initial$data, function(x) sum(x$r_d), c(1))),
+                  var(vapply(initial$data, function(x) sum(x$r_d), c(1))),
  				 mean(vapply(2:D, function(d) initial$data[[d]]$t_d-initial$data[[d-1]]$t_d, c(1))),
+ 				var(vapply(2:D, function(d) initial$data[[d]]$t_d-initial$data[[d-1]]$t_d, c(1))),
                   initial$beta, initial$eta, initial$sigma2, 
                  mean(vapply(initial2$data, function(x) sum(x$r_d), c(1))),
+ 			var(vapply(initial2$data, function(x) sum(x$r_d), c(1))),
                   mean(vapply(2:D, function(d) initial2$data[[d]]$t_d-initial2$data[[d-1]]$t_d, c(1))),
+ 				var(vapply(2:D, function(d) initial2$data[[d]]$t_d-initial2$data[[d-1]]$t_d, c(1))),
                   initial2$beta, initial2$eta, initial2$sigma2)			 
 }
-par(mfrow=c(2,5))
-GiR_PP_Plots(result[,c(1:(3+P+Q))], result[,c((4+P+Q):(2*(3+P+Q)))])
+par(mfrow=c(3,4))
+GiR_PP_Plots(result[,c(1:(5+P+Q))], result[,c((6+P+Q):(2*(5+P+Q)))])
+
+Forward_stats = result[,c(1:(3+P+Q))]
+Backward_stats = result[,c((4+P+Q):(2*(3+P+Q)))]
+colnames(Forward_stats) = c("Mean Recipient Size", "Mean Time-increments", sapply(1:P, function(p){paste0("b",p," Estimates")}), sapply(1:Q, function(q){paste0(expression(eta),q," Estimates")}), "Variance Estimate")
+plot = list()
+library(ggplot2)
+ nms = colnames(Forward_stats)
+  
+  for (i in 1:ncol(Forward_stats)) {
+    all = c(Backward_stats[, i], Forward_stats[, i])
+    
+    quantiles = 1000
+    
+    uniqueValues = quantile(all,seq(0, 1, length = quantiles))
+    qx1 = numeric(length(uniqueValues))
+  	qx2 = numeric(length(uniqueValues))
+  		
+  	for (j in 1:length(uniqueValues)) {
+  		qx1[j] = mean(Forward_stats[, i] <= uniqueValues[j])
+  		qx2[j] = mean(Backward_stats[, i] <= uniqueValues[j])
+  	}
+  	data = data.frame(qx1 = qx1, qx2 = qx2)
+	plot[[i]] =qplot(data = data, x = qx1, y = qx2, colour = I("blue"), size = I(0.5)) + labs(x = "Forward", y = "Backward")+geom_abline(intercept = 0, col = 'red') + theme(text = element_text(size = rel(3)), plot.title= element_text(size=rel(4)))
+	#+labs(title = expression(nms[i]))
+}	
+library(gridExtra)
+library(latex2exp)
+grid.arrange(arrangeGrob(plot[[1]]+labs(title = "Mean Recipient Size"),
+	plot[[2]]+labs(title = "Mean Time-increments"),plot[[3]]+labs(title = expression(b*" Estimates for p=1")),plot[[4]]+labs(title = expression(b*" Estimates for p=2")),plot[[5]]+labs(title = expression(b*" Estimates for p=3")),
+plot[[6]]+labs(title = expression(b*" Estimates for p=4")),plot[[7]]+labs(title = expression(eta*" Estimates for q=1")),plot[[8]]+labs(title = expression(eta*" Estimates for q=2")),plot[[9]]+labs(title = expression(eta*" Estimates for q=3")),plot[[10]]+labs(title = expression(sigma^2*" Estimates")), nrow=2))

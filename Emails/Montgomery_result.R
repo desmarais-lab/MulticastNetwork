@@ -58,21 +58,21 @@ recipients = tabulate(rowSums(email[trim,3:20]), A-1)
 timeinc = diff(sort(email$timepoints)[43:max(trim)])/3600
 
 
-indegreedist = matrix(NA, 500, A)
-outdegreedist = matrix(NA,  500, A)
-recipientsdist = matrix(NA,  500, A-1)
-timedist = matrix(NA, 500, 621)
+indegreedist1 = matrix(NA, 500, A)
+outdegreedist1 = matrix(NA,  500, A)
+recipientsdist1 = matrix(NA,  500, A-1)
+timedist1 = matrix(NA, 500, 621)
 #setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC")
 #setwd("/Users/bomin8319/")
-setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC2")
+setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC")
 
 for (n in 1:500) {
 	filename = paste0("Montgomery_PPCnew", n,".RData")
 	load(filename)
-	outdegreedist[n, ] = tabulate(vapply(1:621, function(x) Montgomery_PPC[[x]]$a_d, c(1)), A)
-	indegreedist[n, ] = rowSums(sapply(1:621, function(x) Montgomery_PPC[[x]]$r_d))
-	recipientsdist[n, ] = tabulate(vapply(1:621, function(x) sum(Montgomery_PPC[[x]]$r_d), c(1)), A-1)
-	timedist[n, ] = vapply(1:621, function(x) Montgomery_PPC[[x]]$t_d, c(1))/ timeunit
+	outdegreedist1[n, ] = tabulate(vapply(1:621, function(x) Montgomery_PPC[[x]]$a_d, c(1)), A)
+	indegreedist1[n, ] = rowSums(sapply(1:621, function(x) Montgomery_PPC[[x]]$r_d))
+	recipientsdist1[n, ] = tabulate(vapply(1:621, function(x) sum(Montgomery_PPC[[x]]$r_d), c(1)), A-1)
+	timedist1[n, ] = c(Montgomery_PPC[[1]]$t_d -email$timepoints[42], vapply(2:621, function(x) Montgomery_PPC[[x]]$t_d - Montgomery_PPC[[x-1]]$t_d , c(1)))/ timeunit
 } 
 
 outdegreedist = data.frame(outdegreedist)
@@ -146,21 +146,21 @@ ggplot(data = data, aes(x = Outdegree, y = Nodes)) +geom_boxplot() + geom_line(d
 
 #################################
 
-indegreedist = matrix(NA, 500, A)
-outdegreedist = matrix(NA,  500, A)
-recipientsdist = matrix(NA,  500, A-1)
-timedist = matrix(NA, 500, 621)
+indegreedist2 = matrix(NA, 500, A)
+outdegreedist2 = matrix(NA,  500, A)
+recipientsdist2 = matrix(NA,  500, A-1)
+timedist2 = matrix(NA, 500, 621)
 #setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC")
 #setwd("/Users/bomin8319/")
-setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC2")
+setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC3")
 
 for (n in 1:500) {
 	filename = paste0("Montgomery_PPCnew2", n,".RData")
 	load(filename)
-	outdegreedist[n, ] = tabulate(vapply(1:621, function(x) Montgomery_PPC2[[x]]$a_d, c(1)), A)
-	indegreedist[n, ] = rowSums(sapply(1:621, function(x) Montgomery_PPC2[[x]]$r_d))
-	recipientsdist[n, ] = tabulate(vapply(1:621, function(x) sum(Montgomery_PPC2[[x]]$r_d), c(1)), A-1)
-	timedist[n, ] = vapply(1:621, function(x) Montgomery_PPC2[[x]]$t_d, c(1))/ timeunit
+	outdegreedist2[n, ] = tabulate(vapply(1:621, function(x) Montgomery_PPC2[[x]]$a_d, c(1)), A)
+	indegreedist2[n, ] = rowSums(sapply(1:621, function(x) Montgomery_PPC2[[x]]$r_d))
+	recipientsdist2[n, ] = tabulate(vapply(1:621, function(x) sum(Montgomery_PPC2[[x]]$r_d), c(1)), A-1)
+	timedist2[n, ] = vapply(1:621, function(x) Montgomery_PPC2[[x]]$t_d, c(1))/ timeunit
 } 
 
 outdegreedist = data.frame(outdegreedist)
@@ -204,6 +204,65 @@ uniqueValues = quantile(c(timedist[,-1], timeinc), seq(0, 1, length = 500))
 
 time = data.frame(Simulated = qx1, Observed = qx2)
 ggplot(data = time, aes(x = Simulated, y = Observed)) + geom_point() + geom_abline(intercept = 0, slope = 1, col = 'red')
+###################################
+
+outdegreedist = data.frame(outdegreedist1, model = rep("lognormal", 500))
+outdegreedist = rbind(outdegreedist, data.frame(outdegreedist2, model = rep("exponential", 500)))
+colnames(outdegreedist)[1:18]=1:18
+library(ggplot2)
+library(reshape)
+data = melt(outdegreedist)
+colnames(data) = c("Model","Node", "Outdegree")
+
+outdegreeobs = data.frame(Node = 1:18, Outdegree = outdegree, Model = rep("lognormal", 18))
+ggplot(data = data, aes(x = Node, y = Outdegree, fill= Model)) +geom_boxplot() + geom_line(data = outdegreeobs, col = 'red', group = 1)
+
+indegreedist = data.frame(indegreedist1, model = rep("lognormal", 500))
+indegreedist = rbind(indegreedist, data.frame(indegreedist2, model = rep("exponential", 500)))
+colnames(indegreedist)[1:18]=1:18
+data = melt(indegreedist)
+colnames(data) = c("Model","Node", "Indegree")
+
+indegreeobs = data.frame(Node = 1:18, Indegree = indegree, Model = rep("lognormal", 18))
+ggplot(data = data, aes(x = Node, y =Indegree, fill= Model)) +geom_boxplot() + geom_line(data = indegreeobs, col = 'red', group = 1)
+
+recipientsdist = data.frame(recipientsdist1[,1:14], model = rep("lognormal", 500))
+recipientsdist = rbind(recipientsdist, data.frame(recipientsdist2[,1:14], model = rep("exponential", 500)))
+colnames(recipientsdist)[1:14]=1:14
+data = melt(recipientsdist)
+colnames(data) = c("Model","RecipientSize","Documents")
+
+recipientsobs = data.frame(RecipientSize = 1:14, Documents = recipients[1:14], Model = rep("lognormal", 14))
+ggplot(data = data, aes(x =RecipientSize, y = Documents, fill= Model)) +geom_boxplot() + geom_line(data = recipientsobs, col = 'red', group = 1)
+
+
+
+
+uniqueValues = quantile(c(timedist1[,-1], timeinc), seq(0, 1, length = 500))
+  qx1 = numeric(length(uniqueValues))
+  	qx2 = numeric(length(uniqueValues))
+ 		
+  	for (j in 1:length(uniqueValues)) {
+  		qx1[j] = mean(c(timedist1[,-1]) <= uniqueValues[j])
+  		qx2[j] = mean(c(timeinc) <= uniqueValues[j])
+}
+
+
+time = data.frame(Simulated = qx1, Observed = qx2, Model = rep("lognormal", 500))
+
+uniqueValues = quantile(c(timedist2[,-1], timeinc), seq(0, 1, length = 500))
+  qx1 = numeric(length(uniqueValues))
+  	qx2 = numeric(length(uniqueValues))
+ 		
+  	for (j in 1:length(uniqueValues)) {
+  		qx1[j] = mean(c(timedist2[,-1]) <= uniqueValues[j])
+  		qx2[j] = mean(c(timeinc) <= uniqueValues[j])
+}
+
+time = rbind(time, data.frame(Simulated = qx1, Observed = qx2, Model = rep("exponential", 500)))
+ggplot(data = time, aes(x = Simulated, y = Observed, colour = Model)) + geom_point() + geom_abline(intercept = 0, slope = 1)
+
+
 
 #################################
 set.seed(1)

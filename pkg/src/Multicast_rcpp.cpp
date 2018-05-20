@@ -110,10 +110,10 @@ double Timepartsum2 (NumericMatrix mumat, IntegerVector senders, NumericVector t
     double timesum = 0;
     for (unsigned int d = 0; d < D; d++) {
         int a_d = senders[d] - 1;
-        timesum += R::dexp(timestamps[d], 1/exp(mumat(d, a_d)), TRUE);
+        timesum += R::dexp(timestamps[d], exp(mumat(d, a_d)), TRUE);
         for (unsigned int i = 0; i < mumat.ncol(); i++) {
         if (i != a_d) {
-            timesum += R::pexp(timestamps[d], 1/exp(mumat(d, i)), FALSE, TRUE);
+            timesum += R::pexp(timestamps[d], exp(mumat(d, i)), FALSE, TRUE);
     	  }
         }
     }
@@ -146,10 +146,10 @@ NumericVector Timepartindiv2 (NumericVector mu, double timestamp){
     int A = mu.size();
     NumericVector out(A);
     for (unsigned int a = 0; a < A; a++) {
-        out[a] += R::dexp(timestamp, 1/exp(mu[a]), TRUE);
+        out[a] += R::dexp(timestamp, exp(mu[a]), TRUE);
         for (unsigned int i = 0; i < A; i++) {
             if (i != a) {
-                out[a] += R::pexp(timestamp, 1/exp(mu[i]), FALSE, TRUE);
+                out[a] += R::pexp(timestamp, exp(mu[i]), FALSE, TRUE);
             }
         }
     }

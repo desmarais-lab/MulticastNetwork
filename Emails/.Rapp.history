@@ -1,248 +1,3 @@
-library(MulticastNetwork)
-load('~/Desktop/MulticastNetwork/Lab/Montgomery.RData')
-load("/Users/bomin8319/Desktop/MulticastNetwork/Montgomery_infer.RData")
-head(Montgomery_infer)
-names(Montgomery_infer)
-Montgomery_infer$beta
-plot(Montgomery_infer$beta[,1], type = 'l')
-dim(Montgomery_infer$beta)
-library(ggplot2)
-library(anytime)#
-library(ggplot2)#
-library(MCMCpack)#
-library(reshape2)#
-library(gridExtra)#
-library(ggrepel)#
-library(RColorBrewer)
-dimnames(Montgomery$X)
-colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]
-head(Montgomery_infer$beta)
-40000/40
-beta = data.frame(sapply(1:1000, function(i) Montgomery_infer$beta[i,]))
-head(beta)
-beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[i,])))
-head(bet)
-head(beta)
-colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]#
-beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[i,])))#
-colnames(beta)[6:7] = c("twosend", "tworeceive")
-head(beta)
-dim(beta)
-colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]#
-beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[40*i,])))#
-colnames(beta)[6:7] = c("twosend", "tworeceive")
-head(beta)
-beta.est = reshape(beta)
-beta.est = melt(beta)
-head(beta.est)
-ggplot(data = beta.est, aes(y = value, colour = variable)) + geom_boxplot()
-ggplot(data = beta.est, aes(x = variable, y = value, colour = variable)) + geom_boxplot()
-ggplot(data = beta.est[,-1], aes(x = variable, y = value, colour = variable)) + geom_boxplot()
-head(beta)
-beta.est = melt(beta[-1])#
-ggplot(data = beta.est, aes(x = variable, y = value, colour = variable)) + geom_boxplot()
-plot(beta[,7], type = 'l')
-ggplot(data = beta.est, aes(x = variable, y = value, colour = variable)) + geom_boxplot()
-colnames(beta.est)[2] = "beta"#
-ggplot(data = beta.est, aes(x = variable, y = beta, colour = variable)) + geom_boxplot()
-ggplot(data = beta.est, aes(x = variable, y = beta, fill = variable)) + geom_boxplot()
-ggplot(data = beta.est, aes(x = variable, y = beta, fill = variable)) + geom_boxplot()+coord_flip()
-ggplot(data = beta.est, aes(x = variable, y = beta, fill = variable)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "black", size = 0.5)
-ggplot(data = beta.est, aes(x = variable, y = beta, fill = variable)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5)
-ggplot(data = beta.est, aes(x = variable, y = beta, fill = variable)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.2)
-colnames(beta.est)[1] = "network statistics"#
-colnames(beta.est)[2] = "beta"#
-ggplot(data = beta.est, aes(x = network statistics, y = beta, fill = variable)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.2)
-colnames(beta.est)[1] = "netstats"#
-colnames(beta.est)[2] = "beta"#
-ggplot(data = beta.est, aes(x = netstats, y = beta, fill = variable)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.2)
-beta.est = melt(beta[-1])#
-colnames(beta.est)[1] = "netstats"#
-colnames(beta.est)[2] = "beta"#
-ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.2)
-ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.3, linetype = "dashed")
-ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")
-ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(y = NULL)
-ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL)
-ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Network Statistics")
-colnames(Montgomery_infer$eta) = dimnames(Montgomery$Y)[[3]]#
-eta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$eta[40*i,])))#
-3ta.est = melt(3eta[-1])#
-colnames(eta.est)[1] = "netstats"#
-colnames(eta.est)[2] = "eta"
-colnames(Montgomery_infer$eta) = dimnames(Montgomery$Y)[[3]]#
-eta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$eta[40*i,])))#
-eta.est = melt(eeta[-1])#
-colnames(eta.est)[1] = "netstats"#
-colnames(eta.est)[2] = "eta"
-colnames(Montgomery_infer$eta) = dimnames(Montgomery$Y)[[3]]#
-eta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$eta[40*i,])))#
-eta.est = melt(eta[-1])#
-colnames(eta.est)[1] = "netstats"#
-colnames(eta.est)[2] = "eta"
-head(eta.est)
-ggplot(data = eta.est, aes(x = netstats, y = eta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Time-related Statistics")
-colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]#
-beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[40*i,])))#
-colnames(beta)[6:7] = c("twosend", "tworeceive")#
-beta.est = melt(beta[-1])#
-colnames(beta.est)[1] = "netstats"#
-colnames(beta.est)[2] = "beta"#
-ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "X")
-colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]#
-beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[40*i,])))#
-colnames(beta)[6:7] = c("twosend", "tworeceive")#
-beta.est = melt(beta[-1])#
-colnames(beta.est)[1] = "netstats"#
-colnames(beta.est)[2] = "beta"#
-ggplot(data = beta.est, aes(x = netstats, y = beta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
-colnames(Montgomery_infer$eta) = dimnames(Montgomery$Y)[[3]]#
-eta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$eta[40*i,])))#
-eta.est = melt(eta[-1])#
-colnames(eta.est)[1] = "netstats"#
-colnames(eta.est)[2] = "eta"#
-ggplot(data = eta.est, aes(x = netstats, y = eta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
-colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]#
-beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[40*i,])))#
-colnames(beta)[6:7] = c("twosend", "tworeceive")#
-beta.est = melt(beta[-1])#
-colnames(beta.est)[1] = "netstats"#
-colnames(beta.est)[2] = "b"#
-ggplot(data = beta.est, aes(x = netstats, y = b, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
-colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]#
-beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[40*i,])))#
-colnames(beta)[6:7] = c("twosend", "tworeceive")
-dim(beta)
-head(beta)
-beta = beta[,c(1,11:2)]
-beta.est = melt(beta[-1])
-colnames(beta.est)[1] = "netstats"#
-colnames(beta.est)[2] = "b"
-head(beta.est)
-ggplot(data = beta.est, aes(x = netstats, y = b, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
-colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]#
-beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[40*i,])))#
-colnames(beta)[6:7] = c("twosend", "tworeceive")#
-beta.est = melt(beta[-1])#
-colnames(beta.est)[1] = "netstats"#
-colnames(beta.est)[2] = "b"#
-ggplot(data = beta.est, aes(x = netstats, y = b, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
-library(MulticastNetwork)#
-load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")#
-edge = Montgomery$edge#
-X = Montgomery$X#
-Y = Montgomery$Y#
-P = dim(X)[4]#
-Q = dim(Y)[3]#
-A = dim(Y)[2]
-load('~/Desktop/MulticastNetwork/Emails/Montgomery_PPE.RData')#
-load('~/Desktop/MulticastNetwork/Emails/Montgomery_PPE2.RData')
-truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
-predtime = Montgomery_PPE$timepredict#
-predtime2 = Montgomery_PPE2$timepredict
-time = data.frame(MAPE = sapply(1:62, function(d) 100*mean(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAPE = sapply(1:62, function(d) 100*mean(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
-library(ggplot2)#
-library(reshape)#
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-ggplot(data = time, aes(x = MAPE, fill = dist))+geom_histogram(position = "dodge")
-time = data.frame(MAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d]))), dist = rep("exponential", 62)))#
-#
-library(ggplot2)#
-library(reshape)#
-time = melt(time)
-time = data.frame(MAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d]))), dist = rep("exponential", 62)))#
-#
-library(ggplot2)#
-library(reshape)#
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()#
-ggplot(data = time, aes(x = MAPE, fill = dist))+geom_histogram(position = "dodge")
-time = data.frame(MAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d]))), dist = rep("exponential", 62)))
-library(ggplot2)#
-library(reshape)#
-time = melt(time)#
-colnames(time)[3] = "MAPE"
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-head(time)
-time = data.frame(MAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d]))), dist = rep("lognormal", 62))
-time = data.frame(MAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])))), dist = rep("lognormal", 62))
-time = rbind(time, data.frame(MAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])))), dist = rep("exponential", 62)))#
-#
-library(ggplot2)#
-library(reshape)#
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-dnorm
-?dnorm
-dnorm(1, 0, 1)
-dnorm(0, 0, 1)
-dexp(100,1)
-dexp(0.001,1)
-dexp(1,1)
-dexp(0.0001,1)
-dexp(0.000001,1)
-head(Montgomery_PPE$timepredict)
-head(Montgomery_PPE2$timepredict)
-time = data.frame(MAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])))), dist = rep("exponential", 62)))
-head(time)
-summary(time[time$dist=="lognormal",])
-summary(time[time$dist=="exponential",])
-time = data.frame(MAPE = sapply(1:62, function(d) 100*mean(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAPE = sapply(1:62, function(d) 100*mean(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-head(time)
-truetime
-Montgomery_PPE$timemissing
-edge[[11]]$t_d
-edge[[11]]$t_d-edge[[10]]$t_d
-(edge[[11]]$t_d-edge[[10]]$t_d)/3600
-time = data.frame(MAPE = sapply(1:62, function(d) 100*mean(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAPE = sapply(1:62, function(d) 100*mean(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-time = data.frame(MAPE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAPE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-summary(time[time$dist=="lognormal",])
-summary(time[time$dist=="exponential",])
-time = data.frame(MAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])))), dist = rep("exponential", 62)))#
-#
-library(ggplot2)#
-library(reshape)#
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-time = data.frame(MAPE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAPE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-library(ggplot2)#
-library(reshape)#
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-ggplot(data = time, aes(x = MAPE, fill = dist))+geom_histogram(position = "dodge")
-MAPE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])/truetime[d])))
-plot(MAPE)
-time = data.frame(MAPE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAPE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-head(time)
-plot(time$MAPE)
-MAPE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])/truetime[d])))#
-MAPE2 = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])/truetime[d])))
-barplot(MAPE, MAPE2)
-barplot(MAPE, MAPE2, beside = TRUE)
-MAPE
-plot(MAPE, type = 'l')
-plot(MAPE2, col='red', type = 'l')
-plot(MAPE, type = 'l')
 lines(MAPE2, col = 'red')
 time = data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))
 time = rbind(time, data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
@@ -281,33 +36,12 @@ library(reshape)#
 time = melt(time)#
 colnames(time)[3] = "MAPE"#
 ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-library(ggplot2)#
-library(reshape)#
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-library(ggplot2)#
-library(reshape)#
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-library(ggplot2)#
-library(reshape)#
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
 truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
 predtime = Montgomery_PPE$timepredict#
 predtime2 = Montgomery_PPE2$timepredict#
 #
 time = data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
 time = rbind(time, data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
 time = melt(time)#
 colnames(time)[3] = "MAPE"#
 ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
@@ -376,8 +110,6 @@ ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0
 ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 50)
 ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 100)
 ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()
-ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 100)
-ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 100)
 ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 100)
 time = data.frame(MAE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])))), dist = rep("lognormal", 62))#
 time = rbind(time, data.frame(MAE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])))), dist = rep("exponential", 62)))
@@ -553,6 +285,568 @@ p3 <- grid.arrange(arrangeGrob(#
                          p[[3]] + theme(legend.position="none"), #
                        nrow=1), mylegend,#
         heights=c(10, 1))
+library(MulticastNetwork)#
+load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")#
+edge = Montgomery$edge#
+X = Montgomery$X#
+Y = Montgomery$Y#
+P = dim(X)[4]#
+Q = dim(Y)[3]#
+A = dim(Y)[2]
+set.seed(1)#
+missing = list()#
+#missingness of senders#
+missing[[1]] = matrix(0, nrow = dim(Y)[1], 1)    #
+missing[[1]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
+#missingness of receivers#
+missing[[2]] = matrix(0, nrow = dim(Y)[1], A)    #
+missing[[2]][sample(1:(dim(Y)[1]*A), 1118, replace = FALSE)] = 1#
+#missingness of timestamps#
+missing[[3]] = matrix(0, nrow = dim(Y)[1], 1)#
+missing[[3]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
+for (d in 1:dim(Y)[1]) {#
+	if (missing[[1]][d,1] == 1) {#
+		edge[[d]]$a_d = NA#
+	}#
+	if (sum(missing[[2]][d,]) > 0) {#
+		edge[[d]]$r_d[which(missing[[2]][d,]==1)] = NA#
+	}#
+	if (missing[[3]][d,1] == 1) {#
+		edge[[d]]$t_d = NA#
+	}#
+}
+load('~/Desktop/MulticastNetwork/Emails/Montgomery_PPE.RData')
+library(gridExtra)#
+p = list()#
+##################
+truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
+predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)
+predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)
+load('~/Desktop/Montgomery_PPE2.RData')
+predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)
+sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), dist = rep("lognormal", 62))
+dim(predprob)
+sapply(1:62, function(d) predprob[d,truesender[d]])
+truesender
+load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")#
+edge = Montgomery$edge
+truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
+predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
+predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
+#
+sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), dist = rep("lognormal", 62))#
+sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), dist = rep("exponential", 62)))#
+library(ggplot2)#
+library(reshape)#
+sender = melt(sender)#
+colnames(sender)[3] = "correct"#
+p[[1]]=ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()
+p[[1]]
+truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
+predprob = Montgomery_PPE$receiverprob#
+predprob2 = Montgomery_PPE2$receiverprob#
+#
+probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1])#
+#probtrue[probtrue==1] = 0.999#
+probtrue2 = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1])#
+#probtrue2[probtrue2==1] = 0.999#
+#
+receiver = data.frame(probtrue = log(probtrue /(1-probtrue)), dist = rep("lognormal", 1118))#
+receiver = rbind(receiver, data.frame(probtrue = log(probtrue2/(1-probtrue2)), dist = rep("exponential", 1118)))#
+library(ggplot2)#
+library(reshape)#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "logit"#
+ggplot(data = receiver, aes(x = dist, y = logit, fill = dist))+geom_boxplot()#
+p[[2]]=ggplot(data = receiver, aes(x = logit, fill = dist))+geom_histogram(position = "dodge")
+p[[2]]
+ggplot(data = receiver, aes(x = dist, y = logit, fill = dist))+geom_boxplot()
+truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
+predtime = Montgomery_PPE$timepredict#
+predtime2 = Montgomery_PPE2$timepredict#
+#
+time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
+time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
+#
+time = melt(time)#
+stats = boxplot.stats(time$value)$stats#
+#
+colnames(time)[3] = "MdAPE"#
+p[[3]]=ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")+coord_cartesian(ylim=c(0, 100))
+p[[3]]
+p[[1]]
+p[[2]]
+abs((predtime[d,]-truetime[d])/truetime[d]))
+abs((predtime[d,]-truetime[d])/truetime[d])
+d =1
+abs((predtime[d,]-truetime[d])/truetime[d])
+time = data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])))), dist = rep("lognormal", 62))#
+time = rbind(time, data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])))), dist = rep("exponential", 62)))
+time = melt(time)#
+colnames(time)[3] = "MdAE"#
+ggplot(data = time, aes(x = dist, y = MdAE, fill = dist))+geom_boxplot()+ylim(0, 20)
+time = data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
+time = rbind(time, data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
+#
+time = melt(time)#
+colnames(time)[3] = "MdAE"#
+ggplot(data = time, aes(x = dist, y = MdAE, fill = dist))+geom_boxplot()+ylim(0, 20)
+time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
+time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
+#
+time = melt(time)#
+stats = boxplot.stats(time$value)$stats
+ggplot(data = time, aes(x = MdAPE, fill = dist))+geom_histogram(position = "dodge")
+ggplot(data = time, aes(x = dist, y = MdAE, fill = dist))+geom_boxplot()+ylim(0, 20)
+time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
+time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
+#
+time = melt(time)#
+stats = boxplot.stats(time$value)$stats#
+#
+colnames(time)[3] = "MdAPE"
+ggplot(data = time, aes(x = MdAPE, fill = dist))+geom_histogram(position = "dodge")
+ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")+coord_cartesian(ylim=c(0, 100))
+library(MulticastNetwork)#
+load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")#
+edge = Montgomery$edge#
+X = Montgomery$X#
+Y = Montgomery$Y#
+P = dim(X)[4]#
+Q = dim(Y)[3]#
+A = dim(Y)[2]
+set.seed(1)#
+missing = list()#
+#missingness of senders#
+missing[[1]] = matrix(0, nrow = dim(Y)[1], 1)    #
+missing[[1]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
+#missingness of receivers#
+missing[[2]] = matrix(0, nrow = dim(Y)[1], A)    #
+missing[[2]][sample(1:(dim(Y)[1]*A), 1118, replace = FALSE)] = 1#
+#missingness of timestamps#
+missing[[3]] = matrix(0, nrow = dim(Y)[1], 1)#
+missing[[3]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
+for (d in 1:dim(Y)[1]) {#
+	if (missing[[1]][d,1] == 1) {#
+		edge[[d]]$a_d = NA#
+	}#
+	if (sum(missing[[2]][d,]) > 0) {#
+		edge[[d]]$r_d[which(missing[[2]][d,]==1)] = NA#
+	}#
+	if (missing[[3]][d,1] == 1) {#
+		edge[[d]]$t_d = NA#
+	}#
+}
+library(MulticastNetwork)#
+load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")#
+edge = Montgomery$edge
+load('~/Desktop/MulticastNetwork/Emails/Montgomery_PPE.RData')
+load('~/Desktop/Montgomery_PPE2.RData')
+truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
+predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
+predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
+#
+sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), dist = rep("lognormal", 62))#
+sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), dist = rep("exponential", 62)))#
+library(ggplot2)#
+library(reshape)#
+sender = melt(sender)#
+colnames(sender)[3] = "correct"#
+p[[1]]=ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()
+library(gridExtra)#
+p = list()#
+##################
+truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
+predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
+predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
+#
+sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), dist = rep("lognormal", 62))#
+sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), dist = rep("exponential", 62)))#
+library(ggplot2)#
+library(reshape)#
+sender = melt(sender)#
+colnames(sender)[3] = "correct"#
+p[[1]]=ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()
+p[[1]]
+library(latex2exp)
+ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab(expression(pi_{a_d}))
+ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab(expression(pi_a))
+ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab(expression(pi))
+ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")
+ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(1/18)
+ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(aes(yintecept=1/18))
+ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintecept=1/18)
+ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18)
+ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'red')
+ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'blue')
+ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'blue', lty=2)
+ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=2)
+ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1.5)
+Montgomery_PPE2$senderprob
+truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
+predprob = Montgomery_PPE$receiverprob#
+predprob2 = Montgomery_PPE2$receiverprob#
+#
+probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1])#
+#probtrue[probtrue==1] = 0.999#
+probtrue2 = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1])
+head(probtrue)
+head(probtrue)
+head(probtrue2)
+dim(probtrue)
+length(probtrue)
+truereceiver
+probtrue0 = probtrue[truereceiver==0]
+probtrue0
+probtrue0 = probtrue[truereceiver==0]#
+probtrue20 = probtrue2[truereceiver==0]#
+#
+probtrue1 = probtrue[truereceiver==1]#
+probtrue21 = probtrue2[truereceiver==1]
+probtrue0 = probtrue[truereceiver==0]#
+probtrue20 = probtrue2[truereceiver==0]#
+#
+probtrue1 = probtrue[truereceiver==1]#
+probtrue21 = probtrue2[truereceiver==1]#
+receiver = data.frame(probtrue = probtrue0), dist = rep("lognormal", length(probtrue0)))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue20, dist = rep("exponential", length(probtrue0))))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "prob"#
+ggplot(data = receiver, aes(x = dist, y = prob, fill = dist))+geom_boxplot()
+#############################
+probtrue0 = probtrue[truereceiver==0]#
+probtrue20 = probtrue2[truereceiver==0]#
+#
+probtrue1 = probtrue[truereceiver==1]#
+probtrue21 = probtrue2[truereceiver==1]#
+receiver = data.frame(probtrue = probtrue0, dist = rep("lognormal", length(probtrue0)))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue20, dist = rep("exponential", length(probtrue0))))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "prob"#
+ggplot(data = receiver, aes(x = dist, y = prob, fill = dist))+geom_boxplot()
+receiver = data.frame(probtrue = log(probtrue0), dist = rep("lognormal", length(probtrue0)))#
+receiver = rbind(receiver, data.frame(probtrue = log(probtrue20), dist = rep("exponential", length(probtrue0))))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "prob"#
+ggplot(data = receiver, aes(x = dist, y = prob, fill = dist))+geom_boxplot()
+probtrue0 = log(probtrue[truereceiver==0])#
+probtrue20 = log(probtrue2[truereceiver==0])#
+#
+probtrue1 = probtrue[truereceiver==1]#
+probtrue21 = probtrue2[truereceiver==1]#
+receiver = data.frame(probtrue = probtrue0, dist = rep("lognormal", length(probtrue0)))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue20, dist = rep("exponential", length(probtrue0))))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "prob"#
+ggplot(data = receiver, aes(x = dist, y = prob, fill = dist))+geom_boxplot()
+probtrue0 = probtrue[truereceiver==0]#
+probtrue20 = probtrue2[truereceiver==0]#
+#
+probtrue1 = probtrue[truereceiver==1]#
+probtrue21 = probtrue2[truereceiver==1]#
+receiver = data.frame(probtrue = probtrue0, dist = rep("lognormal", length(probtrue0)), true = rep(0, length(probtrue0)))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue20, dist = rep("exponential", length(probtrue0))), true = rep(0, length(probtrue0)))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue1, dist = rep("lognormal", length(probtrue1)), true = rep(1, length(probtrue1)))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue21, dist = rep("exponential", length(probtrue1)), true = rep(1, length(probtrue21)))
+probtrue0 = probtrue[truereceiver==0]#
+probtrue20 = probtrue2[truereceiver==0]#
+#
+probtrue1 = probtrue[truereceiver==1]#
+probtrue21 = probtrue2[truereceiver==1]#
+receiver = data.frame(probtrue = probtrue0, dist = rep("lognormal", length(probtrue0)), true = rep(0, length(probtrue0)))
+data.frame(probtrue = probtrue20, dist = rep("exponential", length(probtrue0))), true = rep(0, length(probtrue0))
+receiver = rbind(receiver, data.frame(probtrue = probtrue20, dist = rep("exponential", length(probtrue0)), true = rep(0, length(probtrue0)))
+)
+receiver = rbind(receiver, data.frame(probtrue = probtrue1, dist = rep("lognormal", length(probtrue1)), true = rep(1, length(probtrue1))))
+receiver = rbind(receiver, data.frame(probtrue = probtrue21, dist = rep("exponential", length(probtrue1)), true = rep(1, length(probtrue21))))
+receiver = melt(receiver)
+head(receiver)
+receiver = data.frame(probtrue = probtrue0, dist = rep("lognormal", length(probtrue0)), true = rep(0, length(probtrue0)))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue20, dist = rep("exponential", length(probtrue0)), true = rep(0, length(probtrue0))))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue1, dist = rep("lognormal", length(probtrue1)), true = rep(1, length(probtrue1))))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue21, dist = rep("exponential", length(probtrue1)), true = rep(1, length(probtrue21))))
+head(receiver)
+ggplot(data = receiver, aes(x = dist, y = prob, fill = dist, group = true))+geom_boxplot()
+colnames(receiver)[1] = "prob"
+ggplot(data = receiver, aes(x = dist, y = prob, fill = dist, group = true))+geom_boxplot()
+ggplot(data = receiver, aes(x = dist, y = prob, fill = dist, group = true))+geom_boxplot()
+ggplot(data = receiver, aes(x = dist, y = prob, fill = dist, group = true))+geom_boxplot()+position_dodge()
+receiver = melt(receiver)
+head(receiver)
+tail(receiver)
+receiver = data.frame(probtrue = probtrue0, dist = rep("lognormal", length(probtrue0)), true = rep(0, length(probtrue0)))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue20, dist = rep("exponential", length(probtrue0)), true = rep(0, length(probtrue0))))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue1, dist = rep("lognormal", length(probtrue1)), true = rep(1, length(probtrue1))))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue21, dist = rep("exponential", length(probtrue1)), true = rep(1, length(probtrue21))))#
+receiver = melt(receiver)
+head(receiver)
+tail(receiver)
+colnames(receiver)[3] = "prob"#
+ggplot(data = receiver, aes(x = dist, y = prob, fill = dist, group = true))+geom_boxplot()+position_dodge()
+ggplot(data = receiver, aes(x = dist, y = prob, fill = dist, group = true))+geom_boxplot()
+receiver = data.frame(probtrue = probtrue0, dist = rep("lognormal", length(probtrue0)), true = rep(0, length(probtrue0)))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue20, dist = rep("exponential", length(probtrue0)), true = rep(0, length(probtrue0))))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue1, dist = rep("lognormal", length(probtrue1)), true = rep(1, length(probtrue1))))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue21, dist = rep("exponential", length(probtrue1)), true = rep(1, length(probtrue21))))
+head(receiver)
+receiver = melt(receiver)
+head(receiver)
+ggplot(data = receiver, aes(factor(variable), y = prob))+geom_boxplot(fill=dist)
+head(receiver)
+colnames(receiver)[3] = "prob"#
+ggplot(data = receiver, aes(factor(variable), y = prob))+geom_boxplot(fill=dist)
+factor(variable)
+factor(reciever$variable)
+factor(receiver$variable)
+ggplot(data = receiver, aes(factor(variable), y = prob))+geom_boxplot(aes(fill=dist))
+ggplot(data = receiver, aes(factor(variable), y = prob))+geom_boxplot(aes(fill=dist))+facet_wrap(~variables)
+ggplot(data = receiver, aes(factor(variable), y = prob))+geom_boxplot(aes(fill=dist))+facet_wrap(~probtrue)
+prob
+ggplot(data = receiver, aes(factor(variable), y = prob))+geom_boxplot(aes(fill=dist))+facet_wrap(~true)
+ggplot(data = receiver, aes(factor(variable), y = prob))+geom_boxplot(aes(fill=dist))+facet_wrap(~factor(variable),scales = "free")
+probtrue1
+probtrue0 = probtrue[truereceiver==0]#
+probtrue20 = probtrue2[truereceiver==0]#
+#
+probtrue1 = probtrue[truereceiver==1]#
+probtrue1=probtrue1[-which(probtrue1==0.999)]#
+probtrue21 = probtrue2[truereceiver==1]#
+probtrue21=probtrue21[-which(probtrue21==0.999)]#
+#
+receiver = data.frame(probtrue = probtrue0, dist = rep("lognormal", length(probtrue0)), true = rep(0, length(probtrue0)))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue20, dist = rep("exponential", length(probtrue0)), true = rep(0, length(probtrue0))))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue1, dist = rep("lognormal", length(probtrue1)), true = rep(1, length(probtrue1))))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue21, dist = rep("exponential", length(probtrue1)), true = rep(1, length(probtrue21))))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "prob"#
+ggplot(data = receiver, aes(factor(variable), y = prob))+geom_boxplot(aes(fill=dist))+facet_wrap(~factor(variable),scales = "free")
+probtrue1
+probtrue1 = probtrue[truereceiver==1]#
+probtrue1=probtrue1[-which(probtrue1==0.999)]
+probtrue1
+probtrue1 = probtrue[truereceiver==1]
+which(probtrue1==0.999)
+probtrue1
+probtrue1==0.999
+probtrue1=probtrue1[-which(probtrue1>0.99)]
+probtrue1
+probtrue1 = probtrue[truereceiver==1]#
+probtrue1=probtrue1[-which(probtrue1>0.99)]#
+probtrue21 = probtrue2[truereceiver==1]#
+probtrue21=probtrue21[-which(probtrue21>0.99)]#
+#
+receiver = data.frame(probtrue = probtrue0, dist = rep("lognormal", length(probtrue0)), true = rep(0, length(probtrue0)))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue20, dist = rep("exponential", length(probtrue0)), true = rep(0, length(probtrue0))))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue1, dist = rep("lognormal", length(probtrue1)), true = rep(1, length(probtrue1))))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue21, dist = rep("exponential", length(probtrue1)), true = rep(1, length(probtrue21))))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "prob"#
+ggplot(data = receiver, aes(factor(variable), y = prob))+geom_boxplot(aes(fill=dist))+facet_wrap(~factor(variable),scales = "free")
+probtrue0 = probtrue[truereceiver==0]#
+probtrue20 = probtrue2[truereceiver==0]#
+#
+probtrue1 = probtrue[truereceiver==1]#
+probtrue1=probtrue1[-which(probtrue1>0.99)]#
+probtrue21 = probtrue2[truereceiver==1]#
+probtrue21=probtrue21[-which(probtrue21>0.99)]#
+#
+receiver = data.frame(probtrue = probtrue0, dist = rep("lognormal", length(probtrue0)), true = rep(0, length(probtrue0)))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue20, dist = rep("exponential", length(probtrue0)), true = rep(0, length(probtrue0))))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue1, dist = rep("lognormal", length(probtrue1)), true = rep(1, length(probtrue1))))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue21, dist = rep("exponential", length(probtrue1)), true = rep(1, length(probtrue21))))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "prob"#
+ggplot(data = receiver, aes(factor(variable), y = prob))+geom_boxplot(aes(fill=dist))+facet_wrap(~factor(variable),scales = "free")
+probtrue21
+receiver = data.frame(probtrue = probtrue0, dist = rep("lognormal", length(probtrue0)), true = rep(0, length(probtrue0)))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue20, dist = rep("exponential", length(probtrue0)), true = rep(0, length(probtrue0))))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue1, dist = rep("lognormal", length(probtrue1)), true = rep(1, length(probtrue1))))#
+receiver = rbind(receiver, data.frame(probtrue = probtrue21, dist = rep("exponential", length(probtrue1)), true = rep(1, length(probtrue21))))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "prob"#
+ggplot(data = receiver, aes(factor(variable), y = prob))+geom_boxplot(aes(fill=dist))+facet_wrap(~factor(variable),scales = "free")
+truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
+predtime = Montgomery_PPE$timepredict#
+predtime2 = Montgomery_PPE2$timepredict#
+#
+time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
+time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
+#
+time = melt(time)#
+stats = boxplot.stats(time$value)$stats#
+#
+colnames(time)[3] = "MdAPE"#
+p[[3]]=ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")+coord_cartesian(ylim=c(0, 100))
+ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")+coord_cartesian(ylim=c(0, 100))
+ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")
+truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
+predtime = Montgomery_PPE$timepredict#
+predtime2 = Montgomery_PPE2$timepredict#
+#
+time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
+time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
+head(time)
+time$MdAPE = log(time$MdAPE)
+time = melt(time)#
+stats = boxplot.stats(time$value)$stats#
+#
+colnames(time)[3] = "MdAPE"
+ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")
+time = data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
+time = rbind(time, data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
+time$MdAE = log(time$MdAE)#
+#
+time = melt(time)#
+colnames(time)[3] = "MdAE"#
+ggplot(data = time, aes(x = dist, y = MdAE, fill = dist))+geom_boxplot()+ylim(0, 20)
+ggplot(data = time, aes(x = dist, y = MdAE, fill = dist))+geom_boxplot()
+p[[3]]=ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")+coord_cartesian(ylim=c(0, 100))+ylab("log(MdAPE)")
+p[[3]]
+truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
+predtime = Montgomery_PPE$timepredict#
+predtime2 = Montgomery_PPE2$timepredict#
+#
+time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
+time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
+time$MdAPE = log(time$MdAPE)#
+time = melt(time)#
+stats = boxplot.stats(time$value)$stats#
+#
+colnames(time)[3] = "MdAPE"#
+p[[3]]=ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")+coord_cartesian(ylim=c(0, 100))+ylab("log(MdAPE)")
+p[[3]]
+p[[3]]=ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")+ylab("log(MdAPE)")
+p[[3]]
+library(MLmetrics)
+names(Montgomery_PPE)
+head(Montgomery_PPE$receiverpredict)
+library(MLmetrics)#
+#
+truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
+predreceiver = Montgomery_PPE$receiverpredict#
+predpreceiver2 = Montgomery_PPE2$receiverpredict
+truereceiver
+probtrue = sapply(1:1118, function(d) F1_Score(truereceiver, predreceiver[d,], 1))
+dim(predreceiver)
+probtrue = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver[,d], 1))
+probtrue
+probtrue2 = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver2[,d], 1))
+truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
+predreceiver = Montgomery_PPE$receiverpredict#
+predpreceiver2 = Montgomery_PPE2$receiverpredict
+probtrue = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver[,d], 1))#
+#probtrue[probtrue==1] = 0.999#
+probtrue2 = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver2[,d], 1))
+predreceiver2 = Montgomery_PPE2$receiverpredict
+probtrue2 = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver2[,d], 1))
+probtrue2
+receiver = data.frame(F1score = probtrue, dist = rep("lognormal", 500))#
+receiver = rbind(receiver, data.frame(F1score = probtrue2, dist = rep("exponential", 500)))#
+receiver = melt(receiver)
+head(receiver)
+colnames(receiver)[3] = "F1score"
+ggplot(data = receiver, aes(x = dist, y = F1score, fill = dist))+geom_boxplot()
+library(gridExtra)#
+library(latex2exp)#
+p = list()#
+##################
+truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
+predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
+predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
+#
+sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), dist = rep("lognormal", 62))#
+sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), dist = rep("exponential", 62)))#
+library(ggplot2)#
+library(reshape)#
+sender = melt(sender)#
+colnames(sender)[3] = "correct"#
+p[[1]]=ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)
+truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
+predreceiver = Montgomery_PPE$receiverpredict#
+predreceiver2 = Montgomery_PPE2$receiverpredict#
+#
+probtrue = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver[,d], 1))#
+probtrue2 = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver2[,d], 1))#
+#
+receiver = data.frame(F1score = probtrue, dist = rep("lognormal", 500))#
+receiver = rbind(receiver, data.frame(F1score = probtrue2, dist = rep("exponential", 500)))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "F1score"#
+ggplot(data = receiver, aes(x = dist, y = F1score, fill = dist))+geom_boxplot()#
+p[[2]]=ggplot(data = receiver, aes(x = logit, fill = dist))+geom_histogram(position = "dodge")
+##################################################
+truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
+predtime = Montgomery_PPE$timepredict#
+predtime2 = Montgomery_PPE2$timepredict#
+#
+time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
+time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
+time$MdAPE = log(time$MdAPE)#
+time = melt(time)#
+stats = boxplot.stats(time$value)$stats#
+#
+colnames(time)[3] = "MdAPE"#
+p[[3]]=ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")+ylab("log(MdAPE)")
+g_legend<-function(a.gplot){#
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))#
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")#
+  legend <- tmp$grobs[[leg]]#
+  return(legend)}#
+#
+mylegend<-g_legend(p[[3]])#
+p3 <- grid.arrange(arrangeGrob(#
+				p[[1]] + theme(legend.position="none"),#
+                        p[[2]] + theme(legend.position="none"),#
+                         p[[3]] + theme(legend.position="none"), #
+                       nrow=1), mylegend,#
+        heights=c(10, 1))
+library(gridExtra)#
+library(latex2exp)#
+p = list()#
+##################
+truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
+predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
+predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
+#
+sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), dist = rep("lognormal", 62))#
+sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), dist = rep("exponential", 62)))#
+library(ggplot2)#
+library(reshape)#
+sender = melt(sender)#
+colnames(sender)[3] = "correct"#
+p[[1]]=ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)
+library(MLmetrics)#
+#
+truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
+predreceiver = Montgomery_PPE$receiverpredict#
+predreceiver2 = Montgomery_PPE2$receiverpredict#
+#
+probtrue = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver[,d], 1))#
+probtrue2 = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver2[,d], 1))#
+#
+receiver = data.frame(F1score = probtrue, dist = rep("lognormal", 500))#
+receiver = rbind(receiver, data.frame(F1score = probtrue2, dist = rep("exponential", 500)))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "F1score"
+p[[2]]=ggplot(data = receiver, aes(x = dist, y = F1score, fill = dist))+geom_boxplot()
+truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
+predtime = Montgomery_PPE$timepredict#
+predtime2 = Montgomery_PPE2$timepredict#
+#
+time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
+time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
+time$MdAPE = log(time$MdAPE)#
+time = melt(time)#
+stats = boxplot.stats(time$value)$stats#
+#
+colnames(time)[3] = "MdAPE"#
+p[[3]]=ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")+ylab("log(MdAPE)")
+g_legend<-function(a.gplot){#
+  tmp <- ggplot_gtable(ggplot_build(a.gplot))#
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")#
+  legend <- tmp$grobs[[leg]]#
+  return(legend)}#
+#
 mylegend<-g_legend(p[[3]])#
 p3 <- grid.arrange(arrangeGrob(#
 				p[[1]] + theme(legend.position="none"),#
