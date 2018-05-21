@@ -379,7 +379,7 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
 	Figure \ref{figure:PPCresults} illustrates the results of poterior predictive checks using lognormal distribution. Upper two plots show node-specific degree distributions, where the left one is the boxplots of 500 posterior predictive outdegree statistic and the right plot is the same one for indegree statistic. For both plots, the x-axis represents the node id's from 1 to 18, and the y-axis represents the number of emails sent or received by the node. When compared with the observed outdegree and indegree statistics (red lines), our model recovers the overall distribution of sending and receiving activities across the nodes. For example, node 1 and 10 show significantly higher level of both sending and receiving activities relative to the rest, and the model-simulated data captures those big jumps, without using node-specific indicators. Outdegree distribution of some low-activity nodes are not precisely recovered, however, indegree distribution looks much better. Since we use more information in the recipient selection process (i.e., network effects) while we only rely on minimum time-increments when choosing the observed sender, these results are expected. Lower left plot is the distribution of recipient sizes, where the x-axis spans over the size of recipients 1 to 14 (which is the maximum size of observed recipients) and the y-axis denotes the number of documents with x-number of recipients. The result shows that our model is underestimating single-receiver documents while overestimating documents with two, three, and four recipients. One explanation behind what we observe is that the model is trying to recover so-called ``broadcast'' emails, which are the documents with $\geq 10$ number of recipients, so that the intercept estimate $b_1$ is slightly moved toward right. To improve the goodness of fit for recipient sizes, we can add more covariates (e.g., sender indicators) or assign strong prior structure on $b_1$. In the end, the plot on the lower right is the PP plot for time-increments, which is a graphical measure commonly used for assessing how closely two data sets agree, by plotting the two cumulative distribution functions against each other. The resulting goodness of fit of the diagonal line gives a measure of the difference between the distribution of simulated time-increments and the observed ones, and our PP plot shows that we have great performance in reproducing the observed time distribution. All our findings from predictive experiments in Section \ref{subsec:Experiment_email} are further revealed in the PPC results from exponential distribution, and the plots comparing posterior checks between lognormal and exponential distributions are attached in Appendix B.
 	
 	\subsection{Parameter Estimates and Interpretation}\label{subsec:Result_email}
-	Based on some preliminary experiments, we choose lognormal distribution to model time-to-next-email in Montgomery county email data, thus we estimate the variance parameter $\sigma_\tau^2$ with the prior specified as inverse-Gamma($2, 1$). In this section, we present the results based on 55,000 MCMC outer iterations with a burn-in of 15,000, where we thin by keeping every 40th sample. While the inner iterations for $\boldsymbol{\eta}$ and $\sigma_\tau^2$ are fixed as 1, we use 10 inner iterations for $\boldsymbol{b}$ to adjust for its slower convergence rate.
+	Based on some preliminary experiments, we choose lognormal distribution to model time-to-next-email in Montgomery county email data, thus we estimate the variance parameter $\sigma_\tau^2$ with the prior specified as inverse-Gamma($2, 1$). In this section, we present the results based on 55,000 MCMC outer iterations with a burn-in of 15,000, where we thin by keeping every 40th sample. While the inner iterations for  $\sigma_\tau^2$ is fixed as 1, we use 10 and 20 inner iterations for $\boldsymbol{\eta}$ and $\boldsymbol{b}$, respectively, to adjust for its slower convergence rate. Convergence diagnostics for MCMC including some traceplots and Geweke diagnostics \citep{geweke1991evaluating} can be found in Appendix C.
 	\begin{figure}[!t]
 		\centering
 		\includegraphics[width=1\textwidth]{img/best-1.png}	
@@ -472,6 +472,7 @@ of one type of hyperedges, a single sender and multiple recipients, our model ca
 	\begin{aligned}Z(\boldsymbol{\lambda}_{ad}) = \prod_{r \neq a } \big(\mbox{exp}(\lambda_{adr}) + 1\big)-1.
 	\end{aligned}  
 	\end{equation*}
+	\newpage
 	\subsection*{Appendix B: Comparison of PPC Results: lognormal vs. exponential}\label{subsec: PPCexp}
 	\iffalse
 	\begin{figure}[H]
@@ -493,6 +494,17 @@ of one type of hyperedges, a single sender and multiple recipients, our model ca
 			\caption {Comparison of PPC results between lognormal (\textit{red}) and exponential (\textit{green}) distributions: outdegree distribution (\textit{upper left}), indegree distribution (\textit{upper right}), recipient size distribution (\textit{lower left}), and time-increments probability-probability (PP) plot  (\textit{lower right}). Red lines in the first three plot depict the observed statistics, and the black line in the last plot is the diagonal line connecting $(0, 0)$ and $(1, 1)$.}
 			\label{figure:PPCtwo}
 		\end{figure}
+		\newpage
+	\subsection*{Appendix C: Convergence Diagnostics}\label{subsec: convergence}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.495\textwidth]{img/betatrace.pdf}	
+		\includegraphics[width=0.495\textwidth]{img/etatrace.pdf}	
+		\includegraphics[width=0.495\textwidth]{img/betageweke.pdf}	
+		\includegraphics[width=0.44\textwidth]{img/etageweke.pdf}
+		\caption {Convergence diagnostics from lognormal distribution: traceplots and density plots for $\boldsymbol{b}$ chains (\textit{upper left}) and $\boldsymbol{\eta}$ chains (\textit{upper right}), and geweke diagnostics for $\boldsymbol{b}$ chains (\textit{lower left}) and $\boldsymbol{\eta}$ chains (\textit{lower right}).}
+		\label{figure:convergencediag}
+	\end{figure}
 
 \begin{supplement}
 \sname{Supplement A}\label{suppA} 
