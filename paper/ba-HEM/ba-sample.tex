@@ -380,7 +380,7 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
 	
 	\subsection{Parameter Estimates and Interpretation}\label{subsec:Result_email}
 	Based on some preliminary experiments, we choose lognormal distribution to model time-to-next-email in Montgomery county email data, thus we estimate the variance parameter $\sigma_\tau^2$ with the prior specified as inverse-Gamma($2, 1$). In this section, we present the results based on 55,000 MCMC outer iterations with a burn-in of 15,000, where we thin by keeping every 40th sample. While the inner iterations for $\boldsymbol{\eta}$ and $\sigma_\tau^2$ are fixed as 1, we use 10 inner iterations for $\boldsymbol{b}$ to adjust for its slower convergence rate.
-	\begin{figure}[!b]
+	\begin{figure}[!t]
 		\centering
 		\includegraphics[width=1\textwidth]{img/best-1.png}	
 		\caption {Posterior distribution of $\boldsymbol{b}$ estimates.}
@@ -393,12 +393,6 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
 	\end{equation*}
 	and can interpret the parameter estimates in terms of odds ratio $\frac{\lambda_{adr}}{1-\lambda_{adr}}=\exp(b_{1}+b_{2} x_{adr2}\ldots+b_{11}x_{adr11})$.
 	Firstly, we can see that the effect of send (i.e., ``number of times the actor $a$ sent emails to the actor $r$ over the last week'') is positive, implying that if the actor $a$ sent $n$ number of emails to $r$ last week, then the actor $a$ is approximately $\exp(0.274\times n)\approx(1.315)^n$ times more likely to send an email to $r$. Similar interpretation can be applied for the statistics indegree and Nrecieve. For example, as the actor $r$ received $n$ emails and the actor $a$ sent emails to $n$ rececievers over the last week, the actor $a$ is $\exp(0.086\times n)\approx(1.091)^n $ times and $\exp(0.047\times n)\approx(1.048)^n$ times, respectively, more likely to send an email to $r$. On the other hand, outdegree statistic has negative effect---i.e., if the actor $a$ sent $n$ number of emails to anyone last week, then the actor $a$ is approximately $\exp(-0.109\times n)\approx(0.897)^n$ times likely to send an email to $r$---possibly due to its multicollinearity with the statistics send and hyperedge size. This can be interpreted as ``if the actor $a$ sent large number of emails over the last week but 1) not to $r$ (excluding the effect of send) or 2) no broadcast or multicast emails (excluding the effect of hyperedge size)'' then the actor $a$ is less likely to send an email to $r$. Rest of statistics are not statistically significant because their 95\% credible interval do not include 0. Surprisingly, none of the triadic effects seem to have significant effect on the edge generating process.
-	\begin{figure}[!t]
-		\centering
-		\includegraphics[width=0.89\textwidth]{img/etaest-1.png}	
-		\caption {Posterior distribution of $\boldsymbol{\eta}$ estimates.}
-		\label{figure:etaresults}
-	\end{figure}
 	
 	Figure \ref{figure:etaresults} shows the boxplots summarizing posterior samples of the time-related coefficients $\boldsymbol{\eta}$. For this specific datset, we assume lognormal distribution (Section \ref{subsec:Time}) with the unit of time being an hour, so that the interpretation of $\hat{\boldsymbol{\eta}}$ should be based on
 	\begin{equation*}
@@ -408,6 +402,12 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
 	\end{aligned}
 	\end{equation*}
 	To begin with, the posterior estimates of two temporal effects---weekend and pm---indicate that if the ${(d-1)}^{th}$ email was sent during the weekend or after 12pm, then the time to $d^{th}$ email is expected to take $\exp(1.552)\approx 4.722$ hours and $\exp(0.980)\approx2.665$ hours longer, respectively, compared to their counterparts (i.e., weekdays and am). On the contrary, the statistics manager, outdegree, and indegree turn out to shorten the time to next email. For example, being a county manager (i.e., the manager of the managers) lowers the expected $\log(\tau_{ad})$ by -1.070, since he or she needs to respond fastly to emails with important decisions. In addition, the manager in general sends or receives a lot more emails which may shorten the response time. This argument is supported by the posterior estimates for outdegree and indegree, where the estimated coefficients are approximately -0.206 and -0.060, respectively. Gender of the department manager is shown to have no significant effect on time-to-next-email. The posterior mean estimate of the variance parameter $\sigma^2_\tau$ is 14.093 with its 95\% credible interval $(12.709, 15.555)$, indicating that there exists huge variability in the time-increments in this data.
+		\begin{figure}[!t]
+			\centering
+			\includegraphics[width=0.89\textwidth]{img/etaest-1.png}	
+			\caption {Posterior distribution of $\boldsymbol{\eta}$ estimates.}
+			\label{figure:etaresults}
+		\end{figure}
 	
 \section{Conclusion}\label{sec:conclusion}
 Motivated by the relational event model \citep{Butts2008} and its variants for time-stamped networks, the hyperedge event model (HEM) can effectively learn the underlying edge generating and timestamp generating structures of event data, while allowing flexibity in the covariate specifications and the distributional assumption of time-increments.
