@@ -70,8 +70,8 @@
 \end{aug}
 
 \begin{abstract}
-We introduce the hyperedge event model (HEM)---a generative model for directed edges with multiple recipients or multiple senders. To define the model, we
-integrate a dynamic version of the exponential random graph model (ERGM) and generalized linear model (GLM) approach to jointly understand who communicates with whom, and when. We use the model to analyze emails sent between department managers in Montgomery county government in North Carolina. Our application demonstrates that the model is effective at predicting and explaining time-stamped network data involving edges with multiple recipients.
+We introduce the hyperedge event model (HEM)---a generative model for events that can be represented as directed edges with one sender and one or more recipients or one recipient and one or more senders. To define the model, we
+integrate a dynamic version of the exponential random graph model (ERGM) of edge structure with a survival model for event timing to jointly understand who interacts with whom, and when. The HEM offers three innovations with respect to the literature---first, it extends a growing class of dynamic network models to model hyperedges. Second, we derive a recipient-selection distribution that forces the sender to select at least one recipient. Third, we incorporate both a timing equation and an edge-formation equation into the model specification. We use the HEM to analyze emails sent among department managers in Montgomery County government in North Carolina. Our application demonstrates that the model is effective at predicting and explaining time-stamped network data involving edges with multiple recipients. We present a out-of-sample prediction experiment to illustrate how researchers can select between different specifications of the model. 
 \end{abstract}
 
 \begin{keyword}[class=MSC]
