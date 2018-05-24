@@ -46,7 +46,7 @@ sendraw = function(data, a, r) {
 # construct recipient covariates X
 D = length(edge)
 A = length(Montgomery$manager_gender)
-P = 10
+P = 14
 X = array(0, dim = c(D,A,A,P))
 X[,,,1] = 1
 timeunit = 3600
@@ -58,7 +58,8 @@ for (d in 2:D) {
 	outdegree = tabulate(sent, A)
 	indegree = colSums(received)
 	for (a in 1:A) {
-		for (r in c(1:A)[-a]) {
+		for (r in c(1:A)) {
+		  if (r != a) {
 			X[d, a, r, 2] = outdegree[a]  
 			X[d, a, r, 3] = indegree[r]	
 			X[d, a, r, 4] = sendraw(data, a, r)
@@ -75,8 +76,13 @@ for (d in 2:D) {
 			X[d, a, r, 9] = sum(sapply(c(1:A)[-c(a,r)], function(h) {
 				sendraw(data, a, h) * sendraw(data, r, h)
 				}))	/10	
+		  }
+		    X[d, a, , 12] = 1* (Montgomery$manager_gender[a]=="Female")
+			  X[d, a, r, 13] =1* (Montgomery$manager_gender[r]=="Female")
+			  X[d, a, r, 14] =1* (Montgomery$manager_gender[a]==Montgomery$manager_gender[r])
 		}
 	  X[d, a, , 10] = ifelse(outdegree[a] <sum(X[d,a,,4]),sum(X[d,a,,4])/outdegree[a] , 1)
+	  X[d, a, , 11] = X[d, a, , 2] * X[d, a, , 10] / 10
 	}
 }
 
@@ -88,11 +94,25 @@ trim = which(email$timepoints >=7*24*timeunit+email$timepoints[1])
 edge = edge[trim]
 X = X[trim,,,]
 Y = Y[trim,,]
-Montgomery_infer = Inference(edge, X, Y, 55000, c(10,1,1), 15000, prior.beta, prior.eta, prior.sigma2, initialval = NULL,
-		  proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, timedist = "lognormal")
-save(Montgomery_infer, file = "Montgomery_infer.RData")
+Montgomery_infer = Inference(edge, X, Y, 55000, c(20,10,1), 15000, prior.beta, prior.eta, prior.sigma2, initialval = NULL,
+                             proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, timedist = "lognormal")
 
-dimnames(X)[[4]] = c("intercept", "outdegree", "indegree", "send", "receive", "2send", "2receive", "sibling", "cosibling", "Nreceive", "outdegree*Nrecieve")
+
+load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")
+edge = Montgomery$edge
+X = Montgomery$X
+Y = Montgomery$Y
+P = dim(X)[4]
+Q = dim(Y)[3]
+A = dim(Y)[2]
+prior.beta = list(mean = c(-3.5, rep(0, P-1)), var = 2*diag(P))
+prior.eta = list(mean = c(7, rep(0, Q-1)), var = 2*diag(Q))
+prior.sigma2 = list(a = 2, b = 1)
+Montgomery_infer = Inference(edge, X, Y, 55000, c(20,10,1), 15000, prior.beta, prior.eta, prior.sigma2, initialval = NULL,
+		  proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, timedist = "lognormal")
+save(Montgomery_infer, file = "/Users/bomin8319/Desktop/Montgomery_infer.RData")
+
+dimnames(X)[[4]] = c("intercept", "outdegree", "indegree", "send", "receive", "2send", "2receive", "sibling", "cosibling", "hyperedge_size", "outdegree*hyperedge_size")
 dimnames(Y)[[3]] = c("intercept", "female", "manager", "outdegree", "indegree", "weekend", "pm")
 
 Montgomery = list(edge = edge, X = X, Y = Y, lasttime = email[min(trim-1), 21] - initialtime )

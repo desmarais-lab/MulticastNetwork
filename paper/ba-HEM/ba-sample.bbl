@@ -1,4 +1,4 @@
-\begin{thebibliography}{39}
+\begin{thebibliography}{40}
 \newcommand{\enquote}[1]{``#1''}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
@@ -170,6 +170,12 @@ McCallum, A., Corrada-Emmanuel, A., and Wang, X. (2005).
 McCullough, B.~D. (2009).
 \newblock \enquote{The accuracy of econometric software.}
 \newblock {\em Handbook of computational econometrics\/}, 55--79.
+\endbibitem
+
+\bibitem[{Neal and Kypraios(2015)}]{neal2015exact}
+Neal, P. and Kypraios, T. (2015).
+\newblock \enquote{Exact Bayesian inference via data augmentation.}
+\newblock {\em Statistics and Computing\/}, 25(2): 333--347.
 \endbibitem
 
 \bibitem[{Nelder and Baker(1972)}]{nelder1972generalized}

@@ -1,17 +1,20 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{The Hyperedge Event Model}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Edge Generating Process}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Time Generating Process}{section.2}% 4
-\BOOKMARK [2][-]{subsection.2.3}{Observed Data}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.1}{Hypothetical Edges}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Hypothetical Timestamps}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Senders, Receivers, and Timestamps}{section.2}% 5
 \BOOKMARK [1][-]{section.3}{Posterior Inference}{}% 6
-\BOOKMARK [2][-]{subsection.3.1}{Full Conditional Distributions}{section.3}% 7
-\BOOKMARK [2][-]{subsection.3.2}{Getting It Right \(GiR\) Test}{section.3}% 8
-\BOOKMARK [1][-]{section.4}{Application to Montgomary County Emails}{}% 9
-\BOOKMARK [2][-]{subsection.4.1}{Covariates}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.2}{Prediction Experiments}{section.4}% 11
-\BOOKMARK [2][-]{subsection.4.3}{Posterior Predictive Checks}{section.4}% 12
-\BOOKMARK [2][-]{subsection.4.4}{Parameter Estimates and Interpretation}{section.4}% 13
-\BOOKMARK [1][-]{section.5}{Conclusion}{}% 14
-\BOOKMARK [1][-]{section*.2}{Appendix}{}% 15
-\BOOKMARK [1][-]{section*.7}{Supplementary Material}{}% 16
-\BOOKMARK [1][-]{section*.9}{References}{}% 17
+\BOOKMARK [2][-]{subsection.3.1}{Conditional Posteriors}{section.3}% 7
+\BOOKMARK [3][-]{section*.1}{Hypothetical edges}{subsection.3.1}% 8
+\BOOKMARK [3][-]{section*.2}{Coefficients for edge covariates}{subsection.3.1}% 9
+\BOOKMARK [3][-]{section*.3}{Coefficients for timestamp covariates}{subsection.3.1}% 10
+\BOOKMARK [2][-]{subsection.3.2}{Getting It Right \(GiR\) Test}{section.3}% 11
+\BOOKMARK [1][-]{section.4}{Application to Email Data}{}% 12
+\BOOKMARK [2][-]{subsection.4.1}{Covariates}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.2}{Model Selection}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.3}{Posterior Predictive Checks}{section.4}% 15
+\BOOKMARK [2][-]{subsection.4.4}{Exploratory Analysis}{section.4}% 16
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 17
+\BOOKMARK [1][-]{section*.5}{Appendix}{}% 18
+\BOOKMARK [1][-]{section*.11}{Supplementary Material}{}% 19
+\BOOKMARK [1][-]{section*.13}{References}{}% 20

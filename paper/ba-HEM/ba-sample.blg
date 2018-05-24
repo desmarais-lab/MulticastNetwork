@@ -3,44 +3,44 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: ba-sample.aux
 The style file: bib/ba.bst
 Database file #1: bib/baHEM.bib
-You've used 39 entries,
+You've used 40 entries,
             2760 wiz_defined-function locations,
-            840 strings with 11983 characters,
-and the built_in function-call counts, 24392 in all, are:
-= -- 1989
-> -- 983
-< -- 23
-+ -- 366
-- -- 315
-* -- 1846
-:= -- 3763
-add.period$ -- 156
-call.type$ -- 39
-change.case$ -- 268
-chr.to.int$ -- 39
-cite$ -- 39
-duplicate$ -- 1750
-empty$ -- 1852
-format.name$ -- 437
-if$ -- 4822
+            848 strings with 12122 characters,
+and the built_in function-call counts, 24993 in all, are:
+= -- 2041
+> -- 1003
+< -- 24
++ -- 373
+- -- 321
+* -- 1894
+:= -- 3853
+add.period$ -- 160
+call.type$ -- 40
+change.case$ -- 274
+chr.to.int$ -- 40
+cite$ -- 40
+duplicate$ -- 1793
+empty$ -- 1898
+format.name$ -- 448
+if$ -- 4939
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 378
-newline$ -- 243
-num.names$ -- 162
-pop$ -- 697
+missing$ -- 387
+newline$ -- 249
+num.names$ -- 166
+pop$ -- 712
 preamble$ -- 1
-purify$ -- 252
+purify$ -- 258
 quote$ -- 0
-skip$ -- 680
+skip$ -- 696
 stack$ -- 0
-substring$ -- 1208
-swap$ -- 1008
+substring$ -- 1244
+swap$ -- 1035
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 336
+type$ -- 345
 warning$ -- 0
-while$ -- 181
+while$ -- 186
 width$ -- 0
-write$ -- 554
+write$ -- 568
