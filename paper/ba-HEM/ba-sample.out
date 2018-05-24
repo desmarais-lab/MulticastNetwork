@@ -11,10 +11,12 @@
 \BOOKMARK [2][-]{subsection.3.2}{Getting It Right \(GiR\) Test}{section.3}% 11
 \BOOKMARK [1][-]{section.4}{Application to Email Data}{}% 12
 \BOOKMARK [2][-]{subsection.4.1}{Covariates}{section.4}% 13
-\BOOKMARK [2][-]{subsection.4.2}{Model Selection}{section.4}% 14
-\BOOKMARK [2][-]{subsection.4.3}{Posterior Predictive Checks}{section.4}% 15
-\BOOKMARK [2][-]{subsection.4.4}{Exploratory Analysis}{section.4}% 16
-\BOOKMARK [1][-]{section.5}{Conclusion}{}% 17
-\BOOKMARK [1][-]{section*.5}{Appendix}{}% 18
-\BOOKMARK [1][-]{section*.11}{Supplementary Material}{}% 19
-\BOOKMARK [1][-]{section*.13}{References}{}% 20
+\BOOKMARK [3][-]{section*.4}{Edge covariates}{subsection.4.1}% 14
+\BOOKMARK [3][-]{section*.5}{Timestamp covariates}{subsection.4.1}% 15
+\BOOKMARK [2][-]{subsection.4.2}{Model Selection}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.3}{Posterior Predictive Checks}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.4}{Exploratory Analysis}{section.4}% 18
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 19
+\BOOKMARK [1][-]{section*.7}{Appendix}{}% 20
+\BOOKMARK [1][-]{section*.13}{Supplementary Material}{}% 21
+\BOOKMARK [1][-]{section*.15}{References}{}% 22
