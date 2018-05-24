@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  24 MAY 2018 15:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  24 MAY 2018 18:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -532,86 +532,85 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 88.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <6> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 88.
+
+Overfull \vbox (5.802pt too high) has occurred while \output is active []
+
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 95.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 93.
  [1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-Overfull \vbox (6.63443pt too high) has occurred while \output is active []
+Overfull \vbox (1.18999pt too high) has occurred while \output is active []
 
 
-[2] [3]
+[2]
+Underfull \vbox (badness 4726) has occurred while \output is active []
+
+ [3]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 150.
- [4]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[4]
+Underfull \vbox (badness 1365) has occurred while \output is active []
 
  [5]
-[6]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [7]
-<img/GiRplot-1.png, id=352, 1635.10875pt x 1245.65375pt>
+[6] [7] <img/GiRplot-1.png, id=354, 1635.10875pt x 1245.65375pt>
 File: img/GiRplot-1.png Graphic file (type png)
 
 <use img/GiRplot-1.png>
-Package pdftex.def Info: img/GiRplot-1.png used on input line 260.
+Package pdftex.def Info: img/GiRplot-1.png used on input line 263.
 (pdftex.def)             Requested size: 379.0pt x 288.71817pt.
  [8]
-Underfull \vbox (badness 5878) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [9 <./img/GiRplot-1.png>] <img/triad-1.png, id=369, 940.51375pt x 169.63374pt>
+ [9 <./img/GiRplot-1.png>] <img/triad-1.png, id=371, 940.51375pt x 169.63374pt>
 File: img/triad-1.png Graphic file (type png)
 
 <use img/triad-1.png>
-Package pdftex.def Info: img/triad-1.png used on input line 290.
-(pdftex.def)             Requested size: 246.34769pt x 44.43245pt.
- [10] [11 <./img/triad-1.png>] [12]
-<img/PPEplotnew-1.png, id=409, 2264.46pt x 1252.68pt>
+Package pdftex.def Info: img/triad-1.png used on input line 293.
+(pdftex.def)             Requested size: 227.40231pt x 41.01317pt.
+ [10] [11 <./img/triad-1.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [12]
+<img/PPEplotnew-1.png, id=402, 2264.46pt x 1252.68pt>
 File: img/PPEplotnew-1.png Graphic file (type png)
 
 <use img/PPEplotnew-1.png>
-Package pdftex.def Info: img/PPEplotnew-1.png used on input line 365.
+Package pdftex.def Info: img/PPEplotnew-1.png used on input line 363.
 (pdftex.def)             Requested size: 379.0pt x 209.646pt.
- [13]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [14 <./img/PPEplotnew-1.png>]
-<img/outdegreenew-1.png, id=462, 2275.50125pt x 1254.6875pt>
+ [13] [14 <./img/PPEplotnew-1.png>]
+<img/outdegreenew-1.png, id=458, 2275.50125pt x 1254.6875pt>
 File: img/outdegreenew-1.png Graphic file (type png)
 
 <use img/outdegreenew-1.png>
-Package pdftex.def Info: img/outdegreenew-1.png used on input line 391.
+Package pdftex.def Info: img/outdegreenew-1.png used on input line 396.
 (pdftex.def)             Requested size: 187.60315pt x 103.44025pt.
 
-<img/indegreenew-1.png, id=463, 2264.46pt x 1256.695pt>
+<img/indegreenew-1.png, id=459, 2264.46pt x 1256.695pt>
 File: img/indegreenew-1.png Graphic file (type png)
 
 <use img/indegreenew-1.png>
-Package pdftex.def Info: img/indegreenew-1.png used on input line 392.
+Package pdftex.def Info: img/indegreenew-1.png used on input line 397.
 (pdftex.def)             Requested size: 187.60315pt x 104.10431pt.
 
-<img/recipientsizenew-1.png, id=464, 2264.46pt x 1254.6875pt>
+<img/recipientsizenew-1.png, id=460, 2264.46pt x 1254.6875pt>
 File: img/recipientsizenew-1.png Graphic file (type png)
 
 <use img/recipientsizenew-1.png>
-Package pdftex.def Info: img/recipientsizenew-1.png used on input line 393.
+Package pdftex.def Info: img/recipientsizenew-1.png used on input line 398.
 (pdftex.def)             Requested size: 187.60315pt x 103.938pt.
 
-<img/timeppnew.pdf, id=465, 505.57161pt x 451.4487pt>
+<img/timeppnew.pdf, id=461, 505.57161pt x 451.4487pt>
 File: img/timeppnew.pdf Graphic file (type pdf)
  <use img/timeppnew.pdf>
-Package pdftex.def Info: img/timeppnew.pdf used on input line 394.
+Package pdftex.def Info: img/timeppnew.pdf used on input line 399.
 (pdftex.def)             Requested size: 117.48907pt x 104.90562pt.
 
-
-LaTeX Warning: Reference `subsec: convergence' on page 15 undefined on input li
-ne 400.
-
-<img/best-1.png, id=468, 2264.46pt x 1252.68pt>
+<img/best-1.png, id=466, 2264.46pt x 1252.68pt>
 File: img/best-1.png Graphic file (type png)
  <use img/best-1.png>
-Package pdftex.def Info: img/best-1.png used on input line 403.
+Package pdftex.def Info: img/best-1.png used on input line 408.
 (pdftex.def)             Requested size: 379.0pt x 209.646pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -619,71 +618,77 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [15]
 [16 <./img/outdegreenew-1.png> <./img/indegreenew-1.png> <./img/recipientsizene
 w-1.png> <./img/timeppnew.pdf>]
-<img/etaest-1.png, id=554, 2264.46pt x 1250.6725pt>
+<img/etaest-1.png, id=545, 2264.46pt x 1250.6725pt>
 File: img/etaest-1.png Graphic file (type png)
  <use img/etaest-1.png>
-Package pdftex.def Info: img/etaest-1.png used on input line 425.
+Package pdftex.def Info: img/etaest-1.png used on input line 430.
 (pdftex.def)             Requested size: 337.30977pt x 186.29509pt.
 
-[17 <./img/best-1.png>] [18 <./img/etaest-1.png>]
+Underfull \vbox (badness 5504) has occurred while \output is active []
+
+ [17 <./img/best-1.png>]
+Underfull \vbox (badness 5832) has occurred while \output is active []
+
+ [18 <./img/etaest-1.png>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 474.
-
-Underfull \vbox (badness 3009) has occurred while \output is active []
-
- [19]
-[20] <img/outdegree_two-1.png, id=604, 2264.46pt x 1249.66875pt>
+(Font)              <12> on input line 479.
+ [19] [20]
+<img/outdegree_two-1.png, id=595, 2264.46pt x 1249.66875pt>
 File: img/outdegree_two-1.png Graphic file (type png)
 
 <use img/outdegree_two-1.png>
-Package pdftex.def Info: img/outdegree_two-1.png used on input line 530.
+Package pdftex.def Info: img/outdegree_two-1.png used on input line 535.
 (pdftex.def)             Requested size: 187.60315pt x 103.52226pt.
 
-<img/indegree_two-1.png, id=605, 2264.46pt x 1250.6725pt>
+<img/indegree_two-1.png, id=596, 2264.46pt x 1250.6725pt>
 File: img/indegree_two-1.png Graphic file (type png)
 
 <use img/indegree_two-1.png>
-Package pdftex.def Info: img/indegree_two-1.png used on input line 531.
+Package pdftex.def Info: img/indegree_two-1.png used on input line 536.
 (pdftex.def)             Requested size: 187.60315pt x 103.60541pt.
 
-<img/recipientsize_two-1.png, id=606, 2252.415pt x 1249.66875pt>
+<img/recipientsize_two-1.png, id=597, 2252.415pt x 1249.66875pt>
 File: img/recipientsize_two-1.png Graphic file (type png)
 
 <use img/recipientsize_two-1.png>
-Package pdftex.def Info: img/recipientsize_two-1.png used on input line 532.
+Package pdftex.def Info: img/recipientsize_two-1.png used on input line 537.
 (pdftex.def)             Requested size: 187.60315pt x 104.07524pt.
 
-<img/timepp_two-1.png, id=607, 1405.25pt x 1247.66125pt>
+<img/timepp_two-1.png, id=598, 1405.25pt x 1247.66125pt>
 File: img/timepp_two-1.png Graphic file (type png)
 
 <use img/timepp_two-1.png>
-Package pdftex.def Info: img/timepp_two-1.png used on input line 533.
+Package pdftex.def Info: img/timepp_two-1.png used on input line 538.
 (pdftex.def)             Requested size: 117.48907pt x 104.30785pt.
- [21 <./img/outdegree_two-1.png> <./img/indegree_two-1.png> <./img/recipientsiz
-e_two-1.png> <./img/timepp_two-1.png>]
-<img/betatrace.pdf, id=618, 505.89pt x 505.89pt>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [21]
+[22 <./img/outdegree_two-1.png> <./img/indegree_two-1.png> <./img/recipientsize
+_two-1.png> <./img/timepp_two-1.png>]
+<img/betatrace.pdf, id=613, 505.89pt x 505.89pt>
 File: img/betatrace.pdf Graphic file (type pdf)
  <use img/betatrace.pdf>
-Package pdftex.def Info: img/betatrace.pdf used on input line 541.
+Package pdftex.def Info: img/betatrace.pdf used on input line 546.
 (pdftex.def)             Requested size: 187.60315pt x 187.60092pt.
 
-<img/etatrace.pdf, id=619, 505.89pt x 505.89pt>
+<img/etatrace.pdf, id=614, 505.89pt x 505.89pt>
 File: img/etatrace.pdf Graphic file (type pdf)
  <use img/etatrace.pdf>
-Package pdftex.def Info: img/etatrace.pdf used on input line 542.
+Package pdftex.def Info: img/etatrace.pdf used on input line 547.
 (pdftex.def)             Requested size: 187.60315pt x 187.60092pt.
 
-<img/betageweke.pdf, id=620, 503.66136pt x 448.9018pt>
+<img/betageweke.pdf, id=615, 503.66136pt x 448.9018pt>
 File: img/betageweke.pdf Graphic file (type pdf)
 
 <use img/betageweke.pdf>
-Package pdftex.def Info: img/betageweke.pdf used on input line 543.
+Package pdftex.def Info: img/betageweke.pdf used on input line 548.
 (pdftex.def)             Requested size: 187.60315pt x 167.20755pt.
- <img/etageweke.pdf, id=621, 505.89pt x 505.89pt>
+ <img/etageweke.pdf, id=616, 505.89pt x 505.89pt>
 File: img/etageweke.pdf Graphic file (type pdf)
 
 <use img/etageweke.pdf>
-Package pdftex.def Info: img/etageweke.pdf used on input line 544.
+Package pdftex.def Info: img/etageweke.pdf used on input line 549.
 (pdftex.def)             Requested size: 166.76093pt x 166.75894pt.
  (./ba-sample.bbl (./ba-sample.brf)
 \tf@brf=\write4
@@ -692,38 +697,34 @@ Package pdftex.def Info: img/etageweke.pdf used on input line 544.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [22 <./img/betatrace.pdf> <./img/etatrace.pdf> <./img/betageweke.pdf> <./img/e
+ [23 <./img/betatrace.pdf> <./img/etatrace.pdf> <./img/betageweke.pdf> <./img/e
 tageweke.pdf>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [23]
+ [24]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [24])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 563.
+ [25])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 568.
 
-[25]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 563.
+[26]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 568.
  (./ba-sample.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 563.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 563.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 568.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 568.
 Package rerunfilecheck Info: File `ba-sample.out' has not changed.
-(rerunfilecheck)             Checksum: 15B5D9596660161E007D44F81CBC3AC7;1440.
+(rerunfilecheck)             Checksum: 97798FD23E27C25776F4BFD634DA8F9D;1611.
 Package rerunfilecheck Info: File `ba-sample.brf' has not changed.
-(rerunfilecheck)             Checksum: 08BEB2D63F6826205805E23037A69617;2317.
-
-
-LaTeX Warning: There were undefined references.
-
+(rerunfilecheck)             Checksum: 89D14A6C28B9FD46CF3E24218980757B;2084.
  ) 
 Here is how much of TeX's memory you used:
- 10984 strings out of 493089
- 163672 string characters out of 6134842
- 293802 words of memory out of 5000000
- 14079 multiletter control sequences out of 15000+600000
+ 10939 strings out of 493089
+ 162722 string characters out of 6134842
+ 293389 words of memory out of 5000000
+ 14043 multiletter control sequences out of 15000+600000
  17027 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 32i,17n,35p,2751b,777s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 32i,17n,35p,2751b,775s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -754,10 +755,10 @@ ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2015/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on ba-sample.pdf (25 pages, 4265739 bytes).
+Output written on ba-sample.pdf (26 pages, 4263995 bytes).
 PDF statistics:
- 1535 PDF objects out of 1728 (max. 8388607)
- 1258 compressed objects within 13 object streams
- 224 named destinations out of 1000 (max. 500000)
- 262 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1520 PDF objects out of 1728 (max. 8388607)
+ 1242 compressed objects within 13 object streams
+ 215 named destinations out of 1000 (max. 500000)
+ 278 words of extra memory for PDF output out of 10000 (max. 10000000)
 

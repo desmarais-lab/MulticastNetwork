@@ -1,4 +1,4 @@
-\begin{thebibliography}{40}
+\begin{thebibliography}{34}
 \newcommand{\enquote}[1]{``#1''}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
@@ -27,12 +27,6 @@ Blattner, M. (2009).
 \newblock {\em arXiv preprint arXiv:0908.2741\/}.
 \endbibitem
 
-\bibitem[{Blei et~al.(2003)Blei, Ng, and Jordan}]{Blei2003}
-Blei, D.~M., Ng, A.~Y., and Jordan, M.~I. (2003).
-\newblock \enquote{Latent Dirichlet Allocation.}
-\newblock {\em J. Mach. Learn. Res.\/}, 3: 993--1022.
-\endbibitem
-
 \bibitem[{Burgess et~al.(2004)Burgess, Jackson, and Edwards}]{burgess2004email}
 Burgess, A., Jackson, T., and Edwards, J. (2004).
 \newblock \enquote{Email overload: Tolerance levels of employees within the
@@ -46,14 +40,6 @@ Burgess, A., Jackson, T., and Edwards, J. (2004).
 Butts, C.~T. (2008).
 \newblock \enquote{A RELATIONAL EVENT FRAMEWORK FOR SOCIAL ACTION.}
 \newblock {\em Sociological Methodology\/}, 38(1): 155--200.
-\endbibitem
-
-\bibitem[{Chatterjee et~al.(2013)Chatterjee, Diaconis
-  et~al.}]{chatterjee2013estimating}
-Chatterjee, S., Diaconis, P., et~al. (2013).
-\newblock \enquote{Estimating and understanding exponential random graph
-  models.}
-\newblock {\em The Annals of Statistics\/}, 41(5): 2428--2461.
 \endbibitem
 
 \bibitem[{Dai et~al.(2013)Dai, Ding, Wahba et~al.}]{dai2013multivariate}
@@ -105,13 +91,12 @@ Ghoshal, G., Zlati{\'c}, V., Caldarelli, G., and Newman, M. (2009).
 \newblock {\em Physical Review E\/}, 79(6): 066118.
 \endbibitem
 
-\bibitem[{Hunter et~al.(2008)Hunter, Handcock, Butts, Goodreau, and
-  Morris}]{hunter2008ergm}
-Hunter, D.~R., Handcock, M.~S., Butts, C.~T., Goodreau, S.~M., and Morris, M.
-  (2008).
-\newblock \enquote{ergm: A package to fit, simulate and diagnose
-  exponential-family models for networks.}
-\newblock {\em Journal of statistical software\/}, 24(3): nihpa54860.
+\bibitem[{Hunter et~al.(2011)Hunter, Smyth, Vu, and
+  Asuncion}]{hunter2011dynamic}
+Hunter, D., Smyth, P., Vu, D.~Q., and Asuncion, A.~U. (2011).
+\newblock \enquote{Dynamic egocentric models for citation networks.}
+\newblock In {\em Proceedings of the 28th International Conference on Machine
+  Learning (ICML-11)\/}, 857--864.
 \endbibitem
 
 \bibitem[{Hyndman and Koehler(2006)}]{hyndman2006another}
@@ -139,31 +124,6 @@ Karypis, G., Aggarwal, R., Kumar, V., and Shekhar, S. (1999).
 Klamt, S., Haus, U.-U., and Theis, F. (2009).
 \newblock \enquote{Hypergraphs and cellular networks.}
 \newblock {\em PLoS computational biology\/}, 5(5): e1000385.
-\endbibitem
-
-\bibitem[{Krafft et~al.(2012)Krafft, Moore, Desmarais, and
-  Wallach}]{Krafft2012}
-Krafft, P., Moore, J., Desmarais, B., and Wallach, H.~M. (2012).
-\newblock \enquote{Topic-Partitioned Multinetwork Embeddings.}
-\newblock In Pereira, F., Burges, C., Bottou, L., and Weinberger, K. (eds.),
-  {\em Advances in Neural Information Processing Systems 25\/}, 2807--2815.
-  Curran Associates, Inc.
-\endbibitem
-
-\bibitem[{Lim et~al.(2013)Lim, Chen, and Buntine}]{lim2013twitter}
-Lim, K.~W., Chen, C., and Buntine, W. (2013).
-\newblock \enquote{Twitter-Network Topic Model: A Full Bayesian Treatment for
-  Social Network and Text Modeling.}
-\newblock In {\em NIPS2013 Topic Model workshop\/}, 1--5.
-\endbibitem
-
-\bibitem[{McCallum et~al.(2005)McCallum, Corrada-Emmanuel, and
-  Wang}]{mccallum2005author}
-McCallum, A., Corrada-Emmanuel, A., and Wang, X. (2005).
-\newblock \enquote{The Author-Recipient-Topic Model for Topic and Role
-  Discovery in Social Networks, with Application to Enron and Academic Email.}
-\newblock In {\em Workshop on Link Analysis, Counterterrorism and Security\/},
-  33.
 \endbibitem
 
 \bibitem[{McCullough(2009)}]{mccullough2009accuracy}
@@ -210,14 +170,6 @@ Rizopoulos, D. (2012).
 \newblock {\em Joint models for longitudinal and time-to-event data: With
   applications in R\/}.
 \newblock CRC Press.
-\endbibitem
-
-\bibitem[{Robins et~al.(2007)Robins, Pattison, Kalish, and
-  Lusher}]{robins2007introduction}
-Robins, G., Pattison, P., Kalish, Y., and Lusher, D. (2007).
-\newblock \enquote{An introduction to exponential random graph (p*) models for
-  social networks.}
-\newblock {\em Social networks\/}, 29(2): 173--191.
 \endbibitem
 
 \bibitem[{Rubin et~al.(1984)}]{rubin1984bayesianly}

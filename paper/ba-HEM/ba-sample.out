@@ -16,7 +16,9 @@
 \BOOKMARK [2][-]{subsection.4.2}{Model Selection}{section.4}% 16
 \BOOKMARK [2][-]{subsection.4.3}{Posterior Predictive Checks}{section.4}% 17
 \BOOKMARK [2][-]{subsection.4.4}{Exploratory Analysis}{section.4}% 18
-\BOOKMARK [1][-]{section.5}{Conclusion}{}% 19
-\BOOKMARK [1][-]{section*.7}{Appendix}{}% 20
-\BOOKMARK [1][-]{section*.13}{Supplementary Material}{}% 21
-\BOOKMARK [1][-]{section*.15}{References}{}% 22
+\BOOKMARK [3][-]{section*.6}{Coefficients for edge covariates}{subsection.4.4}% 19
+\BOOKMARK [3][-]{section*.7}{Coefficients for timestamp covariates}{subsection.4.4}% 20
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 21
+\BOOKMARK [1][-]{section*.9}{Appendix}{}% 22
+\BOOKMARK [1][-]{section*.15}{Supplementary Material}{}% 23
+\BOOKMARK [1][-]{section*.17}{References}{}% 24
