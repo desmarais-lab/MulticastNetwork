@@ -24,6 +24,8 @@
 \usepackage{mathtools}
 \usepackage[colorlinks,citecolor=blue,urlcolor=blue,filecolor=blue,backref=page]{hyperref}
 \usepackage{graphicx}
+\usepackage{subcaption}
+
 \def\spacingset#1{\renewcommand{\baselinestretch}%
 	{#1}\small\normalsize} \spacingset{1}
 \usepackage{fmtcount}
@@ -81,8 +83,8 @@ integrate a dynamic version of the exponential random graph model (ERGM) of edge
 \end{keyword}
 
 \begin{keyword}
-\kwd{sample}
-\kwd{\LaTeXe}
+\kwd{continuous time network model} 
+\kwd{email data analysis}
 \end{keyword}
 
 \end{frontmatter}
@@ -258,16 +260,63 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
    \end{itemize}
    
    To keep the computational burden of re-running thousands of rounds of inference manageable, we run the GiR using a relatively small artificial sample, consisting of $D=100$ edges, $A=5$ actors, $P=4$ number of edge covariates, and $Q=3$ number of timestamp covariates per each forward or backward samples, using log-normal distibution for the time increments $f_\tau$. We generated $10^5$ sets of forward and backward samples, and then calculated 1,000 quantiles for each of the statistics. We also calculated t-test and Mann-Whitney test p-values in order to test for differences in the distributions generated in the forward and backward samples. Before we calculated these statistics, we thinned our samples by taking every 9th sample starting at the 10,000th sample for a resulting sample size of 10,000, in order to reduce the autocorrelation in the Markov chains. In each case, if we observe a large p-value, this gives us evidence that the distributions generated under forward and backward sampling have the same locations. We depict the GiR results using probability-probability (PP) plots. To compare two samples with PP plots we calculate the empirical quantile in each sample of a set of values observed across the two samples, then plot the sets of quantiles in the two samples against each other. If the two samples are from equivalent distributions, the quantiles should line up on a line with zero $y$-intercept, and unit slope (i.e., a 45-degree line). The GiR test results are depicted in Figure \ref{figure:GiRplot}, which show that we pass the test on every statistic.
-   \begin{figure}[ht]
+   \begin{figure}[H]
    	\centering
-   	\includegraphics[width=1\textwidth]{img/GiRplot-1.png}	
+   	\begin{subfigure}[b]{0.2425\textwidth}
+   		   	\caption{Mean of $\lVert \boldsymbol{r}_{d} \rVert_1 $}
+   	\includegraphics[width=\textwidth]{img/plot1.png}	
+   	\end{subfigure}
+   	   	\begin{subfigure}[b]{0.2425\textwidth}
+   	   		   		   	\caption{Variance of $\lVert \boldsymbol{r}_{d} \rVert_1 $}
+   	   		\includegraphics[width=\textwidth]{img/plot2.png}	
+   	   	\end{subfigure}
+   	   	   	\begin{subfigure}[b]{0.2425\textwidth}
+   	   	   		   	   	   		\caption{Mean of $\tau_d$}
+   	   	   		\includegraphics[width=\textwidth]{img/plot3.png}	
+   	   	   	\end{subfigure}
+   	   	   	   	   	   	\begin{subfigure}[b]{0.2425\textwidth}
+   	   	   	   	   	   		  	\caption{Variance of $\tau_d$}
+   	   	   	   	   	   		\includegraphics[width=\textwidth]{img/plot4.png}	
+   	   	   	   	   	   	\end{subfigure}
+   	   	   	   	   	   	   	   	   	   	\begin{subfigure}[b]{0.2425\textwidth}
+   	   	   	   	   	   	   	   	   	   		\caption{Value of $b_1$}
+   	   	   	   	   	   	   	   	   	   		\includegraphics[width=\textwidth]{img/plot5.png}	
+   	   	   	   	   	   	   	   	   	   	\end{subfigure}
+   	   	   		   	   	\begin{subfigure}[b]{0.2425\textwidth}
+   	   	   		   	   		\caption{Value of $b_2$}
+   	   	   		   	   		\includegraphics[width=\textwidth]{img/plot6.png}	
+   	   	   		   	   	\end{subfigure}   	   	   	   	   	   	   	
+   		   	   	\begin{subfigure}[b]{0.2425\textwidth}
+   		   	   		\caption{Value of $b_3$}
+   		   	   		\includegraphics[width=\textwidth]{img/plot7.png}	
+   		   	   	\end{subfigure}   	   		   	   	
+   		   	   	   		   	   	\begin{subfigure}[b]{0.2425\textwidth}
+   		   	   	   		   	   		\caption{Value of $b_4$}
+   		   	   	   		   	   		\includegraphics[width=\textwidth]{img/plot8.png}	
+   		   	   	   		   	   	\end{subfigure}   	   		   	   	
+   		   	   	   		   	   	   		   	   	\begin{subfigure}[b]{0.2425\textwidth}
+   		   	   	   		   	   	   		   	   		\caption{Value of $\eta_1$}
+   		   	   	   		   	   	   		   	   		\includegraphics[width=\textwidth]{img/plot9.png}	
+   		   	   	   		   	   	   		   	   	\end{subfigure}   	   		   	   	
+   		     		   	   	\begin{subfigure}[b]{0.2425\textwidth}
+   		     		   	   		\caption{Value of $\eta_2$}
+   		     		   	   		\includegraphics[width=\textwidth]{img/plot10.png}	
+   		     		   	   	\end{subfigure}   	   		   	   	
+   		   	     		   	   	\begin{subfigure}[b]{0.2425\textwidth}
+   		   	     		   	   		\caption{Value of $\eta_3$}
+   		   	     		   	   		\includegraphics[width=\textwidth]{img/plot11.png}	
+   		   	     		   	   	\end{subfigure}   	   		   	   	  		   	   	 	
+   		   	     		   	   		     		   	   	\begin{subfigure}[b]{0.2425\textwidth}
+   		   	     		   	   		     		   	   		\caption{Value of $\sigma^2_\tau$}
+   		   	     		   	   		     		   	   		\includegraphics[width=\textwidth]{img/plot12.png}	
+   		   	     		   	   		     		   	   	\end{subfigure}   	   		   	   	   	   		   	   	   		   	   	
    	\caption{Probability-probability (PP) plots for the GiR test statistics.}
    	   	\label{figure:GiRplot}
    \end{figure}
  	   \section{Application to Email Data}\label{subsec:Emails}
  	   We now present a case study applying our method to Montgomery county government email data.
  	   Our data come from the North Carolina county government email dataset collected by \cite{ben2017transparency} that includes internal email corpora covering the inboxes and outboxes of managerial-level employees of North Carolina county governments. Out of over twenty counties, we chose Montgomery County to 1) test our model using data with large proportion of hyperedges (16.76\%), all of which are emails sent from one sender to two or more receivers, and 2) limit the scope of this initial application. To summarize, Montgomery County email network contains 680 emails, sent and received by 18 department managers over a period of 3 months (March--May) in 2012. For this case study,
- 	   we formulate the edge covariates $\boldsymbol{x}$ and timestamp covariates $\boldsymbol{y}$ and ground them in illustrative examples. We then report a suite of experiments that test the HEM's ability to form the posterior distribution over its latent variables. 
+ 	   we formulate the edge covariates $\boldsymbol{x}$ and timestamp covariates $\boldsymbol{y}$ and ground them in illustrative examples. We then report a suite of experiments---out-of-sample prediction for model selection and posterior predictive checks---that test the HEM's ability to form the posterior distribution over its latent variables. Finally, we demonstrate an exploratory analysis of Montgomery County email data using the model estimates to discover interesting patterns in organizational communication networks.
  	   \subsection{Covariates}\label{subsec:Covariates_email}
  	   \subsubsection{Edge covariates}
  	   Given a set of network data, a primary modeling goal of the generative process for edges lies in determining which characteristics and behaviors are predictive of the receiver selection. This email application specifically give rise to the following question: ``To what extent are nodal, dyadic or triadic network effects relevant to predicting future emails?" As an illustrative example, we form the receiver selection features $\boldsymbol{x}$ for Montgomery County email data using some nodal statistics and interval-based network statistics. First, we include the gender information of sender and receiver, as well as their homophily indicator. For dyadic and triadic network effects, we summarize past interaction behaviors based on the time interval prior to and including $t_{d-1}$. Specifically, our time interval tracks 7 days prior to the last email was sent $l_d = (t_{d-1}-7\mbox{ days}, t_{d-1}]$. For $a \in [A], r \in [A]$, and $d \in [D]$, we define 14 covariates for $\boldsymbol{x}_{adr}$:
@@ -358,13 +407,13 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
 			\mbox{recall}  = \frac{\mbox{TP}}{\mbox{TP+FN}} \mbox{ and } \mbox{precision} & =\frac{\mbox{TP}}{\mbox{TP+FP}},
 			\end{aligned}
 	\end{equation}
-		\begin{figure}[!t]
-			\centering
-			\includegraphics[width=1\textwidth]{img/PPEplotnew-1.png}	
-			\caption {Comparison of predictive performance between log-normal and exponential distributions: boxplots for correct sender posterior probability (\textit{left}), $F_1$ scores from receiver predictions (\textit{middle}), and boxplots for median absolute percentage error (\textit{right}). The dotted blue lines in the left plot represents the correct sender probability expected by random guess---i.e., $1/A=1/18\approx0.056$.}
-			\label{figure:PPEresults}
-		\end{figure}
 	with TP denoting true positive (i.e., $\boldsymbol{r}^{obs}_{dr}=\boldsymbol{r}^{pred}_{dr}=1$), FN denoting false negative (i.e., $\boldsymbol{r}^{obs}_{dr}=1$ but $\boldsymbol{r}^{pred}_{dr}=0$), and FP denoting false positive (i.e., $\boldsymbol{r}^{obs}_{dr}=0$ but $\boldsymbol{r}^{pred}_{dr}=1$). Although the generative process for edges (Section \ref{subsec: Tie}) is not directly affected by the choice of timestamp distribution, the middle plot in Figure \ref{figure:PPEresults} reveals noticeable difference between log-normal and exponential in their performance in predicting missing receiver indicators, where log-normal outperforms exponential. Finally, the prediction error for $d^{th}$ missing timestamp is estimated using the median of absolute relative errors\footnote{\cite{hyndman2006another} refer to this as median absolute percentage error (MdAPE).} across $N=500$ predictions:
+			\begin{figure}[!t]
+				\centering
+				\includegraphics[width=1\textwidth]{img/PPEplotnew-1.png}	
+				\caption {Comparison of predictive performance between log-normal and exponential distributions: boxplots for correct sender posterior probability (\textit{left}), $F_1$ scores from receiver predictions (\textit{middle}), and boxplots for median absolute percentage error (\textit{right}). The dotted blue lines in the left plot represents the correct sender probability expected by random guess---i.e., $1/A=1/18\approx0.056$.}
+				\label{figure:PPEresults}
+			\end{figure}
 		\begin{equation}
 		e_{\tau_d} = \mbox{median}\Big(\abs*{\frac{\tau^{obs}_d - \tau^{pred_1}_{d}}{\tau^{obs}_d}},\ldots, \abs*{\frac{\tau^{obs}_d - \tau^{pred_N}_{d}}{\tau^{obs}_d}}\Big).
 		\end{equation}
@@ -390,19 +439,34 @@ In this section, we perform posterior predictive checks (PPC) \citep{rubin1984ba
 		\label{alg:PPC}
 	\end{algorithm}     \fi  
 		
-	Figure \ref{figure:PPCresults} illustrates the results of poterior predictive checks using log-normal distribution, which shows better performance in Section \ref{subsec:Experiment_email}. Upper two plots show node-specific posterior predictive degree distributions across $N=500$ synthetic data, where the left one for outdegree statistic and the right plot is for indegree statistic. For both plots, the x-axis represents the nodes ($A=1,\ldots,18$), and the y-axis represents the number of emails sent or received by the node. When compared with the observed outdegree and indegree statistics (red lines), our model recovers the overall distribution of sending and receiving activities across the nodes. For example, node 1 and 10 show significantly higher level of both sending and receiving activities relative to the rest, and the model-simulated data captures those big jumps, showing acceptable fit to the data. Outdegree distribution of some low-activity nodes are not precisely recovered, however, indegree distribution looks much better. Since we use more information in the receiver selection process (i.e., network effects) while we rely solely on minimum time increments when choosing the observed sender, these results are expected. Lower left plot is the distribution of receiver sizes, where the x-axis spans over the size of receivers 1 to 14 (which is the maximum size of observed receivers) and the y-axis denotes the number of emails with x-number of receivers. The result shows that our model is underestimating emails with one receiver while overestimating emails with two, three, and four receivers. One explanation behind what we observe is that the model is trying to recover so-called ``broadcast'' emails, which are the emails with $\geq 10$ number of receivers, so that the intercept estimate $b_1$ is slightly moved toward right. To improve the goodness of fit for receiver sizes, we can add more covariates (e.g., sender indicators) or assign strong prior structure on $b_1$. In the end, the plot on the lower right is the PP plot for time increments, which depicts the two cumulative distribution functions against each other in order to assess how closely two data sets agree. Here, the closeness to the diagonal line gives a measure of the difference between the distribution of simulated time increments and the observed ones, and our PP plot shows that we have great performance in reproducing the observed time distribution. All our findings from predictive experiments in Section \ref{subsec:Experiment_email} are further revealed in the PPC from exponential distribution, where the comparison between log-normal and exponential distributions are attached in Appendix C.
-	\begin{figure}[!t]
+	Figure \ref{figure:PPCresults} illustrates the results of poterior predictive checks using log-normal distribution, which shows better performance in Section \ref{subsec:Experiment_email}. Upper two plots show node-specific posterior predictive degree distributions across $N=500$ synthetic data, where the left one for outdegree statistic and the right plot is for indegree statistic. For both plots, the x-axis represents the nodes ($A=1,\ldots,18$), and the y-axis represents the number of emails sent or received by the node. When compared with the observed outdegree and indegree statistics (red lines), our model recovers the overall distribution of sending and receiving activities across the nodes. For example, node 1 and 10 show significantly higher level of both sending and receiving activities relative to the rest, and the model-simulated data captures those big jumps, showing acceptable fit to the data. Outdegree distribution of some low-activity nodes are not precisely recovered, however, indegree distribution looks much better. Since we use more information in the receiver selection process (i.e., network effects) while we rely solely on minimum time increments when choosing the observed sender, these results are expected. Lower left plot is the distribution of receiver sizes, where the x-axis spans over the size of receivers 1 to 14 (which is the maximum size of observed receivers) and the y-axis denotes the number of emails with x-number of receivers. The result shows that our model is underestimating emails with one receiver while overestimating emails with two, three, and four receivers. One explanation behind what we observe is that the model is trying to recover so-called ``broadcast'' emails, which are the emails with $\geq 10$ number of receivers, so that the intercept estimate $b_1$ is slightly moved toward right. To improve the goodness of fit for receiver sizes, we can add more covariates (e.g., sender indicators) or assign strong prior structure on $b_1$. In the end, the plot on the lower right is the PP plot for time increments, which depicts the two cumulative distribution functions---one for simulated time increments and another for observed time increments---against each other in order to assess how closely two data sets agree. Here, the closeness to the diagonal line connecting $(0, 0)$ and $(1, 1)$ gives a measure of difference between the simulated and observed time increments, and our PP plot shows that we have great performance in reproducing the observed time distribution. All our findings from predictive experiments in Section \ref{subsec:Experiment_email} are further revealed in the PPC from exponential distribution, where the PPC plots comparing log-normal and exponential distributions are attached in Appendix C.
+	\begin{figure}[!htb]
 		\centering
-		\includegraphics[width=0.495\textwidth]{img/outdegreenew-1.png}	
-		\includegraphics[width=0.495\textwidth]{img/indegreenew-1.png}	
-		\includegraphics[width=0.495\textwidth]{img/recipientsizenew-1.png}	
-		\includegraphics[width=0.31\textwidth]{img/timeppnew.pdf}
-		\caption {PPC results from log-normal distribution: outdegree distribution (\textit{upper left}), indegree distribution (\textit{upper right}), receiver size distribution (\textit{lower left}), and PP plot for time increments (\textit{lower right}). Blue lines denote the observed statistics (in the first three plots) or the diagonal line connecting $(0, 0)$ and $(1, 1)$ (in the last plot).}
+		\begin{tabular}[t]{cc}
+		   	\begin{subfigure}[b]{0.495\textwidth}
+		   		\caption{Outdegree distribution}
+		\includegraphics[width=\textwidth]{img/outdegreenew-1.png}	
+		   	\end{subfigure}
+		   			   	\begin{subfigure}[b]{0.495\textwidth}
+		   			   		\caption{Indegree distribution}
+		   			   		\includegraphics[width=\textwidth]{img/indegreenew-1.png}	
+		   			   	\end{subfigure}\\
+			   	\begin{subfigure}[b]{0.495\textwidth}
+			   		\caption{Receiver size distribution}
+			   		\includegraphics[width=\textwidth]{img/recipientsizenew-1.png}	
+			   	\end{subfigure}
+			   	\begin{subfigure}[b]{0.495\textwidth}
+			   				\centering
+			   		\caption{PPplot for time increments}
+			   		\includegraphics[width=0.625\textwidth]{img/timeppnew.pdf}	
+			   	\end{subfigure}
+		\end{tabular}
+		\caption {PPC results from log-normal distribution. Blue lines denote the observed statistics in (a)--(c) and denotes the diagonal line in (d).}
 		\label{figure:PPCresults}
 	\end{figure}
 	
 	\subsection{Exploratory Analysis}\label{subsec:Result_email}
-	Based on the prediction experiments in Section \ref{subsec:Experiment_email}, we choose to analyze Montgomery county email data and interpret the results using log-normal distribution. We assume weakly informative priors for latent variables such as $\boldsymbol{b}\sim N(\boldsymbol{\mu}_b=\boldsymbol{0}, \Sigma_b = 2\times I_P)$, $\boldsymbol{\eta}\sim N(\boldsymbol{\mu}_\eta=\boldsymbol{0}, \Sigma_\eta = 2\times I_Q)$, and $\sigma_\tau^2 \sim \mbox{inverse-Gamma}(a=2, b=1)$, and run MCMC algorithm in Algorithm \ref{alg:MCMC} with $O=55,000$ outer iterations with a burn-in of 15,000, where we thin by keeping every 40th sample. While the inner iterations for $\sigma_\tau^2$ is fixed as 1, we specify the inner iterations $I_1=20$ for $\boldsymbol{b}$ and $I_2=10$ for $\boldsymbol{\eta}$ to adjust for slower convergence rates. Convergence diagnostics including some traceplots and Geweke diagnostics \citep{geweke1991evaluating} are provided in Appendix D.
+	Based on the prediction experiments in Section \ref{subsec:Experiment_email}, we choose to analyze Montgomery county email data and interpret the results using log-normal distribution. We assume weakly informative priors for latent variables such as $\boldsymbol{b}\sim N(\boldsymbol{\mu}_b=\boldsymbol{0}, \Sigma_b = 2\times I_P)$, $\boldsymbol{\eta}\sim N(\boldsymbol{\mu}_\eta=\boldsymbol{0}, \Sigma_\eta = 2\times I_Q)$, and $\sigma_\tau^2 \sim \mbox{inverse-Gamma}(a=2, b=1)$, and run MCMC algorithm in Algorithm \ref{alg:MCMC} with $O=55,000$ outer iterations with a burn-in of 15,000, where we thin by keeping every 40th sample. While the inner iterations for $\sigma_\tau^2$ is fixed as 1, we specify the inner iterations $I_1=20$ for $\boldsymbol{b}$ and $I_2=10$ for $\boldsymbol{\eta}$ to adjust for slower convergence rates. Convergence diagnostics including the traceplots and Geweke diagnostics \citep{geweke1991evaluating} are provided in Appendix D.
 	\begin{figure}[!t]
 		\centering
 		\includegraphics[width=1\textwidth]{img/best-1.png}	
@@ -417,20 +481,20 @@ In this section, we perform posterior predictive checks (PPC) \citep{rubin1984ba
 	and can interpret the $\boldsymbol{b}$ estimates in terms of odds ratio $\frac{\lambda_{adr}}{1-\lambda_{adr}}=\exp(b_{1}+b_{2} x_{adr2}\ldots+b_{14}x_{adr14})$.
 	To begin with, we can see that the effect of the statistic``send" (i.e., number of times sender $a$ sent emails to receiver $r$ over the last week) is significant and positive with $\hat{b}_4 = 0.274$, implying that if sender $a$ sent $n$ number of emails to $r$ last week, then sender $a$ is approximately $\exp(0.274\times n)\approx(1.315)^n$ times more likely to send an email to $r$. Similar interpretation can be applied for the covariates ``indegree" and ``hyperedge size". For example, if the receiver $r$ received $n$ number of emails and sender $a$ sent emails to $n$ number of rececievers over the last week, sender $a$ is $\exp(0.086\times n)\approx(1.091)^n $ times and $\exp(0.047\times n)\approx(1.048)^n$ times, respectively, more likely to send an email to $r$. On the contrary, the statistic ``outdegree" has significantly negative effect---i.e., if sender $a$ sent $n$ number of emails to anyone last week, then sender $a$ is approximately $\exp(-0.109\times n)\approx(0.897)^n$ times less likely to send an email to $r$---possibly due to its multicollinearity with the statistics ``send" and/or ``hyperedge size". This result is likely to appear under the following scenario: if sender $a$ sent large number of emails over the last week but 1) not to $r$ (excluding the effect of ``send") and the email of interest is not a  2) broadcast email which is originally aimed at large number of receivers (excluding the effect of ``hyperedge size"), then sender $a$ is less likely to send an email to receiver $r$. Rest of statistics are not statistically significant in that their 95\% credible interval do not include 0. Surprisingly, none of the covariates for triadic network effects seem to have significant effect on the generative process of edges.
 		\subsubsection{Coefficients for timestamp covariates}
-	For timestamp covariates, Figure \ref{figure:etaresults} shows the boxplots summarizing posterior samples of $\boldsymbol{\eta}$. Since we assume log-normal distribution for time increments, the interpretation of $\hat{\boldsymbol{\eta}}$ should be based on
+	For timestamp covariates, Figure \ref{figure:etaresults} shows the boxplots summarizing posterior samples of $\boldsymbol{\eta}$. Note that interpretations of the estimated coefficients for $\hat{\boldsymbol{\eta}}$ should be based on the specified timeunit of the datset, which we use ``hour" for Montgomery county email data. Moreover, since we assume log-normal distribution for time increments, we need careful interpretation regarding the timing equations
+			\begin{figure}[!t]
+				\centering
+				\includegraphics[width=0.89\textwidth]{img/etaest-1.png}	
+				\caption {Posterior distribution of $\boldsymbol{\eta}$ estimates.}
+				\label{figure:etaresults}
+			\end{figure}
 	\begin{equation*}
 	\begin{aligned}
 	&\log(\tau_{ad}) \sim N(\mu_{ad}, \sigma_\tau^2), \mbox{ with }\\
 	&\mu_{ad} = \eta_{1}+\eta_{2} y_{ad2}\ldots+\eta_{7}y_{ad7}.
 	\end{aligned}
 	\end{equation*}
-	To begin with, the posterior estimates of two temporal effects---weekend and pm---indicate that if the ${(d-1)}^{th}$ email was sent during the weekend or after 12pm, then the time to $d^{th}$ email is expected to take $\exp(1.552)\approx 4.722$ hours and $\exp(0.980)\approx2.665$ hours longer, respectively, compared to their counterparts (i.e., weekdays and am). On the contrary, the statistics manager, outdegree, and indegree turn out to shorten the time to next email. For example, being a county manager (i.e., the manager of the managers) lowers the expected $\log(\tau_{ad})$ by -1.070, since he or she needs to respond fastly to emails with important decisions. In addition, the manager in general sends or receives a lot more emails which may shorten the response time. This argument is supported by the posterior estimates for outdegree and indegree, where the estimated coefficients are approximately -0.206 and -0.060, respectively. Gender of the department manager is shown to have no significant effect on time-to-next-email. The posterior mean estimate of the variance parameter $\sigma^2_\tau$ is 14.093 with its 95\% credible interval $(12.709, 15.555)$, indicating that there exists huge variability in the time increments in this data.
-		\begin{figure}[!t]
-			\centering
-			\includegraphics[width=0.89\textwidth]{img/etaest-1.png}	
-			\caption {Posterior distribution of $\boldsymbol{\eta}$ estimates.}
-			\label{figure:etaresults}
-		\end{figure}
+	To begin with, the posterior estimates of two temporal effects---``weekend" and 		AM/PM"---indicate that if the ${(d-1)}^{th}$ email was sent during the weekend or after midday, then the time to $d^{th}$ email is expected to take $\exp(1.552)\approx 4.722$ hours and $\exp(0.980)\approx2.665$ hours longer, respectively, compared to their counterparts (i.e., weekdays and am). On the contrary, the covariates ``manager", ``outdegree", and ``indegree" turn out to shorten the amount of time to next email. For example, being a county manager (i.e., the manager of department managers) lowers the expected value of $\log(\tau_{ad})$ by $\hat{\eta}_3 = -1.070$, since the manager in general sends or receives a lot more emails which may shorten the response time and many of those emails. This argument is also supported by the posterior estimates for ``outdegree" and ``indegree" statistics, where the estimated coefficients are approximately $\hat{\eta}_4=-0.206$ and $\hat{\eta}_5=-0.060$, respectively. Gender of the department manager is shown to have no significant effect on time increments. In addition, the posterior mean estimates for variance parameter $\sigma^2_\tau$ in lognormal distribution is approximately $\hat{\sigma}^2_\tau=14.093$ with its 95\% credible interval $(12.709, 15.555)$, indicating that there exists huge variability in the time increments of emails.
 	
 \section{Conclusion}\label{sec:conclusion}
 Motivated by the relational event model \citep{Butts2008} and its variants for time-stamped networks, the hyperedge event model (HEM) can effectively learn the underlying edge generating and timestamp generating structures of event data, while allowing flexibity in the covariate specifications and the distributional assumption of time increments.
@@ -446,7 +510,7 @@ of one type of hyperedges, a single sender and multiple receivers, our model can
 
 \section*{Appendix}
 	\subsection*{Appendix A: Alternative Generative Process} \label{appendix:alternativeGP}
-		\begin{algorithm}[!ht]
+		\begin{algorithm}[H]
 			\SetAlgoLined
 			\caption{Generative Process: one receiver and one or more senders}
 			\begin{algorithmic}
@@ -529,29 +593,59 @@ of one type of hyperedges, a single sender and multiple receivers, our model can
 	\begin{aligned}Z(\boldsymbol{\lambda}_{ad}) = \prod_{r \neq a } \big(\mbox{exp}(\lambda_{adr}) + 1\big)-1.
 	\end{aligned}  
 	\end{equation*}
+\newpage
 	\subsection*{Appendix C: Comparison of PPC Results: log-normal vs. exponential}\label{appendix: PPCexp}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.495\textwidth]{img/outdegree_two-1.png}	
-			\includegraphics[width=0.495\textwidth]{img/indegree_two-1.png}	
-			\includegraphics[width=0.495\textwidth]{img/recipientsize_two-1.png}	
-			\includegraphics[width=0.31\textwidth]{img/timepp_two-1.png}
-			\caption {Comparison of PPC results between log-normal (\textit{red}) and exponential (\textit{green}) distributions: outdegree distribution (\textit{upper left}), indegree distribution (\textit{upper right}), receiver size distribution (\textit{lower left}), and PPplot for time increments (\textit{lower right}). Blue lines denote the observed statistics (in the first three plots) or the diagonal line connecting $(0, 0)$ and $(1, 1)$ (in the last plot).}
-			\label{figure:PPCtwo}                                          
-		\end{figure}                                                                                                                                                                     
+			\begin{tabular}[t]{cc}
+				\begin{subfigure}[b]{0.495\textwidth}
+					\caption{Outdegree distribution}
+					\includegraphics[width=\textwidth]{img/outdegree_two-1.png}	
+				\end{subfigure}
+				\begin{subfigure}[b]{0.495\textwidth}
+					\caption{Indegree distribution}
+					\includegraphics[width=\textwidth]{img/indegree_two-1.png}	
+				\end{subfigure}\\
+				\begin{subfigure}[b]{0.495\textwidth}
+					\caption{Receiver size distribution}
+					\includegraphics[width=\textwidth]{img/recipientsize_two-1.png}	
+				\end{subfigure}
+				\begin{subfigure}[b]{0.495\textwidth}
+					\centering
+					\caption{PPplot for time increments}
+					\includegraphics[width=0.625\textwidth]{img/timepp_two-1.png}
+				\end{subfigure}
+			\end{tabular}
+			\caption {Comparison of PPC results between log-normal (\textit{red}) and exponential (\textit{green}) distributions. Blue lines denote the observed statistics in (a)--(c) and denotes the diagonal line in (d).}
+			\label{figure:PPCtwo}
+		\end{figure}
 		\newpage
 	\subsection*{Appendix D: Convergence Diagnostics}\label{appendix: convergence}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.495\textwidth]{img/betatrace.pdf}	
-		\includegraphics[width=0.495\textwidth]{img/etatrace.pdf}	
-		\includegraphics[width=0.495\textwidth]{img/betageweke.pdf}	
-		\includegraphics[width=0.44\textwidth]{img/etageweke.pdf}
-		\caption {Convergence diagnostics from log-normal distribution: traceplots and density plots for $\boldsymbol{b}$ chains (\textit{upper left}) and $\boldsymbol{\eta}$ chains (\textit{upper right}), and geweke diagnostics for $\boldsymbol{b}$ chains (\textit{lower left}) and $\boldsymbol{\eta}$ chains (\textit{lower right}).}
-		\label{figure:convergencediag}
-	\end{figure}
-
-\begin{supplement}
+		\begin{figure}[H]
+			\centering
+			\begin{tabular}[t]{cc}
+				\begin{subfigure}[b]{0.495\textwidth}
+					\caption{Traceplots of $\boldsymbol{b}$}
+					\includegraphics[width=\textwidth]{img/betatrace.pdf}	
+				\end{subfigure}
+				\begin{subfigure}[b]{0.495\textwidth}
+					\caption{Traceplot of $\boldsymbol{\eta}$}
+					\includegraphics[width=\textwidth]{img/etatrace.pdf}	
+				\end{subfigure}\\
+				\begin{subfigure}[b]{0.495\textwidth}
+					\caption{Geweke diagnostics for $\boldsymbol{b}$}
+					\includegraphics[width=\textwidth]{img/betageweke.pdf}	
+				\end{subfigure}
+				\begin{subfigure}[b]{0.495\textwidth}
+					\centering
+					\caption{Geweke diagnostics for $\boldsymbol{\eta}$ and $\sigma^2_\tau$}
+					\includegraphics[width=0.89\textwidth]{img/etageweke.pdf}
+				\end{subfigure}
+			\end{tabular}
+			\caption {Convergence diagnostics from log-normal distribution.}
+			\label{figure:convergencediag}
+		\end{figure}
+	\begin{supplement}
 \sname{Supplement A}\label{suppA} 
 \stitle{Title of the Supplement A}
 \slink[url]{http://www.some-url-address.org/dowload/0000.zip}

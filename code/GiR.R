@@ -48,6 +48,8 @@ for (n in 1:Nsamp) {
 par(mfrow=c(3,4))
 GiR_PP_Plots(result[,c(1:(5+P+Q))], result[,c((6+P+Q):(2*(5+P+Q)))])
 save(result, file = "/Users/bomin8319/Desktop/result.RData")
+
+setwd("/Users/bomin8319/Desktop/")
 Forward_stats = result[,c(1:(5+P+Q))]
 Backward_stats = result[,c((6+P+Q):(2*(5+P+Q)))]
 colnames(Forward_stats) = c("Mean Recipient Size", "Mean Time-increments", sapply(1:P, function(p){paste0("b",p," Estimates")}), sapply(1:Q, function(q){paste0(expression(eta),q," Estimates")}), "Variance Estimate")
@@ -69,8 +71,11 @@ library(ggplot2)
   		qx2[j] = mean(Backward_stats[, i] <= uniqueValues[j])
   	}
   	data = data.frame(qx1 = qx1, qx2 = qx2)
-	plot[[i]] =qplot(data = data, x = qx1, y = qx2, colour = I("blue"), size = I(0.5)) + labs(x = "Forward", y = "Backward")+geom_abline(intercept = 0, col = 'red') + theme(text = element_text(size = rel(3)), plot.title= element_text(size=rel(3.5)))
+	plot[[i]] =qplot(data = data, x = qx1, y = qx2, colour = I("blue"), size = I(2)) + labs(x = "Forward", y = "Backward")+geom_abline(intercept = 0, col = 'red', size = I(1)) + theme(text = element_text(size = rel(5)), plot.title= element_text(size=rel(3.5)))
 	#+labs(title = expression(nms[i]))
+mname = paste0("plot", i, ".png")
+print(plot[[i]])
+ggsave(filename = mname)
 }	
 library(gridExtra)
 library(latex2exp)

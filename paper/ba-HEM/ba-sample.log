@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  24 MAY 2018 18:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  24 MAY 2018 22:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -391,7 +391,42 @@ File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 \Gin@req@height=\dimen136
 \Gin@req@width=\dimen137
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/fmtcount/fmtcount.sty
+(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen138
+\captionmargin@=\dimen139
+\captionwidth=\dimen140
+\caption@tempdima=\dimen141
+\caption@indent=\dimen142
+\caption@parindent=\dimen143
+\caption@hangindent=\dimen144
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+)
+
+Package caption Warning: Unsupported document class (or package) detected,
+(caption)                usage of the caption package is not recommended.
+See the caption package documentation for explanation.
+
+Package caption Info: \@makecaption = \long macro:#1#2->\vskip \abovecaptionski
+p \figurecaption@size \sbox \@tempboxa {{\figurename@size #1}\figurename@skip #
+2}\ifdim \wd \@tempboxa >\hsize {\figurename@size #1}\figurename@skip #2\par \e
+lse \global \@minipagefalse \hb@xt@ \hsize {\hfil \box \@tempboxa \hfil }\fi \v
+skip \belowcaptionskip .
+\c@ContinuedFloat=\count133
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+)
+\c@subfigure=\count134
+\c@subtable=\count135
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/fmtcount/fmtcount.sty
 Package: fmtcount 2015/05/05 v3.01
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/xkeyval/xkeyval.sty
@@ -402,7 +437,7 @@ Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
 \XKV@toks=\toks31
 \XKV@tempa@toks=\toks32
 )
-\XKV@depth=\count133
+\XKV@depth=\count136
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 (/usr/local/texlive/2015/texmf-dist/tex/latex/fmtcount/fcprefix.sty
@@ -410,42 +445,42 @@ Package: fcprefix 2012/09/28
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/fmtcount/fcnumparser.sty
 Package: fcnumparser 2012/09/28
-\fc@digit@counter=\count134
+\fc@digit@counter=\count137
 ))
-\c@padzeroesN=\count135
-\fc@tmpcatcode=\count136
-\@DT@modctr=\count137
-\@ordinalctr=\count138
-\@orgargctr=\count139
-\@strctr=\count140
-\@tmpstrctr=\count141
-\@DT@loopN=\count142
-\@DT@X=\count143
+\c@padzeroesN=\count138
+\fc@tmpcatcode=\count139
+\@DT@modctr=\count140
+\@ordinalctr=\count141
+\@orgargctr=\count142
+\@strctr=\count143
+\@tmpstrctr=\count144
+\@DT@loopN=\count145
+\@DT@X=\count146
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/fmtcount/fc-english.def
 File: fc-english.def 2013/08/17
 ))
-\c@thm=\count144
+\c@thm=\count147
 
 (./ba-sample.aux)
 \openout1 = `ba-sample.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/fixltx2e.sty
 Package: fixltx2e 2015/02/21 v2.0a fixes to LaTeX (obsolete)
@@ -457,7 +492,7 @@ Package fixltx2e Warning: fixltx2e is not required with releases after 2015
 
 )
 \AtBeginShipoutBox=\box41
-Package backref Info: ** backref set up for natbib ** on input line 36.
+Package backref Info: ** backref set up for natbib ** on input line 38.
  (/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
 
@@ -466,7 +501,7 @@ File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 142.
 )
-Package hyperref Info: Link coloring ON on input line 36.
+Package hyperref Info: Link coloring ON on input line 38.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -474,11 +509,11 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count145
+\c@section@level=\count148
 )
-LaTeX Info: Redefining \ref on input line 36.
-LaTeX Info: Redefining \pageref on input line 36.
-LaTeX Info: Redefining \nameref on input line 36.
+LaTeX Info: Redefining \ref on input line 38.
+LaTeX Info: Redefining \pageref on input line 38.
+LaTeX Info: Redefining \nameref on input line 38.
 
 (./ba-sample.out) (./ba-sample.out)
 \@outlinefile=\write3
@@ -487,16 +522,16 @@ LaTeX Info: Redefining \nameref on input line 36.
 
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count146
-\scratchdimen=\dimen138
+\scratchcounter=\count149
+\scratchdimen=\dimen145
 \scratchbox=\box42
-\nofMPsegments=\count147
-\nofMParguments=\count148
+\nofMPsegments=\count150
+\nofMParguments=\count151
 \everyMPshowfont=\toks33
-\MPscratchCnt=\count149
-\MPscratchDim=\dimen139
-\MPnumerator=\count150
-\makeMPintoPDFobject=\count151
+\MPscratchCnt=\count152
+\MPscratchDim=\dimen146
+\MPnumerator=\count153
+\makeMPintoPDFobject=\count154
 \everyMPtoPDFconversion=\toks34
 ) (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -513,31 +548,34 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 43.
+(Font)              <7> on input line 45.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 43.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 43.
+(Font)              <5> on input line 45.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 45.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <7> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 43.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 45.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 85.
+(Font)              <8> on input line 90.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 85.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 88.
+(Font)              <6> on input line 90.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <6> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 88.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 90.
 
-Overfull \vbox (5.802pt too high) has occurred while \output is active []
+Overfull \vbox (5.61452pt too high) has occurred while \output is active []
 
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <9> on input line 95.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 93.
- [1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 95.
+
+[1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
 Overfull \vbox (1.18999pt too high) has occurred while \output is active []
@@ -548,149 +586,227 @@ Underfull \vbox (badness 4726) has occurred while \output is active []
 
  [3]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 150.
+put line 152.
 
-[4]
-Underfull \vbox (badness 1365) has occurred while \output is active []
+[4] [5] [6] [7] <img/plot1.png, id=353, 2106.87125pt x 2106.87125pt>
+File: img/plot1.png Graphic file (type png)
 
- [5]
-[6] [7] <img/GiRplot-1.png, id=354, 1635.10875pt x 1245.65375pt>
-File: img/GiRplot-1.png Graphic file (type png)
+<use img/plot1.png>
+Package pdftex.def Info: img/plot1.png used on input line 267.
+(pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
+ <img/plot2.png, id=355, 2106.87125pt x 2106.87125pt>
+File: img/plot2.png Graphic file (type png)
 
-<use img/GiRplot-1.png>
-Package pdftex.def Info: img/GiRplot-1.png used on input line 263.
-(pdftex.def)             Requested size: 379.0pt x 288.71817pt.
+<use img/plot2.png>
+Package pdftex.def Info: img/plot2.png used on input line 271.
+(pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
+ <img/plot3.png, id=356, 2106.87125pt x 2106.87125pt>
+File: img/plot3.png Graphic file (type png)
+
+<use img/plot3.png>
+Package pdftex.def Info: img/plot3.png used on input line 275.
+(pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
+ <img/plot4.png, id=357, 2106.87125pt x 2106.87125pt>
+File: img/plot4.png Graphic file (type png)
+
+<use img/plot4.png>
+Package pdftex.def Info: img/plot4.png used on input line 279.
+(pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
+ <img/plot5.png, id=358, 2106.87125pt x 2106.87125pt>
+File: img/plot5.png Graphic file (type png)
+
+<use img/plot5.png>
+Package pdftex.def Info: img/plot5.png used on input line 283.
+(pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
+ <img/plot6.png, id=359, 2106.87125pt x 2106.87125pt>
+File: img/plot6.png Graphic file (type png)
+
+<use img/plot6.png>
+Package pdftex.def Info: img/plot6.png used on input line 287.
+(pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
+ <img/plot7.png, id=360, 2106.87125pt x 2106.87125pt>
+File: img/plot7.png Graphic file (type png)
+
+<use img/plot7.png>
+Package pdftex.def Info: img/plot7.png used on input line 291.
+(pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
+ <img/plot8.png, id=361, 2106.87125pt x 2106.87125pt>
+File: img/plot8.png Graphic file (type png)
+
+<use img/plot8.png>
+Package pdftex.def Info: img/plot8.png used on input line 295.
+(pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
+ <img/plot9.png, id=362, 2106.87125pt x 2106.87125pt>
+File: img/plot9.png Graphic file (type png)
+
+<use img/plot9.png>
+Package pdftex.def Info: img/plot9.png used on input line 299.
+(pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
+ <img/plot10.png, id=363, 2106.87125pt x 2106.87125pt>
+File: img/plot10.png Graphic file (type png)
+
+<use img/plot10.png>
+Package pdftex.def Info: img/plot10.png used on input line 303.
+(pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
+ <img/plot11.png, id=364, 2106.87125pt x 2106.87125pt>
+File: img/plot11.png Graphic file (type png)
+
+<use img/plot11.png>
+Package pdftex.def Info: img/plot11.png used on input line 307.
+(pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
+ <img/plot12.png, id=365, 2106.87125pt x 2106.87125pt>
+File: img/plot12.png Graphic file (type png)
+
+<use img/plot12.png>
+Package pdftex.def Info: img/plot12.png used on input line 311.
+(pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
  [8]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1924) has occurred while \output is active []
 
- [9 <./img/GiRplot-1.png>] <img/triad-1.png, id=371, 940.51375pt x 169.63374pt>
+ [9 <./img/plot1.png> <./img/plot2.png> <./img/plot3.png> <./img/plot4.png> <./
+img/plot5.png> <./img/plot6.png> <./img/plot7.png> <./img/plot8.png> <./img/plo
+t9.png> <./img/plot10.png> <./img/plot11.png> <./img/plot12.png>]
+<img/triad-1.png, id=394, 940.51375pt x 169.63374pt>
 File: img/triad-1.png Graphic file (type png)
-
-<use img/triad-1.png>
-Package pdftex.def Info: img/triad-1.png used on input line 293.
+ <use img/triad-1.png>
+Package pdftex.def Info: img/triad-1.png used on input line 342.
 (pdftex.def)             Requested size: 227.40231pt x 41.01317pt.
- [10] [11 <./img/triad-1.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [12]
-<img/PPEplotnew-1.png, id=402, 2264.46pt x 1252.68pt>
+[10] [11 <./img/triad-1.png>] [12]
+<img/PPEplotnew-1.png, id=429, 2264.46pt x 1252.68pt>
 File: img/PPEplotnew-1.png Graphic file (type png)
 
 <use img/PPEplotnew-1.png>
-Package pdftex.def Info: img/PPEplotnew-1.png used on input line 363.
+Package pdftex.def Info: img/PPEplotnew-1.png used on input line 413.
 (pdftex.def)             Requested size: 379.0pt x 209.646pt.
  [13] [14 <./img/PPEplotnew-1.png>]
-<img/outdegreenew-1.png, id=458, 2275.50125pt x 1254.6875pt>
+<img/outdegreenew-1.png, id=480, 2275.50125pt x 1254.6875pt>
 File: img/outdegreenew-1.png Graphic file (type png)
 
 <use img/outdegreenew-1.png>
-Package pdftex.def Info: img/outdegreenew-1.png used on input line 396.
+Package pdftex.def Info: img/outdegreenew-1.png used on input line 448.
 (pdftex.def)             Requested size: 187.60315pt x 103.44025pt.
 
-<img/indegreenew-1.png, id=459, 2264.46pt x 1256.695pt>
+<img/indegreenew-1.png, id=481, 2264.46pt x 1256.695pt>
 File: img/indegreenew-1.png Graphic file (type png)
 
 <use img/indegreenew-1.png>
-Package pdftex.def Info: img/indegreenew-1.png used on input line 397.
+Package pdftex.def Info: img/indegreenew-1.png used on input line 452.
 (pdftex.def)             Requested size: 187.60315pt x 104.10431pt.
 
-<img/recipientsizenew-1.png, id=460, 2264.46pt x 1254.6875pt>
+<img/recipientsizenew-1.png, id=482, 2264.46pt x 1254.6875pt>
 File: img/recipientsizenew-1.png Graphic file (type png)
 
 <use img/recipientsizenew-1.png>
-Package pdftex.def Info: img/recipientsizenew-1.png used on input line 398.
+Package pdftex.def Info: img/recipientsizenew-1.png used on input line 456.
 (pdftex.def)             Requested size: 187.60315pt x 103.938pt.
 
-<img/timeppnew.pdf, id=461, 505.57161pt x 451.4487pt>
+<img/timeppnew.pdf, id=483, 505.57161pt x 451.4487pt>
 File: img/timeppnew.pdf Graphic file (type pdf)
  <use img/timeppnew.pdf>
-Package pdftex.def Info: img/timeppnew.pdf used on input line 399.
-(pdftex.def)             Requested size: 117.48907pt x 104.90562pt.
+Package pdftex.def Info: img/timeppnew.pdf used on input line 461.
+(pdftex.def)             Requested size: 117.25197pt x 104.69897pt.
 
-<img/best-1.png, id=466, 2264.46pt x 1252.68pt>
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 445--464
+ [][] 
+ []
+
+<img/best-1.png, id=488, 2264.46pt x 1252.68pt>
 File: img/best-1.png Graphic file (type png)
  <use img/best-1.png>
-Package pdftex.def Info: img/best-1.png used on input line 408.
+Package pdftex.def Info: img/best-1.png used on input line 472.
 (pdftex.def)             Requested size: 379.0pt x 209.646pt.
+ [15]
+Underfull \vbox (badness 3417) has occurred while \output is active []
+
+ [16 <./img/outdegreenew-1.png> <./img/indegreenew-1.png> <./img/recipientsizen
+ew-1.png> <./img/timeppnew.pdf>] <img/etaest-1.png, id=567, 2264.46pt x 1250.67
+25pt>
+File: img/etaest-1.png Graphic file (type png)
+
+<use img/etaest-1.png>
+Package pdftex.def Info: img/etaest-1.png used on input line 487.
+(pdftex.def)             Requested size: 337.30977pt x 186.29509pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [15]
-[16 <./img/outdegreenew-1.png> <./img/indegreenew-1.png> <./img/recipientsizene
-w-1.png> <./img/timeppnew.pdf>]
-<img/etaest-1.png, id=545, 2264.46pt x 1250.6725pt>
-File: img/etaest-1.png Graphic file (type png)
- <use img/etaest-1.png>
-Package pdftex.def Info: img/etaest-1.png used on input line 430.
-(pdftex.def)             Requested size: 337.30977pt x 186.29509pt.
-
-Underfull \vbox (badness 5504) has occurred while \output is active []
-
  [17 <./img/best-1.png>]
-Underfull \vbox (badness 5832) has occurred while \output is active []
+Overfull \hbox (10.88954pt too wide) in paragraph at lines 496--498
+\OT1/cmr/m/n/10 To be-gin with, the pos-te-rior es-ti-mates of two tem-po-ral e
+ffects---``weekend" and AM/PM"---
+ []
 
- [18 <./img/etaest-1.png>]
+[18 <./img/etaest-1.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [19]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 479.
- [19] [20]
-<img/outdegree_two-1.png, id=595, 2264.46pt x 1249.66875pt>
+(Font)              <12> on input line 543.
+
+[20] [21] <img/outdegree_two-1.png, id=621, 2264.46pt x 1249.66875pt>
 File: img/outdegree_two-1.png Graphic file (type png)
 
 <use img/outdegree_two-1.png>
-Package pdftex.def Info: img/outdegree_two-1.png used on input line 535.
+Package pdftex.def Info: img/outdegree_two-1.png used on input line 603.
 (pdftex.def)             Requested size: 187.60315pt x 103.52226pt.
 
-<img/indegree_two-1.png, id=596, 2264.46pt x 1250.6725pt>
+<img/indegree_two-1.png, id=622, 2264.46pt x 1250.6725pt>
 File: img/indegree_two-1.png Graphic file (type png)
 
 <use img/indegree_two-1.png>
-Package pdftex.def Info: img/indegree_two-1.png used on input line 536.
+Package pdftex.def Info: img/indegree_two-1.png used on input line 607.
 (pdftex.def)             Requested size: 187.60315pt x 103.60541pt.
 
-<img/recipientsize_two-1.png, id=597, 2252.415pt x 1249.66875pt>
+<img/recipientsize_two-1.png, id=623, 2252.415pt x 1249.66875pt>
 File: img/recipientsize_two-1.png Graphic file (type png)
 
 <use img/recipientsize_two-1.png>
-Package pdftex.def Info: img/recipientsize_two-1.png used on input line 537.
+Package pdftex.def Info: img/recipientsize_two-1.png used on input line 611.
 (pdftex.def)             Requested size: 187.60315pt x 104.07524pt.
 
-<img/timepp_two-1.png, id=598, 1405.25pt x 1247.66125pt>
+<img/timepp_two-1.png, id=624, 1405.25pt x 1247.66125pt>
 File: img/timepp_two-1.png Graphic file (type png)
 
 <use img/timepp_two-1.png>
-Package pdftex.def Info: img/timepp_two-1.png used on input line 538.
-(pdftex.def)             Requested size: 117.48907pt x 104.30785pt.
+Package pdftex.def Info: img/timepp_two-1.png used on input line 616.
+(pdftex.def)             Requested size: 117.25197pt x 104.09843pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 600--619
+ [][] 
+ []
 
- [21]
 [22 <./img/outdegree_two-1.png> <./img/indegree_two-1.png> <./img/recipientsize
 _two-1.png> <./img/timepp_two-1.png>]
-<img/betatrace.pdf, id=613, 505.89pt x 505.89pt>
+<img/betatrace.pdf, id=635, 505.89pt x 505.89pt>
 File: img/betatrace.pdf Graphic file (type pdf)
  <use img/betatrace.pdf>
-Package pdftex.def Info: img/betatrace.pdf used on input line 546.
+Package pdftex.def Info: img/betatrace.pdf used on input line 629.
 (pdftex.def)             Requested size: 187.60315pt x 187.60092pt.
 
-<img/etatrace.pdf, id=614, 505.89pt x 505.89pt>
+<img/etatrace.pdf, id=636, 505.89pt x 505.89pt>
 File: img/etatrace.pdf Graphic file (type pdf)
  <use img/etatrace.pdf>
-Package pdftex.def Info: img/etatrace.pdf used on input line 547.
+Package pdftex.def Info: img/etatrace.pdf used on input line 633.
 (pdftex.def)             Requested size: 187.60315pt x 187.60092pt.
 
-<img/betageweke.pdf, id=615, 503.66136pt x 448.9018pt>
+<img/betageweke.pdf, id=637, 503.66136pt x 448.9018pt>
 File: img/betageweke.pdf Graphic file (type pdf)
 
 <use img/betageweke.pdf>
-Package pdftex.def Info: img/betageweke.pdf used on input line 548.
+Package pdftex.def Info: img/betageweke.pdf used on input line 637.
 (pdftex.def)             Requested size: 187.60315pt x 167.20755pt.
- <img/etageweke.pdf, id=616, 505.89pt x 505.89pt>
+ <img/etageweke.pdf, id=638, 505.89pt x 505.89pt>
 File: img/etageweke.pdf Graphic file (type pdf)
 
 <use img/etageweke.pdf>
-Package pdftex.def Info: img/etageweke.pdf used on input line 549.
-(pdftex.def)             Requested size: 166.76093pt x 166.75894pt.
- (./ba-sample.bbl (./ba-sample.brf)
+Package pdftex.def Info: img/etageweke.pdf used on input line 642.
+(pdftex.def)             Requested size: 166.96667pt x 166.96736pt.
+
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 626--645
+ [][] 
+ []
+
+(./ba-sample.bbl (./ba-sample.brf)
 \tf@brf=\write4
 \openout4 = `ba-sample.brf'.
 
@@ -705,26 +821,26 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [25])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 568.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 662.
 
 [26]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 568.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 662.
  (./ba-sample.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 568.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 568.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 662.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 662.
 Package rerunfilecheck Info: File `ba-sample.out' has not changed.
-(rerunfilecheck)             Checksum: 97798FD23E27C25776F4BFD634DA8F9D;1611.
+(rerunfilecheck)             Checksum: CD228263D31A9341AF7782E0E66F02BE;1614.
 Package rerunfilecheck Info: File `ba-sample.brf' has not changed.
-(rerunfilecheck)             Checksum: 89D14A6C28B9FD46CF3E24218980757B;2084.
+(rerunfilecheck)             Checksum: 264E835F51D27CEDD9E9E2ECC17820BA;2084.
  ) 
 Here is how much of TeX's memory you used:
- 10939 strings out of 493089
- 162722 string characters out of 6134842
- 293389 words of memory out of 5000000
- 14043 multiletter control sequences out of 15000+600000
- 17027 words of font info for 58 fonts, out of 8000000 for 9000
+ 12059 strings out of 493089
+ 183112 string characters out of 6134842
+ 313144 words of memory out of 5000000
+ 15143 multiletter control sequences out of 15000+600000
+ 17640 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 32i,17n,35p,2751b,775s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,18n,75p,2835b,936s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.3} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -755,10 +871,10 @@ ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2015/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on ba-sample.pdf (26 pages, 4263995 bytes).
+Output written on ba-sample.pdf (26 pages, 6192571 bytes).
 PDF statistics:
- 1520 PDF objects out of 1728 (max. 8388607)
+ 1542 PDF objects out of 1728 (max. 8388607)
  1242 compressed objects within 13 object streams
  215 named destinations out of 1000 (max. 500000)
- 278 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 333 words of extra memory for PDF output out of 10000 (max. 10000000)
 
