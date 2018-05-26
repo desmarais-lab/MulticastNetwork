@@ -14,24 +14,53 @@ library(reshape2)
 library(gridExtra)
 library(ggrepel)
 library(RColorBrewer)
+ggplotColours <- function(n = 6, h = c(0, 360) + 15){
+  if ((diff(h) %% 360) < 1) h[2] <- h[2] - 360/n
+  hcl(h = (seq(h[1], h[2], length = n)), c = 100, l = 65)
+}
+number_ticks <- function(n) {function(limits) pretty(limits, n)}
+colorsbeta = ggplotColours(13)
 
-
-colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]
-beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[40*i,])))
-colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]
-colnames(beta)[6:7] = c("twosend", "tworeceive")
-colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]
+colnames(Montgomery_infer$beta) = c("intercept", "outdegree", "indegree", "send", "receive",
+"two_send", "two_receive", "sibling", "cosibling", "hyperedge_size", "interaction", "gender_sender", "gender_receiver",
+"gender_homophily")
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]
+# colnames(beta)[6:7] = c("twosend", "tworeceive")
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]
 beta.est = melt(beta[-1])
-colnames(beta.est)[1] = "netstats"
+colnames(beta.est)[1] = "covariates"
 colnames(beta.est)[2] = "b"
-ggplot(data = beta.est, aes(x = netstats, y = b, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+beta.est[,1] = as.factor(beta.est[,1])
+beta.est$covariates <- factor(beta.est$covariates , levels = c("gender_sender", "gender_receiver",
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction", "send", "receive",
+"two_send", "two_receive", "sibling", "cosibling" ))
 
-colnames(Montgomery_infer$eta) = dimnames(Montgomery$Y)[[3]]
-eta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$eta[40*i,])))
+bplot = list()
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",
+"gender_homophily")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = b))+ geom_boxplot(fill=colorsbeta[3:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = b)) + geom_boxplot(fill=colorsbeta[7:4])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")
+bplot[[3]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receive",
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = b)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 1, nrow = 3)
+
+ggplot(data = beta.est, aes(x = reorder(covariates,-as.numeric(covariates)) , y = b))+ geom_boxplot(fill=colorsbeta[13:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")
+
+bplot = list()
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = b))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receive",
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = b)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+grid.arrange(bplot[[1]], bplot[[2]], ncol =2, nrow = 1)
+
+##################################################
+colnames(Montgomery_infer$eta) = c("intercept","gender", "manager", "outdegree", "indegree", "weekend", "PM")
+eta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$eta[8*i,])))
 eta.est = melt(eta[-1])
-colnames(eta.est)[1] = "netstats"
+colnames(eta.est)[1] = "covariates"
 colnames(eta.est)[2] = "eta"
-ggplot(data = eta.est, aes(x = netstats, y = eta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+eta.est[,1] = as.factor(eta.est[,1])
+ggplot(data = eta.est, aes(x = reorder(covariates,-as.numeric(covariates)), y = eta, fill =covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
 
 #####################################
 load('~/Desktop/MulticastNetwork/code/Temporal_Email_Data.Rdata')

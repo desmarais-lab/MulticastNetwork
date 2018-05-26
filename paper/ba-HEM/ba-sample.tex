@@ -319,7 +319,7 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
  	   we formulate the edge covariates $\boldsymbol{x}$ and timestamp covariates $\boldsymbol{y}$ and ground them in illustrative examples. We then report a suite of experiments---out-of-sample prediction for model selection and posterior predictive checks---that test the HEM's ability to form the posterior distribution over its latent variables. Finally, we demonstrate an exploratory analysis of Montgomery County email data using the model estimates to discover interesting patterns in organizational communication networks.
  	   \subsection{Covariates}\label{subsec:Covariates_email}
  	   \subsubsection{Edge covariates}
- 	   Given a set of network data, a primary modeling goal of the generative process for edges lies in determining which characteristics and behaviors are predictive of the receiver selection. This email application specifically give rise to the following question: ``To what extent are nodal, dyadic or triadic network effects relevant to predicting future emails?" As an illustrative example, we form the receiver selection features $\boldsymbol{x}$ for Montgomery County email data using some nodal statistics and interval-based network statistics. First, we include the gender information of sender and receiver, as well as their homophily indicator. For dyadic and triadic network effects, we summarize past interaction behaviors based on the time interval prior to and including $t_{d-1}$. Specifically, our time interval tracks 7 days prior to the last email was sent $l_d = (t_{d-1}-7\mbox{ days}, t_{d-1}]$. For $a \in [A], r \in [A]$, and $d \in [D]$, we define 14 covariates for $\boldsymbol{x}_{adr}$:
+ 	   Given a set of network data, a primary modeling goal of the generative process for edges lies in determining which characteristics and behaviors are predictive of the receiver selection. This email application specifically give rise to the following question: ``To what extent are nodal, dyadic or triadic network effects relevant to predicting future emails?" As an illustrative example, we form the receiver selection features $\boldsymbol{x}$ for Montgomery County email data using some nodal, dyadic, and triadic covariates. First, as we want to test whether gender plays a role in receiver selection process, we include three nodal covariates---the gender information of sender and receiver, and their homophily indicator. Additionally, we include four interval-based nodal network covariates---outdegree of sender, indegree of receiver, hyperedge size of sender, and the interaction between outdegree and hyperedge size---to study the effect of nodal behaviors on future interactions. For dyadic and triadic network effects, we employ the network statistics in \cite{PerryWolfe2012} and summarize past interaction behaviors based on the time interval prior to and including $t_{d-1}$. Specifically, our time interval tracks 7 days prior to the last email was sent $l_d = (t_{d-1}-7\mbox{ days}, t_{d-1}]$. For $a \in [A], r \in [A]$, and $d \in [D]$, we define 14 covariates for $\boldsymbol{x}_{adr}$:
  	   \begin{itemize}
  	   	\item[1.] intercept: ${x}_{adr1} =1$;
  	   	 \item[2.] gender of sender: ${x}_{adr2} = I(\mbox{gender of sender } a= \mbox{female});$
@@ -336,7 +336,7 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
  	   	\item[13.] sibling: ${x}_{adr13}=\sum_{h \neq a, r} \mbox{send}(h,a)\,\mbox{send}(h,r)$;
  	   	\item[14.] cosibling: ${x}_{adr14}=\sum_{h \neq a, r} \mbox{send}(a,h)\,\mbox{send}(r,h)$;
  	 	   \end{itemize}
- 	   where $I(\cdot)$ is an indicator function. The network statistics (5--14) are designed so that their coefficient have a straightforward interpretation. The statistics ``outdegree" and ``indegree" measures the gregariousness and popularity effect of the node by counting the number of emails sent from $a$ and received by $r$, respectively, within the last 7 days. Moreover, in order to capture individual tendency of send emails to two or more receivers, we include the statistic ``hyperedge size"---the number of emails sent from $a$ within last 7 days where emails with $k$ number of receivers are counted as $k$ separate emails---as a variant of outdegree statistic, accounting for hyperedges. We also include the interaction term between outdegree and hyperedge size. Next, we employ dyadic and triadic network statistics from \cite{PerryWolfe2012}. Dyadic statistics``send" and ``receive" are defined as above such that these covariates measure the number of emails sent from $a$ to $r$ and $r$ to $a$, respectively, within the last 7 days. In the example of triadic statistics, the covariate ``2-send" counts the pairs of emails involving some node $h$ distinct from $a$ and $r$ such that emails from $a$ to $h$ and $h$ to $r$ are both observed within the last 7 days. Other triadic covariates behave similarly, and their interpretations are also analogous, which are illustrated in Figure \ref{figure:netstats}.
+ 	   where $I(\cdot)$ is an indicator function. The network statistics (5--14) are designed so that their coefficient have a straightforward interpretation. The statistics ``outdegree" and ``indegree" measures the gregariousness and popularity effect of the node by counting the number of emails sent from $a$ and received by $r$, respectively, within the last 7 days. Moreover, in order to capture individual tendency of send emails to two or more receivers, we include the statistic ``hyperedge size"---the number of emails sent from $a$ within last 7 days where emails with $k$ number of receivers are counted as $k$ separate emails---as a variant of outdegree statistic, accounting for hyperedges. We also include the interaction term between outdegree and hyperedge size. Dyadic statistics``send" and ``receive" are defined as above such that these covariates measure the number of emails sent from $a$ to $r$ and $r$ to $a$, respectively, within the last 7 days. In the example of triadic statistics, the covariate ``2-send" counts the pairs of emails involving some node $h$ distinct from $a$ and $r$ such that emails from $a$ to $h$ and $h$ to $r$ are both observed within the last 7 days. Other triadic covariates behave similarly, and their interpretations are also analogous, which are illustrated in Figure \ref{figure:netstats}.
  	   \begin{figure}[!t]
  	   	\centering
  	   	\includegraphics[width=0.6\textwidth]{img/triad-1.png}	
@@ -353,7 +353,7 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
  	   	\item[4.] outdegree of sender: ${y}_{ad4} =\sum_{d^\prime: t_{d^\prime} \in l_d} I(a_{d^\prime} = a)$;
  	   	\item[5.] indegree of sender: ${y}_{ad5}=\sum_{d^\prime: t_{d^\prime} \in l_d} I(u_{d^\prime a} = 1)$;
  	   	\item[6.] weekend indicator of previous email: ${y}_{ad6} = I(t_{d-1} \mbox{ is during the } \mbox{weekend})$;
- 	   	\item[7.] AM/PM of previous email: ${y}_{ad7}= I(t_{d-1} \mbox{ in } \mbox{PM})$.
+ 	   	\item[7.] PM indicator of previous email: ${y}_{ad7}= I(t_{d-1} \mbox{ in } \mbox{PM})$.
  	   \end{itemize}
  	   Note that our generative process for timestamps in Section \ref{subsec:Time} is sender-orientd process where the sender deterimes ``when to send the email," thus we incorporate network statistics that depends on $a$ only---outdegree of sender $a$ and indegree of sender $a$ (not $r$ this time).
 
@@ -398,9 +398,7 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
 		\end{algorithmic}
 	\end{algorithm}
 	
-	We evaluate the model's ability to predict edges and timestamps from Montgomery County email data, conditioned on their ``training" part of the data. To perform the experiment, we separately formed a test split of each three model components---sender, receivers, and timestamps---by randomly selecting ``test" data with probability $p=0.1$. Any missing variables were imputed by drawing samples from their conditional posterior distributions, given the observed data, model estimates, and current values of test data. We then run inference to update the latent variables given the imputed and observed data. We iterate the two steps---imputation and inference---multiple times to obtain enough number of estimates for test data. Algorithm \ref{alg:PPE} outlines this procedure in detail. 
-	
-	We run the experiment and measure the predictive performance of two separate time distributions using $N=500$ predicted samples, by comparing the predictions in terms of classification accuracy in predicting the senders and receivers, as well as prediction error in the timestamps. First, we compare the posterior probability of correct senders for each of missing emails $\{d:a_d=\mbox{NA}\}$, which corresponds to $\pi_{a_{d}}=P(a_{d} = a^{obs}_{d}|\cdot)$ in Algorithm \ref{alg:PPE}. We call this measure as ``correct sender posterior probability." On the left of Figure \ref{figure:PPEresults}, we draw boxplots for the distribution of mean correct sender posterior probability---i.e., $\hat{\pi}_{a_{d}} = \frac{1}{N}\sum_{n=1}^N \pi^n_{a_{d}}$---across the missing emails. The results show that both log-normal and exponential distributions acheive better predictive performance for missing senders compared to what is expected under random guess (i.e., choose one out of $A$ possible senders $=1/18$), with log-normal distribution showing slightly higher performance than exponential distribution on average. Secondly, since the receiver vector is binary, we compute $F_1$ scores for missing receiver indicators (i.e., all $d$ and $r$ with $r_{dr}$=NA) by taking the harmonic mean of precision and recall:
+	We evaluate the model's ability to predict edges and timestamps from Montgomery County email data, conditioned on their ``training" part of the data. To perform the experiment, we separately formed a test split of each three model components---sender, receivers, and timestamps---by randomly selecting ``test" data with probability $p=0.1$. Any missing variables were imputed by drawing samples from their conditional posterior distributions, given the observed data, model estimates, and current values of test data. We then run inference to update the latent variables given the imputed and observed data. We iterate the two steps---imputation and inference---multiple times to obtain enough number of estimates for test data. Algorithm \ref{alg:PPE} outlines this procedure in detail. We run the experiment and measure the predictive performance of two separate time distributions using $N=500$ predicted samples, by comparing the predictions in terms of classification accuracy in predicting the senders and receivers, as well as prediction error in the timestamps. First, we compare the posterior probability of correct senders for each of missing emails $\{d:a_d=\mbox{NA}\}$, which corresponds to $\pi_{a_{d}}=P(a_{d} = a^{obs}_{d}|\cdot)$ in Algorithm \ref{alg:PPE}. We call this measure as ``correct sender posterior probability." On the left of Figure \ref{figure:PPEresults}, we draw boxplots for the distribution of mean correct sender posterior probability---i.e., $\hat{\pi}_{a_{d}} = \frac{1}{N}\sum_{n=1}^N \pi^n_{a_{d}}$---across the missing emails. The results show that both log-normal and exponential distributions acheive better predictive performance for missing senders compared to what is expected under random guess (i.e., choose one out of $A$ possible senders $=1/18$), with log-normal distribution showing slightly higher performance than exponential distribution on average. Secondly, since the receiver vector is binary, we compute $F_1$ scores for missing receiver indicators (i.e., all $d$ and $r$ with $r_{dr}$=NA) by taking the harmonic mean of precision and recall:
 	\begin{equation}
 	\begin{aligned}
 	F_1 =2\cdot\frac{\mbox{precision}\cdot \mbox{recall}}{\mbox{precision}+ \mbox{recall}}, &\mbox{ where } \\
@@ -440,7 +438,7 @@ In this section, we perform posterior predictive checks (PPC) \citep{rubin1984ba
 	\end{algorithm}     \fi  
 		
 	Figure \ref{figure:PPCresults} illustrates the results of poterior predictive checks using log-normal distribution, which shows better performance in Section \ref{subsec:Experiment_email}. Upper two plots show node-specific posterior predictive degree distributions across $N=500$ synthetic data, where the left one for outdegree statistic and the right plot is for indegree statistic. For both plots, the x-axis represents the nodes ($A=1,\ldots,18$), and the y-axis represents the number of emails sent or received by the node. When compared with the observed outdegree and indegree statistics (red lines), our model recovers the overall distribution of sending and receiving activities across the nodes. For example, node 1 and 10 show significantly higher level of both sending and receiving activities relative to the rest, and the model-simulated data captures those big jumps, showing acceptable fit to the data. Outdegree distribution of some low-activity nodes are not precisely recovered, however, indegree distribution looks much better. Since we use more information in the receiver selection process (i.e., network effects) while we rely solely on minimum time increments when choosing the observed sender, these results are expected. Lower left plot is the distribution of receiver sizes, where the x-axis spans over the size of receivers 1 to 14 (which is the maximum size of observed receivers) and the y-axis denotes the number of emails with x-number of receivers. The result shows that our model is underestimating emails with one receiver while overestimating emails with two, three, and four receivers. One explanation behind what we observe is that the model is trying to recover so-called ``broadcast'' emails, which are the emails with $\geq 10$ number of receivers, so that the intercept estimate $b_1$ is slightly moved toward right. To improve the goodness of fit for receiver sizes, we can add more covariates (e.g., sender indicators) or assign strong prior structure on $b_1$. In the end, the plot on the lower right is the PP plot for time increments, which depicts the two cumulative distribution functions---one for simulated time increments and another for observed time increments---against each other in order to assess how closely two data sets agree. Here, the closeness to the diagonal line connecting $(0, 0)$ and $(1, 1)$ gives a measure of difference between the simulated and observed time increments, and our PP plot shows that we have great performance in reproducing the observed time distribution. All our findings from predictive experiments in Section \ref{subsec:Experiment_email} are further revealed in the PPC from exponential distribution, where the PPC plots comparing log-normal and exponential distributions are attached in Appendix C.
-	\begin{figure}[!htb]
+	\begin{figure}[!t]
 		\centering
 		\begin{tabular}[t]{cc}
 		   	\begin{subfigure}[b]{0.495\textwidth}
@@ -458,7 +456,7 @@ In this section, we perform posterior predictive checks (PPC) \citep{rubin1984ba
 			   	\begin{subfigure}[b]{0.495\textwidth}
 			   				\centering
 			   		\caption{PPplot for time increments}
-			   		\includegraphics[width=0.625\textwidth]{img/timeppnew.pdf}	
+			   		\includegraphics[width=0.6\textwidth]{img/timeppnew-1.png}	
 			   	\end{subfigure}
 		\end{tabular}
 		\caption {PPC results from log-normal distribution. Blue lines denote the observed statistics in (a)--(c) and denotes the diagonal line in (d).}
@@ -467,27 +465,33 @@ In this section, we perform posterior predictive checks (PPC) \citep{rubin1984ba
 	
 	\subsection{Exploratory Analysis}\label{subsec:Result_email}
 	Based on the prediction experiments in Section \ref{subsec:Experiment_email}, we choose to analyze Montgomery county email data and interpret the results using log-normal distribution. We assume weakly informative priors for latent variables such as $\boldsymbol{b}\sim N(\boldsymbol{\mu}_b=\boldsymbol{0}, \Sigma_b = 2\times I_P)$, $\boldsymbol{\eta}\sim N(\boldsymbol{\mu}_\eta=\boldsymbol{0}, \Sigma_\eta = 2\times I_Q)$, and $\sigma_\tau^2 \sim \mbox{inverse-Gamma}(a=2, b=1)$, and run MCMC algorithm in Algorithm \ref{alg:MCMC} with $O=55,000$ outer iterations with a burn-in of 15,000, where we thin by keeping every 40th sample. While the inner iterations for $\sigma_\tau^2$ is fixed as 1, we specify the inner iterations $I_1=20$ for $\boldsymbol{b}$ and $I_2=10$ for $\boldsymbol{\eta}$ to adjust for slower convergence rates. Convergence diagnostics including the traceplots and Geweke diagnostics \citep{geweke1991evaluating} are provided in Appendix D.
-	\begin{figure}[!t]
-		\centering
-		\includegraphics[width=1\textwidth]{img/best-1.png}	
-		\caption {Posterior distribution of $\boldsymbol{b}$ estimates.}
-		\label{figure:betaresults}
-	\end{figure}
+
 	\subsubsection{Coefficients for edge covariates}
-	Figure \ref{figure:betaresults} shows the boxplots summarizing posterior samples of $\boldsymbol{b}$. Since we use the logit probability of $\lambda_{adr}$ when generating hypothetical edges in Section \ref{subsec: Tie}, we assume that 
+	Figure \ref{figure:betaresults} shows the boxplots summarizing posterior samples of $\boldsymbol{b}$, where (a) displays the coefficients for nodal covariates and (b) displays the coefficients for dyadic and triadic covariates. Since we use the logit probability of $\lambda_{adr}$ when generating hypothetical edges in Section \ref{subsec: Tie}, we assume that 
 	\begin{equation*}
 	\mbox{logit}(\lambda_{adr})=\log\Big(\frac{\lambda_{adr}}{1-\lambda_{adr}}\Big) =b_{1}+b_{2} x_{adr2}\ldots+b_{14}x_{adr14},
 	\end{equation*}
 	and can interpret the $\boldsymbol{b}$ estimates in terms of odds ratio $\frac{\lambda_{adr}}{1-\lambda_{adr}}=\exp(b_{1}+b_{2} x_{adr2}\ldots+b_{14}x_{adr14})$.
-	To begin with, we can see that the effect of the statistic``send" (i.e., number of times sender $a$ sent emails to receiver $r$ over the last week) is significant and positive with $\hat{b}_4 = 0.274$, implying that if sender $a$ sent $n$ number of emails to $r$ last week, then sender $a$ is approximately $\exp(0.274\times n)\approx(1.315)^n$ times more likely to send an email to $r$. Similar interpretation can be applied for the covariates ``indegree" and ``hyperedge size". For example, if the receiver $r$ received $n$ number of emails and sender $a$ sent emails to $n$ number of rececievers over the last week, sender $a$ is $\exp(0.086\times n)\approx(1.091)^n $ times and $\exp(0.047\times n)\approx(1.048)^n$ times, respectively, more likely to send an email to $r$. On the contrary, the statistic ``outdegree" has significantly negative effect---i.e., if sender $a$ sent $n$ number of emails to anyone last week, then sender $a$ is approximately $\exp(-0.109\times n)\approx(0.897)^n$ times less likely to send an email to $r$---possibly due to its multicollinearity with the statistics ``send" and/or ``hyperedge size". This result is likely to appear under the following scenario: if sender $a$ sent large number of emails over the last week but 1) not to $r$ (excluding the effect of ``send") and the email of interest is not a  2) broadcast email which is originally aimed at large number of receivers (excluding the effect of ``hyperedge size"), then sender $a$ is less likely to send an email to receiver $r$. Rest of statistics are not statistically significant in that their 95\% credible interval do not include 0. Surprisingly, none of the covariates for triadic network effects seem to have significant effect on the generative process of edges.
+	To begin with, we find out that the effect of nodal coavariates ``gender of sender" and ``gender of receiver" are both significant in negative direction. \textbf{substantive interpretation on gender effects}. Next, the statistic ``outdegree" also has significantly negative effect---i.e., if sender $a$ sent $n$ number of emails to anyone last week, then sender $a$ is approximately $\exp(-0.109\times n)\approx(0.897)^n$ times less likely to send an email to $r$---possibly due to its multicollinearity with the statistics ``hyperedge size" where the two terms' show significant interaction effect. This result is likely to appear under the following scenario: if sender $a$ sent large number of emails over the last week but 1) not to $r$ (excluding the effect of ``send") and the email of interest is not a  2) broadcast email which is originally aimed at large number of receivers (excluding the effect of ``hyperedge size"), then sender $a$ is less likely to send an email to receiver $r$. Similar interpretation can be applied for the covariates ``indegree," but in the opposite direction. For example, if the receiver $r$ received $n$ number of emails over the last week, sender $a$ is $\exp(0.086\times n)\approx(1.091)^n $ times more likely to send an email to $r$. 
+	
+	On the next plot for dyadic and triadic covariates, one thing we can check is that the effect of statistic``send" (i.e., number of times sender $a$ sent emails to receiver $r$ over the last week) is significant and positive with $\hat{b}_4 = 0.274$, implying that if sender $a$ sent $n$ number of emails to $r$ last week, then sender $a$ is approximately $\exp(0.274\times n)\approx(1.315)^n$ times more likely to send an email to $r$. Another dyadic statistic ``receive" is not statistically significant in that its 95\% credible interval do not include 0. Surprisingly, none of the covariates for triadic network effects seem to have significant effect on the generative process of edges.
+		\begin{figure}[!t]
+			\centering
+			\begin{tabular}[t]{cc}
+				\begin{subfigure}[b]{0.495\textwidth}
+					\caption{Nodal covariates}
+					\includegraphics[width=\textwidth]{img/betanewplot2-1.png}	
+				\end{subfigure}
+				\begin{subfigure}[b]{0.495\textwidth}
+					\caption{Dyadic and triadic covariates}
+					\includegraphics[width=\textwidth]{img/betanewplot3-1.png}	
+				\end{subfigure}
+			\end{tabular}
+			\caption {Posterior distribution of $\boldsymbol{b}$ estimates.}
+			\label{figure:betaresults}
+		\end{figure}
 		\subsubsection{Coefficients for timestamp covariates}
 	For timestamp covariates, Figure \ref{figure:etaresults} shows the boxplots summarizing posterior samples of $\boldsymbol{\eta}$. Note that interpretations of the estimated coefficients for $\hat{\boldsymbol{\eta}}$ should be based on the specified timeunit of the datset, which we use ``hour" for Montgomery county email data. Moreover, since we assume log-normal distribution for time increments, we need careful interpretation regarding the timing equations
-			\begin{figure}[!t]
-				\centering
-				\includegraphics[width=0.89\textwidth]{img/etaest-1.png}	
-				\caption {Posterior distribution of $\boldsymbol{\eta}$ estimates.}
-				\label{figure:etaresults}
-			\end{figure}
 	\begin{equation*}
 	\begin{aligned}
 	&\log(\tau_{ad}) \sim N(\mu_{ad}, \sigma_\tau^2), \mbox{ with }\\
@@ -495,7 +499,12 @@ In this section, we perform posterior predictive checks (PPC) \citep{rubin1984ba
 	\end{aligned}
 	\end{equation*}
 	To begin with, the posterior estimates of two temporal effects---``weekend" and 		AM/PM"---indicate that if the ${(d-1)}^{th}$ email was sent during the weekend or after midday, then the time to $d^{th}$ email is expected to take $\exp(1.552)\approx 4.722$ hours and $\exp(0.980)\approx2.665$ hours longer, respectively, compared to their counterparts (i.e., weekdays and am). On the contrary, the covariates ``manager", ``outdegree", and ``indegree" turn out to shorten the amount of time to next email. For example, being a county manager (i.e., the manager of department managers) lowers the expected value of $\log(\tau_{ad})$ by $\hat{\eta}_3 = -1.070$, since the manager in general sends or receives a lot more emails which may shorten the response time and many of those emails. This argument is also supported by the posterior estimates for ``outdegree" and ``indegree" statistics, where the estimated coefficients are approximately $\hat{\eta}_4=-0.206$ and $\hat{\eta}_5=-0.060$, respectively. Gender of the department manager is shown to have no significant effect on time increments. In addition, the posterior mean estimates for variance parameter $\sigma^2_\tau$ in lognormal distribution is approximately $\hat{\sigma}^2_\tau=14.093$ with its 95\% credible interval $(12.709, 15.555)$, indicating that there exists huge variability in the time increments of emails.
-	
+				\begin{figure}[!t]
+					\centering
+					\includegraphics[width=0.495\textwidth]{img/etaplotnew-1.png}	
+					\caption {Posterior distribution of $\boldsymbol{\eta}$ estimates.}
+					\label{figure:etaresults}
+				\end{figure}
 \section{Conclusion}\label{sec:conclusion}
 Motivated by the relational event model \citep{Butts2008} and its variants for time-stamped networks, the hyperedge event model (HEM) can effectively learn the underlying edge generating and timestamp generating structures of event data, while allowing flexibity in the covariate specifications and the distributional assumption of time increments.
 Accounting for the hyperedges, we make better use of events with hyperedges than modeling them as duplicate edges. In modeling the timestamps of the events, our generalized linear model (GLM) based formulation eliminates the need to stick with one distribution (e.g., exponential distribution), and we also provide an algorithm for predictive experiment that helps to learn which distribution better fits the data. To sum, the HEM's flexible generative process thus leads to more accurate and precise inference on model parameters.
@@ -626,20 +635,20 @@ of one type of hyperedges, a single sender and multiple receivers, our model can
 			\begin{tabular}[t]{cc}
 				\begin{subfigure}[b]{0.495\textwidth}
 					\caption{Traceplots of $\boldsymbol{b}$}
-					\includegraphics[width=\textwidth]{img/betatrace.pdf}	
+					\includegraphics[width=\textwidth]{img/betatrace-1.png}	
 				\end{subfigure}
 				\begin{subfigure}[b]{0.495\textwidth}
 					\caption{Traceplot of $\boldsymbol{\eta}$}
-					\includegraphics[width=\textwidth]{img/etatrace.pdf}	
+					\includegraphics[width=\textwidth]{img/etatrace-1.png}	
 				\end{subfigure}\\
 				\begin{subfigure}[b]{0.495\textwidth}
 					\caption{Geweke diagnostics for $\boldsymbol{b}$}
-					\includegraphics[width=\textwidth]{img/betageweke.pdf}	
+					\includegraphics[width=\textwidth]{img/betageweke-1.png}	
 				\end{subfigure}
 				\begin{subfigure}[b]{0.495\textwidth}
 					\centering
 					\caption{Geweke diagnostics for $\boldsymbol{\eta}$ and $\sigma^2_\tau$}
-					\includegraphics[width=0.89\textwidth]{img/etageweke.pdf}
+					\includegraphics[width=\textwidth]{img/etageweke-1.png}
 				\end{subfigure}
 			\end{tabular}
 			\caption {Convergence diagnostics from log-normal distribution.}

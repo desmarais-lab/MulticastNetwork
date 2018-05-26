@@ -1,442 +1,3 @@
-lines(MAPE2, col = 'red')
-time = data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))
-time = rbind(time, data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-MAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))
-)
-MAPE
-truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
-predtime = Montgomery_PPE$timepredict#
-predtime2 = Montgomery_PPE2$timepredict#
-#
-time = data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-library(ggplot2)#
-library(reshape)#
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-ggplot(data = time, aes(x = MAPE, fill = dist))+geom_histogram(position = "dodge")
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-time = data.frame(MAE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])))), dist = rep("exponential", 62)))
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
-predtime = Montgomery_PPE$timepredict#
-predtime2 = Montgomery_PPE2$timepredict#
-#
-time = data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-library(ggplot2)#
-library(reshape)#
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
-predtime = Montgomery_PPE$timepredict#
-predtime2 = Montgomery_PPE2$timepredict#
-#
-time = data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
-predtime = Montgomery_PPE$timepredict#
-predtime2 = Montgomery_PPE2$timepredict#
-#
-time = data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-time = melt(time)#
-colnames(time)[3] = "MAPE"#
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()+ylim(0, 250)
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()+ylim(0, 100)
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()+ylim(0, 50)
-ggplot(data = time, aes(x = dist, y = MAPE, fill = dist))+geom_boxplot()+ylim(0, 100)
-truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
-predtime = Montgomery_PPE$timepredict#
-predtime2 = Montgomery_PPE2$timepredict#
-#
-time = data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-##################################################
-truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
-predtime = Montgomery_PPE$timepredict#
-predtime2 = Montgomery_PPE2$timepredict#
-#
-time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-time = melt(time)#
-colnames(time)[3] = "MdAPE"#
-ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 100)
-ggplot(data = time, aes(x = MAPE, fill = dist))+geom_histogram(position = "dodge")
-ggplot(data = time, aes(x = MdAPE, fill = dist))+geom_histogram(position = "dodge")
-time = data.frame(MAE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])))), dist = rep("exponential", 62)))
-time = melt(time)#
-colnames(time)[3] = "MAE"#
-ggplot(data = time, aes(x = dist, y = MAE, fill = dist))+geom_boxplot()+ylim(0, 100)
-time = melt(time)#
-colnames(time)[3] = "MAE"#
-ggplot(data = time, aes(x = dist, y = MAE, fill = dist))+geom_boxplot()
-time = data.frame(MAE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])))), dist = rep("exponential", 62)))
-time = melt(time)#
-colnames(time)[3] = "MAE"#
-ggplot(data = time, aes(x = dist, y = MAE, fill = dist))+geom_boxplot()
-ggplot(data = time, aes(x = dist, y = MAE, fill = dist))+geom_boxplot()+ylim(0, 20)
-truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
-predtime = Montgomery_PPE$timepredict#
-predtime2 = Montgomery_PPE2$timepredict#
-#
-time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-library(ggplot2)#
-library(reshape)#
-time = melt(time)#
-colnames(time)[3] = "MdAPE"#
-ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 100)
-ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 50)
-ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 100)
-ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 25)
-ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 10)
-ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 20)
-ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 25)
-ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 50)
-ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 100)
-ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()
-ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 100)
-time = data.frame(MAE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MAE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])))), dist = rep("exponential", 62)))
-time = melt(time)#
-colnames(time)[3] = "MAE"#
-ggplot(data = time, aes(x = dist, y = MAE, fill = dist))+geom_boxplot()+ylim(0, 20)
-time = data.frame(MdAE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MdAE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])))), dist = rep("exponential", 62)))
-time = melt(time)#
-colnames(time)[3] = "MdAE"#
-ggplot(data = time, aes(x = dist, y = MdAE, fill = dist))+geom_boxplot()+ylim(0, 20)
-ggplot(data = time, aes(x = dist, y = MdAE, fill = dist))+geom_boxplot()+ylim(0, 20)
-p = list()
-truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
-predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
-predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
-#
-sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), dist = rep("lognormal", 62))#
-sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), dist = rep("exponential", 62)))#
-library(ggplot2)#
-library(reshape)#
-sender = melt(sender)#
-colnames(sender)[3] = "correct"#
-p[[1]]=ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()
-truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
-predprob = Montgomery_PPE$receiverprob#
-predprob2 = Montgomery_PPE2$receiverprob#
-#
-probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1])#
-#probtrue[probtrue==1] = 0.999#
-probtrue2 = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1])#
-#probtrue2[probtrue2==1] = 0.999#
-#
-receiver = data.frame(probtrue = log(probtrue /(1-probtrue)), dist = rep("lognormal", 1118))#
-receiver = rbind(receiver, data.frame(probtrue = log(probtrue2/(1-probtrue2)), dist = rep("exponential", 1118)))#
-library(ggplot2)#
-library(reshape)#
-receiver = melt(receiver)#
-colnames(receiver)[3] = "logit"
-p[[2]]=ggplot(data = receiver, aes(x = logit, fill = dist))+geom_histogram(position = "dodge")
-truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
-predtime = Montgomery_PPE$timepredict#
-predtime2 = Montgomery_PPE2$timepredict#
-#
-time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-time = melt(time)#
-colnames(time)[3] = "MdAPE"#
-p[[3]]=ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 100)
-p = list()#
-##################
-truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
-predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
-predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
-#
-sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), dist = rep("lognormal", 62))#
-sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), dist = rep("exponential", 62)))#
-library(ggplot2)#
-library(reshape)#
-sender = melt(sender)#
-colnames(sender)[3] = "correct"#
-p[[1]]=ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()
-truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
-predprob = Montgomery_PPE$receiverprob#
-predprob2 = Montgomery_PPE2$receiverprob#
-#
-probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1])#
-#probtrue[probtrue==1] = 0.999#
-probtrue2 = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1])
-library(gridExtra)
-rm(list=ls())
-library(MulticastNetwork)#
-load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")#
-edge = Montgomery$edge#
-X = Montgomery$X#
-Y = Montgomery$Y#
-P = dim(X)[4]#
-Q = dim(Y)[3]#
-A = dim(Y)[2]
-set.seed(1)#
-missing = list()#
-#missingness of senders#
-missing[[1]] = matrix(0, nrow = dim(Y)[1], 1)    #
-missing[[1]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
-#missingness of receivers#
-missing[[2]] = matrix(0, nrow = dim(Y)[1], A)    #
-missing[[2]][sample(1:(dim(Y)[1]*A), 1118, replace = FALSE)] = 1#
-#missingness of timestamps#
-missing[[3]] = matrix(0, nrow = dim(Y)[1], 1)#
-missing[[3]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1
-load('~/Desktop/MulticastNetwork/Emails/Montgomery_PPE.RData')#
-load('~/Desktop/MulticastNetwork/Emails/Montgomery_PPE2.RData')
-library(gridExtra)#
-p = list()#
-##################
-truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
-predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
-predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
-#
-sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), dist = rep("lognormal", 62))#
-sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), dist = rep("exponential", 62)))#
-library(ggplot2)#
-library(reshape)#
-sender = melt(sender)#
-colnames(sender)[3] = "correct"#
-p[[1]]=ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()
-truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
-predprob = Montgomery_PPE$receiverprob#
-predprob2 = Montgomery_PPE2$receiverprob#
-#
-probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1])#
-#probtrue[probtrue==1] = 0.999#
-probtrue2 = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1])
-receiver = data.frame(probtrue = log(probtrue /(1-probtrue)), dist = rep("lognormal", 1118))
-receiver = rbind(receiver, data.frame(probtrue = log(probtrue2/(1-probtrue2)), dist = rep("exponential", 1118)))
-library(ggplot2)#
-library(reshape)#
-receiver = melt(receiver)#
-colnames(receiver)[3] = "logit"
-p[[2]]=ggplot(data = receiver, aes(x = logit, fill = dist))+geom_histogram(position = "dodge")
-truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
-predtime = Montgomery_PPE$timepredict#
-predtime2 = Montgomery_PPE2$timepredict#
-#
-time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
-colnames(time)[3] = "MdAPE"#
-p[[3]]=ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 100)
-time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
-library(ggplot2)#
-library(reshape)#
-time = melt(time)#
-colnames(time)[3] = "MdAPE"#
-p[[3]]=ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 100)
-g_legend<-function(a.gplot){#
-  tmp <- ggplot_gtable(ggplot_build(a.gplot))#
-  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")#
-  legend <- tmp$grobs[[leg]]#
-  return(legend)}
-mylegend<-g_legend(p[[1]])#
-p3 <- grid.arrange(arrangeGrob(#
-				p[[1]] + theme(legend.position="none"),#
-                        p[[2]] + theme(legend.position="none"),#
-                         p[[3]] + theme(legend.position="none"), #
-                       nrow=1),#
-        heights=c(10, 1))
-p[[3]]=ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+ylim(0, 100)+theme(legend.position = "bottom")
-mylegend<-g_legend(p[[3]])#
-p3 <- grid.arrange(arrangeGrob(#
-				p[[1]] + theme(legend.position="none"),#
-                        p[[2]] + theme(legend.position="none"),#
-                         p[[3]] + theme(legend.position="none"), #
-                       nrow=1),#
-        heights=c(10, 1))
-p3 <- grid.arrange(arrangeGrob(#
-				p[[1]] + theme(legend.position="none"),#
-                        p[[2]] + theme(legend.position="none"),#
-                         p[[3]] + theme(legend.position="bottom"), #
-                       nrow=1),#
-        heights=c(10, 1))
-mylegend<-g_legend(p[[3]])#
-p3 <- grid.arrange(arrangeGrob(#
-				p[[1]] + theme(legend.position="none"),#
-                        p[[2]] + theme(legend.position="none"),#
-                         p[[3]] + theme(legend.position="bottom"), #
-                       nrow=1), mylegend,#
-        heights=c(10, 1))
-mylegend<-g_legend(p[[3]])#
-p3 <- grid.arrange(arrangeGrob(#
-				p[[1]] + theme(legend.position="none"),#
-                        p[[2]] + theme(legend.position="none"),#
-                         p[[3]] + theme(legend.position="none"), #
-                       nrow=1), mylegend,#
-        heights=c(10, 1))
-library(MulticastNetwork)#
-load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")#
-edge = Montgomery$edge#
-X = Montgomery$X#
-Y = Montgomery$Y#
-P = dim(X)[4]#
-Q = dim(Y)[3]#
-A = dim(Y)[2]
-set.seed(1)#
-missing = list()#
-#missingness of senders#
-missing[[1]] = matrix(0, nrow = dim(Y)[1], 1)    #
-missing[[1]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
-#missingness of receivers#
-missing[[2]] = matrix(0, nrow = dim(Y)[1], A)    #
-missing[[2]][sample(1:(dim(Y)[1]*A), 1118, replace = FALSE)] = 1#
-#missingness of timestamps#
-missing[[3]] = matrix(0, nrow = dim(Y)[1], 1)#
-missing[[3]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
-for (d in 1:dim(Y)[1]) {#
-	if (missing[[1]][d,1] == 1) {#
-		edge[[d]]$a_d = NA#
-	}#
-	if (sum(missing[[2]][d,]) > 0) {#
-		edge[[d]]$r_d[which(missing[[2]][d,]==1)] = NA#
-	}#
-	if (missing[[3]][d,1] == 1) {#
-		edge[[d]]$t_d = NA#
-	}#
-}
-load('~/Desktop/MulticastNetwork/Emails/Montgomery_PPE.RData')
-library(gridExtra)#
-p = list()#
-##################
-truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
-predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)
-predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)
-load('~/Desktop/Montgomery_PPE2.RData')
-predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)
-sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), dist = rep("lognormal", 62))
-dim(predprob)
-sapply(1:62, function(d) predprob[d,truesender[d]])
-truesender
-load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")#
-edge = Montgomery$edge
-truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
-predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
-predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
-#
-sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), dist = rep("lognormal", 62))#
-sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), dist = rep("exponential", 62)))#
-library(ggplot2)#
-library(reshape)#
-sender = melt(sender)#
-colnames(sender)[3] = "correct"#
-p[[1]]=ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()
-p[[1]]
-truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
-predprob = Montgomery_PPE$receiverprob#
-predprob2 = Montgomery_PPE2$receiverprob#
-#
-probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1])#
-#probtrue[probtrue==1] = 0.999#
-probtrue2 = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1])#
-#probtrue2[probtrue2==1] = 0.999#
-#
-receiver = data.frame(probtrue = log(probtrue /(1-probtrue)), dist = rep("lognormal", 1118))#
-receiver = rbind(receiver, data.frame(probtrue = log(probtrue2/(1-probtrue2)), dist = rep("exponential", 1118)))#
-library(ggplot2)#
-library(reshape)#
-receiver = melt(receiver)#
-colnames(receiver)[3] = "logit"#
-ggplot(data = receiver, aes(x = dist, y = logit, fill = dist))+geom_boxplot()#
-p[[2]]=ggplot(data = receiver, aes(x = logit, fill = dist))+geom_histogram(position = "dodge")
-p[[2]]
-ggplot(data = receiver, aes(x = dist, y = logit, fill = dist))+geom_boxplot()
-truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
-predtime = Montgomery_PPE$timepredict#
-predtime2 = Montgomery_PPE2$timepredict#
-#
-time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
-#
-time = melt(time)#
-stats = boxplot.stats(time$value)$stats#
-#
-colnames(time)[3] = "MdAPE"#
-p[[3]]=ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")+coord_cartesian(ylim=c(0, 100))
-p[[3]]
-p[[1]]
-p[[2]]
-abs((predtime[d,]-truetime[d])/truetime[d]))
-abs((predtime[d,]-truetime[d])/truetime[d])
-d =1
-abs((predtime[d,]-truetime[d])/truetime[d])
-time = data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])))), dist = rep("exponential", 62)))
-time = melt(time)#
-colnames(time)[3] = "MdAE"#
-ggplot(data = time, aes(x = dist, y = MdAE, fill = dist))+geom_boxplot()+ylim(0, 20)
-time = data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
-#
-time = melt(time)#
-colnames(time)[3] = "MdAE"#
-ggplot(data = time, aes(x = dist, y = MdAE, fill = dist))+geom_boxplot()+ylim(0, 20)
-time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
-#
-time = melt(time)#
-stats = boxplot.stats(time$value)$stats
-ggplot(data = time, aes(x = MdAPE, fill = dist))+geom_histogram(position = "dodge")
-ggplot(data = time, aes(x = dist, y = MdAE, fill = dist))+geom_boxplot()+ylim(0, 20)
-time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
-time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
-#
-time = melt(time)#
-stats = boxplot.stats(time$value)$stats#
-#
-colnames(time)[3] = "MdAPE"
-ggplot(data = time, aes(x = MdAPE, fill = dist))+geom_histogram(position = "dodge")
-ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")+coord_cartesian(ylim=c(0, 100))
-library(MulticastNetwork)#
-load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")#
-edge = Montgomery$edge#
-X = Montgomery$X#
-Y = Montgomery$Y#
-P = dim(X)[4]#
-Q = dim(Y)[3]#
-A = dim(Y)[2]
-set.seed(1)#
-missing = list()#
-#missingness of senders#
-missing[[1]] = matrix(0, nrow = dim(Y)[1], 1)    #
-missing[[1]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
-#missingness of receivers#
-missing[[2]] = matrix(0, nrow = dim(Y)[1], A)    #
-missing[[2]][sample(1:(dim(Y)[1]*A), 1118, replace = FALSE)] = 1#
-#missingness of timestamps#
-missing[[3]] = matrix(0, nrow = dim(Y)[1], 1)#
-missing[[3]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
-for (d in 1:dim(Y)[1]) {#
-	if (missing[[1]][d,1] == 1) {#
-		edge[[d]]$a_d = NA#
-	}#
-	if (sum(missing[[2]][d,]) > 0) {#
-		edge[[d]]$r_d[which(missing[[2]][d,]==1)] = NA#
-	}#
-	if (missing[[3]][d,1] == 1) {#
-		edge[[d]]$t_d = NA#
-	}#
-}
 library(MulticastNetwork)#
 load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")#
 edge = Montgomery$edge
@@ -490,7 +51,6 @@ predprob2 = Montgomery_PPE2$receiverprob#
 probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1])#
 #probtrue[probtrue==1] = 0.999#
 probtrue2 = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1])
-head(probtrue)
 head(probtrue)
 head(probtrue2)
 dim(probtrue)
@@ -568,7 +128,6 @@ receiver = rbind(receiver, data.frame(probtrue = probtrue21, dist = rep("exponen
 head(receiver)
 ggplot(data = receiver, aes(x = dist, y = prob, fill = dist, group = true))+geom_boxplot()
 colnames(receiver)[1] = "prob"
-ggplot(data = receiver, aes(x = dist, y = prob, fill = dist, group = true))+geom_boxplot()
 ggplot(data = receiver, aes(x = dist, y = prob, fill = dist, group = true))+geom_boxplot()
 ggplot(data = receiver, aes(x = dist, y = prob, fill = dist, group = true))+geom_boxplot()+position_dodge()
 receiver = melt(receiver)
@@ -854,3 +413,413 @@ p3 <- grid.arrange(arrangeGrob(#
                          p[[3]] + theme(legend.position="none"), #
                        nrow=1), mylegend,#
         heights=c(10, 1))
+load('~/Desktop/Montgomery_infer.RData')
+#source("/Users/bomin8319/Desktop/MulticastNetwork/code/Multicast.R")#
+library(MulticastNetwork)#
+library(lubridate)
+library(anytime)#
+library(ggplot2)#
+library(MCMCpack)#
+library(reshape2)#
+library(gridExtra)#
+library(ggrepel)#
+library(RColorBrewer)#
+colnames(Montgomery_infer$beta) = dimnames(Montgomery$X)[[4]]#
+beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[40*i,])))#
+colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+colnames(beta)[6:7] = c("twosend", "tworeceive")#
+colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "netstats"#
+colnames(beta.est)[2] = "b"#
+ggplot(data = beta.est, aes(x = netstats, y = b, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+colnames(Montgomery_infer$beta)
+colnames(Montgomery_infer$beta) = c("intercept", "outdegree", "indegree", "send", "receiver",#
+"2-send", "2-receive", "sibling", "cosibling", "hyperedge_size", "outdegree*hyperedge_size", "gender_sender", "gender_receiver",#
+"gender_homophily")
+beta = data.frame(t(sapply(1:1000, function(i) Montgomery_infer$beta[40*i,])))
+head(beta)
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))
+head(beta)
+beta.est = melt(beta[-1])
+head(beta.est)
+colnames(beta.est)[1] = "covariates"#
+colnames(beta.est)[2] = "b"
+names(beta.est)
+head(beta.est$variable)
+beta.est[,1] = as.factor(beta.est[,1])
+head(beta.est)
+head(beta.est[,1])
+colnames(Montgomery_infer$beta) = c("intercept", "outdegree", "indegree", "send", "receiver",#
+"two-send", "two-receive", "sibling", "cosibling", "hyperedge_size", "outdegree*hyperedge_size", "gender_sender", "gender_receiver",#
+"gender_homophily")#
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+# colnames(beta)[6:7] = c("twosend", "tworeceive")#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "covariates"#
+colnames(beta.est)[2] = "b"#
+beta.est[,1] = as.factor(beta.est[,1])#
+ggplot(data = beta.est, aes(x = netstats, y = b, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+ggplot(data = beta.est, aes(x = netstats, y = b, fill = covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+ggplot(data = beta.est, aes(x = covariates, y = b, fill = covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+colnames(Montgomery_infer$beta) = c("intercept", "outdegree", "indegree", "send", "receiver",#
+"two-send", "two-receive", "sibling", "cosibling", "hyperedge_size", "interaction", "gender_sender", "gender_receiver",#
+"gender_homophily")#
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+# colnames(beta)[6:7] = c("twosend", "tworeceive")#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "covariates"#
+colnames(beta.est)[2] = "b"#
+beta.est[,1] = as.factor(beta.est[,1])#
+ggplot(data = beta.est, aes(x = covariates, y = b, fill = covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+colnames(Montgomery_infer$beta) = c("intercept", "outdegree", "indegree", "send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling", "hyperedge_size", "interaction", "gender_sender", "gender_receiver",#
+"gender_homophily")#
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+# colnames(beta)[6:7] = c("twosend", "tworeceive")#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "covariates"#
+colnames(beta.est)[2] = "b"#
+beta.est[,1] = as.factor(beta.est[,1])#
+ggplot(data = beta.est, aes(x = covariates, y = b, fill = covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+colnames(Montgomery_infer$beta) = c("intercept", "outdegree", "indegree", "send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling", "hyperedge_size", "interaction", "gender_sender", "gender_receiver",#
+"gender_homophily")#
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+# colnames(beta)[6:7] = c("twosend", "tworeceive")#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "covariates"#
+colnames(beta.est)[2] = "b"#
+beta.est[,1] = as.factor(beta.est[,1])#
+beta.est$covariates <- factor(beta.est$Parameter, levels = c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction", "send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling" ))#
+#
+ggplot(data = beta.est, aes(x = covariates, y = b, fill = covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+beta.est$covariates <- factor(beta.est$covariates , levels = c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction", "send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling" ))#
+#
+ggplot(data = beta.est, aes(x = covariates, y = b, fill = covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+beta.est$covariates <- factor(beta.est$covariates , levels = c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction", "send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling" ))#
+#
+ggplot(data = beta.est, aes(x = covariates, y = b, fill = covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+head(beta)
+plot(beta[,14], type = 'l')
+ggplot(data = beta.est, aes(x = covariates, y = b, fill = covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+plot(beta[,12], type = 'l')
+head(beta.est)
+ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = covariates, y = b, fill = covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+ggplot(data = beta.est, aes(x = covariates, y = b, fill = covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+ggplot(data = beta.est, aes(x = covariates, y = b, fill = covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+ facet_wrap( ~ variable, scales="free", nrow = 1)+theme(axis.title.x=element_blank(), axis.text.x=element_blank())
+ggplot(data = beta.est, aes(x = covariates, y = b, fill = covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+ facet_wrap( ~ covariates, scales="free", nrow = 1)+theme(axis.title.x=element_blank(), axis.text.x=element_blank())
+ggplot(data = beta.est, aes(x = covariates, y = b, fill = covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+ facet_wrap( ~ covariates, scales="free", nrow = 1)+theme(axis.title.x=element_blank(), axis.text.x=element_blank())
+ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = covariates, y = b, fill = covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+ggplotColours <- function(n = 6, h = c(0, 360) + 15){#
+  if ((diff(h) %% 360) < 1) h[2] <- h[2] - 360/n#
+  hcl(h = (seq(h[1], h[2], length = n)), c = 100, l = 65)#
+}#
+number_ticks <- function(n) {function(limits) pretty(limits, n)}
+ggplotColours(2)
+colorsbeta = ggplotColours(13)
+ggcolorsbeta
+colorsbeta
+ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = covariates, y = b, fill = colorsbeta[1:3])) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = covariates, y = b)) + geom_boxplot(fill=colorsbeta[1:3])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = covariates, y = b)) + geom_boxplot(fill=colorsbeta[1:3])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = covariates, y = b)) + geom_boxplot(fill=colorsbeta[1:3])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+ggplot(data = beta.est[which(beta.est$covariates %in% c("outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = covariates, y = b)) + geom_boxplot(fill=colorsbeta[4:7])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = covariates, y = b)) + geom_boxplot(fill=colorsbeta[8:13])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = covariates, y = b)) + geom_boxplot(fill=colorsbeta[1:3])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = covariates, y = b)) + geom_boxplot(fill=colorsbeta[1:3])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = covariates, y = b)) + geom_boxplot(fill=colorsbeta[4:7])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+bplot[[3]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = covariates, y = b)) + geom_boxplot(fill=colorsbeta[8:13])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")
+bplot[[1]]
+bplot[[2]]
+bplot[[3]]
+grid.arrange(bplot, ncol = 3, nrow = 1)
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]]. ncol = 3, nrow = 1)
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 3, nrow = 1)
+bplot[[1]]
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 3, nrow = 1)
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+# colnames(beta)[6:7] = c("twosend", "tworeceive")#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "covariates"#
+colnames(beta.est)[2] = "values"#
+beta.est[,1] = as.factor(beta.est[,1])#
+beta.est$covariates <- factor(beta.est$covariates , levels = c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction", "send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling" ))#
+#
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = covariates, y = values)) + geom_boxplot(fill=colorsbeta[1:3])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = covariates, y = b)) + geom_boxplot(fill=colorsbeta[4:7])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+bplot[[3]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = covariates, y = b)) + geom_boxplot(fill=colorsbeta[8:13])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 3, nrow = 1)
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+# colnames(beta)[6:7] = c("twosend", "tworeceive")#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "covariates"#
+colnames(beta.est)[2] = "value"#
+beta.est[,1] = as.factor(beta.est[,1])#
+beta.est$covariates <- factor(beta.est$covariates , levels = c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction", "send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling" ))#
+#
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = covariates, y = value)) + geom_boxplot(fill=colorsbeta[1:3])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = covariates, y = value)) + geom_boxplot(fill=colorsbeta[4:7])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+bplot[[3]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = covariates, y = value)) + geom_boxplot(fill=colorsbeta[8:13])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 3, nrow = 1)
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 3, nrow = 1)
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = covariates, y = value, order = -as.numeric(covariates))) + geom_boxplot(fill=colorsbeta[1:3])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = covariates, y = value,order = -as.numeric(covariates))) + geom_boxplot(fill=colorsbeta[4:7])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+bplot[[3]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = covariates, y = value,order = -as.numeric(covariates))) + geom_boxplot(fill=colorsbeta[8:13])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 3, nrow = 1)
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = covariates, y = value, order = as.numeric(covariates))) + geom_boxplot(fill=colorsbeta[1:3])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = covariates, y = value,order = as.numeric(covariates))) + geom_boxplot(fill=colorsbeta[4:7])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+bplot[[3]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = covariates, y = value,order = as.numeric(covariates))) + geom_boxplot(fill=colorsbeta[8:13])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 3, nrow = 1)
+ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value) + geom_boxplot(fill=colorsbeta[1:3])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")
+ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[1:3])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[3:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[7:4])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+bplot[[3]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 3, nrow = 1)
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[3:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(3)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[7:4])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(3)),legend.position="none")#
+bplot[[3]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(3)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 3, nrow = 1)
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[3:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[7:4])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[3]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 3, nrow = 1)
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[3:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[7:4])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[3]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 3, nrow = 1)
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 1, nrow = 3)
+ggplot(data = beta.est, aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[13:1])+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 1, nrow = 3)
+ggplot(data = beta.est, aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[13:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")
+grid.arrange(bplot[[1]], bplot[[2]], ncol = 1, nrow = 2)
+ggplot(data = beta.est, aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[13:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[3:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[7:4])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[3]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 3, nrow = 1)
+ggplot(data = beta.est, aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[13:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 3, nrow = 1)
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]], ncol = 1, nrow = 2)
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 1, nrow = 3)
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[3:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[7:4])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[3]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 1, nrow = 3)
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 1, nrow = 3)
+ggplot(data = beta.est, aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[13:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]], ncol = 1, nrow = 2)
+ggplot(data = beta.est, aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[13:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]], ncol = 1, nrow = 2)
+colnames(Montgomery_infer$beta) = c("intercept", "outdegree", "indegree", "send", "receiver",#
+"two_send", "     two_receive", "sibling", "cosibling", "hyperedge_size", "interaction", "gender_sender", "gender_receiver",#
+"gender_homophily")#
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+# colnames(beta)[6:7] = c("twosend", "tworeceive")#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "covariates"#
+colnames(beta.est)[2] = "value"#
+beta.est[,1] = as.factor(beta.est[,1])#
+beta.est$covariates <- factor(beta.est$covariates , levels = c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction", "send", "receiver",#
+"two_send", "     two_receive", "sibling", "cosibling" ))
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "     two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]], ncol = 1, nrow = 2)
+colnames(Montgomery_infer$beta) = c("intercept", "outdegree", "indegree", "send", "receiver",#
+"two_send", "     two_receive", "sibling", "cosibling", "hyperedge_size", "interaction", "gender_sender", "gender_receiver",#
+"gender_homophily")#
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+# colnames(beta)[6:7] = c("twosend", "tworeceive")#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "covariates"#
+colnames(beta.est)[2] = "value"#
+beta.est[,1] = as.factor(beta.est[,1])#
+beta.est$covariates <- factor(beta.est$covariates , levels = c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction", "send", "receiver",#
+"two_send", "     two_receive", "sibling", "cosibling" ))
+beta.est$covariates
+head(Montgomery_infer$beta)
+colnames(Montgomery_infer$beta) = c("intercept", "outdegree", "indegree", "send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling", "hyperedge_size", "interaction", "gender_sender", "gender_receiver",#
+"gender_homophily")#
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+# colnames(beta)[6:7] = c("twosend", "tworeceive")#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "covariates"#
+colnames(beta.est)[2] = "value"#
+beta.est[,1] = as.factor(beta.est[,1])#
+beta.est$covariates <- factor(beta.est$covariates , levels = c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction", "send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling" ))
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]], ncol = 1, nrow = 2)
+ggplot(data = beta.est, aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[13:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")
+ggplot(data = beta.est, aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[13:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")
+ggplot(data = beta.est, aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[13:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]], ncol =2, nrow = 1)
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]], ncol =2, nrow = 1)
+bplot[[1]]
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")
+bplot[[1]]
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = value))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.5)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = value)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.5)),legend.position="none")
+bplot[[1]]
+bplot[[2]]
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+# colnames(beta)[6:7] = c("twosend", "tworeceive")#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "covariates"#
+colnames(beta.est)[2] = "b"#
+beta.est[,1] = as.factor(beta.est[,1])#
+beta.est$covariates <- factor(beta.est$covariates , levels = c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction", "send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling" ))
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = b))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = b)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")
+bplot[[1]]
+bplot[[2]]
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = b))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = b)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+bplot[[1]]
+bplot[[2]]
+colnames(Montgomery_infer$eta) = dimnames(Montgomery$Y)[[3]]
+eta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$eta[8*i,])))#
+eta.est = melt(eta[-1])#
+colnames(eta.est)[1] = "netstats"#
+colnames(eta.est)[2] = "eta"#
+ggplot(data = eta.est, aes(x = netstats, y = eta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 0.5, linetype = "dashed")+labs(x = NULL, fill = "Covariates")
+colnames(Montgomery_infer$eta) = c("intercept","gender", "manager", "outdegree", "indegree", "weekend", "PM")#
+eta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$eta[8*i,])))#
+eta.est = melt(eta[-1])#
+colnames(eta.est)[1] = "covariates"#
+colnames(eta.est)[2] = "eta"#
+eta.est[,1] = as.factor(eta.est[,1])#
+ggplot(data = eta.est, aes(x = reorder(covariates,-as.numeric(covariates)), y = eta, fill = netstats)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "covariates")
+ggplot(data = eta.est, aes(x = reorder(covariates,-as.numeric(covariates)), y = eta, fill =covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "covariates")
+ggplot(data = eta.est, aes(x = reorder(covariates,-as.numeric(covariates)), y = eta, fill =covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")
+ggplot(data = eta.est, aes(x = reorder(covariates,-as.numeric(covariates)), y = eta, fill =covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
