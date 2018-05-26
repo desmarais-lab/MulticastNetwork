@@ -1,584 +1,3 @@
-missing[[2]][sample(1:(dim(Y)[1]*A), 0.1*(dim(Y)[1]*A), replace = FALSE)] = 1
-missing[[2]]
-rowSums(missing[[2]])
-sum(missing[[2]])
-0.1*(dim(Y)[1]*A)
-missing[[2]][sample(1:(dim(Y)[1]*A), 1118, replace = FALSE)] = 1
-missing = list()#
-missing[[1]] = matrix(0, nrow = dim(Y)[1], 1)#
-missing[[1]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
-missing[[2]] = matrix(0, nrow = dim(Y)[1], A)#
-missing[[2]][sample(1:(dim(Y)[1]*A), 1118, replace = FALSE)] = 1#
-missing[[3]] = matrix(0, nrow = dim(Y)[1], 1)#
-missing[[3]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1
-missing[[2]]
-which(rowSums(missing[[2]])>0)
-edge[[1]]
-edge[[1]][[2]]
-edge[[1]][[2]][which(missing[[2]][d,]==1)]
-d
-d = 1
-edge[[1]][[2]][which(missing[[2]][d,]==1)]
-d
-d = 2
-edge[[1]][[2]][which(missing[[2]][d,]==1)]
-u[[d]][sender[d], which(missing[[2]][d,]==1)]
-load("/Users/bomin8319/Desktop/MulticastNetwork/code/Montgomery_infer.RData")
-names(Montgomery_infer)
-Montgomery_infer$u[[1]]
-length(Montgomery_infer$u)
-Montgomery_infer$u[[d]][sender[d], which(missing[[2]][d,]==1)]
-Montgomery_infer$u[[d]][1, which(missing[[2]][d,]==1)]
-source("/Users/bomin8319/Desktop/MulticastNetwork/code/Multicast.R")
-PPE
-load("/Users/bomin8319/Desktop/MulticastNetwork/code/Montgomery_infer.RData")#
-initial = list()#
-initial$beta = colMeans(Montgomery_infer$beta)#
-initial$eta =  colMeans(Montgomery_infer$eta)#
-initial$u = Montgomery_infer$u#
-initial$sigma2 = mean(Montgomery_infer$sigma2)#
-Montgomery_PPE = list()#
-for (n in 1:100) {#
-  Montgomery_PPE[[n]] = PPE(edge, missing, X, Y, 100, c(5,1,1), 0, prior.beta, prior.eta, prior.sigma2, initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime)#
-  filename = paste0("Montgomery_PPE", n,".RData")#
-  save(Montgomery_PPE, file = filename)#
-}
-dlnorm(mu[d,], sigma_tau, timeinc[d])
-dlnorm
-dlnorm(10, rnorm(5), 1)
-mean = c(1,2,3,4,5)
-dlnorm(10, mean, 1)
-dlnorm(10, 1, 1)
-dlnorm(10, 2, 1)
-sourceCpp('/Users/bomin8319/Desktop/MulticastNetwork/code/Multicast_rcpp.cpp')
-# missing is a list object#
-PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigma2, initial = initial,#
-		proposal.var, timeunit = 3600, lasttime) {#
-	D = dim(X)[1]#
-	A = dim(X)[2]#
-	P = dim(X)[4]#
-	Q = dim(Y)[3]#
-	if (length(initial) > 0) {#
-		u = initial$u#
-		beta = initial$beta#
-		eta = initial$eta#
-		sigma2 = initial$sigma2#
-	} else {#
-		u = lapply(1:D, function(d) matrix(0, A, A))#
-		beta = matrix(prior.beta$mean, nrow = 1)#
-		eta = matrix(prior.eta$mean, nrow = 1)#
-		sigma2 = prior.sigma2$b / (prior.sigma2$a-1)#
-	}#
-	mu = mu_cpp(Y, eta)#
-	#output matrix#
-	betamat = matrix(beta, nrow = outer-burn, ncol = P)#
-	etamat = matrix(eta, nrow = outer-burn, ncol = Q)#
-	sigma2mat = matrix(sigma2, nrow = outer-burn, ncol = 1)#
-	loglike = matrix(NA, nrow = outer-burn, ncol = 1)#
-	senders = vapply(data, function(d) { d[[1]] }, c(1))#
-	timestamps = vapply(data, function(d) { d[[3]] }, c(1))#
-	timeinc = c(timestamps[1]-lasttime, timestamps[-1]-timestamps[-length(timestamps)]) / timeunit#
-	timeinc[timeinc == 0] = runif(sum(timeinc==0), 0, min(timeinc[timeinc!=0]))#
-	senderpredict = matrix(NA, nrow = sum(missing[[1]]), ncol = outer)#
-    receiverpredict = matrix(NA, nrow = sum(missing[[2]]), ncol = outer)#
-    timepredict = matrix(NA, nrow = sum(missing[[3]]), ncol = outer)#
-    sendermissing = which(missing[[1]]==1)#
-    receivermissing = which(rowSums(missing[[2]]) > 0)#
-    timemissing = which(missing[[3]]==1)#
-	for (o in 1:outer) {#
-	#imputation#
-    iter1 = 1#
-    iter2 = 1#
-    iter3 = 1#
-    for (d in sendermissing) {#
-        probi = Timepartindiv(mu[d,], sqrt(sigma2), timeinc[d])#
-        senders[d] = rmultinom(1, 1, probi)#
-        senderpredict[iter1, o] = senders[d]#
-        iter1 = iter1+1#
-    }#
-    for (d in timemissing) {#
-        timeinc[d] = rlnorm(1, mu[d, sender[d]], sqrt(sigma2))#
-        timepredict[iter2, o] = timeinc[d]#
-        iter2 = iter2+1#
-    }    #
-    timeinc[timeinc==0] = runif(sum(timeinc==0), 0, min(timeinc[timeinc!=0]))#
-#
-    for (d in receivermissing) {#
-    	data[[d]][[2]][which(missing[[2]][d,]==1)] = u[[d]][sender[d], which(missing[[2]][d,]==1)]#
-        receiverpredict[iter3, o] = data[[d]][[2]][which(missing[[2]][d,]==1)]#
-		iter3 = iter3+1#
-    }  #
-#
-	#run inference#
-		if (o %% 100 == 0) print(o)#
-		lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta))#
-		u = u_cpp(lambda, u)#
-		for (d in 1:D) {#
-		  u[[d]][senders[d],] = data[[d]][[2]]#
-		}#
-		prior.old1 = dmvnorm_arma(beta, prior.beta$mean, prior.beta$var)#
-    	post.old1 = Edgepartsum(lambda, u)#
-    	for (i1 in 1:inner[1]) {#
-			beta.new = rmvnorm_arma(1, beta, proposal.var[1]*diag(P))#
-     		prior.new1 = dmvnorm_arma(beta.new, prior.beta$mean, prior.beta$var)#
-			lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta.new))#
-			post.new1 = Edgepartsum(lambda, u)#
-      		loglike.diff = prior.new1+post.new1-prior.old1-post.old1#
-			if (log(runif(1, 0, 1)) < loglike.diff) {#
-        			beta = beta.new#
-        			prior.old1 = prior.new1#
-        			post.old1 = post.new1#
-	      	}#
-		}#
-		prior.old2 = dmvnorm_arma(eta, prior.eta$mean, prior.eta$var) #
-    	mu = mu_cpp(Y, eta)#
-   		post.old2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)#
-		for (i2 in 1:inner[2]) {#
-			eta.new = rmvnorm_arma(1, eta, proposal.var[2]*diag(Q))#
-      		prior.new2 = dmvnorm_arma(eta.new, prior.eta$mean, prior.eta$var) 	#
-      		mu = mu_cpp(Y, eta.new)#
-    		post.new2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)#
-    		loglike.diff = prior.new2+post.new2-prior.old2-post.old2#
-      		if (log(runif(1, 0, 1)) < loglike.diff) {#
-        			eta = eta.new#
-        			prior.old2 = prior.new2#
-        			post.old2 = post.new2#
-	      	}#
-		}#
-		prior.old3 = dinvgamma(sigma2, prior.sigma2$a, prior.sigma2$b) #
-    	post.old3 = post.old2#
-   	 	mu = mu_cpp(Y, eta)#
-#
-		for (i3 in 1:inner[3]) {#
-			sigma2.new = exp(rnorm(1, log(sigma2), proposal.var[3]))#
-     	 	prior.new3 = dinvgamma(sigma2.new, prior.sigma2$a, prior.sigma2$b)#
-    		post.new3 = Timepartsum(mu, sqrt(sigma2.new), senders, timeinc)#
-    		loglike.diff = prior.new3+post.new3-prior.old3-post.old3#
-    			if (log(runif(1, 0, 1)) < loglike.diff) {#
-        			sigma2 = sigma2.new#
-        			prior.old3 = prior.new3#
-        			post.old3 = post.new3#
-	      	}#
-		}#
-		if (o > burn) {#
-			betamat[o-burn, ] = beta#
-			etamat[o-burn, ] = eta#
-			sigma2mat[o-burn, ] = sigma2	#
-			loglike[o-burn, ] = post.old1 + post.old3#
-		}		#
-	}#
-	return(list(senderpredict = senderpredict, receiverpredict = receiverpredict, timepredict = timepredict))#
-}
-load("/Users/bomin8319/Desktop/MulticastNetwork/code/Montgomery_infer.RData")#
-initial = list()#
-initial$beta = colMeans(Montgomery_infer$beta)#
-initial$eta =  colMeans(Montgomery_infer$eta)#
-initial$u = Montgomery_infer$u#
-initial$sigma2 = mean(Montgomery_infer$sigma2)#
-Montgomery_PPE = list()#
-for (n in 1:100) {#
-  Montgomery_PPE[[n]] = PPE(edge, missing, X, Y, 100, c(5,1,1), 0, prior.beta, prior.eta, prior.sigma2, initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime)#
-  filename = paste0("Montgomery_PPE", n,".RData")#
-  save(Montgomery_PPE, file = filename)#
-}
-warnings()
-# missing is a list object#
-PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigma2, initial = initial,#
-		proposal.var, timeunit = 3600, lasttime) {#
-	D = dim(X)[1]#
-	A = dim(X)[2]#
-	P = dim(X)[4]#
-	Q = dim(Y)[3]#
-	if (length(initial) > 0) {#
-		u = initial$u#
-		beta = initial$beta#
-		eta = initial$eta#
-		sigma2 = initial$sigma2#
-	} else {#
-		u = lapply(1:D, function(d) matrix(0, A, A))#
-		beta = matrix(prior.beta$mean, nrow = 1)#
-		eta = matrix(prior.eta$mean, nrow = 1)#
-		sigma2 = prior.sigma2$b / (prior.sigma2$a-1)#
-	}#
-	mu = mu_cpp(Y, eta)#
-	#output matrix#
-	betamat = matrix(beta, nrow = outer-burn, ncol = P)#
-	etamat = matrix(eta, nrow = outer-burn, ncol = Q)#
-	sigma2mat = matrix(sigma2, nrow = outer-burn, ncol = 1)#
-	loglike = matrix(NA, nrow = outer-burn, ncol = 1)#
-	senders = vapply(data, function(d) { d[[1]] }, c(1))#
-	timestamps = vapply(data, function(d) { d[[3]] }, c(1))#
-	timeinc = c(timestamps[1]-lasttime, timestamps[-1]-timestamps[-length(timestamps)]) / timeunit#
-	timeinc[timeinc == 0] = runif(sum(timeinc==0), 0, min(timeinc[timeinc!=0]))#
-	senderpredict = matrix(NA, nrow = sum(missing[[1]]), ncol = outer)#
-    receiverpredict = matrix(NA, nrow = sum(missing[[2]]), ncol = outer)#
-    timepredict = matrix(NA, nrow = sum(missing[[3]]), ncol = outer)#
-    sendermissing = which(missing[[1]]==1)#
-    receivermissing = which(rowSums(missing[[2]]) > 0)#
-    timemissing = which(missing[[3]]==1)#
-	for (o in 1:outer) {#
-	#imputation#
-    iter1 = 1#
-    iter2 = 1#
-    iter3 = 1#
-    for (d in sendermissing) {#
-        probi = Timepartindiv(mu[d,], sqrt(sigma2), timeinc[d])#
-        browser()#
-        senders[d] = rmultinom(1, 1, probi)#
-        senderpredict[iter1, o] = senders[d]#
-        iter1 = iter1+1#
-    }#
-    for (d in timemissing) {#
-        timeinc[d] = rlnorm(1, mu[d, sender[d]], sqrt(sigma2))#
-        timepredict[iter2, o] = timeinc[d]#
-        iter2 = iter2+1#
-    }    #
-    timeinc[timeinc==0] = runif(sum(timeinc==0), 0, min(timeinc[timeinc!=0]))#
-#
-    for (d in receivermissing) {#
-    	data[[d]][[2]][which(missing[[2]][d,]==1)] = u[[d]][sender[d], which(missing[[2]][d,]==1)]#
-        receiverpredict[iter3, o] = data[[d]][[2]][which(missing[[2]][d,]==1)]#
-		iter3 = iter3+1#
-    }  #
-#
-	#run inference#
-		if (o %% 100 == 0) print(o)#
-		lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta))#
-		u = u_cpp(lambda, u)#
-		for (d in 1:D) {#
-		  u[[d]][senders[d],] = data[[d]][[2]]#
-		}#
-		prior.old1 = dmvnorm_arma(beta, prior.beta$mean, prior.beta$var)#
-    	post.old1 = Edgepartsum(lambda, u)#
-    	for (i1 in 1:inner[1]) {#
-			beta.new = rmvnorm_arma(1, beta, proposal.var[1]*diag(P))#
-     		prior.new1 = dmvnorm_arma(beta.new, prior.beta$mean, prior.beta$var)#
-			lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta.new))#
-			post.new1 = Edgepartsum(lambda, u)#
-      		loglike.diff = prior.new1+post.new1-prior.old1-post.old1#
-			if (log(runif(1, 0, 1)) < loglike.diff) {#
-        			beta = beta.new#
-        			prior.old1 = prior.new1#
-        			post.old1 = post.new1#
-	      	}#
-		}#
-		prior.old2 = dmvnorm_arma(eta, prior.eta$mean, prior.eta$var) #
-    	mu = mu_cpp(Y, eta)#
-   		post.old2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)#
-		for (i2 in 1:inner[2]) {#
-			eta.new = rmvnorm_arma(1, eta, proposal.var[2]*diag(Q))#
-      		prior.new2 = dmvnorm_arma(eta.new, prior.eta$mean, prior.eta$var) 	#
-      		mu = mu_cpp(Y, eta.new)#
-    		post.new2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)#
-    		loglike.diff = prior.new2+post.new2-prior.old2-post.old2#
-      		if (log(runif(1, 0, 1)) < loglike.diff) {#
-        			eta = eta.new#
-        			prior.old2 = prior.new2#
-        			post.old2 = post.new2#
-	      	}#
-		}#
-		prior.old3 = dinvgamma(sigma2, prior.sigma2$a, prior.sigma2$b) #
-    	post.old3 = post.old2#
-   	 	mu = mu_cpp(Y, eta)#
-#
-		for (i3 in 1:inner[3]) {#
-			sigma2.new = exp(rnorm(1, log(sigma2), proposal.var[3]))#
-     	 	prior.new3 = dinvgamma(sigma2.new, prior.sigma2$a, prior.sigma2$b)#
-    		post.new3 = Timepartsum(mu, sqrt(sigma2.new), senders, timeinc)#
-    		loglike.diff = prior.new3+post.new3-prior.old3-post.old3#
-    			if (log(runif(1, 0, 1)) < loglike.diff) {#
-        			sigma2 = sigma2.new#
-        			prior.old3 = prior.new3#
-        			post.old3 = post.new3#
-	      	}#
-		}#
-		if (o > burn) {#
-			betamat[o-burn, ] = beta#
-			etamat[o-burn, ] = eta#
-			sigma2mat[o-burn, ] = sigma2	#
-			loglike[o-burn, ] = post.old1 + post.old3#
-		}		#
-	}#
-	return(list(senderpredict = senderpredict, receiverpredict = receiverpredict, timepredict = timepredict))#
-}
-load("/Users/bomin8319/Desktop/MulticastNetwork/code/Montgomery_infer.RData")#
-initial = list()#
-initial$beta = colMeans(Montgomery_infer$beta)#
-initial$eta =  colMeans(Montgomery_infer$eta)#
-initial$u = Montgomery_infer$u#
-initial$sigma2 = mean(Montgomery_infer$sigma2)#
-Montgomery_PPE = list()#
-for (n in 1:100) {#
-  Montgomery_PPE[[n]] = PPE(edge, missing, X, Y, 100, c(5,1,1), 0, prior.beta, prior.eta, prior.sigma2, initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime)#
-  filename = paste0("Montgomery_PPE", n,".RData")#
-  save(Montgomery_PPE, file = filename)#
-}
-probi
-rmultinom(1, 1, probi)
-which(rmultinom(1, 1, probi)==1)
-Q
-# missing is a list object#
-PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigma2, initial = initial,#
-		proposal.var, timeunit = 3600, lasttime) {#
-	D = dim(X)[1]#
-	A = dim(X)[2]#
-	P = dim(X)[4]#
-	Q = dim(Y)[3]#
-	if (length(initial) > 0) {#
-		u = initial$u#
-		beta = initial$beta#
-		eta = initial$eta#
-		sigma2 = initial$sigma2#
-	} else {#
-		u = lapply(1:D, function(d) matrix(0, A, A))#
-		beta = matrix(prior.beta$mean, nrow = 1)#
-		eta = matrix(prior.eta$mean, nrow = 1)#
-		sigma2 = prior.sigma2$b / (prior.sigma2$a-1)#
-	}#
-	mu = mu_cpp(Y, eta)#
-	#output matrix#
-	betamat = matrix(beta, nrow = outer-burn, ncol = P)#
-	etamat = matrix(eta, nrow = outer-burn, ncol = Q)#
-	sigma2mat = matrix(sigma2, nrow = outer-burn, ncol = 1)#
-	loglike = matrix(NA, nrow = outer-burn, ncol = 1)#
-	senders = vapply(data, function(d) { d[[1]] }, c(1))#
-	timestamps = vapply(data, function(d) { d[[3]] }, c(1))#
-	timeinc = c(timestamps[1]-lasttime, timestamps[-1]-timestamps[-length(timestamps)]) / timeunit#
-	timeinc[timeinc == 0] = runif(sum(timeinc==0), 0, min(timeinc[timeinc!=0]))#
-	senderpredict = matrix(NA, nrow = sum(missing[[1]]), ncol = outer)#
-    receiverpredict = matrix(NA, nrow = sum(missing[[2]]), ncol = outer)#
-    timepredict = matrix(NA, nrow = sum(missing[[3]]), ncol = outer)#
-    sendermissing = which(missing[[1]]==1)#
-    receivermissing = which(rowSums(missing[[2]]) > 0)#
-    timemissing = which(missing[[3]]==1)#
-	for (o in 1:outer) {#
-	#imputation#
-    iter1 = 1#
-    iter2 = 1#
-    iter3 = 1#
-    for (d in sendermissing) {#
-        probi = Timepartindiv(mu[d,], sqrt(sigma2), timeinc[d])#
-        senders[d] = which(rmultinom(1, 1, probi)==1)#
-        senderpredict[iter1, o] = senders[d]#
-        iter1 = iter1+1#
-    }#
-    for (d in timemissing) {#
-        timeinc[d] = rlnorm(1, mu[d, sender[d]], sqrt(sigma2))#
-        timepredict[iter2, o] = timeinc[d]#
-        iter2 = iter2+1#
-    }    #
-    timeinc[timeinc==0] = runif(sum(timeinc==0), 0, min(timeinc[timeinc!=0]))#
-#
-    for (d in receivermissing) {#
-    	data[[d]][[2]][which(missing[[2]][d,]==1)] = u[[d]][sender[d], which(missing[[2]][d,]==1)]#
-        receiverpredict[iter3, o] = data[[d]][[2]][which(missing[[2]][d,]==1)]#
-		iter3 = iter3+1#
-    }  #
-#
-	#run inference#
-		if (o %% 100 == 0) print(o)#
-		lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta))#
-		u = u_cpp(lambda, u)#
-		for (d in 1:D) {#
-		  u[[d]][senders[d],] = data[[d]][[2]]#
-		}#
-		prior.old1 = dmvnorm_arma(beta, prior.beta$mean, prior.beta$var)#
-    	post.old1 = Edgepartsum(lambda, u)#
-    	for (i1 in 1:inner[1]) {#
-			beta.new = rmvnorm_arma(1, beta, proposal.var[1]*diag(P))#
-     		prior.new1 = dmvnorm_arma(beta.new, prior.beta$mean, prior.beta$var)#
-			lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta.new))#
-			post.new1 = Edgepartsum(lambda, u)#
-      		loglike.diff = prior.new1+post.new1-prior.old1-post.old1#
-			if (log(runif(1, 0, 1)) < loglike.diff) {#
-        			beta = beta.new#
-        			prior.old1 = prior.new1#
-        			post.old1 = post.new1#
-	      	}#
-		}#
-		prior.old2 = dmvnorm_arma(eta, prior.eta$mean, prior.eta$var) #
-    	mu = mu_cpp(Y, eta)#
-   		post.old2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)#
-		for (i2 in 1:inner[2]) {#
-			eta.new = rmvnorm_arma(1, eta, proposal.var[2]*diag(Q))#
-      		prior.new2 = dmvnorm_arma(eta.new, prior.eta$mean, prior.eta$var) 	#
-      		mu = mu_cpp(Y, eta.new)#
-    		post.new2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)#
-    		loglike.diff = prior.new2+post.new2-prior.old2-post.old2#
-      		if (log(runif(1, 0, 1)) < loglike.diff) {#
-        			eta = eta.new#
-        			prior.old2 = prior.new2#
-        			post.old2 = post.new2#
-	      	}#
-		}#
-		prior.old3 = dinvgamma(sigma2, prior.sigma2$a, prior.sigma2$b) #
-    	post.old3 = post.old2#
-   	 	mu = mu_cpp(Y, eta)#
-#
-		for (i3 in 1:inner[3]) {#
-			sigma2.new = exp(rnorm(1, log(sigma2), proposal.var[3]))#
-     	 	prior.new3 = dinvgamma(sigma2.new, prior.sigma2$a, prior.sigma2$b)#
-    		post.new3 = Timepartsum(mu, sqrt(sigma2.new), senders, timeinc)#
-    		loglike.diff = prior.new3+post.new3-prior.old3-post.old3#
-    			if (log(runif(1, 0, 1)) < loglike.diff) {#
-        			sigma2 = sigma2.new#
-        			prior.old3 = prior.new3#
-        			post.old3 = post.new3#
-	      	}#
-		}#
-		if (o > burn) {#
-			betamat[o-burn, ] = beta#
-			etamat[o-burn, ] = eta#
-			sigma2mat[o-burn, ] = sigma2	#
-			loglike[o-burn, ] = post.old1 + post.old3#
-		}		#
-	}#
-	return(list(senderpredict = senderpredict, receiverpredict = receiverpredict, timepredict = timepredict))#
-}
-load("/Users/bomin8319/Desktop/MulticastNetwork/code/Montgomery_infer.RData")#
-initial = list()#
-initial$beta = colMeans(Montgomery_infer$beta)#
-initial$eta =  colMeans(Montgomery_infer$eta)#
-initial$u = Montgomery_infer$u#
-initial$sigma2 = mean(Montgomery_infer$sigma2)#
-Montgomery_PPE = list()#
-for (n in 1:100) {#
-  Montgomery_PPE[[n]] = PPE(edge, missing, X, Y, 100, c(5,1,1), 0, prior.beta, prior.eta, prior.sigma2, initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime)#
-  filename = paste0("Montgomery_PPE", n,".RData")#
-  save(Montgomery_PPE, file = filename)#
-}
-# missing is a list object#
-PPE = function(data, missing, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigma2, initial = initial,#
-		proposal.var, timeunit = 3600, lasttime) {#
-	D = dim(X)[1]#
-	A = dim(X)[2]#
-	P = dim(X)[4]#
-	Q = dim(Y)[3]#
-	if (length(initial) > 0) {#
-		u = initial$u#
-		beta = initial$beta#
-		eta = initial$eta#
-		sigma2 = initial$sigma2#
-	} else {#
-		u = lapply(1:D, function(d) matrix(0, A, A))#
-		beta = matrix(prior.beta$mean, nrow = 1)#
-		eta = matrix(prior.eta$mean, nrow = 1)#
-		sigma2 = prior.sigma2$b / (prior.sigma2$a-1)#
-	}#
-	mu = mu_cpp(Y, eta)#
-	#output matrix#
-	betamat = matrix(beta, nrow = outer-burn, ncol = P)#
-	etamat = matrix(eta, nrow = outer-burn, ncol = Q)#
-	sigma2mat = matrix(sigma2, nrow = outer-burn, ncol = 1)#
-	loglike = matrix(NA, nrow = outer-burn, ncol = 1)#
-	senders = vapply(data, function(d) { d[[1]] }, c(1))#
-	timestamps = vapply(data, function(d) { d[[3]] }, c(1))#
-	timeinc = c(timestamps[1]-lasttime, timestamps[-1]-timestamps[-length(timestamps)]) / timeunit#
-	timeinc[timeinc == 0] = runif(sum(timeinc==0), 0, min(timeinc[timeinc!=0]))#
-	senderpredict = matrix(NA, nrow = sum(missing[[1]]), ncol = outer)#
-    receiverpredict = matrix(NA, nrow = sum(missing[[2]]), ncol = outer)#
-    timepredict = matrix(NA, nrow = sum(missing[[3]]), ncol = outer)#
-    sendermissing = which(missing[[1]]==1)#
-    receivermissing = which(rowSums(missing[[2]]) > 0)#
-    timemissing = which(missing[[3]]==1)#
-	for (o in 1:outer) {#
-	#imputation#
-    iter1 = 1#
-    iter2 = 1#
-    iter3 = 1#
-    for (d in sendermissing) {#
-        probi = Timepartindiv(mu[d,], sqrt(sigma2), timeinc[d])#
-        senders[d] = which(rmultinom(1, 1, probi)==1)#
-        senderpredict[iter1, o] = senders[d]#
-        iter1 = iter1+1#
-    }#
-    for (d in timemissing) {#
-        timeinc[d] = rlnorm(1, mu[d, senders[d]], sqrt(sigma2))#
-        timepredict[iter2, o] = timeinc[d]#
-        iter2 = iter2+1#
-    }    #
-    timeinc[timeinc==0] = runif(sum(timeinc==0), 0, min(timeinc[timeinc!=0]))#
-#
-    for (d in receivermissing) {#
-    	data[[d]][[2]][which(missing[[2]][d,]==1)] = u[[d]][senders[d], which(missing[[2]][d,]==1)]#
-        receiverpredict[iter3, o] = data[[d]][[2]][which(missing[[2]][d,]==1)]#
-		iter3 = iter3+1#
-    }  #
-#
-	#run inference#
-		if (o %% 100 == 0) print(o)#
-		lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta))#
-		u = u_cpp(lambda, u)#
-		for (d in 1:D) {#
-		  u[[d]][senders[d],] = data[[d]][[2]]#
-		}#
-		prior.old1 = dmvnorm_arma(beta, prior.beta$mean, prior.beta$var)#
-    	post.old1 = Edgepartsum(lambda, u)#
-    	for (i1 in 1:inner[1]) {#
-			beta.new = rmvnorm_arma(1, beta, proposal.var[1]*diag(P))#
-     		prior.new1 = dmvnorm_arma(beta.new, prior.beta$mean, prior.beta$var)#
-			lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta.new))#
-			post.new1 = Edgepartsum(lambda, u)#
-      		loglike.diff = prior.new1+post.new1-prior.old1-post.old1#
-			if (log(runif(1, 0, 1)) < loglike.diff) {#
-        			beta = beta.new#
-        			prior.old1 = prior.new1#
-        			post.old1 = post.new1#
-	      	}#
-		}#
-		prior.old2 = dmvnorm_arma(eta, prior.eta$mean, prior.eta$var) #
-    	mu = mu_cpp(Y, eta)#
-   		post.old2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)#
-		for (i2 in 1:inner[2]) {#
-			eta.new = rmvnorm_arma(1, eta, proposal.var[2]*diag(Q))#
-      		prior.new2 = dmvnorm_arma(eta.new, prior.eta$mean, prior.eta$var) 	#
-      		mu = mu_cpp(Y, eta.new)#
-    		post.new2 = Timepartsum(mu, sqrt(sigma2), senders, timeinc)#
-    		loglike.diff = prior.new2+post.new2-prior.old2-post.old2#
-      		if (log(runif(1, 0, 1)) < loglike.diff) {#
-        			eta = eta.new#
-        			prior.old2 = prior.new2#
-        			post.old2 = post.new2#
-	      	}#
-		}#
-		prior.old3 = dinvgamma(sigma2, prior.sigma2$a, prior.sigma2$b) #
-    	post.old3 = post.old2#
-   	 	mu = mu_cpp(Y, eta)#
-#
-		for (i3 in 1:inner[3]) {#
-			sigma2.new = exp(rnorm(1, log(sigma2), proposal.var[3]))#
-     	 	prior.new3 = dinvgamma(sigma2.new, prior.sigma2$a, prior.sigma2$b)#
-    		post.new3 = Timepartsum(mu, sqrt(sigma2.new), senders, timeinc)#
-    		loglike.diff = prior.new3+post.new3-prior.old3-post.old3#
-    			if (log(runif(1, 0, 1)) < loglike.diff) {#
-        			sigma2 = sigma2.new#
-        			prior.old3 = prior.new3#
-        			post.old3 = post.new3#
-	      	}#
-		}#
-		if (o > burn) {#
-			betamat[o-burn, ] = beta#
-			etamat[o-burn, ] = eta#
-			sigma2mat[o-burn, ] = sigma2	#
-			loglike[o-burn, ] = post.old1 + post.old3#
-		}		#
-	}#
-	return(list(senderpredict = senderpredict, receiverpredict = receiverpredict, timepredict = timepredict))#
-}
-load("/Users/bomin8319/Desktop/MulticastNetwork/code/Montgomery_infer.RData")#
-initial = list()#
-initial$beta = colMeans(Montgomery_infer$beta)#
-initial$eta =  colMeans(Montgomery_infer$eta)#
-initial$u = Montgomery_infer$u#
-initial$sigma2 = mean(Montgomery_infer$sigma2)#
-Montgomery_PPE = list()#
-for (n in 1:100) {#
-  Montgomery_PPE[[n]] = PPE(edge, missing, X, Y, 100, c(5,1,1), 0, prior.beta, prior.eta, prior.sigma2, initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime)#
-  filename = paste0("Montgomery_PPE", n,".RData")#
-  save(Montgomery_PPE, file = filename)#
-}
-exp(-0.4)
-exp(-3.5)
 recipients = tabulate(rowSums(email[trim,3:20]), A-1)
 recipients
 recipients = table(rowSums(email[trim,3:20]))
@@ -1462,3 +881,400 @@ plot[[6]]+labs(title = expression(b*" Estimates for p=4")),plot[[7]]+labs(title 
 grid.arrange(arrangeGrob(plot[[1]]+labs(title = "Mean Recipient Size"),#
 	plot[[2]]+labs(title = "Mean Time-increments"),plot[[3]]+labs(title = expression(b*" Estimates for p=1")),plot[[4]]+labs(title = expression(b*" Estimates for p=2")),plot[[5]]+labs(title = expression(b*" Estimates for p=3")),#
 plot[[6]]+labs(title = expression(b*" Estimates for p=4")),plot[[7]]+labs(title = expression(eta*" Estimates for q=1")),plot[[8]]+labs(title = expression(eta*" Estimates for q=2")),plot[[9]]+labs(title = expression(eta*" Estimates for q=3")),plot[[10]]+labs(title = expression(sigma^2*" Estimates")), nrow=2))
+#source("/Users/bomin8319/Desktop/MulticastNetwork/code/Multicast.R")#
+#
+library(MulticastNetwork)#
+library(lubridate)#
+load('~/Desktop/MulticastNetwork/code/Temporal_Email_Data.Rdata')#
+Montgomery = Temporal_Email_Data$Montgomery#
+email = Montgomery$email_data#
+email = unique(email)#
+email$timepoints =  as.numeric(as.POSIXct(strptime(email[,1], "%d %b %Y %H:%M:%S")))#
+email = email[order(email$timepoints), ]#
+edge = list()#
+initialtime =  as.numeric(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S")))#
+for (d in 1:nrow(email)) {#
+	t_d = email[d, 21] - initialtime#
+	edge[[d]] = list(a_d = email[d,2], r_d = as.numeric(email[d,-c(1:2, 21)]), t_d = t_d)#
+}#
+#
+uniqtime = unique(email$timepoints)#
+# construct time covariates Y#
+D = length(edge)#
+A = length(Montgomery$manager_gender)#
+Q = 7#
+Y = array(1, dim = c(D,A,Q))#
+for (a in 1:A) {#
+	Y[,a,2] = 1* (Montgomery$manager_gender[a]=="Female")#
+	Y[,a,3] = 1* (Montgomery$manager_department[a]=="County Manager")#
+}#
+timeunit = 3600#
+Y[1,,6] = rep(as.numeric(wday(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+Y[1,,7] = rep(pm(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S"))), A)#
+for (d in 2:D) {#
+	index = which(email$timepoints >= uniqtime[which(uniqtime==email$timepoints[d])-1]-7*24*timeunit & email$timepoints < email$timepoints[d])#
+	sent = email[index, 2]#
+	received = email[index, 3:(2+A)]#
+	Y[d, ,4] = tabulate(sent, A) #
+	Y[d, ,5] = colSums(received)#
+	Y[d,,6] = rep(as.numeric(wday(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+	Y[d,,7] = rep(as.numeric(pm(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S")))), A)#
+}#
+sendraw = function(data, a, r) {#
+	sum(data[,2] == a & data[, 2+r]==1)#
+}#
+#
+# construct recipient covariates X#
+D = length(edge)#
+A = length(Montgomery$manager_gender)#
+P = 14#
+X = array(0, dim = c(D,A,A,P))#
+X[,,,1] = 1#
+timeunit = 3600#
+for (d in 2:D) {#
+	index = which(email$timepoints >= uniqtime[which(uniqtime==email$timepoints[d])-1]-7*24*timeunit & email$timepoints < email$timepoints[d])#
+	data = email[index, ]#
+	sent = data[, 2]#
+	received = data[, 3:(2+A)]#
+	outdegree = tabulate(sent, A)#
+	indegree = colSums(received)#
+	for (a in 1:A) {#
+		for (r in c(1:A)) {#
+		  if (r != a) {#
+			X[d, a, r, 2] = outdegree[a]  #
+			X[d, a, r, 3] = indegree[r]	#
+			X[d, a, r, 4] = sendraw(data, a, r)#
+			X[d, a, r, 5] = sendraw(data, r, a)#
+			X[d, a, r, 6] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, a, h) * sendraw(data, h, r) / 10#
+				}))#
+			X[d, a, r, 7] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, h, a) * sendraw(data, r, h)#
+				})) / 10#
+			X[d, a, r, 8] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, h, a) * sendraw(data, h, r)#
+				})) / 10#
+			X[d, a, r, 9] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, a, h) * sendraw(data, r, h)#
+				}))	/10	#
+		  }#
+		    X[d, a, , 12] = 1* (Montgomery$manager_gender[a]=="Female")#
+			  X[d, a, r, 13] =1* (Montgomery$manager_gender[r]=="Female")#
+			  X[d, a, r, 14] =1* (Montgomery$manager_gender[a]==Montgomery$manager_gender[r])#
+		}#
+	  X[d, a, , 10] = ifelse(outdegree[a] <sum(X[d,a,,4]),sum(X[d,a,,4])/outdegree[a] , 1)#
+	  X[d, a, , 11] = X[d, a, , 2] * X[d, a, , 10] / 10#
+	}#
+}#
+#
+prior.beta = list(mean = c(-3.5, rep(0, P-1)), var = 2*diag(P))#
+prior.eta = list(mean = c(7, rep(0, Q-1)), var = 2*diag(Q))#
+prior.sigma2 = list(a = 2, b = 1)#
+email$timepoints =  as.numeric(as.POSIXct(strptime(email[,1], "%d %b %Y %H:%M:%S")))#
+trim = which(email$timepoints >=7*24*timeunit+email$timepoints[1])#
+edge = edge[trim]#
+X = X[trim,,,]#
+Y = Y[trim,,]
+set.seed(1)#
+missing = list()#
+#missingness of senders#
+missing[[1]] = matrix(0, nrow = dim(Y)[1], 1)    #
+missing[[1]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
+#missingness of receivers#
+missing[[2]] = matrix(0, nrow = dim(Y)[1], A)    #
+missing[[2]][sample(1:(dim(Y)[1]*A), 1118, replace = FALSE)] = 1#
+#missingness of timestamps#
+missing[[3]] = matrix(0, nrow = dim(Y)[1], 1)#
+missing[[3]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
+for (d in 1:dim(Y)[1]) {#
+	if (missing[[1]][d,1] == 1) {#
+		edge[[d]]$a_d = NA#
+	}#
+	if (sum(missing[[2]][d,]) > 0) {#
+		edge[[d]]$r_d[which(missing[[2]][d,]==1)] = NA#
+	}#
+	if (missing[[3]][d,1] == 1) {#
+		edge[[d]]$t_d = NA#
+	}#
+}#
+initial = list()#
+initial$beta = colMeans(Montgomery_infer$beta)#
+initial$eta =  colMeans(Montgomery_infer$eta)#
+initial$u = Montgomery_infer$u#
+initial$sigma2 = mean(Montgomery_infer$sigma2)#
+#
+#will generate 500 predictions (iterate two steps: imputation -> inference)#
+Montgomery_PPE = PPE(edge, X, Y, 550, c(5,5,1), 50, prior.beta, prior.eta, prior.sigma2, #
+                     initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, #
+                     lasttime = email[min(trim-1), 21] - initialtime, MHprop.var = 0.15, timedist = "lognormal")
+load('~/Desktop/Montgomery_infer.RData')
+set.seed(1)#
+missing = list()#
+#missingness of senders#
+missing[[1]] = matrix(0, nrow = dim(Y)[1], 1)    #
+missing[[1]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
+#missingness of receivers#
+missing[[2]] = matrix(0, nrow = dim(Y)[1], A)    #
+missing[[2]][sample(1:(dim(Y)[1]*A), 1118, replace = FALSE)] = 1#
+#missingness of timestamps#
+missing[[3]] = matrix(0, nrow = dim(Y)[1], 1)#
+missing[[3]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
+for (d in 1:dim(Y)[1]) {#
+	if (missing[[1]][d,1] == 1) {#
+		edge[[d]]$a_d = NA#
+	}#
+	if (sum(missing[[2]][d,]) > 0) {#
+		edge[[d]]$r_d[which(missing[[2]][d,]==1)] = NA#
+	}#
+	if (missing[[3]][d,1] == 1) {#
+		edge[[d]]$t_d = NA#
+	}#
+}#
+initial = list()#
+initial$beta = colMeans(Montgomery_infer$beta)#
+initial$eta =  colMeans(Montgomery_infer$eta)#
+initial$u = Montgomery_infer$u#
+initial$sigma2 = mean(Montgomery_infer$sigma2)#
+#
+#will generate 500 predictions (iterate two steps: imputation -> inference)#
+Montgomery_PPE = PPE(edge, X, Y, 550, c(5,5,1), 50, prior.beta, prior.eta, prior.sigma2, #
+                     initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, #
+                     lasttime = email[min(trim-1), 21] - initialtime, MHprop.var = 0.15, timedist = "lognormal")
+dim(X)
+load('~/Desktop/Montgomery_infer.RData')
+set.seed(1)#
+missing = list()#
+#missingness of senders#
+missing[[1]] = matrix(0, nrow = dim(Y)[1], 1)    #
+missing[[1]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
+#missingness of receivers#
+missing[[2]] = matrix(0, nrow = dim(Y)[1], A)    #
+missing[[2]][sample(1:(dim(Y)[1]*A), 1118, replace = FALSE)] = 1#
+#missingness of timestamps#
+missing[[3]] = matrix(0, nrow = dim(Y)[1], 1)#
+missing[[3]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
+for (d in 1:dim(Y)[1]) {#
+	if (missing[[1]][d,1] == 1) {#
+		edge[[d]]$a_d = NA#
+	}#
+	if (sum(missing[[2]][d,]) > 0) {#
+		edge[[d]]$r_d[which(missing[[2]][d,]==1)] = NA#
+	}#
+	if (missing[[3]][d,1] == 1) {#
+		edge[[d]]$t_d = NA#
+	}#
+}#
+initial = list()#
+initial$beta = colMeans(Montgomery_infer$beta)#
+initial$eta =  colMeans(Montgomery_infer$eta)#
+initial$u = Montgomery_infer$u#
+initial$sigma2 = mean(Montgomery_infer$sigma2)
+intiail$beta
+initial$beta
+#will generate 500 predictions (iterate two steps: imputation -> inference)#
+Montgomery_PPE = PPE(edge, X, Y, 550, c(5,5,1), 50, prior.beta, prior.eta, prior.sigma2, #
+                     initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, #
+                     lasttime = email[min(trim-1), 21] - initialtime, MHprop.var = 0.15, timedist = "lognormal")
+save(Montgomery_PPE, file = "/Users/bomin8319/Desktop/Montgomery_PPE.RData")
+load('~/Desktop/MulticastNetwork/Emails/Montgomery_PPE2.RData')
+library(gridExtra)#
+library(latex2exp)#
+p = list()#
+##################
+truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
+predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
+predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
+#
+sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), dist = rep("lognormal", 62))#
+sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), dist = rep("exponential", 62)))#
+library(ggplot2)#
+library(reshape)#
+sender = melt(sender)#
+colnames(sender)[3] = "correct"#
+p[[1]]=ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)#
+boxplot(sapply(1:62, function(d) predprob[d,truesender[d]]), sapply(1:62, function(d) predprob2[d,truesender[d]]))
+load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")#
+edge = Montgomery$edge#
+X = Montgomery$X#
+Y = Montgomery$Y#
+P = dim(X)[4]#
+Q = dim(Y)[3]#
+A = dim(Y)[2]
+truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
+predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
+predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
+#
+sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), dist = rep("lognormal", 62))#
+sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), dist = rep("exponential", 62)))#
+library(ggplot2)#
+library(reshape)#
+sender = melt(sender)#
+colnames(sender)[3] = "correct"#
+p[[1]]=ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)#
+boxplot(sapply(1:62, function(d) predprob[d,truesender[d]]), sapply(1:62, function(d) predprob2[d,truesender[d]]))
+p[[1]]
+truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
+predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
+predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
+#
+sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), Dist = rep("log-normal", 62))#
+sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), Dist = rep("exponential", 62)))#
+library(ggplot2)#
+library(reshape)#
+sender = melt(sender)#
+colnames(sender)[3] = "correct"
+head(sender)
+ggplot(data = sender, aes(x = Dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)
+ggplot(data = sender, aes(x = Dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)
+truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
+predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
+predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
+#
+sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), Dist = rep("log-normal", 62))#
+sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), Dist = rep("exponential", 62)))#
+library(ggplot2)#
+library(reshape)#
+sender = melt(sender)#
+colnames(sender)[3] = "correct"#
+p[[1]]=ggplot(data = sender, aes(x = Dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)
+p[[1]]
+edge = Montgomery$edge#
+X = Montgomery$X#
+Y = Montgomery$Y#
+P = dim(X)[4]#
+Q = dim(Y)[3]#
+A = dim(Y)[2]
+truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
+predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
+predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
+#
+sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), Dist = rep("log-normal", 62))#
+sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), Dist = rep("exponential", 62)))#
+library(ggplot2)#
+library(reshape)#
+sender = melt(sender)#
+colnames(sender)[3] = "correct"
+ggplot(data = sender, aes(x = Dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)
+ggplot(data = sender, aes(x = Dist, y = correct, fill = Dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)
+ggplot(data = sender, aes(x = Dist, y = correct, fill = Dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+ggplot(data = sender, aes(x = Dist, y = correct, fill = Dist))+geom_boxplot()+ylab(expression(pi))+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+ggplot(data = sender, aes(x = Dist, y = correct, fill = Dist))+geom_boxplot()+ylab(expression(pi))+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+library(MLmetrics)#
+#
+truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
+predreceiver = Montgomery_PPE$receiverpredict#
+predreceiver2 = Montgomery_PPE2$receiverpredict#
+#
+probtrue = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver[,d], 1))#
+probtrue2 = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver2[,d], 1))#
+#
+receiver = data.frame(F1score = probtrue, dist = rep("lognormal", 500))#
+receiver = rbind(receiver, data.frame(F1score = probtrue2, dist = rep("exponential", 500)))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "F1score"#
+p[[2]]=ggplot(data = receiver, aes(x = dist, y = F1score, fill = dist))+geom_boxplot()+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+p[[2]]
+truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
+predreceiver = Montgomery_PPE$receiverpredict#
+predreceiver2 = Montgomery_PPE2$receiverpredict#
+#
+probtrue = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver[,d], 1))#
+probtrue2 = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver2[,d], 1))#
+#
+receiver = data.frame(F1 = probtrue, dist = rep("lognormal", 500))#
+receiver = rbind(receiver, data.frame(F1 = probtrue2, dist = rep("exponential", 500)))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "F1"#
+p[[2]]=ggplot(data = receiver, aes(x = dist, y = F1, fill = dist))+geom_boxplot()+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+p[[2]]
+p[[2]]
+truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
+predtime = Montgomery_PPE$timepredict#
+predtime2 = Montgomery_PPE2$timepredict#
+#
+time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
+time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
+time$MdAPE = log(time$MdAPE)#
+time = melt(time)#
+stats = boxplot.stats(time$value)$stats#
+#
+colnames(time)[3] = "MdAPE"#
+p[[3]]=ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")+ylab("log(MdAPE)")#
+ggplot(data = time, aes(x = MdAPE, fill = dist))+geom_histogram(position = "dodge")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+time = data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
+time = rbind(time, data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
+time$MdAE = log(time$MdAE)#
+#
+time = melt(time)#
+colnames(time)[3] = "MdAE"#
+ggplot(data = time, aes(x = dist, y = MdAE, fill = dist))+geom_boxplot()+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
+predreceiver = Montgomery_PPE$receiverpredict#
+predreceiver2 = Montgomery_PPE2$receiverpredict#
+#
+probtrue = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver[,d], 1))#
+probtrue2 = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver2[,d], 1))#
+#
+receiver = data.frame(F1 = probtrue, dist = rep("log-normal", 500))#
+receiver = rbind(receiver, data.frame(F1 = probtrue2, dist = rep("exponential", 500)))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "F1"#
+p[[2]]=ggplot(data = receiver, aes(x = dist, y = F1, fill = dist))+geom_boxplot()+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+p[[2]]
+truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
+predreceiver = Montgomery_PPE$receiverpredict#
+predreceiver2 = Montgomery_PPE2$receiverpredict#
+#
+probtrue = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver[,d], 1))#
+probtrue2 = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver2[,d], 1))#
+#
+receiver = data.frame(F1 = probtrue, Dist = rep("log-normal", 500))#
+receiver = rbind(receiver, data.frame(F1 = probtrue2, Dist = rep("exponential", 500)))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "F1"#
+p[[2]]=ggplot(data = receiver, aes(x = Dist, y = F1, fill = Dist))+geom_boxplot()+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+p[[2]]
+time = data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])/truetime[d]))), Dist = rep("log-normal", 62))#
+time = rbind(time, data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])/truetime[d]))), Dist = rep("exponential", 62)))#
+time$MdAE = log(time$MdAE)#
+#
+time = melt(time)#
+colnames(time)[3] = "MdAE"#
+ggplot(data = time, aes(x = Dist, y = MdAE, fill = Dist))+geom_boxplot()+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+time = data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])/truetime[d]))), Dist = rep("log-normal", 62))#
+time = rbind(time, data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])/truetime[d]))), Dist = rep("exponential", 62)))
+time = melt(time)#
+colnames(time)[3] = "MdAE"#
+ggplot(data = time, aes(x = Dist, y = MdAE, fill = Dist))+geom_boxplot()+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+names(Montgomery_PPE)
+head(Montgomery_PPE$timepredict)
+head(Montgomery_PPE2$timepredict)
+truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
+predtime = Montgomery_PPE$timepredict#
+predtime2 = Montgomery_PPE2$timepredict#
+#
+time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))#
+time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))#
+time$MdAPE = log(time$MdAPE)#
+time = melt(time)#
+stats = boxplot.stats(time$value)$stats#
+#
+colnames(time)[3] = "MdAPE"#
+p[[3]]=ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")+ylab("log(MdAPE)")#
+ggplot(data = time, aes(x = MdAPE, fill = dist))+geom_histogram(position = "dodge")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+##################################################
+truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
+predtime = Montgomery_PPE$timepredict#
+predtime2 = Montgomery_PPE2$timepredict#
+#
+time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), Dist = rep("log-normal", 62))#
+time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), Dist = rep("exponential", 62)))#
+time$MdAPE = log(time$MdAPE)#
+time = melt(time)#
+stats = boxplot.stats(time$value)$stats#
+#
+colnames(time)[3] = "MdAPE"#
+p[[3]]=ggplot(data = time, aes(x = Dist, y = MdAPE, fill = Dist))+geom_boxplot()+theme(legend.position = "bottom")+ylab("log(MdAPE)")
+p[[3]]
+p[[3]]=ggplot(data = time, aes(x = Dist, y = MdAPE, fill = Dist))+geom_boxplot()+theme(legend.position = "bottom")+ylab("log(MdAPE)")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+p[[3]]

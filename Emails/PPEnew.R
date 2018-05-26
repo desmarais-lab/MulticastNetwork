@@ -88,13 +88,14 @@ truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)
 predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)
 predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)
 
-sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), dist = rep("lognormal", 62))
-sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), dist = rep("exponential", 62)))
+sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), Dist = rep("log-normal", 62))
+sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), Dist = rep("exponential", 62)))
 library(ggplot2)
 library(reshape)
 sender = melt(sender)
 colnames(sender)[3] = "correct"
-p[[1]]=ggplot(data = sender, aes(x = dist, y = correct, fill = dist))+geom_boxplot()+ylab("Correct sender posterior probability")+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)
+p[[1]]=ggplot(data = sender, aes(x = Dist, y = correct, fill = Dist))+geom_boxplot()+ylab(expression(pi))+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+
 boxplot(sapply(1:62, function(d) predprob[d,truesender[d]]), sapply(1:62, function(d) predprob2[d,truesender[d]]))
 
 ###############################################
@@ -125,11 +126,11 @@ predreceiver2 = Montgomery_PPE2$receiverpredict
 probtrue = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver[,d], 1))
 probtrue2 = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver2[,d], 1))
 
-receiver = data.frame(F1score = probtrue, dist = rep("lognormal", 500))
-receiver = rbind(receiver, data.frame(F1score = probtrue2, dist = rep("exponential", 500)))
+receiver = data.frame(F1 = probtrue, Dist = rep("log-normal", 500))
+receiver = rbind(receiver, data.frame(F1 = probtrue2, Dist = rep("exponential", 500)))
 receiver = melt(receiver)
-colnames(receiver)[3] = "F1score"
-p[[2]]=ggplot(data = receiver, aes(x = dist, y = F1score, fill = dist))+geom_boxplot()
+colnames(receiver)[3] = "F1"
+p[[2]]=ggplot(data = receiver, aes(x = Dist, y = F1, fill = Dist))+geom_boxplot()+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
 
 
 #################################################
@@ -137,24 +138,26 @@ truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-
 predtime = Montgomery_PPE$timepredict
 predtime2 = Montgomery_PPE2$timepredict
 
-time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))
-time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
+time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), Dist = rep("log-normal", 62))
+time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), Dist = rep("exponential", 62)))
 time$MdAPE = log(time$MdAPE)
 time = melt(time)
 stats = boxplot.stats(time$value)$stats
 
 colnames(time)[3] = "MdAPE"
-p[[3]]=ggplot(data = time, aes(x = dist, y = MdAPE, fill = dist))+geom_boxplot()+theme(legend.position = "bottom")+ylab("log(MdAPE)")
-ggplot(data = time, aes(x = MdAPE, fill = dist))+geom_histogram(position = "dodge")
+p[[3]]=ggplot(data = time, aes(x = Dist, y = MdAPE, fill = Dist))+geom_boxplot()+theme(legend.position = "bottom")+ylab("log(MdAPE)")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+
+
+ggplot(data = time, aes(x = MdAPE, fill = dist))+geom_histogram(position = "dodge")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
 
 ####################################
-time = data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])/truetime[d]))), dist = rep("lognormal", 62))
-time = rbind(time, data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])/truetime[d]))), dist = rep("exponential", 62)))
+time = data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime[d,]-truetime[d])/truetime[d]))), Dist = rep("log-normal", 62))
+time = rbind(time, data.frame(MdAE = sapply(1:62, function(d) mean(abs((predtime2[d,]-truetime[d])/truetime[d]))), Dist = rep("exponential", 62)))
 time$MdAE = log(time$MdAE)
 
 time = melt(time)
 colnames(time)[3] = "MdAE"
-ggplot(data = time, aes(x = dist, y = MdAE, fill = dist))+geom_boxplot()
+ggplot(data = time, aes(x = Dist, y = MdAE, fill = Dist))+geom_boxplot()+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
 #####################################
 g_legend<-function(a.gplot){
   tmp <- ggplot_gtable(ggplot_build(a.gplot))

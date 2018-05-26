@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  26 MAY 2018 14:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  26 MAY 2018 18:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -679,159 +679,170 @@ Package pdftex.def Info: img/triad-1.png used on input line 342.
 (pdftex.def)             Requested size: 227.40231pt x 41.01317pt.
 
 [11 <./img/triad-1.png>] [12] [13]
-<img/PPEplotnew-1.png, id=463, 2264.46pt x 1252.68pt>
-File: img/PPEplotnew-1.png Graphic file (type png)
+<img/senderpredict-1.png, id=464, 1405.25pt x 1405.25pt>
+File: img/senderpredict-1.png Graphic file (type png)
 
-<use img/PPEplotnew-1.png>
-Package pdftex.def Info: img/PPEplotnew-1.png used on input line 411.
-(pdftex.def)             Requested size: 379.0pt x 209.646pt.
+<use img/senderpredict-1.png>
+Package pdftex.def Info: img/senderpredict-1.png used on input line 414.
+(pdftex.def)             Requested size: 125.0707pt x 125.05185pt.
 
-<img/modellabel.png, id=464, 537.00626pt x 71.26625pt>
+<img/receiverpredict-1.png, id=465, 1405.25pt x 1405.25pt>
+File: img/receiverpredict-1.png Graphic file (type png)
+
+<use img/receiverpredict-1.png>
+Package pdftex.def Info: img/receiverpredict-1.png used on input line 418.
+(pdftex.def)             Requested size: 125.0707pt x 125.05185pt.
+
+<img/timepredict-1.png, id=466, 1405.25pt x 1405.25pt>
+File: img/timepredict-1.png Graphic file (type png)
+
+<use img/timepredict-1.png>
+Package pdftex.def Info: img/timepredict-1.png used on input line 422.
+(pdftex.def)             Requested size: 125.0707pt x 125.05185pt.
+
+<img/modellabel.png, id=467, 537.00626pt x 71.26625pt>
 File: img/modellabel.png Graphic file (type png)
 
 <use img/modellabel.png>
-Package pdftex.def Info: img/modellabel.png used on input line 412.
+Package pdftex.def Info: img/modellabel.png used on input line 425.
 (pdftex.def)             Requested size: 151.59769pt x 20.1186pt.
 
-Overfull \vbox (2.05388pt too high) has occurred while \output is active []
+Overfull \hbox (14.87874pt too wide) in paragraph at lines 411--426
+ [][] 
+ []
 
-
-[14 <./img/PPEplotnew-1.png> <./img/modellabel.png>]
-<img/outdegree-1.png, id=484, 2264.46pt x 1252.68pt>
+[14 <./img/senderpredict-1.png> <./img/receiverpredict-1.png> <./img/timepredic
+t-1.png> <./img/modellabel.png>]
+<img/outdegree-1.png, id=489, 2264.46pt x 1252.68pt>
 File: img/outdegree-1.png Graphic file (type png)
  <use img/outdegree-1.png>
-Package pdftex.def Info: img/outdegree-1.png used on input line 447.
+Package pdftex.def Info: img/outdegree-1.png used on input line 466.
 (pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/indegree-1.png, id=485, 2264.46pt x 1252.68pt>
+<img/indegree-1.png, id=490, 2264.46pt x 1252.68pt>
 File: img/indegree-1.png Graphic file (type png)
  <use img/indegree-1.png>
-Package pdftex.def Info: img/indegree-1.png used on input line 451.
+Package pdftex.def Info: img/indegree-1.png used on input line 470.
 (pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/recipientsize-1.png, id=486, 2264.46pt x 1252.68pt>
+<img/recipientsize-1.png, id=491, 2264.46pt x 1252.68pt>
 File: img/recipientsize-1.png Graphic file (type png)
 
 <use img/recipientsize-1.png>
-Package pdftex.def Info: img/recipientsize-1.png used on input line 455.
+Package pdftex.def Info: img/recipientsize-1.png used on input line 474.
 (pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/timePPplot-1.png, id=487, 1405.25pt x 1405.25pt>
+<img/timePPplot-1.png, id=492, 1405.25pt x 1405.25pt>
 File: img/timePPplot-1.png Graphic file (type png)
 
 <use img/timePPplot-1.png>
-Package pdftex.def Info: img/timePPplot-1.png used on input line 460.
+Package pdftex.def Info: img/timePPplot-1.png used on input line 479.
 (pdftex.def)             Requested size: 105.0573pt x 105.04613pt.
 
-Overfull \hbox (11.53963pt too wide) in paragraph at lines 444--463
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 463--482
  [][] 
  []
 
-[15] [16 <./img/outdegree-1.png> <./img/indegree-1.png> <./img/recipientsize-1.
-png> <./img/timePPplot-1.png>]
-<img/betanewplot2-1.png, id=509, 1405.25pt x 1405.25pt>
+[15]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [16 <./img/outdegree-1.png> <./img/indegree-1.png> <./img/recipientsize-1.png>
+ <./img/timePPplot-1.png>] <img/betanewplot2-1.png, id=516, 1405.25pt x 1405.25
+pt>
 File: img/betanewplot2-1.png Graphic file (type png)
 
 <use img/betanewplot2-1.png>
-Package pdftex.def Info: img/betanewplot2-1.png used on input line 484.
+Package pdftex.def Info: img/betanewplot2-1.png used on input line 499.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
 
-<img/betanewplot3-1.png, id=510, 1405.25pt x 1405.25pt>
+<img/betanewplot3-1.png, id=517, 1405.25pt x 1405.25pt>
 File: img/betanewplot3-1.png Graphic file (type png)
 
 <use img/betanewplot3-1.png>
-Package pdftex.def Info: img/betanewplot3-1.png used on input line 488.
+Package pdftex.def Info: img/betanewplot3-1.png used on input line 503.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
 
-Overfull \hbox (11.53963pt too wide) in paragraph at lines 481--491
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 496--506
  [][] 
  []
 
-<img/etaplotnew-1.png, id=512, 1405.25pt x 1405.25pt>
+[17 <./img/betanewplot2-1.png> <./img/betanewplot3-1.png>]
+<img/etaplotnew-1.png, id=526, 1405.25pt x 1405.25pt>
 File: img/etaplotnew-1.png Graphic file (type png)
 
 <use img/etaplotnew-1.png>
-Package pdftex.def Info: img/etaplotnew-1.png used on input line 505.
+Package pdftex.def Info: img/etaplotnew-1.png used on input line 523.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
+ [18 <./img/etaplotnew-1.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Overfull \hbox (10.88954pt too wide) in paragraph at lines 501--509
-\OT1/cmr/m/n/10 To be-gin with, the pos-te-rior es-ti-mates of two tem-po-ral e
-ffects---``weekend" and AM/PM"---
- []
-
-[17]
-Underfull \vbox (badness 5924) has occurred while \output is active []
-
- [18 <./img/betanewplot2-1.png> <./img/betanewplot3-1.png>]
-Underfull \vbox (badness 4096) has occurred while \output is active []
-
- [19 <./img/etaplotnew-1.png>]
+ [19]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 553.
- [20] [21]
-<img/outdegree2-1.png, id=569, 2264.46pt x 1252.68pt>
+(Font)              <12> on input line 570.
+
+[20] [21] <img/outdegree2-1.png, id=574, 2264.46pt x 1252.68pt>
 File: img/outdegree2-1.png Graphic file (type png)
 
 <use img/outdegree2-1.png>
-Package pdftex.def Info: img/outdegree2-1.png used on input line 613.
+Package pdftex.def Info: img/outdegree2-1.png used on input line 630.
 (pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/indegree2-1.png, id=570, 2264.46pt x 1252.68pt>
+<img/indegree2-1.png, id=575, 2264.46pt x 1252.68pt>
 File: img/indegree2-1.png Graphic file (type png)
  <use img/indegree2-1.png>
-Package pdftex.def Info: img/indegree2-1.png used on input line 617.
+Package pdftex.def Info: img/indegree2-1.png used on input line 634.
 (pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/recipientsize2-1.png, id=571, 2264.46pt x 1252.68pt>
+<img/recipientsize2-1.png, id=576, 2264.46pt x 1252.68pt>
 File: img/recipientsize2-1.png Graphic file (type png)
 
 <use img/recipientsize2-1.png>
-Package pdftex.def Info: img/recipientsize2-1.png used on input line 621.
+Package pdftex.def Info: img/recipientsize2-1.png used on input line 638.
 (pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/timePPplot2-1.png, id=572, 1405.25pt x 1405.25pt>
+<img/timePPplot2-1.png, id=577, 1405.25pt x 1405.25pt>
 File: img/timePPplot2-1.png Graphic file (type png)
 
 <use img/timePPplot2-1.png>
-Package pdftex.def Info: img/timePPplot2-1.png used on input line 626.
+Package pdftex.def Info: img/timePPplot2-1.png used on input line 643.
 (pdftex.def)             Requested size: 105.0573pt x 105.04613pt.
 File: img/modellabel.png Graphic file (type png)
  <use img/modellabel.png>
-Package pdftex.def Info: img/modellabel.png used on input line 629.
+Package pdftex.def Info: img/modellabel.png used on input line 646.
 (pdftex.def)             Requested size: 151.59769pt x 20.1186pt.
 
-Overfull \hbox (11.53963pt too wide) in paragraph at lines 610--630
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 627--647
  [][] 
  []
 
 [22 <./img/outdegree2-1.png> <./img/indegree2-1.png> <./img/recipientsize2-1.pn
 g> <./img/timePPplot2-1.png>]
-<img/betatrace-1.png, id=583, 1405.25pt x 1405.25pt>
+<img/betatrace-1.png, id=588, 1405.25pt x 1405.25pt>
 File: img/betatrace-1.png Graphic file (type png)
  <use img/betatrace-1.png>
-Package pdftex.def Info: img/betatrace-1.png used on input line 640.
+Package pdftex.def Info: img/betatrace-1.png used on input line 657.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
 
-<img/etatrace-1.png, id=584, 1405.25pt x 1405.25pt>
+<img/etatrace-1.png, id=589, 1405.25pt x 1405.25pt>
 File: img/etatrace-1.png Graphic file (type png)
  <use img/etatrace-1.png>
-Package pdftex.def Info: img/etatrace-1.png used on input line 644.
+Package pdftex.def Info: img/etatrace-1.png used on input line 661.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
 
-<img/betageweke-1.png, id=585, 1405.25pt x 1405.25pt>
+<img/betageweke-1.png, id=590, 1405.25pt x 1405.25pt>
 File: img/betageweke-1.png Graphic file (type png)
 
 <use img/betageweke-1.png>
-Package pdftex.def Info: img/betageweke-1.png used on input line 648.
+Package pdftex.def Info: img/betageweke-1.png used on input line 665.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
 
-<img/etageweke-1.png, id=586, 1405.25pt x 1405.25pt>
+<img/etageweke-1.png, id=591, 1405.25pt x 1405.25pt>
 File: img/etageweke-1.png Graphic file (type png)
  <use img/etageweke-1.png>
-Package pdftex.def Info: img/etageweke-1.png used on input line 653.
+Package pdftex.def Info: img/etageweke-1.png used on input line 670.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
 
-Overfull \hbox (11.53963pt too wide) in paragraph at lines 637--656
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 654--673
  [][] 
  []
 
@@ -847,23 +858,23 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [25])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 673.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 690.
 
 [26]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 673.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 690.
  (./ba-sample.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 673.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 673.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 690.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 690.
 Package rerunfilecheck Info: File `ba-sample.out' has not changed.
 (rerunfilecheck)             Checksum: D42354065BA9EEB9A461B43D85535E0B;1614.
 Package rerunfilecheck Info: File `ba-sample.brf' has not changed.
-(rerunfilecheck)             Checksum: 0A0E66005C03B5BE80F202B0D36EC9FE;2084.
+(rerunfilecheck)             Checksum: 17D30FFE8A58598555CC9BCBAA3347B1;2042.
  ) 
 Here is how much of TeX's memory you used:
- 12069 strings out of 493089
- 183372 string characters out of 6134842
- 313144 words of memory out of 5000000
- 15151 multiletter control sequences out of 15000+600000
+ 12079 strings out of 493089
+ 183647 string characters out of 6134842
+ 314124 words of memory out of 5000000
+ 15159 multiletter control sequences out of 15000+600000
  17640 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,18n,75p,2835b,936s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -897,10 +908,10 @@ ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2015/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on ba-sample.pdf (26 pages, 5285109 bytes).
+Output written on ba-sample.pdf (26 pages, 5404397 bytes).
 PDF statistics:
- 784 PDF objects out of 1000 (max. 8388607)
+ 788 PDF objects out of 1000 (max. 8388607)
  662 compressed objects within 7 object streams
  215 named destinations out of 1000 (max. 500000)
- 343 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 353 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -60,7 +60,7 @@ eta.est = melt(eta[-1])
 colnames(eta.est)[1] = "covariates"
 colnames(eta.est)[2] = "eta"
 eta.est[,1] = as.factor(eta.est[,1])
-ggplot(data = eta.est, aes(x = reorder(covariates,-as.numeric(covariates)), y = eta, fill =covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+ggplot(data = eta.est, aes(x = reorder(covariates,-as.numeric(covariates)), y = eta, fill =covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")+ylab(expression(eta))
 
 #####################################
 load('~/Desktop/MulticastNetwork/code/Temporal_Email_Data.Rdata')
