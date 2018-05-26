@@ -93,7 +93,7 @@ recipientsdist1 = matrix(NA,  500, A-1)
 timedist1 = matrix(NA, 500, 621)
 #setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC")
 #setwd("/Users/bomin8319/")
-setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC")
+setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC4")
 
 for (n in 1:500) {
 	filename = paste0("Montgomery_PPCnew", n,".RData")
@@ -101,78 +101,53 @@ for (n in 1:500) {
 	outdegreedist1[n, ] = tabulate(vapply(1:621, function(x) Montgomery_PPC[[x]]$a_d, c(1)), A)
 	indegreedist1[n, ] = rowSums(sapply(1:621, function(x) Montgomery_PPC[[x]]$r_d))
 	recipientsdist1[n, ] = tabulate(vapply(1:621, function(x) sum(Montgomery_PPC[[x]]$r_d), c(1)), A-1)
-	timedist1[n, ] = c(Montgomery_PPC[[1]]$t_d -email$timepoints[42], vapply(2:621, function(x) Montgomery_PPC[[x]]$t_d - Montgomery_PPC[[x-1]]$t_d , c(1)))/ timeunit
-} 
-
-outdegreedist = data.frame(outdegreedist)
-colnames(outdegreedist)=1:18
+	timedist1[n, ] = vapply(1:621, function(x) Montgomery_PPC[[x]]$t_d, c(1))/ timeunit
+	} 
+###
+outdegreedist1 = data.frame(outdegreedist1)
+colnames(outdegreedist1)=1:18
 library(ggplot2)
 library(reshape)
-data = melt(outdegreedist)
+data = melt(outdegreedist1)
 colnames(data) = c("Node", "Outdegree")
 
 outdegree = data.frame(Node = 1:18, Outdegree = outdegree)
-ggplot(data = data, aes(x = Node, y = Outdegree)) +geom_boxplot() + geom_line(data = outdegree, col = 'red')
-
-indegreedist = data.frame(indegreedist)
-colnames(indegreedist)=1:18
+ggplot(data = data, aes(x = Node, y = Outdegree, fill = as.factor("hi"))) +geom_boxplot() + geom_line(data = outdegree, colour = "blue", size =0.5)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+###
+indegreedist1 = data.frame(indegreedist1)
+colnames(indegreedist1)=1:18
 library(ggplot2)
 library(reshape)
-data = melt(indegreedist)
+data = melt(indegreedist1)
 colnames(data) = c("Node", "Indegree")
 
 indegree = data.frame(Node = 1:18, Indegree = indegree)
-ggplot(data = data, aes(x = Node, y = Indegree)) +geom_boxplot() + geom_line(data = indegree, col = 'red')
-
-recipientsdist = data.frame(recipientsdist[,1:14])
-colnames(recipientsdist)=1:14
+ggplot(data = data, aes(x = Node, y = Indegree, fill = as.factor("hi"))) +geom_boxplot() + geom_line(data = indegree, colour = "blue", size =0.5)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+###
+recipientsdist1 = data.frame(recipientsdist1[,1:14])
+colnames(recipientsdist1)=1:14
 library(ggplot2)
 library(reshape)
-data = melt(recipientsdist)
+data = melt(recipientsdist1)
 colnames(data) = c("RecipientSize", "Documents")
 
 recipients = data.frame(RecipientSize = 1:14, Documents = recipients[1:14])
-ggplot(data = data, aes(x = RecipientSize, y = Documents) )+geom_boxplot() + geom_line(data = recipients, col = 'red')
+ggplot(data = data, aes(x = RecipientSize, y = Documents, fill = as.factor("hi")) )+geom_boxplot() + geom_line(data = recipients, colour = "blue", size =0.5)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
 
-uniqueValues = quantile(c(timedist[,-1], timeinc), seq(0, 1, length = 500))
+
+uniqueValues = quantile(c(timedist1[,-1], timeinc), seq(0, 1, length = 500))
   qx1 = numeric(length(uniqueValues))
   	qx2 = numeric(length(uniqueValues))
  		
   	for (j in 1:length(uniqueValues)) {
-  		qx1[j] = mean(c(timedist[,-1]) <= uniqueValues[j])
+  		qx1[j] = mean(c(timedist1[,-1]) <= uniqueValues[j])
   		qx2[j] = mean(c(timeinc) <= uniqueValues[j])
 }
 
 time = data.frame(Simulated = qx1, Observed = qx2)
-ggplot(data = time, aes(x = Simulated, y = Observed)) + geom_point() + geom_abline(intercept = 0, slope = 1, col = 'red')
+ggplot(data = time, aes(x = Simulated, y = Observed, colour = as.factor("hi"))) + geom_point() + geom_abline(intercept = 0, slope = 1,colour = "blue", size =0.5)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+
 ##########################################
-
-outdegree = tabulate(email[trim,2], A)
-indegree = colSums(email[trim,3:20])
-
-degreedist1 = table(nchar(outdegree))
-degreedist2 = table(nchar(indegree))
-
-indegreedist1 = matrix(NA, 500, 3)
-outdegreedist1 = matrix(NA,  500, 3)
-setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC")
-for (n in 1:500) {
-	filename = paste0("Montgomery_PPCnew", n,".RData")
-	load(filename)
-	outdegreedist1[n, ] = tabulate(nchar(tabulate(vapply(1:621, function(x) Montgomery_PPC[[x]]$a_d, c(1)), A)),3)
-	indegreedist1[n, ] = tabulate(nchar(rowSums(sapply(1:621, function(x) Montgomery_PPC[[x]]$r_d))),3)
-} 
-outdegreedist1 = data.frame(outdegreedist1)
-colnames(outdegreedist1)=1:3
-library(ggplot2)
-library(reshape)
-data = melt(outdegreedist1)
-colnames(data) = c("Outdegree", "Nodes")
-
-outdegree1 = data.frame(Outdegree = degreedist1)
-colnames(outdegree1) = c("Outdegree", "Nodes")
-ggplot(data = data, aes(x = Outdegree, y = Nodes)) +geom_boxplot() + geom_line(data = outdegree1, group = 1, col = 'red')
-
 #################################
 
 indegreedist2 = matrix(NA, 500, A)
@@ -244,7 +219,7 @@ data = melt(outdegreedist)
 colnames(data) = c("Model","Node", "Outdegree")
 
 outdegreeobs = data.frame(Node = 1:18, Outdegree = outdegree, Model = rep("lognormal", 18))
-ggplot(data = data, aes(x = Node, y = Outdegree, fill= Model)) +geom_boxplot() + geom_line(data = outdegreeobs, col = 'red', group = 1)
+ggplot(data = data, aes(x = Node, y = Outdegree, fill= Model)) +geom_boxplot() + geom_line(data = outdegreeobs, colour = "blue", size =0.5, group = 1)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
 
 indegreedist = data.frame(indegreedist1, model = rep("lognormal", 500))
 indegreedist = rbind(indegreedist, data.frame(indegreedist2, model = rep("exponential", 500)))
@@ -253,7 +228,7 @@ data = melt(indegreedist)
 colnames(data) = c("Model","Node", "Indegree")
 
 indegreeobs = data.frame(Node = 1:18, Indegree = indegree, Model = rep("lognormal", 18))
-ggplot(data = data, aes(x = Node, y =Indegree, fill= Model)) +geom_boxplot() + geom_line(data = indegreeobs, col = 'red', group = 1)
+ggplot(data = data, aes(x = Node, y =Indegree, fill= Model)) +geom_boxplot() + geom_line(data = indegreeobs, colour = "blue", size =0.5, group = 1)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
 
 recipientsdist = data.frame(recipientsdist1[,1:14], model = rep("lognormal", 500))
 recipientsdist = rbind(recipientsdist, data.frame(recipientsdist2[,1:14], model = rep("exponential", 500)))
@@ -262,7 +237,7 @@ data = melt(recipientsdist)
 colnames(data) = c("Model","RecipientSize","Documents")
 
 recipientsobs = data.frame(RecipientSize = 1:14, Documents = recipients[1:14], Model = rep("lognormal", 14))
-ggplot(data = data, aes(x =RecipientSize, y = Documents, fill= Model)) +geom_boxplot() + geom_line(data = recipientsobs, col = 'red', group = 1)
+ggplot(data = data, aes(x =RecipientSize, y = Documents, fill= Model)) +geom_boxplot()+ geom_line(data = recipientsobs, colour = "blue", size =0.5, group = 1)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none") 
 
 
 
@@ -277,7 +252,7 @@ uniqueValues = quantile(c(timedist1[,-1], timeinc), seq(0, 1, length = 500))
 }
 
 
-time = data.frame(Simulated = qx1, Observed = qx2, Model = rep("lognormal", 500))
+time = data.frame(Simulated = qx1, Observed = qx2, Model = rep("log-normal", 500))
 
 uniqueValues = quantile(c(timedist2[,-1], timeinc), seq(0, 1, length = 500))
   qx1 = numeric(length(uniqueValues))
@@ -289,7 +264,7 @@ uniqueValues = quantile(c(timedist2[,-1], timeinc), seq(0, 1, length = 500))
 }
 
 time = rbind(time, data.frame(Simulated = qx1, Observed = qx2, Model = rep("exponential", 500)))
-ggplot(data = time, aes(x = Simulated, y = Observed, colour = Model)) + geom_point() + geom_abline(intercept = 0, slope = 1)
+ggplot(data = time, aes(x = Simulated, y = Observed, colour = Model)) + geom_point()+ geom_abline(intercept = 0, slope = 1,colour = "blue", size =0.5)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
 
 
 

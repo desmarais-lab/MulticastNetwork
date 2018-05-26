@@ -95,10 +95,10 @@ In recent decades, real-time digitized textual communication has developed into 
 
 However, most studies above are limited to modeling edges with one sender and one receivers. To our knowledge, none of the existing continuous-time network models in statistical literature explicitly allow hyperedges---a connection between two or more vertices generated simultaneously\footnote{A hyperedge connecting just two nodes is simply a usual dyadic edge.}---which is a common property of digitalized textual interactions such as emails and online messages. For instance, \cite{PerryWolfe2012} treat multicast interactions---one type of directed hyperedge which involve one sender and one or more receivers---via duplication (i.e., obtain pairwise interactions from the original multicast), to construct approximate likelihood function in their inferential framework for model parameters. Similarly, \cite{fan2009learning} duplicates emails sent from one sender to one or more receivers and randomly jitter the sent times, in order to avoid the violation of continous time model assumption. There have been numerous studies for hyperedges under the hypergraph theory \citep{karypis1999multilevel} in phyics literature, including a random hypergraph model \citep{ghoshal2009random}, but most of them are designed specifically for engineering applications---e.g., multiple tagging networks \citep{zlatic2009hypergraph,zhang2010hypergraph}, cellular networks \citep{klamt2009hypergraphs}, and personalized recommendations \citep{zhang2010personalized,blattner2009b}---with lack of extensive efforts to incorportate hyperedge modeling into general statistical framework.
 
-Concentrating on developing a statistical network model with better handling of hyperedges, we introduce the hyperedge event model (HEM) which jointly models the two components that govern time-stamped event formation: 1) the receiver selection processs that allows directed edges with one sender and one or more receivers or one receiver and one or more senders, and 2) the timing equation that models time increments (i.e., time to next event) with flexible distributional choices. In what follows, we introduce the HEM by describing how we assume the generatve process of a time-stamped event data (Section \ref{sec:generative process}), and deriving the conditional posteriors for Bayesian inference along with code review tests (Section \ref{sec:inference}). Then, we demonstrate the model's applicability by analyzing one of the county government email network---the Montgomery county email data---via model selection, posterior predictive checks, and exploratory analysis (Section \ref{subsec:Emails}). Finally, the paper finishes in Section 5 with conclusion and discussion.
+Concentrating on developing a statistical network model with better handling of hyperedges, we introduce the hyperedge event model (HEM) which jointly models the two components that govern time-stamped event formation: 1) the receiver selection processs that allows directed edges with one sender and one or more receivers or one receiver and one or more senders, and 2) the timing equation that models time increments (i.e., time to next event) with flexible distributional choices. In what follows, we introduce the HEM by describing how we assume the generatve process of a time-stamped event data (Section \ref{sec:generative process}), and deriving the conditional posteriors for Bayesian inference along with code review tests (Section \ref{sec:inference}). Then, we demonstrate the model's applicability by analyzing one of the county government email network---the Montgomery county email data---via model selection, posterior predictive checks, and exploratory analysis (Section \ref{subsec:Emails}). Finally, the paper finishes in Section \ref{sec:conclusion} with conclusion and discussion.
 \section{The Hyperedge Event Model}\label{sec:generative process}
 
-Data generated under the model consists of $D$ unique edges. A single edge, indexed by $d \in [D]$, is represented by the three components: a sender $a_d \in [A]$, an indicator vector of receivers $\boldsymbol{r}_d = \{u_{dr} \}_{r=1}^{A}$, and a timestamp $t_d \in (0, \infty)$. For simplicity, we assume that edges are ordered by time such that $t_d \leq t_{d+1}$. While the model can be applied for two type of hyperedges---edges with (1) one sender and one or more receivers, and (2) one receiver and mone or more receivers---here we only present the generative process for those involving one sender and one or more receivers (i.e., multicast). For the latter case of hyperedges, we treat $a_d$ to be an indicator vector of senders $\boldsymbol{a}_d = \{u_{dr} \}_{a=1}^{A}$ and $r_d$ to be the single receiver. Detailed generative process for directed edges with one receiver and one or more senders are provided in Appendix A.
+Data generated under the model consists of $D$ unique edges. A single edge, indexed by $d \in [D]$, is represented by the three components: the sender $a_d \in [A]$, an indicator vector of recipients $\boldsymbol{r}_d = \{u_{dr} \}_{r=1}^{A}$, and the timestamp $t_d \in (0, \infty)$. For simplicity, we assume that edges are ordered by time such that $t_d \leq t_{d+1}$. While the model can be applied for two type of hyperedges---edges with (1) a single sender and multiple receivers, and (2) multiple senders and a single receiver---here we only present the generative process for those involving a single sender and multiple receivers (i.e., multicast). For the latter case of hyperedges, we treat $a_d$ to be an indicator vector of senders $\boldsymbol{a}_d = \{u_{dr} \}_{a=1}^{A}$ and $r_d$ to be the single recipient.
 
 \subsection{Hypothetical Edges}\label{subsec: Tie}
 For every possible sender--receiver pair $(a,r)_{a \neq r}$, we define the ``receiver intensity"---an approximate inverse logit of the probability that edge $d$ is being sent from sender $a$ to receiver $r$---as a linear combination of statistics relevant to the receiver selection process:
@@ -409,7 +409,8 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
 			\begin{figure}[!t]
 				\centering
 				\includegraphics[width=1\textwidth]{img/PPEplotnew-1.png}	
-				\caption {Comparison of predictive performance between log-normal and exponential distributions: boxplots for correct sender posterior probability (\textit{left}), $F_1$ scores from receiver predictions (\textit{middle}), and boxplots for median absolute percentage error (\textit{right}). The dotted blue lines in the left plot represents the correct sender probability expected by random guess---i.e., $1/A=1/18\approx0.056$.}
+										\includegraphics[width=0.4\textwidth]{img/modellabel.png}				
+			\caption {Comparison of predictive performance between log-normal and exponential distributions: boxplots for correct sender posterior probability (\textit{left}), $F_1$ scores from receiver predictions (\textit{middle}), and boxplots for median absolute percentage error (\textit{right}). The dotted blue lines in the left plot represents the correct sender probability expected by random guess---i.e., $1/A=1/18\approx0.056$.}
 				\label{figure:PPEresults}
 			\end{figure}
 		\begin{equation}
@@ -443,20 +444,20 @@ In this section, we perform posterior predictive checks (PPC) \citep{rubin1984ba
 		\begin{tabular}[t]{cc}
 		   	\begin{subfigure}[b]{0.495\textwidth}
 		   		\caption{Outdegree distribution}
-		\includegraphics[width=\textwidth]{img/outdegreenew-1.png}	
+		\includegraphics[width=\textwidth]{img/outdegree-1.png}	
 		   	\end{subfigure}
 		   			   	\begin{subfigure}[b]{0.495\textwidth}
 		   			   		\caption{Indegree distribution}
-		   			   		\includegraphics[width=\textwidth]{img/indegreenew-1.png}	
+		   			   		\includegraphics[width=\textwidth]{img/indegree-1.png}	
 		   			   	\end{subfigure}\\
 			   	\begin{subfigure}[b]{0.495\textwidth}
 			   		\caption{Receiver size distribution}
-			   		\includegraphics[width=\textwidth]{img/recipientsizenew-1.png}	
+			   		\includegraphics[width=\textwidth]{img/recipientsize-1.png}	
 			   	\end{subfigure}
 			   	\begin{subfigure}[b]{0.495\textwidth}
 			   				\centering
 			   		\caption{PPplot for time increments}
-			   		\includegraphics[width=0.6\textwidth]{img/timeppnew-1.png}	
+			   		\includegraphics[width=0.56\textwidth]{img/timePPplot-1.png}	
 			   	\end{subfigure}
 		\end{tabular}
 		\caption {PPC results from log-normal distribution. Blue lines denote the observed statistics in (a)--(c) and denotes the diagonal line in (d).}
@@ -609,22 +610,23 @@ of one type of hyperedges, a single sender and multiple receivers, our model can
 			\begin{tabular}[t]{cc}
 				\begin{subfigure}[b]{0.495\textwidth}
 					\caption{Outdegree distribution}
-					\includegraphics[width=\textwidth]{img/outdegree_two-1.png}	
+					\includegraphics[width=\textwidth]{img/outdegree2-1.png}	
 				\end{subfigure}
 				\begin{subfigure}[b]{0.495\textwidth}
 					\caption{Indegree distribution}
-					\includegraphics[width=\textwidth]{img/indegree_two-1.png}	
+					\includegraphics[width=\textwidth]{img/indegree2-1.png}	
 				\end{subfigure}\\
 				\begin{subfigure}[b]{0.495\textwidth}
 					\caption{Receiver size distribution}
-					\includegraphics[width=\textwidth]{img/recipientsize_two-1.png}	
+					\includegraphics[width=\textwidth]{img/recipientsize2-1.png}	
 				\end{subfigure}
 				\begin{subfigure}[b]{0.495\textwidth}
 					\centering
 					\caption{PPplot for time increments}
-					\includegraphics[width=0.625\textwidth]{img/timepp_two-1.png}
+					\includegraphics[width=0.56\textwidth]{img/timePPplot2-1.png}
 				\end{subfigure}
 			\end{tabular}
+						\includegraphics[width=0.4\textwidth]{img/modellabel.png}
 			\caption {Comparison of PPC results between log-normal (\textit{red}) and exponential (\textit{green}) distributions. Blue lines denote the observed statistics in (a)--(c) and denotes the diagonal line in (d).}
 			\label{figure:PPCtwo}
 		\end{figure}
