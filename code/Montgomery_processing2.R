@@ -100,6 +100,7 @@ save(Montgomery_infer, file= "/Users/bomin8319/Desktop/Montgomery_infer.RData")
 ############################################################################
 Montgomery_infer2 = Inference(edge, X, Y, 55000, c(20,10,1), 15000, prior.beta, prior.eta, prior.sigma2, initialval = NULL,
                              proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, timedist = "exponential")
+save(Montgomery_infer2, file= "/Users/bomin8319/Desktop/Montgomery_infer2.RData")
 ###############################################
 
 

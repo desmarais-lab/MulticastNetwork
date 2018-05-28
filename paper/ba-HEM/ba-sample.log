@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  26 MAY 2018 18:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  28 MAY 2018 13:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -780,25 +780,26 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 570.
 
-[20] [21] <img/outdegree2-1.png, id=574, 2264.46pt x 1252.68pt>
+[20] [21] <img/outdegree2-1.png, id=574, 2264.46pt x 1250.6725pt>
 File: img/outdegree2-1.png Graphic file (type png)
 
 <use img/outdegree2-1.png>
 Package pdftex.def Info: img/outdegree2-1.png used on input line 630.
-(pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
+(pdftex.def)             Requested size: 187.60315pt x 103.60541pt.
 
-<img/indegree2-1.png, id=575, 2264.46pt x 1252.68pt>
+<img/indegree2-1.png, id=575, 2264.46pt x 1250.6725pt>
 File: img/indegree2-1.png Graphic file (type png)
- <use img/indegree2-1.png>
-Package pdftex.def Info: img/indegree2-1.png used on input line 634.
-(pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/recipientsize2-1.png, id=576, 2264.46pt x 1252.68pt>
+<use img/indegree2-1.png>
+Package pdftex.def Info: img/indegree2-1.png used on input line 634.
+(pdftex.def)             Requested size: 187.60315pt x 103.60541pt.
+
+<img/recipientsize2-1.png, id=576, 2264.46pt x 1250.6725pt>
 File: img/recipientsize2-1.png Graphic file (type png)
 
 <use img/recipientsize2-1.png>
 Package pdftex.def Info: img/recipientsize2-1.png used on input line 638.
-(pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
+(pdftex.def)             Requested size: 187.60315pt x 103.60541pt.
 
 <img/timePPplot2-1.png, id=577, 1405.25pt x 1405.25pt>
 File: img/timePPplot2-1.png Graphic file (type png)
@@ -873,7 +874,7 @@ Package rerunfilecheck Info: File `ba-sample.brf' has not changed.
 Here is how much of TeX's memory you used:
  12079 strings out of 493089
  183647 string characters out of 6134842
- 314124 words of memory out of 5000000
+ 313124 words of memory out of 5000000
  15159 multiletter control sequences out of 15000+600000
  17640 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -908,7 +909,7 @@ ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2015/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on ba-sample.pdf (26 pages, 5404397 bytes).
+Output written on ba-sample.pdf (26 pages, 5683514 bytes).
 PDF statistics:
  788 PDF objects out of 1000 (max. 8388607)
  662 compressed objects within 7 object streams

@@ -156,7 +156,7 @@ recipientsdist2 = matrix(NA,  500, A-1)
 timedist2 = matrix(NA, 500, 621)
 #setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC")
 #setwd("/Users/bomin8319/")
-setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC3")
+setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC2")
 
 for (n in 1:500) {
 	filename = paste0("Montgomery_PPCnew2", n,".RData")

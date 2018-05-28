@@ -1,0 +1,1180 @@
+library(ggplot2)#
+library(reshape2)
+p <- ggplot(data, aes(x = r1, y = r2, color = node, label = node)) +geom_text(data = center, size = 3, show.legend = F, fontface = "bold")+ theme_minimal()+scale_color_manual(values = depts)+theme(axis.title.x=element_blank(),axis.title.y=element_blank())#
+p1 <- p
+UDU = t(sapply(1:5000, function(i) try3$UDU[4*i,])) #
+R = 2#
+Dmat = matrix(NA, 5000, R)#
+UDUmat = matrix(0, A, A)#
+UDUmat[upper.tri(UDUmat)] = UDU[1,]	#
+UDUmat = UDUmat + t(UDUmat)#
+eULU = eigen(UDUmat)#
+Dmat[1, ] = eULU$val[which(rank(-abs(eULU$val), ties.method = "first") <= R)]#
+position = eULU$vec[, seq(1, R, length = R), drop = FALSE]	#
+#position = procrustes(position, Xstar)$X.new#
+for (i in 2:5000) {#
+	UDUmat = matrix(0, A, A)#
+	UDUmat[upper.tri(UDUmat)] = UDU[i,]	#
+	UDUmat = UDUmat + t(UDUmat)#
+	eULU = eigen(UDUmat)#
+	U = eULU$vec[, seq(1, R, length = R), drop = FALSE]#
+	position = cbind(position, procrustes(U, position[,1:2])$X.new)#
+	Dmat[i, ] = eULU$val[which(rank(-abs(eULU$val), ties.method = "first") <= R)]#
+	#position = cbind(position, positionnew)#
+}
+head(Dmat)
+summary(Dmat[,1])
+summary(Dmat[,2])
+mean(Dmat[1])
+mean(Dmat[,1])
+mean(Dmat[,2])
+source("/Users/bomin8319/Desktop/MulticastNetwork/code/Multicast.R")#
+#
+D = 100#
+A = 5#
+P = 4#
+#Q = 3#
+X = array(rnorm(D*A*A*P), dim = c(D,A,A,P))#
+X[,,,1] = 1#
+#Y = array(rnorm(D*A*Q), dim = c(D,A,Q))#
+Q = 3#
+Y = array(1, dim = c(D,A,Q))#
+for (a in 1:A) {#
+  Y[,a,2] = a#
+  if (a != 1) {#
+    Y[,a,3] = 0#
+  }#
+}#
+support = gibbs.measure.support(A-1)#
+prior.beta = list(mean = c(-3, rep(0, P-1)), var = diag(P))#
+prior.eta = list(mean = rep(0, Q), var = diag(Q))#
+prior.sigma2 = list(a = 3, b = 1)#
+Nsamp = 10^5#
+outer = 10#
+inner = c(5, 5, 5)#
+burn = 0#
+#Schein test#
+result = matrix(NA, Nsamp, 2*(5+P+Q))#
+for (n in 1:Nsamp) {#
+  if (n %% 100 == 0) print(n)#
+  beta = rmvnorm_arma(1, prior.beta$mean, prior.beta$var)#
+  eta = rmvnorm_arma(1, prior.eta$mean, prior.eta$var)#
+  sigma2 = rinvgamma(1, prior.sigma2$a, prior.sigma2$b)#
+  initial = Generate(D, A, beta, eta, sigma2, X, Y, support)#
+  infer = Inference(initial$data, X, Y, outer, inner, burn, prior.beta, prior.eta, prior.sigma2, #
+                    initial = initial, proposal.var = c(0.01, 0.1, 0.01, 0.5), lasttime = 0)#
+  initial2 = Generate(D, A, infer$beta[outer,], infer$eta[outer,], infer$sigma2[outer,], X, Y, support)                  #
+  result[n, ] = c(mean(vapply(initial$data, function(x) sum(x$r_d), c(1))),#
+                  var(vapply(initial$data, function(x) sum(x$r_d), c(1))),#
+ 				 mean(vapply(2:D, function(d) initial$data[[d]]$t_d-initial$data[[d-1]]$t_d, c(1))),#
+ 				var(vapply(2:D, function(d) initial$data[[d]]$t_d-initial$data[[d-1]]$t_d, c(1))),#
+                  initial$beta, initial$eta, initial$sigma2, #
+                 mean(vapply(initial2$data, function(x) sum(x$r_d), c(1))),#
+ 			var(vapply(initial2$data, function(x) sum(x$r_d), c(1))),#
+                  mean(vapply(2:D, function(d) initial2$data[[d]]$t_d-initial2$data[[d-1]]$t_d, c(1))),#
+ 				var(vapply(2:D, function(d) initial2$data[[d]]$t_d-initial2$data[[d-1]]$t_d, c(1))),#
+                  initial2$beta, initial2$eta, initial2$sigma2)			 #
+}#
+par(mfrow=c(3,4))#
+GiR_PP_Plots(result[,c(1:(5+P+Q))], result[,c((6+P+Q):(2*(5+P+Q)))])
+(14+10+11+7+16+6)/6
+(14-10.667)^2+(10-10.667)^2+(11-10.667)^2+(16-10.667)^2+(6-10.667)^2
+()(14-10.667)^2+(10-10.667)^2+(11-10.667)^2+(16-10.667)^2+(6-10.667)^2)/(6-1)
+((14-10.667)^2+(10-10.667)^2+(11-10.667)^2+(16-10.667)^2+(6-10.667)^2)/(6-1)
+sqrt(((14-10.667)^2+(10-10.667)^2+(11-10.667)^2+(16-10.667)^2+(6-10.667)^2)/(6-1))
+sqrt(12.377259)
+sqrt(12.37729)
+sqrt(12.377)
+summary(c(14,10,11,7,16))
+summary(c(14,10,11,7,16,6))
+17/2
+23/3
+summary
+?Q1
+344/523
+177/289
+95/180
+0.6
+0.6/0.4
+24/180
+mean(c(10,16,14,8,12,14))
+sqrt(8.7)
+(400-500/100)
+(400-500)/100
+(14-18)/7
+(14-18)/6
+load('~/Desktop/Montgomery_infer.RData')
+library(ggplot2)#
+library(ggmcmc)#
+library(gridExtra)#
+library(ggthemes)#
+library(latex2exp)#
+library(MCMCpack)#
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x, c(2,5,10)]))#
+colnames(beta) = c("beta2","beta5", "beta10")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x, ]))#
+colnames(beta) = c(sapply(1:11, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+beta = t(sapply(5000+c(1:5000), function(x) Montgomery_infer$beta[4*x, c(1,5,10)]))
+beta = t(sapply(5000+c(1:5000), function(x) Montgomery_infer$beta[4*x,]))#
+colnames(beta) = c(sapply(1:11, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+5000+c(1:5000)
+beta = t(sapply(5000+c(1:5000), function(x) Montgomery_infer$beta[4*x,]))
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x, ]))
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+eta = t(sapply(1:5000, function(x) Montgomery_infer2$eta[8*x, ]))#
+colnames(eta) = c(sapply(1:7, function(x) paste0("eta",x)))#
+S <-  ggs(mcmc(eta))#
+ggs_geweke(S)
+eta = t(sapply(1:5000, function(x) Montgomery_infer$eta[8*x, ]))#
+colnames(eta) = c(sapply(1:7, function(x) paste0("eta",x)))#
+S <-  ggs(mcmc(eta))#
+ggs_geweke(S)
+head(eta)
+plot(eta[,7], type = 'l')
+plot(eta[-c(1:4000),7], type = 'l')
+plot(eta[-c(1:1000),7], type = 'l')
+eta = t(sapply(2000:5000, function(x) Montgomery_infer$eta[8*x, ]))#
+colnames(eta) = c(sapply(1:7, function(x) paste0("eta",x)))#
+S <-  ggs(mcmc(eta))#
+ggs_geweke(S)
+beta = t(sapply(2000:5000, function(x) Montgomery_infer$beta[8*x,]))#
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x, ]))
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+beta = t(sapply(1:4000, function(x) Montgomery_infer$beta[10*x,]))#
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+beta = t(sapply(1:2000, function(x) Montgomery_infer$beta[20*x,]))#
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+head(beta)
+plot(beta[,3], type = 'l')
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,]))
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+beta = t(sapply(1:500, function(x) Montgomery_infer$beta[80*x,]))
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,]))#
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+beta = t(sapply(1:800, function(x) Montgomery_infer$beta[50*x,]))#
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+40000/50
+eta = t(sapply(1:800, function(x) Montgomery_infer$eta[50*x,]))
+colnames(eta) = c(sapply(1:7, function(x) paste0("eta",x)))#
+S <-  ggs(mcmc(eta))#
+ggs_geweke(S)
+eta = t(sapply(2000:5000, function(x) Montgomery_infer$eta[8*x, ]))#
+colnames(eta) = c(sapply(1:7, function(x) paste0("eta",x)))#
+S <-  ggs(mcmc(eta))#
+ggs_geweke(S)
+beta = t(sapply(1:800, function(x) Montgomery_infer$beta[50*x,]))#
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x, ]))
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x, ]))
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+beta = t(sapply(1:800, function(x) Montgomery_infer$beta[50*x,]))#
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x, ]))
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[50*x,c(1,8,13)]))#
+colnames(beta) = c("beta2","beta5", "beta10")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[50*x,c(1,8,13)]))
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x,c(1,8,13)]))#
+colnames(beta) = c("beta2","beta5", "beta10")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x,c(2,8,13)]))#
+colnames(beta) = c("beta2","beta5", "beta10")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:800, function(x) Montgomery_infer$beta[50*x,c(2,8,13)]))#
+colnames(beta) = c("beta2","beta5", "beta10")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(2,8,13)]))#
+colnames(beta) = c("beta2","beta5", "beta10")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(1,2,3)]))#
+colnames(beta) = c("beta2","beta5", "beta10")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(3,4,5)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(3,5,6)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(3,5,7)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(3,5,8)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(3,5,9)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(3,5,10)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(3,5,11)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(3,5,12)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(3,5,13)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(3,5,14)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(2,5,14)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(1,5,14)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(3,5,14)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(3,5,10)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(3,5,9)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(3,5,8)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:2000, function(x) Montgomery_infer$beta[20*x,c(3,5,8)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:1000, function(x) Montgomery_infer$beta[40*x,c(3,5,8)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x,c(3,5,8)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:10000, function(x) Montgomery_infer$beta[4*x,c(3,5,8)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x,c(3,5,8)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:800, function(x) Montgomery_infer$beta[50*x,]))#
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+eta = t(sapply(1:5000, function(x) Montgomery_infer$eta[8*x, c(2,7)]))#
+eta = cbind(eta, sapply(1:5000, function(x) Montgomery_infer$sigma2[8*x]))#
+colnames(eta) = c("eta2", "eta7", "sigma2")#
+S2 <-  ggs(mcmc(eta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+eta = t(sapply(1:5000, function(x) Montgomery_infer$eta[8*x, c(2,7)]))
+eta = cbind(eta, sapply(1:5000, function(x) Montgomery_infer$sigma2[8*x]))#
+colnames(eta) = c("eta2", "eta7", "sigma2")#
+S2 <-  ggs(mcmc(eta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+head(eta)
+S <-  ggs(mcmc(eta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+eta = t(sapply(2000:5000, function(x) Montgomery_infer$eta[8*x, ]))#
+colnames(eta) = c(sapply(1:7, function(x) paste0("eta",x)))#
+S <-  ggs(mcmc(eta))#
+ggs_geweke(S)
+eta = t(sapply(1:5000, function(x) Montgomery_infer$eta[8*x, c(1,6)]))#
+eta = cbind(eta, sapply(1:5000, function(x) Montgomery_infer$sigma2[8*x]))#
+colnames(eta) = c("eta2", "eta7", "sigma2")#
+S <-  ggs(mcmc(eta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+eta = t(sapply(1:5000, function(x) Montgomery_infer$eta[8*x, c(2,7)]))#
+eta = cbind(eta, sapply(1:5000, function(x) Montgomery_infer$sigma2[8*x]))#
+colnames(eta) = c("eta2", "eta7", "sigma2")#
+S <-  ggs(mcmc(eta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+eta = t(sapply(2000:5000, function(x) Montgomery_infer$eta[8*x, ]))#
+colnames(eta) = c(sapply(1:7, function(x) paste0("eta",x)))#
+S <-  ggs(mcmc(eta))#
+ggs_geweke(S)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x,c(3,5,8)]))#
+colnames(beta) = c("beta1","beta2", "beta3")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x,c(3,5,8)]))#
+colnames(beta) = c("beta3","beta5", "beta8")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(5000+c(1:5000), function(x) Montgomery_infer$beta[8*x, c(1,5,10)]))#
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x,c(3,5,8)]))#
+colnames(beta) = c("beta3","beta5", "beta8")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)#
+density = ggs_density(S)#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x, ]))#
+beta = t(sapply(1:800, function(x) Montgomery_infer$beta[50*x,]))#
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+ggs_geweke(S)
+ggs_geweke
+ggs_geweke(S)+scale_colour_discrete(values = c("black"))
+ggs_geweke(S)+scale_colour_manual(values = c("black"))
+ggs_geweke(S)+scale_colour_manual(values = c("black","black"))
+ggs_geweke(S)+scale_colour_manual(values = c("black"))
+ggs_geweke(S)+scale_colour_manual(value= c("black"))
+ggs_geweke(S)+scale_colour_manual(values = c("black","black"))+theme(legend.position="none")
+S <-  ggs(factor(mcmc(beta)))
+beta = t(sapply(1:800, function(x) Montgomery_infer$beta[50*x,]))#
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))
+head(beta)
+S
+names(S)
+S$Parameter
+S$Parameters <- factor(S$Parameters, levels = c(sapply(1:14, function(x) paste0("beta",x))))
+S$Parameters
+factor(S$Parameters, levels = c(sapply(1:14, function(x) paste0("beta",x))))
+names(S)
+S$Parameter <- factor(S$Parameter, levels = c(sapply(1:14, function(x) paste0("beta",x))))
+S$Parameter
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x, ]))#
+beta = t(sapply(1:800, function(x) Montgomery_infer$beta[50*x,]))#
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+S$Parameter <- factor(S$Parameter, levels = c(sapply(1:14, function(x) paste0("beta",x))))#
+ggs_geweke(S)+scale_colour_manual(values = c("black","black"))+theme(legend.position="none")
+ggs_geweke(S)+scale_colour_manual(values = c("black","black"))+theme(text = element_text(size = rel(5)),legend.position="none")
+ggs_geweke(S)+scale_colour_manual(values = c("black","black"))+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")
+grid.arrange(plot, density, ncol = 2, nrow = 1)+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")
+plot = ggs_traceplot(S)+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")#
+density = ggs_density(S)+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x,c(3,5,8)]))#
+colnames(beta) = c("beta3","beta5", "beta8")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")#
+density = ggs_density(S)+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+eta = t(sapply(1:5000, function(x) Montgomery_infer$eta[8*x, c(2,7)]))#
+eta = cbind(eta, sapply(1:5000, function(x) Montgomery_infer$sigma2[8*x]))#
+colnames(eta) = c("eta2", "eta7", "sigma2")#
+S <-  ggs(mcmc(eta))#
+plot = ggs_traceplot(S)+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")#
+density = ggs_density(S)+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")#
+#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+eta = t(sapply(2000:5000, function(x) Montgomery_infer$eta[8*x, ]))#
+colnames(eta) = c(sapply(1:7, function(x) paste0("eta",x)))#
+S <-  ggs(mcmc(eta))#
+ggs_geweke(S)+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")
+eta = t(sapply(2000:5000, function(x) Montgomery_infer$eta[8*x, ]))#
+colnames(eta) = c(sapply(1:7, function(x) paste0("eta",x)))#
+S <-  ggs(mcmc(eta))#
+ggs_geweke(S)+scale_colour_manual(values = c("black","black"))+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")
+load('~/Desktop/Montgomery_infer.RData')
+library(ggplot2)#
+library(ggmcmc)#
+library(gridExtra)#
+library(ggthemes)#
+library(latex2exp)#
+library(MCMCpack)#
+beta = t(sapply(5000+c(1:5000), function(x) Montgomery_infer$beta[8*x, c(1,5,10)]))#
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x,c(3,5,8)]))#
+colnames(beta) = c("beta3","beta5", "beta8")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")#
+density = ggs_density(S)+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+load('~/Desktop/Montgomery_infer.RData')
+library(ggplot2)#
+library(ggmcmc)#
+library(gridExtra)#
+library(ggthemes)#
+library(latex2exp)#
+library(MCMCpack)#
+beta = t(sapply(5000+c(1:5000), function(x) Montgomery_infer$beta[8*x, c(1,5,10)]))#
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x,c(3,5,8)]))#
+colnames(beta) = c("beta3","beta5", "beta8")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")
+grid.arrange(plot,ncol = 2, nrow = 1)
+grid.arrange(plot,ncol = 1, nrow = 1)
+plot = ggs_traceplot(S)+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")#
+density = ggs_density(S)+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+plot = ggs_traceplot(S)+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")+ scale_x_continuous(breaks=seq(0,5000,2500))#
+density = ggs_density(S)+theme(plot.title = element_blank(),text = element_text(size = rel(5)),legend.position="none")#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x,c(3,5,8)]))#
+colnames(beta) = c("beta3","beta5", "beta8")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)+theme(plot.title = element_blank(),text = element_text(size = rel(4.5)),legend.position="none")+ scale_x_continuous(breaks=seq(0,5000,2500))#
+density = ggs_density(S)+theme(plot.title = element_blank(),text = element_text(size = rel(4.5)),legend.position="none")#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:800, function(x) Montgomery_infer$beta[50*x,]))#
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+S$Parameter <- factor(S$Parameter, levels = c(sapply(1:14, function(x) paste0("beta",x))))#
+ggs_geweke(S)+scale_colour_manual(values = c("black","black"))+theme(plot.title = element_blank(),text = element_text(size = rel(4.5)),legend.position="none")
+eta = cbind(eta, sapply(1:5000, function(x) Montgomery_infer$sigma2[8*x]))#
+colnames(eta) = c("eta2", "eta7", "sigma2")#
+S <-  ggs(mcmc(eta))#
+plot = ggs_traceplot(S)+theme(plot.title = element_blank(),text = element_text(size = rel(4.5)),legend.position="none")+ scale_x_continuous(breaks=seq(0,5000,2500))#
+density = ggs_density(S)+theme(plot.title = element_blank(),text = element_text(size = rel(4.5)),legend.position="none")#
+#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+eta = t(sapply(1:5000, function(x) Montgomery_infer$eta[8*x, c(2,7)]))#
+eta = cbind(eta, sapply(1:5000, function(x) Montgomery_infer$sigma2[8*x]))#
+colnames(eta) = c("eta2", "eta7", "sigma2")#
+S <-  ggs(mcmc(eta))#
+plot = ggs_traceplot(S)+theme(plot.title = element_blank(),text = element_text(size = rel(4.5)),legend.position="none")+ scale_x_continuous(breaks=seq(0,5000,2500))#
+density = ggs_density(S)+theme(plot.title = element_blank(),text = element_text(size = rel(4.5)),legend.position="none")#
+#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+eta = t(sapply(1:5000, function(x) Montgomery_infer$eta[8*x, c(2,7)]))#
+eta = cbind(eta, sapply(1:5000, function(x) Montgomery_infer$sigma2[8*x]))#
+colnames(eta) = c("eta2", "eta7", "sigma2")#
+S <-  ggs(mcmc(eta))#
+plot = ggs_traceplot(S)+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")+ scale_x_continuous(breaks=seq(0,5000,2500))#
+density = ggs_density(S)+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+eta = t(sapply(1:5000, function(x) Montgomery_infer$eta[8*x, c(2,7)]))#
+eta = cbind(eta, sapply(1:5000, function(x) Montgomery_infer$sigma2[8*x]))#
+colnames(eta) = c("eta2", "eta7", "sigma2")#
+S <-  ggs(mcmc(eta))#
+plot = ggs_traceplot(S)+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")+ scale_x_continuous(breaks=seq(0,5000,2500))#
+density = ggs_density(S)+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(5000+c(1:5000), function(x) Montgomery_infer$beta[8*x, c(1,5,10)]))#
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x,c(3,5,8)]))#
+colnames(beta) = c("beta3","beta5", "beta8")#
+S <-  ggs(mcmc(beta))#
+plot = ggs_traceplot(S)+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")+ scale_x_continuous(breaks=seq(0,5000,2500))#
+density = ggs_density(S)+theme(plot.title = element_blank(),text = element_text(size = rel(4.5)),legend.position="none")#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+beta = t(sapply(1:5000, function(x) Montgomery_infer$beta[8*x, ]))#
+beta = t(sapply(1:800, function(x) Montgomery_infer$beta[50*x,]))#
+colnames(beta) = c(sapply(1:14, function(x) paste0("beta",x)))#
+S <-  ggs(mcmc(beta))#
+S$Parameter <- factor(S$Parameter, levels = c(sapply(1:14, function(x) paste0("beta",x))))#
+ggs_geweke(S)+scale_colour_manual(values = c("black","black"))+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")
+eta = t(sapply(1:5000, function(x) Montgomery_infer$eta[8*x, c(2,7)]))#
+eta = cbind(eta, sapply(1:5000, function(x) Montgomery_infer$sigma2[8*x]))#
+colnames(eta) = c("eta2", "eta7", "sigma2")#
+S <-  ggs(mcmc(eta))#
+plot = ggs_traceplot(S)+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")+ scale_x_continuous(breaks=seq(0,5000,2500))#
+density = ggs_density(S)+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")#
+#
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+grid.arrange(plot, density, ncol = 2, nrow = 1)
+eta = t(sapply(2000:5000, function(x) Montgomery_infer$eta[8*x, ]))#
+colnames(eta) = c(sapply(1:7, function(x) paste0("eta",x)))#
+S <-  ggs(mcmc(eta))#
+ggs_geweke(S)+scale_colour_manual(values = c("black","black"))+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")
+load('~/Desktop/Montgomery_infer.RData')
+library(MulticastNetwork)#
+library(lubridate)
+library(anytime)#
+library(ggplot2)#
+library(MCMCpack)#
+library(reshape2)#
+library(gridExtra)#
+library(ggrepel)#
+library(RColorBrewer)#
+ggplotColours <- function(n = 6, h = c(0, 360) + 15){#
+  if ((diff(h) %% 360) < 1) h[2] <- h[2] - 360/n#
+  hcl(h = (seq(h[1], h[2], length = n)), c = 100, l = 65)#
+}#
+number_ticks <- function(n) {function(limits) pretty(limits, n)}#
+colorsbeta = ggplotColours(13)#
+#
+colnames(Montgomery_infer$beta) = c("intercept", "outdegree", "indegree", "send", "receive",#
+"two_send", "two_receive", "sibling", "cosibling", "hyperedge_size", "interaction", "gender_sender", "gender_receiver",#
+"gender_homophily")#
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+# colnames(beta)[6:7] = c("twosend", "tworeceive")#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "covariates"#
+colnames(beta.est)[2] = "b"#
+beta.est[,1] = as.factor(beta.est[,1])#
+beta.est$covariates <- factor(beta.est$covariates , levels = c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction", "send", "receive",#
+"two_send", "two_receive", "sibling", "cosibling" ))
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = b))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = b)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+bplot[[2]]
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = b))+ geom_boxplot(fill=colorsbeta[3:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = b)) + geom_boxplot(fill=colorsbeta[7:4])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+bplot[[3]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receive",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = b)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4)),legend.position="none")#
+grid.arrange(bplot[[1]], bplot[[2]],bplot[[3]], ncol = 1, nrow = 3)#
+#
+ggplot(data = beta.est, aes(x = reorder(covariates,-as.numeric(covariates)) , y = b))+ geom_boxplot(fill=colorsbeta[13:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(4.25)),legend.position="none")
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = b))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = b)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+bplot[[2]]
+grid.arrange(bplot[[1]], bplot[[2]], ncol =2, nrow = 1)
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = b))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receiver",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = b)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+bplot
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = b))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receive",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = b)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "red", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+bplot[[2]]
+load('~/Desktop/Montgomery_infer.RData')
+library(MulticastNetwork)#
+library(lubridate)
+library(anytime)#
+library(ggplot2)#
+library(MCMCpack)#
+library(reshape2)#
+library(gridExtra)#
+library(ggrepel)#
+library(RColorBrewer)#
+ggplotColours <- function(n = 6, h = c(0, 360) + 15){#
+  if ((diff(h) %% 360) < 1) h[2] <- h[2] - 360/n#
+  hcl(h = (seq(h[1], h[2], length = n)), c = 100, l = 65)#
+}#
+number_ticks <- function(n) {function(limits) pretty(limits, n)}#
+colorsbeta = ggplotColours(13)#
+#
+colnames(Montgomery_infer$beta) = c("intercept", "outdegree", "indegree", "send", "receive",#
+"two_send", "two_receive", "sibling", "cosibling", "hyperedge_size", "interaction", "gender_sender", "gender_receiver",#
+"gender_homophily")#
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+# colnames(beta)[6:7] = c("twosend", "tworeceive")#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "covariates"#
+colnames(beta.est)[2] = "b"#
+beta.est[,1] = as.factor(beta.est[,1])#
+beta.est$covariates <- factor(beta.est$covariates , levels = c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction", "send", "receive",#
+"two_send", "two_receive", "sibling", "cosibling" ))
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = b))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receive",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = b)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title =
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = b)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = b))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receive",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = b)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+bplot[[1]]
+bplot[[2]]
+colnames(Montgomery_infer$eta) = c("intercept","gender", "manager", "outdegree", "indegree", "weekend", "PM")#
+eta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$eta[8*i,])))#
+eta.est = melt(eta[-1])#
+colnames(eta.est)[1] = "covariates"#
+colnames(eta.est)[2] = "eta"#
+eta.est[,1] = as.factor(eta.est[,1])#
+ggplot(data = eta.est, aes(x = reorder(covariates,-as.numeric(covariates)), y = eta, fill =covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+load('~/Desktop/Montgomery_infer.RData')
+library(MulticastNetwork)#
+library(lubridate)
+library(anytime)#
+library(ggplot2)#
+library(MCMCpack)#
+library(reshape2)#
+library(gridExtra)#
+library(ggrepel)#
+library(RColorBrewer)#
+ggplotColours <- function(n = 6, h = c(0, 360) + 15){#
+  if ((diff(h) %% 360) < 1) h[2] <- h[2] - 360/n#
+  hcl(h = (seq(h[1], h[2], length = n)), c = 100, l = 65)#
+}#
+number_ticks <- function(n) {function(limits) pretty(limits, n)}#
+colorsbeta = ggplotColours(13)#
+#
+colnames(Montgomery_infer$beta) = c("intercept", "outdegree", "indegree", "send", "receive",#
+"two_send", "two_receive", "sibling", "cosibling", "hyperedge_size", "interaction", "gender_sender", "gender_receiver",#
+"gender_homophily")#
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+# colnames(beta)[6:7] = c("twosend", "tworeceive")#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "covariates"#
+colnames(beta.est)[2] = "b"#
+beta.est[,1] = as.factor(beta.est[,1])#
+beta.est$covariates <- factor(beta.est$covariates , levels = c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction", "send", "receive",#
+"two_send", "two_receive", "sibling", "cosibling" ))
+bplot = list()#
+bplot[[1]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction")),], aes(x = reorder(covariates,-as.numeric(covariates)) , y = b))+ geom_boxplot(fill=colorsbeta[7:1])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size = 1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")#
+bplot[[2]] = ggplot(data = beta.est[which(beta.est$covariates %in% c("send", "receive",#
+"two_send", "two_receive", "sibling", "cosibling")),], aes(x = reorder(covariates,-as.numeric(covariates)), y = b)) + geom_boxplot(fill=colorsbeta[13:8])+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+bplot[[2]]
+load('~/Desktop/Montgomery_infer.RData')
+library(MulticastNetwork)#
+library(lubridate)
+names(Montgomery_infer)#
+#
+library(anytime)#
+library(ggplot2)#
+library(MCMCpack)#
+library(reshape2)#
+library(gridExtra)#
+library(ggrepel)#
+library(RColorBrewer)#
+ggplotColours <- function(n = 6, h = c(0, 360) + 15){#
+  if ((diff(h) %% 360) < 1) h[2] <- h[2] - 360/n#
+  hcl(h = (seq(h[1], h[2], length = n)), c = 100, l = 65)#
+}#
+number_ticks <- function(n) {function(limits) pretty(limits, n)}#
+colorsbeta = ggplotColours(13)#
+#
+colnames(Montgomery_infer$beta) = c("intercept", "outdegree", "indegree", "send", "receive",#
+"two_send", "two_receive", "sibling", "cosibling", "hyperedge_size", "interaction", "gender_sender", "gender_receiver",#
+"gender_homophily")#
+beta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$beta[8*i,])))#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+# colnames(beta)[6:7] = c("twosend", "tworeceive")#
+# colnames(beta) = dimnames(Montgomery$X)[[4]][1:10]#
+beta.est = melt(beta[-1])#
+colnames(beta.est)[1] = "covariates"#
+colnames(beta.est)[2] = "b"#
+beta.est[,1] = as.factor(beta.est[,1])#
+beta.est$covariates <- factor(beta.est$covariates , levels = c("gender_sender", "gender_receiver",#
+"gender_homophily", "outdegree", "indegree","hyperedge_size", "interaction", "send", "receive",#
+"two_send", "two_receive", "sibling", "cosibling" ))
+colnames(Montgomery_infer$eta) = c("intercept","gender", "manager", "outdegree", "indegree", "weekend", "PM")#
+eta = data.frame(t(sapply(1:5000, function(i) Montgomery_infer$eta[8*i,])))#
+eta.est = melt(eta[-1])#
+colnames(eta.est)[1] = "covariates"#
+colnames(eta.est)[2] = "eta"#
+eta.est[,1] = as.factor(eta.est[,1])#
+ggplot(data = eta.est, aes(x = reorder(covariates,-as.numeric(covariates)), y = eta, fill =covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+ggplot(data = eta.est, aes(x = reorder(covariates,-as.numeric(covariates)), y = eta, fill =covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")+xlab(expression(eta))
+ggplot(data = eta.est, aes(x = reorder(covariates,-as.numeric(covariates)), y = eta, fill =covariates)) + geom_boxplot()+coord_flip()+ geom_hline(yintercept = 0.0, colour = "blue", size =1, linetype = "dashed")+labs(x = NULL, fill = "Covariates")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")+ylab(expression(eta))
+#source("/Users/bomin8319/Desktop/MulticastNetwork/code/Multicast.R")#
+#
+library(MulticastNetwork)#
+library(lubridate)#
+load('~/Desktop/MulticastNetwork/code/Temporal_Email_Data.Rdata')#
+Montgomery = Temporal_Email_Data$Montgomery#
+email = Montgomery$email_data#
+email = unique(email)#
+email$timepoints =  as.numeric(as.POSIXct(strptime(email[,1], "%d %b %Y %H:%M:%S")))#
+email = email[order(email$timepoints), ]#
+edge = list()#
+initialtime =  as.numeric(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S")))#
+for (d in 1:nrow(email)) {#
+	t_d = email[d, 21] - initialtime#
+	edge[[d]] = list(a_d = email[d,2], r_d = as.numeric(email[d,-c(1:2, 21)]), t_d = t_d)#
+}#
+#
+uniqtime = unique(email$timepoints)#
+# construct time covariates Y#
+D = length(edge)#
+A = length(Montgomery$manager_gender)#
+Q = 7#
+Y = array(1, dim = c(D,A,Q))#
+for (a in 1:A) {#
+	Y[,a,2] = 1* (Montgomery$manager_gender[a]=="Female")#
+	Y[,a,3] = 1* (Montgomery$manager_department[a]=="County Manager")#
+}#
+timeunit = 3600#
+Y[1,,6] = rep(as.numeric(wday(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+Y[1,,7] = rep(pm(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S"))), A)#
+for (d in 2:D) {#
+	index = which(email$timepoints >= uniqtime[which(uniqtime==email$timepoints[d])-1]-7*24*timeunit & email$timepoints < email$timepoints[d])#
+	sent = email[index, 2]#
+	received = email[index, 3:(2+A)]#
+	Y[d, ,4] = tabulate(sent, A) #
+	Y[d, ,5] = colSums(received)#
+	Y[d,,6] = rep(as.numeric(wday(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S"))) %in% c(1, 7)), A)#
+	Y[d,,7] = rep(as.numeric(pm(as.POSIXct(strptime(email[d-1,1], "%d %b %Y %H:%M:%S")))), A)#
+}#
+sendraw = function(data, a, r) {#
+	sum(data[,2] == a & data[, 2+r]==1)#
+}#
+#
+# construct recipient covariates X#
+D = length(edge)#
+A = length(Montgomery$manager_gender)#
+P = 14#
+X = array(0, dim = c(D,A,A,P))#
+X[,,,1] = 1#
+timeunit = 3600#
+for (d in 2:D) {#
+	index = which(email$timepoints >= uniqtime[which(uniqtime==email$timepoints[d])-1]-7*24*timeunit & email$timepoints < email$timepoints[d])#
+	data = email[index, ]#
+	sent = data[, 2]#
+	received = data[, 3:(2+A)]#
+	outdegree = tabulate(sent, A)#
+	indegree = colSums(received)#
+	for (a in 1:A) {#
+		for (r in c(1:A)) {#
+		  if (r != a) {#
+			X[d, a, r, 2] = outdegree[a]  #
+			X[d, a, r, 3] = indegree[r]	#
+			X[d, a, r, 4] = sendraw(data, a, r)#
+			X[d, a, r, 5] = sendraw(data, r, a)#
+			X[d, a, r, 6] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, a, h) * sendraw(data, h, r) / 10#
+				}))#
+			X[d, a, r, 7] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, h, a) * sendraw(data, r, h)#
+				})) / 10#
+			X[d, a, r, 8] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, h, a) * sendraw(data, h, r)#
+				})) / 10#
+			X[d, a, r, 9] = sum(sapply(c(1:A)[-c(a,r)], function(h) {#
+				sendraw(data, a, h) * sendraw(data, r, h)#
+				}))	/10	#
+		  }#
+		    X[d, a, , 12] = 1* (Montgomery$manager_gender[a]=="Female")#
+			  X[d, a, r, 13] =1* (Montgomery$manager_gender[r]=="Female")#
+			  X[d, a, r, 14] =1* (Montgomery$manager_gender[a]==Montgomery$manager_gender[r])#
+		}#
+	  X[d, a, , 10] = ifelse(outdegree[a] <sum(X[d,a,,4]),sum(X[d,a,,4])/outdegree[a] , 1)#
+	  X[d, a, , 11] = X[d, a, , 2] * X[d, a, , 10] / 10#
+	}#
+}#
+#
+prior.beta = list(mean = c(-3.5, rep(0, P-1)), var = 2*diag(P))#
+prior.eta = list(mean = c(7, rep(0, Q-1)), var = 2*diag(Q))#
+prior.sigma2 = list(a = 2, b = 1)#
+email$timepoints =  as.numeric(as.POSIXct(strptime(email[,1], "%d %b %Y %H:%M:%S")))#
+trim = which(email$timepoints >=7*24*timeunit+email$timepoints[1])#
+edge = edge[trim]#
+X = X[trim,,,]#
+Y = Y[trim,,]
+setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC2")#
+for (n in 1:500) {#
+	print(n)#
+    Montgomery_PPC2 = PPC(length(edge), beta = colMeans(Montgomery_infer2$beta), eta = colMeans(Montgomery_infer2$eta),#
+    sigma2 = mean(Montgomery_infer2$sigma2), X, Y, timeunit = 3600, u = Montgomery_infer2$u, timedist = "exponential")#
+  filename = paste0("Montgomery_PPCnew2", n,".RData")#
+  save(Montgomery_PPC2, file = filename)#
+}
+load('~/Desktop/Montgomery_infer2.RData')
+setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC2")#
+for (n in 1:500) {#
+	print(n)#
+    Montgomery_PPC2 = PPC(length(edge), beta = colMeans(Montgomery_infer2$beta), eta = colMeans(Montgomery_infer2$eta),#
+    sigma2 = mean(Montgomery_infer2$sigma2), X, Y, timeunit = 3600, u = Montgomery_infer2$u, timedist = "exponential")#
+  filename = paste0("Montgomery_PPCnew2", n,".RData")#
+  save(Montgomery_PPC2, file = filename)#
+}
+library(lubridate)
+load('~/Desktop/MulticastNetwork/code/Temporal_Email_Data.Rdata')#
+Montgomery = Temporal_Email_Data$Montgomery#
+email = Montgomery$email_data#
+email = unique(email)#
+email$timepoints =  as.numeric(as.POSIXct(strptime(email[,1], "%d %b %Y %H:%M:%S")))#
+email = email[order(email$timepoints), ]#
+edge = list()#
+initialtime =  as.numeric(as.POSIXct(strptime("01 Mar 2012 00:00:00", "%d %b %Y %H:%M:%S")))#
+for (d in 1:nrow(email)) {#
+	t_d = email[d, 21] - initialtime#
+	edge[[d]] = list(a_d = email[d,2], r_d = as.numeric(email[d,-c(1:2, 21)]), t_d = t_d)#
+}#
+A = length(Montgomery$manager_gender)#
+#
+#observed statistics#
+timeunit = 3600#
+trim = which(email$timepoints >=7*24*timeunit+email$timepoints[1])#
+#
+outdegree = tabulate(email[trim,2], A)#
+indegree = colSums(email[trim,3:20])#
+recipients = tabulate(rowSums(email[trim,3:20]), A-1)#
+timeinc = diff(sort(email$timepoints)[43:max(trim)])/3600#
+indegreedist1 = matrix(NA, 500, A)#
+outdegreedist1 = matrix(NA,  500, A)#
+recipientsdist1 = matrix(NA,  500, A-1)#
+timedist1 = matrix(NA, 500, 621)#
+#setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC")#
+#setwd("/Users/bomin8319/")#
+setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC4")#
+#
+for (n in 1:500) {#
+	filename = paste0("Montgomery_PPCnew", n,".RData")#
+	load(filename)#
+	outdegreedist1[n, ] = tabulate(vapply(1:621, function(x) Montgomery_PPC[[x]]$a_d, c(1)), A)#
+	indegreedist1[n, ] = rowSums(sapply(1:621, function(x) Montgomery_PPC[[x]]$r_d))#
+	recipientsdist1[n, ] = tabulate(vapply(1:621, function(x) sum(Montgomery_PPC[[x]]$r_d), c(1)), A-1)#
+	timedist1[n, ] = vapply(1:621, function(x) Montgomery_PPC[[x]]$t_d, c(1))/ timeunit#
+	}
+outdegreedist1 = data.frame(outdegreedist1)#
+colnames(outdegreedist1)=1:18#
+library(ggplot2)#
+library(reshape)#
+data = melt(outdegreedist1)#
+colnames(data) = c("Node", "Outdegree")#
+#
+outdegree = data.frame(Node = 1:18, Outdegree = outdegree)#
+ggplot(data = data, aes(x = Node, y = Outdegree, fill = as.factor("hi"))) +geom_boxplot() + geom_line(data = outdegree, colour = "blue", size =0.5)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+indegreedist2 = matrix(NA, 500, A)#
+outdegreedist2 = matrix(NA,  500, A)#
+recipientsdist2 = matrix(NA,  500, A-1)#
+timedist2 = matrix(NA, 500, 621)#
+#setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC")#
+#setwd("/Users/bomin8319/")#
+setwd("/Users/bomin8319/Desktop/MulticastNetwork/Emails/PPC2")#
+#
+for (n in 1:500) {#
+	filename = paste0("Montgomery_PPCnew2", n,".RData")#
+	load(filename)#
+	outdegreedist2[n, ] = tabulate(vapply(1:621, function(x) Montgomery_PPC2[[x]]$a_d, c(1)), A)#
+	indegreedist2[n, ] = rowSums(sapply(1:621, function(x) Montgomery_PPC2[[x]]$r_d))#
+	recipientsdist2[n, ] = tabulate(vapply(1:621, function(x) sum(Montgomery_PPC2[[x]]$r_d), c(1)), A-1)#
+	timedist2[n, ] = vapply(1:621, function(x) Montgomery_PPC2[[x]]$t_d, c(1))/ timeunit#
+}
+outdegreedist = data.frame(outdegreedist1, model = rep("lognormal", 500))#
+outdegreedist = rbind(outdegreedist, data.frame(outdegreedist2, model = rep("exponential", 500)))#
+colnames(outdegreedist)[1:18]=1:18#
+library(ggplot2)#
+library(reshape)#
+data = melt(outdegreedist)#
+colnames(data) = c("Model","Node", "Outdegree")#
+#
+outdegreeobs = data.frame(Node = 1:18, Outdegree = outdegree, Model = rep("lognormal", 18))#
+ggplot(data = data, aes(x = Node, y = Outdegree, fill= Model)) +geom_boxplot() + geom_line(data = outdegreeobs, colour = "blue", size =0.5, group = 1)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+#observed statistics#
+timeunit = 3600#
+trim = which(email$timepoints >=7*24*timeunit+email$timepoints[1])#
+#
+outdegree = tabulate(email[trim,2], A)#
+indegree = colSums(email[trim,3:20])#
+recipients = tabulate(rowSums(email[trim,3:20]), A-1)#
+timeinc = diff(sort(email$timepoints)[43:max(trim)])/3600
+outdegreedist = data.frame(outdegreedist1, model = rep("lognormal", 500))#
+outdegreedist = rbind(outdegreedist, data.frame(outdegreedist2, model = rep("exponential", 500)))#
+colnames(outdegreedist)[1:18]=1:18#
+library(ggplot2)#
+library(reshape)#
+data = melt(outdegreedist)#
+colnames(data) = c("Model","Node", "Outdegree")#
+#
+outdegreeobs = data.frame(Node = 1:18, Outdegree = outdegree, Model = rep("lognormal", 18))#
+ggplot(data = data, aes(x = Node, y = Outdegree, fill= Model)) +geom_boxplot() + geom_line(data = outdegreeobs, colour = "blue", size =0.5, group = 1)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+indegreedist = data.frame(indegreedist1, model = rep("lognormal", 500))#
+indegreedist = rbind(indegreedist, data.frame(indegreedist2, model = rep("exponential", 500)))#
+colnames(indegreedist)[1:18]=1:18#
+data = melt(indegreedist)#
+colnames(data) = c("Model","Node", "Indegree")#
+#
+indegreeobs = data.frame(Node = 1:18, Indegree = indegree, Model = rep("lognormal", 18))#
+ggplot(data = data, aes(x = Node, y =Indegree, fill= Model)) +geom_boxplot() + geom_line(data = indegreeobs, colour = "blue", size =0.5, group = 1)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+recipientsdist = data.frame(recipientsdist1[,1:14], model = rep("lognormal", 500))#
+recipientsdist = rbind(recipientsdist, data.frame(recipientsdist2[,1:14], model = rep("exponential", 500)))#
+colnames(recipientsdist)[1:14]=1:14#
+data = melt(recipientsdist)#
+colnames(data) = c("Model","RecipientSize","Documents")#
+#
+recipientsobs = data.frame(RecipientSize = 1:14, Documents = recipients[1:14], Model = rep("lognormal", 14))#
+ggplot(data = data, aes(x =RecipientSize, y = Documents, fill= Model)) +geom_boxplot()+ geom_line(data = recipientsobs, colour = "blue", size =0.5, group = 1)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+uniqueValues = quantile(c(timedist1[,-1], timeinc), seq(0, 1, length = 500))#
+  qx1 = numeric(length(uniqueValues))#
+  	qx2 = numeric(length(uniqueValues))#
+  	for (j in 1:length(uniqueValues)) {#
+  		qx1[j] = mean(c(timedist1[,-1]) <= uniqueValues[j])#
+  		qx2[j] = mean(c(timeinc) <= uniqueValues[j])#
+}
+time = data.frame(Simulated = qx1, Observed = qx2, Model = rep("log-normal", 500))#
+#
+uniqueValues = quantile(c(timedist2[,-1], timeinc), seq(0, 1, length = 500))#
+  qx1 = numeric(length(uniqueValues))#
+  	qx2 = numeric(length(uniqueValues))#
+  	for (j in 1:length(uniqueValues)) {#
+  		qx1[j] = mean(c(timedist2[,-1]) <= uniqueValues[j])#
+  		qx2[j] = mean(c(timeinc) <= uniqueValues[j])#
+}#
+#
+time = rbind(time, data.frame(Simulated = qx1, Observed = qx2, Model = rep("exponential", 500)))#
+ggplot(data = time, aes(x = Simulated, y = Observed, colour = Model)) + geom_point()+ geom_abline(intercept = 0, slope = 1,colour = "blue", size =0.5)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")#
+edge = Montgomery$edge
+set.seed(1)#
+missing = list()#
+#missingness of senders#
+missing[[1]] = matrix(0, nrow = dim(Y)[1], 1)    #
+missing[[1]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
+#missingness of receivers#
+missing[[2]] = matrix(0, nrow = dim(Y)[1], A)    #
+missing[[2]][sample(1:(dim(Y)[1]*A), 1118, replace = FALSE)] = 1#
+#missingness of timestamps#
+missing[[3]] = matrix(0, nrow = dim(Y)[1], 1)#
+missing[[3]][sample(1:dim(Y)[1], 62, replace = FALSE), ] = 1#
+for (d in 1:dim(Y)[1]) {#
+	if (missing[[1]][d,1] == 1) {#
+		edge[[d]]$a_d = NA#
+	}#
+	if (sum(missing[[2]][d,]) > 0) {#
+		edge[[d]]$r_d[which(missing[[2]][d,]==1)] = NA#
+	}#
+	if (missing[[3]][d,1] == 1) {#
+		edge[[d]]$t_d = NA#
+	}#
+}
+initial = list()#
+initial$beta = colMeans(Montgomery_infer2$beta)#
+initial$eta =  colMeans(Montgomery_infer2$eta)#
+initial$u = Montgomery_infer2$u#
+initial$sigma2 = mean(Montgomery_infer2$sigma2)#
+#
+Montgomery_PPE2 = PPE(edge, X, Y, 550, c(5,5,1), 50, prior.beta, prior.eta, prior.sigma2, #
+                     initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, #
+                     lasttime = Montgomery$lasttime, MHprop.var = 0.15, timedist = "exponential")
+save(Montgomery_PPE2, file = "/Users/bomin8319/Desktop/Montgomery_PPE2.RData")
+library(gridExtra)#
+library(latex2exp)#
+p = list()#
+##################
+truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
+predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
+predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
+#
+sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), Dist = rep("log-normal", 62))#
+sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), Dist = rep("exponential", 62)))#
+library(ggplot2)#
+library(reshape)#
+sender = melt(sender)#
+colnames(sender)[3] = "correct"#
+p[[1]]=ggplot(data = sender, aes(x = Dist, y = correct, fill = Dist))+geom_boxplot()+ylab(expression(pi))+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+load('~/Desktop/MulticastNetwork/Emails/Montgomery_PPE.RData')
+library(gridExtra)#
+library(latex2exp)#
+p = list()#
+##################
+truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
+predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
+predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
+#
+sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), Dist = rep("log-normal", 62))#
+sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), Dist = rep("exponential", 62)))#
+library(ggplot2)#
+library(reshape)#
+sender = melt(sender)#
+colnames(sender)[3] = "correct"#
+p[[1]]=ggplot(data = sender, aes(x = Dist, y = correct, fill = Dist))+geom_boxplot()+ylab(expression(pi))+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")#
+edge = Montgomery$edge
+library(gridExtra)#
+library(latex2exp)#
+p = list()#
+##################
+truesender = sapply(Montgomery_PPE$sendermissing, function(d) edge[[d]]$a_d)#
+predprob = Montgomery_PPE$senderprob/rowSums(Montgomery_PPE$senderprob)#
+predprob2 = Montgomery_PPE2$senderprob/rowSums(Montgomery_PPE2$senderprob)#
+#
+sender = data.frame(probtrue = sapply(1:62, function(d) predprob[d,truesender[d]]), Dist = rep("log-normal", 62))#
+sender = rbind(sender, data.frame(probtrue = sapply(1:62, function(d) predprob2[d,truesender[d]]), Dist = rep("exponential", 62)))#
+library(ggplot2)#
+library(reshape)#
+sender = melt(sender)#
+colnames(sender)[3] = "correct"#
+p[[1]]=ggplot(data = sender, aes(x = Dist, y = correct, fill = Dist))+geom_boxplot()+ylab(expression(pi))+geom_hline(yintercept=1/18, col = 'blue', lty=2, lwd=1)+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+p[[1]]
+truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
+predprob = Montgomery_PPE$receiverprob#
+predprob2 = Montgomery_PPE2$receiverprob#
+#
+probtrue = sapply(1:1118, function(d) predprob[d,truereceiver[d]+1])#
+#probtrue[probtrue==1] = 0.999#
+probtrue2 = sapply(1:1118, function(d) predprob2[d,truereceiver[d]+1])#
+#probtrue2[probtrue2==1] = 0.999#
+#
+receiver = data.frame(probtrue = log(probtrue /(1-probtrue)), dist = rep("lognormal", 1118))#
+receiver = rbind(receiver, data.frame(probtrue = log(probtrue2/(1-probtrue2)), dist = rep("exponential", 1118)))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "logit"#
+ggplot(data = receiver, aes(x = dist, y = logit, fill = dist))+geom_boxplot()#
+p[[2]]=ggplot(data = receiver, aes(x = logit, fill = dist))+geom_histogram(position = "dodge")
+p[[2]]
+ggplot(data = receiver, aes(x = dist, y = logit, fill = dist))+geom_boxplot()
+library(MLmetrics)#
+#
+truereceiver = unlist(sapply(Montgomery_PPE$receivermissing, function(d) edge[[d]]$r_d[which(missing[[2]][d,]==1)]))#
+predreceiver = Montgomery_PPE$receiverpredict#
+predreceiver2 = Montgomery_PPE2$receiverpredict#
+#
+probtrue = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver[,d], 1))#
+probtrue2 = sapply(1:500, function(d) F1_Score(truereceiver, predreceiver2[,d], 1))#
+#
+receiver = data.frame(F1 = probtrue, Dist = rep("log-normal", 500))#
+receiver = rbind(receiver, data.frame(F1 = probtrue2, Dist = rep("exponential", 500)))#
+receiver = melt(receiver)#
+colnames(receiver)[3] = "F1"#
+p[[2]]=ggplot(data = receiver, aes(x = Dist, y = F1, fill = Dist))+geom_boxplot()+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+p[[2]]
+head(truereceiver)
+table(truereceiver)
+table(truereceiver)/sum(truereceiver)
+table(truereceiver)/length(truereceiver)
+hey = table(truereceiver)/length(truereceiver)
+hey[1]
+hey[1]^(1016)*hey[2]^(102)
+hey[1]^(1016)*hey[2]^(102)
+1016+102
+choose
+choose(1118, 102)
+choose(1118, 102)*hey[1]^(1016)*hey[2]^(102)
+p[[2]]
+truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600#
+predtime = Montgomery_PPE$timepredict#
+predtime2 = Montgomery_PPE2$timepredict#
+#
+time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), Dist = rep("log-normal", 62))#
+time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), Dist = rep("exponential", 62)))#
+time$MdAPE = log(time$MdAPE)#
+time = melt(time)#
+stats = boxplot.stats(time$value)$stats#
+#
+colnames(time)[3] = "MdAPE"#
+p[[3]]=ggplot(data = time, aes(x = Dist, y = MdAPE, fill = Dist))+geom_boxplot()+theme(legend.position = "bottom")+ylab("log(MdAPE)")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+p[[3]]
+ggplot(data = time, aes(x = MdAPE, fill = dist))+geom_histogram(position = "dodge")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
+ggplot(data = time, aes(x = Dist, y = MdAPE, fill = Dist))+geom_boxplot()+theme(legend.position = "bottom")+ylab("log(MdAPE)")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
