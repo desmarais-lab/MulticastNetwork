@@ -147,6 +147,20 @@ stats = boxplot.stats(time$value)$stats
 colnames(time)[3] = "MdAPE"
 p[[3]]=ggplot(data = time, aes(x = Dist, y = MdAPE, fill = Dist))+geom_boxplot()+theme(legend.position = "bottom")+ylab("log(MdAPE)")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
 
+#######################
+truetime = sapply(Montgomery_PPE$timemissing, function(d) edge[[d]]$t_d-edge[[d-1]]$t_d)/3600
+predtime = Montgomery_PPE$timepredict
+predtime2 = Montgomery_PPE2$timepredict
+
+time = data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime[d,]-truetime[d])/truetime[d]))), Dist = rep("log-normal", 62))
+time = rbind(time, data.frame(MdAPE = sapply(1:62, function(d) median(abs((predtime2[d,]-truetime[d])/truetime[d]))), Dist = rep("exponential", 62)))
+time = melt(time)
+stats = boxplot.stats(time$value)$stats
+
+colnames(time)[3] = "MdAPE"
+p[[3]]=ggplot(data = time, aes(x = Dist, y = MdAPE, fill = Dist))+geom_boxplot()+theme(legend.position = "bottom")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")+scale_y_continuous(trans = "log", breaks = trans_breaks("log", function(x) exp(x)), labels = scientific)
+
+
 
 ggplot(data = time, aes(x = MdAPE, fill = dist))+geom_histogram(position = "dodge")+theme(plot.title = element_blank(),text = element_text(size = rel(5.5)),legend.position="none")
 

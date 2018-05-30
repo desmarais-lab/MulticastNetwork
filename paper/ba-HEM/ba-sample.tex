@@ -93,22 +93,22 @@ integrate a dynamic version of the exponential random graph model (ERGM) of edge
 
 Processes that arise as time-stamped directed interactions are common in the social, natural, and phyiscal sciences. The data produced by such processes can be represented as dynamic directed networks---a data structure that has given rise to the development of several statistical model families. For example, stochastic actor-oriented models (SAOMs) \citep{snijders1996stochastic,snijders2007modeling} characterize networks as evolving as the senders of edges decide to add an edge to or remove an edge from a network one edge at a time, one sender at a time. Event-based network models \citep{Butts2008,Vu2011,hunter2011dynamic,PerryWolfe2012} provide a general framework for modeling the realization of edges that occur as instances in continuous time streams of events. These models are flexible enough to specify a generative model that accounts for the ways in which past network structure begets future network structure (e.g., nodes that sent a lot of edges in the past will send a lot in the future, if node $i$ sent a tie to node $j$ recently, then node $j$ will send one to node $i$ in the near future). Thus, dynamic network models are very useful to understand which traits and behaviours are predictive of interactions. 
 
-A major limitation of existing dynamic network models is that they apply to edges with one sender and one receiver. Many sources of dynamic network data arise as ``hyperedges'' \citep{karypis1999multilevel,ghoshal2009random,zlatic2009hypergraph,zhang2010hypergraph} that include one sender and multiple receivers or one receiver and multiple senders. For example, networks formed through the analysis of email \citep{newman2002email} arise with one sender and possibly multiple recipients;  networks formed between neurons via axons and dendrites have one sender and multiple recipients (axons) or one recipient and multiple senders (dendrites) \citep{partzsch2012developing}. Networks formed through the analysis of legislative bill cosponsorhip \citep{fowler2006legislative} arise with multiple senders (cosponsors) and one recipient (sponsor); and networks formed through the analysis of economic sanctions \citep{cranmer2014reciprocity} between countries arise with multiple sending countries and one target country. Existing models require that researchers alter hyperedge data to fit with the pairwise edge structure of the model. For instance, \cite{PerryWolfe2012} treat multicast interactions---one type of directed hyperedge which involves one sender and one or more receivers---via duplication (i.e., obtain pairwise interactions from the original multicast), to construct approximate likelihood function in their inferential framework for model parameters. Similarly, \cite{fan2009learning} duplicates emails sent from one sender to one or more receivers and randomly jitter the sent times, in order to avoid the violation of the assumption that two events cannot occur at the exact same time. % There have been numerous studies for hyperedges under the hypergraph theory \citep{karypis1999multilevel} in phyics literature, including a random hypergraph model \citep{ghoshal2009random}, but most of them are designed specifically for engineering applications---e.g., multiple tagging networks \citep{zlatic2009hypergraph,zhang2010hypergraph}, cellular networks \citep{klamt2009hypergraphs}, and personalized recommendations \citep{zhang2010personalized,blattner2009b}---with lack of extensive efforts to incorportate hyperedge modeling into general statistical framework.
+A major limitation of existing dynamic network models is that they apply to edges with one sender and one receiver. Many sources of dynamic network data arise as ``hyperedges'' \citep{karypis1999multilevel,ghoshal2009random,zlatic2009hypergraph,zhang2010hypergraph} that include one sender and multiple receivers or one receiver and multiple senders. For example, networks formed through the analysis of email \citep{newman2002email} arise with one sender and possibly multiple receviers;  networks formed between neurons via axons and dendrites have one sender and multiple receivers (axons) or one receiver and multiple senders (dendrites) \citep{partzsch2012developing}. Networks formed through the analysis of legislative bill cosponsorhip \citep{fowler2006legislative} arise with multiple senders (cosponsors) and one receiver (sponsor); and networks formed through the analysis of economic sanctions \citep{cranmer2014reciprocity} between countries arise with multiple sending countries and one target country. Existing models require that researchers alter hyperedge data to fit with the pairwise edge structure of the model. For instance, \cite{PerryWolfe2012} treat multicast interactions---one type of directed hyperedge which involves one sender and one or more receivers---via duplication (i.e., obtain pairwise interactions from the original multicast), to construct approximate likelihood function in their inferential framework for model parameters. Similarly, \cite{fan2009learning} duplicates emails sent from one sender to one or more receivers and randomly jitter the sent times, in order to avoid the violation of the assumption that two events cannot occur at the exact same time. % There have been numerous studies for hyperedges under the hypergraph theory \citep{karypis1999multilevel} in phyics literature, including a random hypergraph model \citep{ghoshal2009random}, but most of them are designed specifically for engineering applications---e.g., multiple tagging networks \citep{zlatic2009hypergraph,zhang2010hypergraph}, cellular networks \citep{klamt2009hypergraphs}, and personalized recommendations \citep{zhang2010personalized,blattner2009b}---with lack of extensive efforts to incorportate hyperedge modeling into general statistical framework.
 
 We develop a statistical dynamic network model, which we term the hyperedge event model (HEM), that integrates the two components that govern time-stamped event formation: 1) the formation of the vertices that are incident to the hyperedge, and 2) the timing of the event in which the edge manifests. In what follows, we introduce the HEM by defining a generative process for time and hyperedge attributed event data (Section \ref{sec:generative process}), derive the conditional posteriors for Bayesian inference and present tests of our software implementation (Section \ref{sec:inference}). After defining the structure of and deriving Bayesian inference methods for HEM, we demonstrate the model's applicability by analyzing data from a corpus of internal county government emails.  In the application we illustrate model selection, posterior predictive checks, and exploratory analysis (Section \ref{sec:Emails}). Finally, the paper finishes in Section \ref{sec:conclusion} with conclusion and discussion.
 
 \section{The Hyperedge Event Model}\label{sec:generative process}
 
-In this section we define the HEM by describing a process according to which hyperedge events are generated in continuous time. Data generated under the HEM consists of $D$ unique edges. A single edge, indexed by $d \in [D]$, is represented by the three components: the sender $a_d \in [A]$, an indicator vector of recipients $\boldsymbol{r}_d = \{u_{dr} \}_{r=1}^{A}$, and the timestamp $t_d \in (0, \infty)$. For simplicity, we assume that edges are ordered by time such that $t_d \leq t_{d+1}$. While the model can be applied for two types of hyperedges---edges with (1) a single sender and multiple receivers, and (2) multiple senders and a single receiver---here we only present the generative process for those involving a single sender and multiple receivers (i.e., multicast). For the latter case---one recipient and multiple senders, we treat $a_d$ to be an indicator vector of senders $\boldsymbol{a}_d = \{u_{dr} \}_{a=1}^{A}$ and $r_d$ to be the single recipient. 
-
-\subsection{Hypothetical Edges}\label{subsec: Tie}
+Data generated under the HEM consists of $D$ unique edges. A single edge, indexed by $d \in [D]$, is represented by the three components: the sender $a_d \in [A]$, an indicator vector of receivers $\boldsymbol{r}_d = \{u_{dr} \}_{r=1}^{A}$, and the timestamp $t_d \in (0, \infty)$. For simplicity, we assume that edges are ordered by time such that $t_d \leq t_{d+1}$. While the model can be applied for two types of hyperedges---edges with (1) one sender and one or more receivers, and (2) one or more senders and one receiver---in this section we define the HEM by describing a process according to which hyperedge events are generated in continuous time, specifically for those involving one sender and one or more receivers (i.e., multicast). As a part of the generating process, we draw candidate receivers and candidate timestamps for each sender, which are the auxiliary variables in the HEM that serve as candidate data. Finally, we generate the observable data from the candidate data by taking the sender who generated the minimum candidate timestamp as an observed sender, the corresponding receivers as observed receivers, and the observed time as the timestamp of previous edge plus the smallest time generated. We explain these steps in more detail below. For the latter type of hyperedges---one receiver and one or more senders, we treat $a_d$ to be an indicator vector of senders $\boldsymbol{a}_d = \{u_{dr} \}_{a=1}^{A}$ and $r_d$ to be the single receiver, and then follow the alternative generative process provided in Appendix A, which is analogous to the process used for multicasts. 
+ 
+\subsection{Candidate Receivers}\label{subsec: Tie}
 For every possible sender--receiver pair $(a,r)_{a \neq r}$, we define the ``receiver intensity"---an approximate inverse logit of the probability that edge $d$ is being sent from sender $a$ to receiver $r$---as a linear combination of statistics relevant to the receiver selection process:
 \begin{equation}
 \lambda_{adr} = {\boldsymbol{b}}^{\top}\boldsymbol{x}_{adr},
 \end{equation}
 where $\boldsymbol{b}$ is a $P$--dimensional vector of coefficients and $\boldsymbol{x}_{adr}$ is a set of receiver selection features. Such features can capture common network processes that include, but are not limited to, popularity, reciprocity, and transitivity, as well as the effects of attribute features defined on the sender, receivers, and/or sender-receiver pairs (e.g., the gender of the sender and/or receiver, an indicator of whether the sender is a supervisor of the receiver's). In addition, we include an intercept term to account for the average (or baseline) number of receivers. We place a Normal prior $\boldsymbol{b} \sim N(\boldsymbol{\mu}_b, \Sigma_b)$.
 
-For each edge $d$ and each sender $a$, the HEM generates a list of hypothetical receivers that would be receivers on edge $d$ if $a$ were the sender. For an edge $d$, we first define an $A\times A$ matrix $\boldsymbol{u}_d$ where the $a^{th}$ row denotes sender $a$'s receiver vector of indicators---i.e., if node $r$ is the hypothetical receiver of sender $a$, then $u_{adr}=1$; otherwise $u_{adr}=0$. We then assume that each receiver vector $\boldsymbol{u}_{ad}$ comes from a modification of the multivariate Bernoulli (MB) distribution \citep{dai2013multivariate}---a model that has been used to model graphs in which the state of each edge indicator is drawn independently from an edge-specific Bernoulli distribution. In order to avoid generating edges with no receivers, we define a probability measure ``MB$_{G}$" motivated by the Gibbs measure \citep{fellows2017removing}. The probability measure we define amounts to a non-empty Gibbs measure, in which the all-zero vector is excluded from the support of the multivariate Bernoulli distirbution. As a result, this measure helps us to 1) allow a sender to select multiple receiver for a single edge, 2) force the sender to select at least one receiver, and 3) ensure a tractable normalizing constant. To be specific, we draw a binary vector $\boldsymbol{u}_{ad}= (u_{ad1},
+A basic assumption of the HEM is that, at any given time, everyone is planning to send a document to one or more receivers. So for each edge $d$ and each sender $a$, the HEM draws a list of candidate receivers that would be receivers on edge $d$ if $a$ were the sender. For an edge $d$, we first define an $A\times A$ matrix $\boldsymbol{u}_d$ where the $a^{th}$ row denotes sender $a$'s receiver vector of zeros and 1's---i.e., 1's imply the willingness of sender $a$ to send an edge to whom. We then assume that each receiver vector $\boldsymbol{u}_{ad}$ comes from a modification of the multivariate Bernoulli (MB) distribution \citep{dai2013multivariate}---a model that has been used to model graphs in which the state of each edge indicator is drawn independently from an edge-specific Bernoulli distribution. In order to avoid drawing edges with no receivers, we define a probability measure ``MB$_{G}$" motivated by the Gibbs measure \citep{fellows2017removing}. The probability measure we define amounts to a non-empty Gibbs measure, in which the all-zero vector is excluded from the support of the multivariate Bernoulli distirbution. As a result, this measure helps us to 1) allow a sender to select multiple receiver for a single edge, 2) force the sender to select at least one receiver, and 3) ensure a tractable normalizing constant. To be specific, we draw a binary vector $\boldsymbol{u}_{ad}= (u_{ad1},
 \ldots, u_{adA})$ 
 \begin{equation} \boldsymbol{u}_{ad}  \sim
 \mbox{MB}_{G}(\boldsymbol{\lambda}_{ad}),
@@ -120,26 +120,26 @@ where $\boldsymbol{\lambda}_{ad}= \{\lambda_{adr}\}_{r=1}^A$. In particular, we 
 \end{aligned}
 \label{eqn:Gibbs}
 \end{equation}
-where $Z(\boldsymbol{\lambda}_{ad})= \prod_{r \neq a} \big(\mbox{exp}(\lambda_{adr}) + 1\big)-1$ is the normalizing constant and $\lVert \cdot \rVert_1$ is the $l_1$--norm. Again, this is equivalent to assuming ithat each $u_{adr}$ is generated with the probability of 1 being logit($\lambda_{adr}$), excluding the case when $u_{adr}=0$ for all $r \in [A]$. We provide detailed derivation steps for the normalizing constant in Appendix B. 
+where $Z(\boldsymbol{\lambda}_{ad})= \prod_{r \neq a} \big(\mbox{exp}(\lambda_{adr}) + 1\big)-1$ is the normalizing constant and $\lVert \cdot \rVert_1$ is the $l_1$--norm. Again, this is equivalent to assuming that each $u_{adr}$ is drawn with the probability of 1 being logit($\lambda_{adr}$), excluding the case when $u_{adr}=0$ for all $r \in [A]$. We provide detailed derivation steps for the normalizing constant in Appendix B. 
 
-\subsection{Hypothetical Timestamps}\label{subsec:Time}
-Similarly, for each sender and edge combination, the HEM generates a hypothetical time at which the edge would be generated. The timing rate for sender $a$ and edge $d$ is
+\subsection{Candidate Timestamps}\label{subsec:Time}
+Similarly, for each sender and edge combination, the HEM draws a candidate time at which the edge would be generated. The timing rate for sender $a$ and edge $d$ is
 
 \begin{equation}
 \mu_{ad} = g^{-1}(\boldsymbol{\eta}^\top \boldsymbol{y}_{ad}),
 \end{equation}
 where $\boldsymbol{\eta}$ is a $Q$--dimensional vector of coefficients with a Normal prior $\boldsymbol{\eta} \sim N(\boldsymbol{\mu}_\eta,\Sigma_\eta)$, $\boldsymbol{y}_{ad}$ is a set of event timing features---covariates that could affect timestamps of the edge, and $g(\cdot)$ is the appropriate link function such as identity, log, or inverse. 
 
-In modeling ``when," we do not directly model the timestamp $t_d$. Instead, we assume that each sender's ``time increment"---i.e., waiting time to next interaction since $t_{d-1}$---is drawn from a specific distribution in the exponential family. We define the time increment from edge $d-1$ to edge $d$ as $\tau_{d}$ (i.e., $\tau_{d}= t_d-t_{d-1}$) and specify the distribution of hypothetical timestamps with sender-specfic mean $\mu_{ad}$. Following the generalized linear model (GLM) framework \citep{nelder1972generalized}, we assume the mean and variance of the $\tau_{ad}$ satistify
+In modeling ``when," we do not directly model the timestamp $t_d$. Instead, we assume that each sender's ``time increment"---i.e., waiting time to next interaction since $t_{d-1}$---is drawn from a specific distribution in the exponential family. We define the time increment from edge $d-1$ to edge $d$ as $\tau_{d}$ (i.e., $\tau_{d}= t_d-t_{d-1}$) and specify the distribution of candidate timestamps with sender-specfic mean $\mu_{ad}$. Following the generalized linear model (GLM) framework \citep{nelder1972generalized}, we assume the mean and variance of the $\tau_{ad}$ satistify
 \begin{equation}
 \begin{aligned}
 E(\tau_{ad}) &= \mu_{ad},\\
 V(\tau_{ad}) &= V(\mu_{ad}),
 \end{aligned}
 \end{equation}
-where $\tau_{ad}$ here is a positive real number. Possible choices of distribution include exponential, Weibull, gamma, and log-normal\footnote{The log-normal distribution is not exponential family but can be used via modeling of $\log(\tau_d)$.} distributions, which are commonly used in time-to-event modeling \citep{rao2000applied,rizopoulos2012joint}. Based on the specific distribution, there may be a number of latent variables used in the time increment generation beyond the features used to model the rate (e.g., shape parameter $k$ for Weibull, shape parameter $\theta$ for gamma, and variance parameter $\sigma_\tau^2$ for log-normal). We use $f_\tau(\cdot; \mu, V(\mu))$ and $F_\tau(\cdot; \mu, V(\mu))$ to denote the probability density function (p.d.f) and cumulative density function (c.d.f), respectively, with mean $\mu$ and variance $V(\mu)$.
+where $\tau_{ad}$ here is a positive real number. Possible choices of distribution include exponential, Weibull, gamma, and log-normal\footnote{The log-normal distribution is not exponential family but can be used via modeling of $\log(\tau_d)$.} distributions, which are commonly used in time-to-event modeling \citep{rao2000applied,rizopoulos2012joint}. Based on the specific distribution, we may need another latent variable to draw the time increment beyond the features used to model the rate to account for the variance of time increments $V(\mu)$---e.g., shape parameter $k$ for Weibull, shape parameter $\theta$ for gamma, and variance parameter $\sigma_\tau^2$ for log-normal. We use $f_\tau(\cdot; \mu, V(\mu))$ and $F_\tau(\cdot; \mu, V(\mu))$ to denote the probability density function (p.d.f) and cumulative density function (c.d.f), respectively, with mean $\mu$ and variance $V(\mu)$.
 \subsection{Senders, Receivers, and Timestamps}\label{subsec:Observed}
-Finally, we choose the actual sender, receivers, and timestamp by selecting the sender--receiver-set pair with the smallest time increment \citep{snijders1996stochastic}:
+Finally, we generate the actual sender, receivers, and timestamp by selecting the sender--receiver-set pair with the smallest time increment \citep{snijders1996stochastic}:
 \begin{equation}
 \begin{aligned}
 a_d &= \mbox{argmin}_{a}(\tau_{ad}),\\
@@ -147,7 +147,7 @@ a_d &= \mbox{argmin}_{a}(\tau_{ad}),\\
 t_d &=t_{d-1} + \tau_{a_d d}.
 \end{aligned}
 \end{equation}
-Therefore, it is a sender-driven process in that the receivers and timestamp of an edge is jointly determined by the sender's urgency to send the edge to chosen receivers. Note that our generative process accounts for tied events such that in case of tied events (i.e., multiple senders generated exactly same time increments), we observe all of the tied events without assigning the orders of tied events. Algorithm \ref{alg:generative} summarizes the entire generative process for directed edges with one sender and one or more receivers, outlined in this section.
+Therefore, it is a sender-driven process in that the receivers and timestamp of an edge is jointly determined by the sender's urgency to send the edge to chosen receivers. Note that our generative process accounts for tied events such that in case of tied events (i.e., multiple senders draw exactly same candidate timestamps), we observe all of the tied events without assigning the orders of tied events. Algorithm \ref{alg:generative} summarizes the entire generative process for directed edges with one sender and one or more receivers, and Figure \ref{figure:diagram} presents an illustrative example on how the $d$th edge is generated, assuming $t_{d-1} = 0$ for simplicity.
 	\begin{algorithm}[!t]
 		\spacingset{1}
 			\SetAlgoLined
@@ -168,7 +168,7 @@ Therefore, it is a sender-driven process in that the receivers and timestamp of 
 		
 			\IF{$n \geq 2$ tied events} 
 			\STATE	set $a_d, \ldots, a_{d+n-1}= \mbox{argmin}_{a}(\tau_{ad})$
-			\STATE	set $\boldsymbol{r}_d=\boldsymbol{u}_{a_d d},\ldots,\boldsymbol{r}_{d+n-1}= ,\boldsymbol{u}_{a_{d+n-1} d}$
+			\STATE	set $\boldsymbol{r}_d=\boldsymbol{u}_{a_d d},\ldots,\boldsymbol{r}_{d+n-1}=\boldsymbol{u}_{a_{d+n-1} d}$
 			\STATE	set $t_d, \ldots, t_{d+n-1}=t_{d-1} + \min_a\tau_{ad}$
 			\STATE		jump to $d = d+n$
 				\ELSE
@@ -180,12 +180,19 @@ Therefore, it is a sender-driven process in that the receivers and timestamp of 
 		\end{algorithmic}
 		\label{alg:generative}
 	\end{algorithm}
+					\begin{figure}[ht]
+						\centering
+						\includegraphics[width=0.625\textwidth]{img/diagram2.png}	
+						\caption {An illustrative example of the generative process of the HEM.}
+						\label{figure:diagram}
+					\end{figure}	
+					
 \section{Posterior Inference}\label{sec:inference}
-Our inference goal is to invert the generative process to obtain the posterior distribution over the latent variables---hypothetical edges $\{\boldsymbol{u}_d\}_{d=1}^D$, coefficients for edge coavriates $\boldsymbol{b}$, and coefficients for timestamp covariates $\boldsymbol{\eta}$---conditioned on the observed data $\{(a_d, \boldsymbol{r}_d, t_d)\}_{d=1}^D$, covariates $\{(\boldsymbol{x}_d, \boldsymbol{y}_d)\}_{d=1}^D$, and hyperparamters $(\boldsymbol{\mu}_b, \Sigma_b, \boldsymbol{\mu}_\eta, \Sigma_\eta)$. We draw the samples using Markov chain Monte Carlo (MCMC) methods, repeatedly resampling the value of each latent variable from its conditional posterior via a Metropolis-within-Gibbs sampling algorithm. In this section, we provide each latent variable's conditional posterior, and demonstrate how we perform the prior-posterior simulator test of \cite{geweke2004getting} for the HEM. At the end of this section, we provide the pseudocode of our MCMC algorithm in Algorithm \ref{alg:MCMC}.
+Our inference goal is to invert the generative process to obtain the posterior distribution over the latent variables---candidate receivers $\{\boldsymbol{u}_d\}_{d=1}^D$, coefficients for edge coavriates $\boldsymbol{b}$, and coefficients for timestamp covariates $\boldsymbol{\eta}$---conditioned on the observed data $\{(a_d, \boldsymbol{r}_d, t_d)\}_{d=1}^D$, covariates $\{(\boldsymbol{x}_d, \boldsymbol{y}_d)\}_{d=1}^D$, and hyperparamters $(\boldsymbol{\mu}_b, \Sigma_b, \boldsymbol{\mu}_\eta, \Sigma_\eta)$. We draw the samples using Markov chain Monte Carlo (MCMC) methods, repeatedly resampling the value of each latent variable from its conditional posterior via a Metropolis-within-Gibbs sampling algorithm. In this section, we provide each latent variable's conditional posterior, and demonstrate how we perform the prior-posterior simulator test of \cite{geweke2004getting} for the HEM. At the end of this section, we provide the pseudocode of our MCMC algorithm in Algorithm \ref{alg:MCMC}.
 
 \subsection{Conditional Posteriors}\label{subsec:conditionaldist}
-\subsubsection{Hypothetical edges}
-In the HEM, direct computation of the posterior densities for the latent variables $\boldsymbol{b}$ and $\boldsymbol{\eta}$---i.e., $P(\boldsymbol{b}|\boldsymbol{x},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})$ and $P(\boldsymbol{\eta}|\boldsymbol{y},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})$---are not possible. However, it is possible to augment the data by hypothetical edges $\boldsymbol{u}$ such that we can obtain their conditional posterior by collapsing the known distributions---$P(\boldsymbol{b}, \boldsymbol{u}|\boldsymbol{x},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})$ and $P(\boldsymbol{\eta}, \boldsymbol{u}| \boldsymbol{y},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})$---through integrating out $\boldsymbol{u}$. We adapt this common tool in Bayesian statistics called ``data augmentation" \citep{tanner1987calculation,neal2015exact}. Since $u_{adr}$ is a binary random variable, its new value may be sampled directly from a multinomial distribution with probabilities
+\subsubsection{Candidate Receivers}
+In the HEM, direct computation of the posterior densities for the latent variables $\boldsymbol{b}$ and $\boldsymbol{\eta}$---i.e., $P(\boldsymbol{b}|\boldsymbol{x},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})$ and $P(\boldsymbol{\eta}|\boldsymbol{y},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})$---are not possible. However, it is possible to augment the data by candidate receivers $\boldsymbol{u}$ such that we can obtain their conditional posterior by collapsing the known distributions---$P(\boldsymbol{b}, \boldsymbol{u}|\boldsymbol{x},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})$ and $P(\boldsymbol{\eta}, \boldsymbol{u}| \boldsymbol{y},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})$---through integrating out $\boldsymbol{u}$. We adapt this common tool in Bayesian statistics called ``data augmentation" \citep{tanner1987calculation,neal2015exact}. Since $u_{adr}$ is a binary random variable, its new value may be sampled directly from a multinomial distribution with probabilities
 \begin{equation}
 \begin{aligned}
 &\Pr(u_{adr}=1| \boldsymbol{u}_{ad\backslash r}, \boldsymbol{b}, \boldsymbol{x},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})
@@ -196,19 +203,48 @@ In the HEM, direct computation of the posterior densities for the latent variabl
 \end{equation}
 where $I(\cdot)$ is the indicator function that is used to prevent from the instances where a sender chooses zero number of receivers. 
 \subsubsection{Coefficients for edge covariates}
-Unlike hypothetical edges above, new values for $\boldsymbol{b}$ cannot be sampled directly from its conditional posterior, but may instead be obtained using the Metropolis--Hastings (M-H) algorithm. Assuming an uninformative prior (i.e., $N({0},\infty)$), the conditional posterior over $\boldsymbol{b}$ is
+Unlike the candidate receivers above, new values for $\boldsymbol{b}$ cannot be sampled directly from its conditional posterior, but may instead be obtained using the Metropolis--Hastings (M-H) algorithm. Assuming an uninformative prior (i.e., $N({0},\infty)$), the conditional posterior over $\boldsymbol{b}$ is
 \begin{equation}
 \Pr(\boldsymbol{b}| \boldsymbol{u}, \boldsymbol{x}, \boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})\propto \prod_{d=1}^D
 \prod_{a=1}^A \frac{1}{Z(\boldsymbol{\lambda}_{ad})}\exp\Big(\mbox{log}\big(\text{I}( \lVert \boldsymbol{u}_{ad}\rVert_1 > 0)\big) + \sum\limits_{r \neq a} \lambda_{adr}u_{adr}\Big).
 \label{eqn:latentedge}
 \end{equation}
+\begin{algorithm}[!t]
+	\spacingset{1}
+	\SetAlgoLined
+	\caption{MCMC Algorithm}
+	\begin{algorithmic}
+		\STATE \textbf{Input}: number of outer and inner iterations $(O, I_1, I_2)$ and initial values of $(\boldsymbol{u}, \boldsymbol{b}, \boldsymbol{\eta})$
+		\vskip 0.1in
+		\FOR{o=1 to O}
+		\FOR{d=1 to D}
+		\FOR{a = 1 to A}
+		\FOR{r = 1 to A (r $\neq$ a)}
+		\STATE update $u_{adr}$ using Gibbs update ---equation (\ref{eqn:latentreceiver})
+		\ENDFOR
+		\ENDFOR
+		\ENDFOR
+		\FOR{n=1 to $I_1$}
+		\STATE update $\boldsymbol{b}$ using M-H algorithm---equation (\ref{eqn:latentedge})
+		\ENDFOR
+		\FOR{n=1 to $I_2$}
+		\STATE update $\boldsymbol{\eta}$ using M-H algorithm---equation (\ref{eqn:latenttime}) or (\ref{eqn:latenttime2}) 
+		\ENDFOR
+		\IF {extra parameter for $V(\mu)$} 
+		\STATE update the variance parameter using M-H algorithm---equation (\ref{eqn:latenttime}) or (\ref{eqn:latenttime2}) 
+		\ENDIF
+		\ENDFOR
+		\STATE	summarize the results with the last chain of $\boldsymbol{b}$ and $\boldsymbol{\eta}$
+	\end{algorithmic}
+	\label{alg:MCMC}
+\end{algorithm}
 \subsubsection{Coefficients for timestamp covariates}
 Likewise, we use the M-H algorithm to update the latent variable $\boldsymbol{\eta}$. Assuming an uninformative prior $\boldsymbol{\eta}$ (i.e., $N({0},\infty)$), the conditional posterior for no-tied event case is
 \begin{equation}
 \Pr(\boldsymbol{\eta}| \boldsymbol{u}, \boldsymbol{y},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})\propto \prod_{d=1}^D\Big(f_{\tau}(\tau_{d}; \mu_{a_d d}, V(\mu_{a_d d}))\times \prod_{a\neq a_d}\big(1-F_{\tau}(\tau_{d}; \mu_{a d}, V(\mu_{a_d d})) \big)\Big),
 \label{eqn:latenttime}
 \end{equation}
-where $f_{\tau}(\tau_{d}; \mu_{a_d d}, V(\mu_{a_d d}))$ is the probability that the $d^{th}$ observed time increment comes from the specified distribution $f_\tau(\cdot)$ with the observed sender's mean $\mu_{a_d d}$, and $\prod_{a\neq a_d}\big(1-F_{\tau}(\tau_{d}; \mu_{a d},V(\mu_{a_d d})) \big)$ is the probability that the rest of (unobserved) senders for event $d$ all generated time increments greater than $\tau_d$. Moreover, under the existence of tied-event, the conditional posterior of $\boldsymbol{\eta}$ is written as
+where $f_{\tau}(\tau_{d}; \mu_{a_d d}, V(\mu_{a_d d}))$ is the probability that the $d^{th}$ observed time increment comes from the specified distribution $f_\tau(\cdot)$ with the observed sender's mean $\mu_{a_d d}$, and $\prod_{a\neq a_d}\big(1-F_{\tau}(\tau_{d}; \mu_{a d},V(\mu_{a_d d})) \big)$ is the probability that the rest of (unobserved) senders for event $d$ all draw time increments greater than $\tau_d$. Moreover, under the existence of tied-event, the conditional posterior of $\boldsymbol{\eta}$ is written as
 \begin{equation}
 \begin{aligned}
 \Pr(\boldsymbol{\eta}| \boldsymbol{u}, \boldsymbol{y},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})&\propto \prod_{m=1}^M\Big(\prod_{d:t_d=t_m^*}f_{\tau}(t_m^*-t_{m-1}^*; \mu_{a_d d}, V(\mu_{a_d d})) \\&\times \prod_{a \notin \{a_d\}_{d:t_d=t_m^*}}\big(1-F_{\tau}(t_m^*-t_{m-1}^*; \mu_{a d}, V(\mu_{a_d d})) \big)\Big),
@@ -216,35 +252,6 @@ where $f_{\tau}(\tau_{d}; \mu_{a_d d}, V(\mu_{a_d d}))$ is the probability that 
 \label{eqn:latenttime2}
 \end{equation}
 where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq D$). If $M=D$ (i.e., no tied events), equation (\ref{eqn:latenttime2}) reduces to equation (\ref{eqn:latenttime}). Note that when we have the latent variable to quantify the variance in time increments $V(\mu)$ (based on the choice of timestamp distribution in Section \ref{subsec:Time}), we also use equation (\ref{eqn:latenttime}) (or equation (\ref{eqn:latenttime2}) in case there exist tied events) for the additional M-H update---e.g., $\Pr(k| \boldsymbol{\eta},\boldsymbol{u}, \boldsymbol{y},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})$ for Weibull, $\Pr(\theta| \boldsymbol{\eta},\boldsymbol{u}, \boldsymbol{y},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})$ for gamma, and  $\Pr(\sigma^2_\tau| \boldsymbol{\eta},\boldsymbol{u}, \boldsymbol{y},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})$ for log-normal distribution.
-\begin{algorithm}[!t]
-	\spacingset{1}
-	\SetAlgoLined
-	\caption{MCMC Algorithm}
-	\begin{algorithmic}
-	\STATE \textbf{Input}: number of outer and inner iterations $(O, I_1, I_2)$ and initial values of $(\boldsymbol{u}, \boldsymbol{b}, \boldsymbol{\eta})$
-				\vskip 0.1in
-	\FOR{o=1 to O}
-		\FOR{d=1 to D}
-		 \FOR{a = 1 to A}
-			\FOR{r = 1 to A (r $\neq$ a)}
-					\STATE update $u_{adr}$ using Gibbs update ---equation (\ref{eqn:latentreceiver})
-			\ENDFOR
-		\ENDFOR
-		\ENDFOR
-		\FOR{n=1 to $I_1$}
-			\STATE update $\boldsymbol{b}$ using M-H algorithm---equation (\ref{eqn:latentedge})
-		\ENDFOR
-	\FOR{n=1 to $I_2$}
-			\STATE update $\boldsymbol{\eta}$ using M-H algorithm---equation (\ref{eqn:latenttime}) or (\ref{eqn:latenttime2}) 
-		\ENDFOR
-			\IF {extra parameter for $V(\mu)$} 
-			\STATE update the variance parameter using M-H algorithm---equation (\ref{eqn:latenttime}) or (\ref{eqn:latenttime2}) 
-				\ENDIF
-	\ENDFOR
-	\STATE	summarize the results with the last chain of $\boldsymbol{b}$ and $\boldsymbol{\eta}$
-\end{algorithmic}
-\label{alg:MCMC}
-\end{algorithm}
 \subsection{Getting It Right (GiR) Test} \label{subec:GiR}
   Software development is integral to the objective of applying the HEM to real world data. Code review is a valuable process in any research computing context, and the prevalence of software bugs in statistical software is well documented \citep[e.g., ][]{altman2004numerical,mccullough2009accuracy}.  With highly complex models such as the HEM, there are many ways in which software bugs can be introduced and go unnoticed. As such, we present a joint analysis of the integrity of our generative model, sampling equations, and software implementation. 
   
@@ -260,61 +267,61 @@ where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $D$ events ($M \leq 
    	\item[6.] $\eta_q$ value used to generate the samples $q = 1,...,Q$,
    	\item[7.] $\sigma^2_\tau$ value used to generate the samples in log-normal distribution
    \end{itemize}
-   
-   To keep the computational burden of re-running thousands of rounds of inference manageable, we run the GiR using a relatively small artificial sample, consisting of $D=100$ edges, $A=5$ actors, $P=4$ number of edge covariates, and $Q=3$ number of timestamp covariates per each forward or backward samples, using log-normal distibution for the time increments $f_\tau$. We generated $10^5$ sets of forward and backward samples, and then calculated 1,000 quantiles for each of the statistics. We also calculated t-test and Mann-Whitney test p-values in order to test for differences in the distributions generated in the forward and backward samples. Before we calculated these statistics, we thinned our samples by taking every 9th sample starting at the 10,000th sample for a resulting sample size of 10,000, in order to reduce the autocorrelation in the Markov chains. In each case, if we observe a large p-value, this gives us evidence that the distributions generated under forward and backward sampling have the same locations. We depict the GiR results using probability-probability (PP) plots. To compare two samples with PP plots we calculate the empirical quantile in each sample of a set of values observed across the two samples, then plot the sets of quantiles in the two samples against each other. If the two samples are from equivalent distributions, the quantiles should line up on a line with zero $y$-intercept, and unit slope (i.e., a 45-degree line). The GiR test results are depicted in Figure \ref{figure:GiRplot}, which show that we pass the test on every statistic.
-   \begin{figure}[H]
+   \begin{figure}[!t]
    	\centering
    	\begin{subfigure}[b]{0.2425\textwidth}
-   		   	\caption{Mean of $\lVert \boldsymbol{r}_{d} \rVert_1 $}
-   	\includegraphics[width=\textwidth]{img/plot1.png}	
+   		\caption{Mean of $\lVert \boldsymbol{r}_{d} \rVert_1 $}
+   		\includegraphics[width=\textwidth]{img/plot1.png}	
    	\end{subfigure}
-   	   	\begin{subfigure}[b]{0.2425\textwidth}
-   	   		   		   	\caption{Variance of $\lVert \boldsymbol{r}_{d} \rVert_1 $}
-   	   		\includegraphics[width=\textwidth]{img/plot2.png}	
-   	   	\end{subfigure}
-   	   	   	\begin{subfigure}[b]{0.2425\textwidth}
-   	   	   		   	   	   		\caption{Mean of $\tau_d$}
-   	   	   		\includegraphics[width=\textwidth]{img/plot3.png}	
-   	   	   	\end{subfigure}
-   	   	   	   	   	   	\begin{subfigure}[b]{0.2425\textwidth}
-   	   	   	   	   	   		  	\caption{Variance of $\tau_d$}
-   	   	   	   	   	   		\includegraphics[width=\textwidth]{img/plot4.png}	
-   	   	   	   	   	   	\end{subfigure}
-   	   	   	   	   	   	   	   	   	   	\begin{subfigure}[b]{0.2425\textwidth}
-   	   	   	   	   	   	   	   	   	   		\caption{Value of $b_1$}
-   	   	   	   	   	   	   	   	   	   		\includegraphics[width=\textwidth]{img/plot5.png}	
-   	   	   	   	   	   	   	   	   	   	\end{subfigure}
-   	   	   		   	   	\begin{subfigure}[b]{0.2425\textwidth}
-   	   	   		   	   		\caption{Value of $b_2$}
-   	   	   		   	   		\includegraphics[width=\textwidth]{img/plot6.png}	
-   	   	   		   	   	\end{subfigure}   	   	   	   	   	   	   	
-   		   	   	\begin{subfigure}[b]{0.2425\textwidth}
-   		   	   		\caption{Value of $b_3$}
-   		   	   		\includegraphics[width=\textwidth]{img/plot7.png}	
-   		   	   	\end{subfigure}   	   		   	   	
-   		   	   	   		   	   	\begin{subfigure}[b]{0.2425\textwidth}
-   		   	   	   		   	   		\caption{Value of $b_4$}
-   		   	   	   		   	   		\includegraphics[width=\textwidth]{img/plot8.png}	
-   		   	   	   		   	   	\end{subfigure}   	   		   	   	
-   		   	   	   		   	   	   		   	   	\begin{subfigure}[b]{0.2425\textwidth}
-   		   	   	   		   	   	   		   	   		\caption{Value of $\eta_1$}
-   		   	   	   		   	   	   		   	   		\includegraphics[width=\textwidth]{img/plot9.png}	
-   		   	   	   		   	   	   		   	   	\end{subfigure}   	   		   	   	
-   		     		   	   	\begin{subfigure}[b]{0.2425\textwidth}
-   		     		   	   		\caption{Value of $\eta_2$}
-   		     		   	   		\includegraphics[width=\textwidth]{img/plot10.png}	
-   		     		   	   	\end{subfigure}   	   		   	   	
-   		   	     		   	   	\begin{subfigure}[b]{0.2425\textwidth}
-   		   	     		   	   		\caption{Value of $\eta_3$}
-   		   	     		   	   		\includegraphics[width=\textwidth]{img/plot11.png}	
-   		   	     		   	   	\end{subfigure}   	   		   	   	  		   	   	 	
-   		   	     		   	   		     		   	   	\begin{subfigure}[b]{0.2425\textwidth}
-   		   	     		   	   		     		   	   		\caption{Value of $\sigma^2_\tau$}
-   		   	     		   	   		     		   	   		\includegraphics[width=\textwidth]{img/plot12.png}	
-   		   	     		   	   		     		   	   	\end{subfigure}   	   		   	   	   	   		   	   	   		   	   	
+   	\begin{subfigure}[b]{0.2425\textwidth}
+   		\caption{Variance of $\lVert \boldsymbol{r}_{d} \rVert_1 $}
+   		\includegraphics[width=\textwidth]{img/plot2.png}	
+   	\end{subfigure}
+   	\begin{subfigure}[b]{0.2425\textwidth}
+   		\caption{Mean of $\tau_d$}
+   		\includegraphics[width=\textwidth]{img/plot3.png}	
+   	\end{subfigure}
+   	\begin{subfigure}[b]{0.2425\textwidth}
+   		\caption{Variance of $\tau_d$}
+   		\includegraphics[width=\textwidth]{img/plot4.png}	
+   	\end{subfigure}
+   	\begin{subfigure}[b]{0.2425\textwidth}
+   		\caption{Value of $b_1$}
+   		\includegraphics[width=\textwidth]{img/plot5.png}	
+   	\end{subfigure}
+   	\begin{subfigure}[b]{0.2425\textwidth}
+   		\caption{Value of $b_2$}
+   		\includegraphics[width=\textwidth]{img/plot6.png}	
+   	\end{subfigure}   	   	   	   	   	   	   	
+   	\begin{subfigure}[b]{0.2425\textwidth}
+   		\caption{Value of $b_3$}
+   		\includegraphics[width=\textwidth]{img/plot7.png}	
+   	\end{subfigure}   	   		   	   	
+   	\begin{subfigure}[b]{0.2425\textwidth}
+   		\caption{Value of $b_4$}
+   		\includegraphics[width=\textwidth]{img/plot8.png}	
+   	\end{subfigure}   	   		   	   	
+   	\begin{subfigure}[b]{0.2425\textwidth}
+   		\caption{Value of $\eta_1$}
+   		\includegraphics[width=\textwidth]{img/plot9.png}	
+   	\end{subfigure}   	   		   	   	
+   	\begin{subfigure}[b]{0.2425\textwidth}
+   		\caption{Value of $\eta_2$}
+   		\includegraphics[width=\textwidth]{img/plot10.png}	
+   	\end{subfigure}   	   		   	   	
+   	\begin{subfigure}[b]{0.2425\textwidth}
+   		\caption{Value of $\eta_3$}
+   		\includegraphics[width=\textwidth]{img/plot11.png}	
+   	\end{subfigure}   	   		   	   	  		   	   	 	
+   	\begin{subfigure}[b]{0.2425\textwidth}
+   		\caption{Value of $\sigma^2_\tau$}
+   		\includegraphics[width=\textwidth]{img/plot12.png}	
+   	\end{subfigure}   	   		   	   	   	   		   	   	   		   	   	
    	\caption{Probability-probability (PP) plots for the GiR test statistics.}
-   	   	\label{figure:GiRplot}
-   \end{figure}
+   	\label{figure:GiRplot}
+   \end{figure}   
+   To keep the computational burden of re-running thousands of rounds of inference manageable, we run the GiR using a relatively small artificial sample, consisting of $D=100$ edges, $A=5$ actors, $P=4$ number of edge covariates, and $Q=3$ number of timestamp covariates per each forward or backward samples, using log-normal distibution for the time increments $f_\tau$. We generated $10^5$ sets of forward and backward samples, and then calculated 1,000 quantiles for each of the statistics. We also calculated t-test and Mann-Whitney test p-values in order to test for differences in the distributions generated in the forward and backward samples. Before we calculated these statistics, we thinned our samples by taking every 9th sample starting at the 10,000th sample for a resulting sample size of 10,000, in order to reduce the autocorrelation in the Markov chains. In each case, if we observe a large p-value, this gives us evidence that the distributions generated under forward and backward sampling have the same locations. We depict the GiR results using probability-probability (PP) plots. To compare two samples with PP plots we calculate the empirical quantile in each sample of a set of values observed across the two samples, then plot the sets of quantiles in the two samples against each other. If the two samples are from equivalent distributions, the quantiles should line up on a line with zero $y$-intercept, and unit slope (i.e., a 45-degree line). The GiR test results are depicted in Figure \ref{figure:GiRplot}, which show that we pass the test on every statistic.
+
  	   \section{Application to Email Data}\label{sec:Emails}
  	   We now present a case study applying our method to Montgomery county government email data.
  	   Our data come from the North Carolina county government email dataset collected by \cite{ben2017transparency} that includes internal email corpora covering the inboxes and outboxes of managerial-level employees of North Carolina county governments. Out of over twenty counties, we chose Montgomery County to 1) test our model using data with large proportion of hyperedges (16.76\%), all of which are emails sent from one sender to two or more receivers, and 2) limit the scope of this initial application. To summarize, Montgomery County email network contains 680 emails, sent and received by 18 department managers over a period of 3 months (March--May) in 2012. For this case study,
@@ -458,41 +465,45 @@ In this section, we perform posterior predictive checks (PPC) \citep{rubin1984ba
 		\end{algorithmic}
 		\label{alg:PPC}
 	\end{algorithm}     \fi  
-		
-	Figure \ref{figure:PPCresults} illustrates the results of poterior predictive checks using log-normal distribution, which shows better performance in Section \ref{subsec:Experiment_email}. Upper two plots show node-specific posterior predictive degree distributions across $N=500$ synthetic data, where the left one for outdegree statistic and the right plot is for indegree statistic. For both plots, the x-axis represents the nodes ($A=1,\ldots,18$), and the y-axis represents the number of emails sent or received by the node. When compared with the observed outdegree and indegree statistics (red lines), our model recovers the overall distribution of sending and receiving activities across the nodes. For example, node 1 and 10 show significantly higher level of both sending and receiving activities relative to the rest, and the model-simulated data captures those big jumps, showing acceptable fit to the data. Outdegree distribution of some low-activity nodes are not precisely recovered, however, indegree distribution looks much better. Since we use more information in the receiver selection process (i.e., network effects) while we rely solely on minimum time increments when choosing the observed sender, these results are expected. Lower left plot is the distribution of receiver sizes, where the x-axis spans over the size of receivers 1 to 14 (which is the maximum size of observed receivers) and the y-axis denotes the number of emails with x-number of receivers. The result shows that our model is underestimating emails with one receiver while overestimating emails with two, three, and four receivers. One explanation behind what we observe is that the model is trying to recover so-called ``broadcast'' emails, which are the emails with $\geq 10$ number of receivers, so that the intercept estimate $b_1$ is slightly moved toward right. To improve the goodness of fit for receiver sizes, we can add more covariates (e.g., sender indicators) or assign strong prior structure on $b_1$. In the end, the plot on the lower right is the PP plot for time increments, which depicts the two cumulative distribution functions---one for simulated time increments and another for observed time increments---against each other in order to assess how closely two data sets agree. Here, the closeness to the diagonal line connecting $(0, 0)$ and $(1, 1)$ gives a measure of difference between the simulated and observed time increments, and our PP plot shows that we have great performance in reproducing the observed time distribution. All our findings from predictive experiments in Section \ref{subsec:Experiment_email} are further revealed in the PPC from exponential distribution, where the PPC plots comparing log-normal and exponential distributions are attached in Appendix C.
 	\begin{figure}[!t]
 		\centering
 		\begin{tabular}[t]{cc}
-		   	\begin{subfigure}[b]{0.495\textwidth}
-		   		\caption{Outdegree distribution}
-		\includegraphics[width=\textwidth]{img/outdegree-1.png}	
-		   	\end{subfigure}
-		   			   	\begin{subfigure}[b]{0.495\textwidth}
-		   			   		\caption{Indegree distribution}
-		   			   		\includegraphics[width=\textwidth]{img/indegree-1.png}	
-		   			   	\end{subfigure}\\
-			   	\begin{subfigure}[b]{0.495\textwidth}
-			   		\caption{Receiver size distribution}
-			   		\includegraphics[width=\textwidth]{img/recipientsize-1.png}	
-			   	\end{subfigure}
-			   	\begin{subfigure}[b]{0.495\textwidth}
-			   				\centering
-			   		\caption{PPplot for time increments}
-			   		\includegraphics[width=0.56\textwidth]{img/timePPplot-1.png}	
-			   	\end{subfigure}
+			\begin{subfigure}[b]{0.495\textwidth}
+				\caption{Outdegree distribution}
+				\includegraphics[width=\textwidth]{img/outdegree-1.png}	
+			\end{subfigure}
+			\begin{subfigure}[b]{0.495\textwidth}
+				\caption{Indegree distribution}
+				\includegraphics[width=\textwidth]{img/indegree-1.png}	
+			\end{subfigure}\\
+			\begin{subfigure}[b]{0.495\textwidth}
+				\caption{Receiver size distribution}
+				\includegraphics[width=\textwidth]{img/recipientsize-1.png}	
+			\end{subfigure}
+			\begin{subfigure}[b]{0.495\textwidth}
+				\centering
+				\caption{PPplot for time increments}
+				\includegraphics[width=0.56\textwidth]{img/timePPplot-1.png}	
+			\end{subfigure}
 		\end{tabular}
 		\caption {PPC results from log-normal distribution. Blue lines denote the observed statistics in (a)--(c) and denotes the diagonal line in (d).}
 		\label{figure:PPCresults}
 	\end{figure}
+		
+	Figure \ref{figure:PPCresults} illustrates the results of poterior predictive checks using log-normal distribution, which shows better performance in Section \ref{subsec:Experiment_email}. Upper two plots show node-specific posterior predictive degree distributions across $N=500$ synthetic data, where the left one for outdegree statistic and the right plot is for indegree statistic. For both plots, the x-axis represents the nodes ($A=1,\ldots,18$), and the y-axis represents the number of emails sent or received by the node. When compared with the observed outdegree and indegree statistics (red lines), our model recovers the overall distribution of sending and receiving activities across the nodes. For example, node 1 and 10 show significantly higher level of both sending and receiving activities relative to the rest, and the model-simulated data captures those big jumps, showing acceptable fit to the data. Outdegree distribution of some low-activity nodes are not precisely recovered, however, indegree distribution looks much better. Since we use more information in the receiver selection process (i.e., network effects) while we rely solely on minimum time increments when choosing the observed sender, these results are expected. Lower left plot is the distribution of receiver sizes, where the x-axis spans over the size of receivers 1 to 14 (which is the maximum size of observed receivers) and the y-axis denotes the number of emails with x-number of receivers. The result shows that our model is underestimating emails with one receiver while overestimating emails with two, three, and four receivers. One explanation behind what we observe is that the model is trying to recover so-called ``broadcast'' emails, which are the emails with $\geq 10$ number of receivers, so that the intercept estimate $b_1$ is slightly moved toward right. To improve the goodness of fit for receiver sizes, we can add more covariates (e.g., sender indicators) or assign strong prior structure on $b_1$. In the end, the plot on the lower right is the PP plot for time increments, which depicts the two cumulative distribution functions---one for simulated time increments and another for observed time increments---against each other in order to assess how closely two data sets agree. Here, the closeness to the diagonal line connecting $(0, 0)$ and $(1, 1)$ gives a measure of difference between the simulated and observed time increments, and our PP plot shows that we have great performance in reproducing the observed time distribution. All our findings from predictive experiments in Section \ref{subsec:Experiment_email} are further revealed in the PPC from exponential distribution, where the PPC plots comparing log-normal and exponential distributions are attached in Appendix C.
 	
 	\subsection{Exploratory Analysis}\label{subsec:Result_email}
 	Based on the prediction experiments in Section \ref{subsec:Experiment_email}, we choose to analyze Montgomery county email data and interpret the results using log-normal distribution. We assume weakly informative priors for latent variables such as $\boldsymbol{b}\sim N(\boldsymbol{\mu}_b=\boldsymbol{0}, \Sigma_b = 2\times I_P)$, $\boldsymbol{\eta}\sim N(\boldsymbol{\mu}_\eta=\boldsymbol{0}, \Sigma_\eta = 2\times I_Q)$, and $\sigma_\tau^2 \sim \mbox{inverse-Gamma}(a=2, b=1)$, and run MCMC algorithm in Algorithm \ref{alg:MCMC} with $O=55,000$ outer iterations with a burn-in of 15,000, where we thin by keeping every 40th sample. While the inner iterations for $\sigma_\tau^2$ is fixed as 1, we specify the inner iterations $I_1=20$ for $\boldsymbol{b}$ and $I_2=10$ for $\boldsymbol{\eta}$ to adjust for slower convergence rates. Convergence diagnostics including the traceplots and Geweke diagnostics \citep{geweke1991evaluating} are provided in Appendix D.
 
 	\subsubsection{Coefficients for edge covariates}
-	Figure \ref{figure:betaresults} shows the boxplots summarizing posterior samples of $\boldsymbol{b}$, where Figure \ref{figure:betaresults} (a) displays the coefficients for nodal covariates and \ref{figure:betaresults} (b) displays the coefficients for dyadic and triadic covariates. Since we use the logit probability of $\lambda_{adr}$ when generating hypothetical edges in Section \ref{subsec: Tie}, we assume that 
+	Figure \ref{figure:betaresults} shows the boxplots summarizing posterior samples of $\boldsymbol{b}$, where Figure \ref{figure:betaresults} (a) displays the coefficients for nodal covariates and \ref{figure:betaresults} (b) displays the coefficients for dyadic and triadic covariates. Since we use the logit probability of $\lambda_{adr}$ when generating candidate receivers in Section \ref{subsec: Tie}, we assume that 
 	\begin{equation*}
 	\mbox{logit}(\lambda_{adr})=\log\Big(\frac{\lambda_{adr}}{1-\lambda_{adr}}\Big) =b_{1}+b_{2} x_{adr2}\ldots+b_{14}x_{adr14},
 	\end{equation*}
+	and can interpret the $\boldsymbol{b}$ estimates in terms of odds ratio $\frac{\lambda_{adr}}{1-\lambda_{adr}}=\exp(b_{1}+b_{2} x_{adr2}\ldots+b_{14}x_{adr14})$.
+	To begin with, we find out that the effect of nodal coavariates ``gender of sender" and ``gender of receiver" are both significant in negative direction. \textbf{substantive interpretation on gender effects}. Next, the statistic ``outdegree" also has significantly negative effect---i.e., if sender $a$ sent $n$ number of emails to anyone last week, then sender $a$ is approximately $\exp(-0.109\times n)\approx(0.897)^n$ times less likely to send an email to $r$---possibly due to its multicollinearity with the statistics ``hyperedge size" where the two terms' show significant interaction effect. This result is likely to appear under the following scenario: if sender $a$ sent large number of emails over the last week but 1) not to $r$ (excluding the effect of ``send") and the email of interest is not a  2) broadcast email which is originally aimed at large number of receivers (excluding the effect of ``hyperedge size"), then sender $a$ is less likely to send an email to receiver $r$. Similar interpretation can be applied for the covariates ``indegree," but in the opposite direction. For example, if the receiver $r$ received $n$ number of emails over the last week, sender $a$ is $\exp(0.086\times n)\approx(1.091)^n $ times more likely to send an email to $r$. 
+
+	When we look at the effects of dyadic and triadic covariates, one thing we can check is that the effect of statistic``send" (i.e., number of times sender $a$ sent emails to receiver $r$ over the last week) is significant and positive with $\hat{b}_4 = 0.274$, implying that if sender $a$ sent $n$ number of emails to $r$ last week, then sender $a$ is approximately $\exp(0.274\times n)\approx(1.315)^n$ times more likely to send an email to $r$. Another dyadic statistic ``receive" is not statistically significant in that its 95\% credible interval do not include 0. Surprisingly, none of the covariates for triadic network effects seem to have significant effect on the generative process of edges.
 			\begin{figure}[!t]
 				\centering
 				\begin{tabular}[t]{cc}
@@ -508,11 +519,8 @@ In this section, we perform posterior predictive checks (PPC) \citep{rubin1984ba
 				\caption {Posterior distribution of $\boldsymbol{b}$ estimates.}
 				\label{figure:betaresults}
 			\end{figure}
-	and can interpret the $\boldsymbol{b}$ estimates in terms of odds ratio $\frac{\lambda_{adr}}{1-\lambda_{adr}}=\exp(b_{1}+b_{2} x_{adr2}\ldots+b_{14}x_{adr14})$.
-	To begin with, we find out that the effect of nodal coavariates ``gender of sender" and ``gender of receiver" are both significant in negative direction. \textbf{substantive interpretation on gender effects}. Next, the statistic ``outdegree" also has significantly negative effect---i.e., if sender $a$ sent $n$ number of emails to anyone last week, then sender $a$ is approximately $\exp(-0.109\times n)\approx(0.897)^n$ times less likely to send an email to $r$---possibly due to its multicollinearity with the statistics ``hyperedge size" where the two terms' show significant interaction effect. This result is likely to appear under the following scenario: if sender $a$ sent large number of emails over the last week but 1) not to $r$ (excluding the effect of ``send") and the email of interest is not a  2) broadcast email which is originally aimed at large number of receivers (excluding the effect of ``hyperedge size"), then sender $a$ is less likely to send an email to receiver $r$. Similar interpretation can be applied for the covariates ``indegree," but in the opposite direction. For example, if the receiver $r$ received $n$ number of emails over the last week, sender $a$ is $\exp(0.086\times n)\approx(1.091)^n $ times more likely to send an email to $r$. 
 
-	When we look at the effects of dyadic and triadic covariates, one thing we can check is that the effect of statistic``send" (i.e., number of times sender $a$ sent emails to receiver $r$ over the last week) is significant and positive with $\hat{b}_4 = 0.274$, implying that if sender $a$ sent $n$ number of emails to $r$ last week, then sender $a$ is approximately $\exp(0.274\times n)\approx(1.315)^n$ times more likely to send an email to $r$. Another dyadic statistic ``receive" is not statistically significant in that its 95\% credible interval do not include 0. Surprisingly, none of the covariates for triadic network effects seem to have significant effect on the generative process of edges.
-		\subsubsection{Coefficients for timestamp covariates}
+\subsubsection{Coefficients for timestamp covariates}
 	For timestamp covariates, Figure \ref{figure:etaresults} shows the boxplots summarizing posterior samples of $\boldsymbol{\eta}$. Note that interpretations of the estimated coefficients for $\hat{\boldsymbol{\eta}}$ should be based on the specified timeunit of the datset, which we use ``hour" for Montgomery county email data. Moreover, since we assume log-normal distribution for time increments, we need careful interpretation regarding the timing equations
 	\begin{equation*}
 	\begin{aligned}
@@ -520,13 +528,13 @@ In this section, we perform posterior predictive checks (PPC) \citep{rubin1984ba
 	&\mu_{ad} = \eta_{1}+\eta_{2} y_{ad2}\ldots+\eta_{7}y_{ad7}.
 	\end{aligned}
 	\end{equation*}
+	To begin with, the posterior estimates of two temporal effects---``weekend" and ``PM"---indicate that if the ${(d-1)}^{th}$ email was sent during the weekend or after midday, then the time to $d^{th}$ email is expected to take $\exp(1.552)\approx 4.722$ hours and $\exp(0.980)\approx2.665$ hours longer, respectively, compared to their counterparts (i.e., weekdays and am). On the contrary, the covariates ``manager", ``outdegree", and ``indegree" turn out to shorten the amount of time to next email. For example, being a county manager (i.e., the manager of department managers) lowers the expected value of $\log(\tau_{ad})$ by $\hat{\eta}_3 = -1.070$, since the manager in general sends or receives a lot more emails which may shorten the response time and many of those emails. This argument is also supported by the posterior estimates for ``outdegree" and ``indegree" statistics, where the estimated coefficients are approximately $\hat{\eta}_4=-0.206$ and $\hat{\eta}_5=-0.060$, respectively. Gender of the department manager is shown to have no significant effect on time increments. In addition, the posterior mean estimates for variance parameter $\sigma^2_\tau$ in lognormal distribution is approximately $\hat{\sigma}^2_\tau=14.093$ with its 95\% credible interval $(12.709, 15.555)$, indicating that there exists large variability in the time increments of emails.
 				\begin{figure}[!t]
 					\centering
 					\includegraphics[width=0.495\textwidth]{img/etaplotnew-1.png}	
 					\caption {Posterior distribution of $\boldsymbol{\eta}$ estimates.}
 					\label{figure:etaresults}
 				\end{figure}	
-	To begin with, the posterior estimates of two temporal effects---``weekend" and ``PM"---indicate that if the ${(d-1)}^{th}$ email was sent during the weekend or after midday, then the time to $d^{th}$ email is expected to take $\exp(1.552)\approx 4.722$ hours and $\exp(0.980)\approx2.665$ hours longer, respectively, compared to their counterparts (i.e., weekdays and am). On the contrary, the covariates ``manager", ``outdegree", and ``indegree" turn out to shorten the amount of time to next email. For example, being a county manager (i.e., the manager of department managers) lowers the expected value of $\log(\tau_{ad})$ by $\hat{\eta}_3 = -1.070$, since the manager in general sends or receives a lot more emails which may shorten the response time and many of those emails. This argument is also supported by the posterior estimates for ``outdegree" and ``indegree" statistics, where the estimated coefficients are approximately $\hat{\eta}_4=-0.206$ and $\hat{\eta}_5=-0.060$, respectively. Gender of the department manager is shown to have no significant effect on time increments. In addition, the posterior mean estimates for variance parameter $\sigma^2_\tau$ in lognormal distribution is approximately $\hat{\sigma}^2_\tau=14.093$ with its 95\% credible interval $(12.709, 15.555)$, indicating that there exists large variability in the time increments of emails.
 \section{Conclusion}\label{sec:conclusion}
 Motivated by a growing class of dynamic network models which deal with edges exchanged in continuous time, the hyperedge event model (HEM) can effectively learn the underlying dynamics in edge and timestamp formations, providing novel insights to the literature. First, we explicitly model hyperedges by deriving a receiver-selection distribution that forces the sender to select at least one recevier, which is more realistic approach for events with one sender and one or more receivers and one or more sender and one receiver compared to treating them as pure duplicates. In modeling the timestamps (more precisely time increments) of events, our generalized linear model (GLM) based formulation offers new innovations by eliminating the need to stick with one parameter distribution (e.g., exponential distribution). To make better use of the proposed model, we provide an algorithm for predictive experiment that helps to learn which distribution better fits the data. To sum, the HEM's flexible generative process thus leads to more accurate and precise inference on model parameters.
  
@@ -557,7 +565,7 @@ We have demonstrated effectiveness of our model by analyzing Montgomery County g
 				\ENDFOR
 				\IF {$n \geq 2$ tied events} 
 				\STATE	set ${r}_d=\mbox{argmin}_{r}(\tau_{rd})$
-				\STATE	set $\boldsymbol{a}_d=\boldsymbol{u}_{r_d d},\ldots,\boldsymbol{a}_{d+n-1}= ,\boldsymbol{u}_{r_{d+n-1} d}$
+				\STATE	set $\boldsymbol{a}_d=\boldsymbol{u}_{r_d d},\ldots,\boldsymbol{a}_{d+n-1}=\boldsymbol{u}_{r_{d+n-1} d}$
 				\STATE	set $t_d, \ldots, t_{d+n-1}=t_{d-1} + \min_r\tau_{rd}$
 				\STATE		jump to $d = d+n$
 				\ELSE
@@ -622,7 +630,6 @@ We have demonstrated effectiveness of our model by analyzing Montgomery County g
 	\begin{aligned}Z(\boldsymbol{\lambda}_{ad}) = \prod_{r \neq a } \big(\mbox{exp}(\lambda_{adr}) + 1\big)-1.
 	\end{aligned}  
 	\end{equation*}
-\newpage
 	\subsection*{Appendix C: Comparison of PPC Results: log-normal vs. exponential}\label{appendix: PPCexp}
 		\begin{figure}[H]
 			\centering
