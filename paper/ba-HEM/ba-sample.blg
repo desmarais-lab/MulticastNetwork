@@ -1,46 +1,51 @@
-This is BibTeX, Version 0.99d (TeX Live 2015)
-Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+This is BibTeX, Version 0.99d (TeX Live 2017)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: ba-sample.aux
 The style file: bib/ba.bst
 Database file #1: bib/baHEM.bib
-You've used 34 entries,
+Repeated entry---line 978 of file bib/baHEM.bib
+ : @article{newman2002email
+ :                         ,
+I'm skipping whatever remains of this entry
+You've used 30 entries,
             2760 wiz_defined-function locations,
-            810 strings with 10901 characters,
-and the built_in function-call counts, 20736 in all, are:
-= -- 1704
-> -- 798
-< -- 24
-+ -- 296
-- -- 254
-* -- 1547
-:= -- 3202
-add.period$ -- 135
-call.type$ -- 34
-change.case$ -- 226
-chr.to.int$ -- 34
-cite$ -- 34
-duplicate$ -- 1496
-empty$ -- 1591
-format.name$ -- 362
-if$ -- 4102
+            790 strings with 10128 characters,
+and the built_in function-call counts, 18539 in all, are:
+= -- 1529
+> -- 719
+< -- 20
++ -- 268
+- -- 230
+* -- 1397
+:= -- 2855
+add.period$ -- 117
+call.type$ -- 30
+change.case$ -- 199
+chr.to.int$ -- 30
+cite$ -- 30
+duplicate$ -- 1322
+empty$ -- 1416
+format.name$ -- 327
+if$ -- 3662
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 321
-newline$ -- 213
-num.names$ -- 140
-pop$ -- 589
+missing$ -- 286
+newline$ -- 189
+num.names$ -- 122
+pop$ -- 512
 preamble$ -- 1
-purify$ -- 214
+purify$ -- 191
 quote$ -- 0
-skip$ -- 594
+skip$ -- 524
 stack$ -- 0
-substring$ -- 1032
-swap$ -- 858
-text.length$ -- 3
+substring$ -- 967
+swap$ -- 768
+text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 291
+type$ -- 255
 warning$ -- 0
-while$ -- 156
+while$ -- 142
 width$ -- 0
-write$ -- 483
+write$ -- 427
+(There was 1 error message)
