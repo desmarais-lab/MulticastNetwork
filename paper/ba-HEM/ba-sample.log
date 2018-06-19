@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  1 JUN 2018 17:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  19 JUN 2018 17:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -568,12 +568,12 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <6> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 92.
 
-Overfull \vbox (2.11452pt too high) has occurred while \output is active []
+Overfull \vbox (1.30896pt too high) has occurred while \output is active []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 99.
+(Font)              <9> on input line 98.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 99.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 98.
 
 [1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
@@ -581,14 +581,16 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [2]
-[3] [4] <img/diagram2.png, id=228, 610.28pt x 257.96375pt>
-File: img/diagram2.png Graphic file (type png)
+Underfull \vbox (badness 6396) has occurred while \output is active []
 
-<use img/diagram2.png>
-Package pdftex.def Info: img/diagram2.png used on input line 154.
+ [3]
+[4] <img/diagram2.png, id=228, 610.28pt x 257.96375pt>
+File: img/diagram2.png Graphic file (type png)
+ <use img/diagram2.png>
+Package pdftex.def Info: img/diagram2.png used on input line 155.
 (pdftex.def)             Requested size: 236.875pt x 100.12523pt.
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 162.
+put line 163.
 
 Underfull \vbox (badness 4024) has occurred while \output is active []
 
@@ -596,259 +598,263 @@ Underfull \vbox (badness 4024) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [6]
-[7] [8] <img/plot1.png, id=340, 2106.87125pt x 2106.87125pt>
+[7] [8] <img/plot1.png, id=341, 2106.87125pt x 2106.87125pt>
 File: img/plot1.png Graphic file (type png)
 
 <use img/plot1.png>
-Package pdftex.def Info: img/plot1.png used on input line 278.
+Package pdftex.def Info: img/plot1.png used on input line 280.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
- <img/plot2.png, id=341, 2106.87125pt x 2106.87125pt>
+ <img/plot2.png, id=342, 2106.87125pt x 2106.87125pt>
 File: img/plot2.png Graphic file (type png)
 
 <use img/plot2.png>
-Package pdftex.def Info: img/plot2.png used on input line 282.
+Package pdftex.def Info: img/plot2.png used on input line 284.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
- <img/plot3.png, id=342, 2106.87125pt x 2106.87125pt>
+ <img/plot3.png, id=343, 2106.87125pt x 2106.87125pt>
 File: img/plot3.png Graphic file (type png)
 
 <use img/plot3.png>
-Package pdftex.def Info: img/plot3.png used on input line 286.
+Package pdftex.def Info: img/plot3.png used on input line 288.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
- <img/plot4.png, id=343, 2106.87125pt x 2106.87125pt>
+ <img/plot4.png, id=344, 2106.87125pt x 2106.87125pt>
 File: img/plot4.png Graphic file (type png)
 
 <use img/plot4.png>
-Package pdftex.def Info: img/plot4.png used on input line 290.
+Package pdftex.def Info: img/plot4.png used on input line 292.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
- <img/plot5.png, id=344, 2106.87125pt x 2106.87125pt>
+ <img/plot5.png, id=345, 2106.87125pt x 2106.87125pt>
 File: img/plot5.png Graphic file (type png)
 
 <use img/plot5.png>
-Package pdftex.def Info: img/plot5.png used on input line 294.
+Package pdftex.def Info: img/plot5.png used on input line 296.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
- <img/plot6.png, id=345, 2106.87125pt x 2106.87125pt>
+ <img/plot6.png, id=346, 2106.87125pt x 2106.87125pt>
 File: img/plot6.png Graphic file (type png)
 
 <use img/plot6.png>
-Package pdftex.def Info: img/plot6.png used on input line 298.
+Package pdftex.def Info: img/plot6.png used on input line 300.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
- <img/plot7.png, id=346, 2106.87125pt x 2106.87125pt>
+ <img/plot7.png, id=347, 2106.87125pt x 2106.87125pt>
 File: img/plot7.png Graphic file (type png)
 
 <use img/plot7.png>
-Package pdftex.def Info: img/plot7.png used on input line 302.
+Package pdftex.def Info: img/plot7.png used on input line 304.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
- <img/plot8.png, id=347, 2106.87125pt x 2106.87125pt>
+ <img/plot8.png, id=348, 2106.87125pt x 2106.87125pt>
 File: img/plot8.png Graphic file (type png)
 
 <use img/plot8.png>
-Package pdftex.def Info: img/plot8.png used on input line 306.
+Package pdftex.def Info: img/plot8.png used on input line 308.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
- <img/plot9.png, id=348, 2106.87125pt x 2106.87125pt>
+ <img/plot9.png, id=349, 2106.87125pt x 2106.87125pt>
 File: img/plot9.png Graphic file (type png)
 
 <use img/plot9.png>
-Package pdftex.def Info: img/plot9.png used on input line 310.
+Package pdftex.def Info: img/plot9.png used on input line 312.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
- <img/plot10.png, id=349, 2106.87125pt x 2106.87125pt>
+ <img/plot10.png, id=350, 2106.87125pt x 2106.87125pt>
 File: img/plot10.png Graphic file (type png)
 
 <use img/plot10.png>
-Package pdftex.def Info: img/plot10.png used on input line 314.
+Package pdftex.def Info: img/plot10.png used on input line 316.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
- <img/plot11.png, id=350, 2106.87125pt x 2106.87125pt>
+ <img/plot11.png, id=351, 2106.87125pt x 2106.87125pt>
 File: img/plot11.png Graphic file (type png)
 
 <use img/plot11.png>
-Package pdftex.def Info: img/plot11.png used on input line 318.
+Package pdftex.def Info: img/plot11.png used on input line 320.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
- <img/plot12.png, id=351, 2106.87125pt x 2106.87125pt>
+ <img/plot12.png, id=352, 2106.87125pt x 2106.87125pt>
 File: img/plot12.png Graphic file (type png)
 
 <use img/plot12.png>
-Package pdftex.def Info: img/plot12.png used on input line 322.
+Package pdftex.def Info: img/plot12.png used on input line 324.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
  [9]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 3209) has occurred while \output is active []
 
  [10 <./img/plot1.png> <./img/plot2.png> <./img/plot3.png> <./img/plot4.png> <.
 /img/plot5.png> <./img/plot6.png> <./img/plot7.png> <./img/plot8.png> <./img/pl
-ot9.png> <./img/plot10.png> <./img/plot11.png> <./img/plot12.png>] [11]
-<img/triad-1.png, id=384, 940.51375pt x 169.63374pt>
+ot9.png> <./img/plot10.png> <./img/plot11.png> <./img/plot12.png>]
+<img/triad-1.png, id=381, 940.51375pt x 169.63374pt>
 File: img/triad-1.png Graphic file (type png)
  <use img/triad-1.png>
-Package pdftex.def Info: img/triad-1.png used on input line 353.
+Package pdftex.def Info: img/triad-1.png used on input line 355.
 (pdftex.def)             Requested size: 227.40231pt x 41.01317pt.
 
-[12 <./img/triad-1.png>] [13] [14]
-<img/senderpredict-1.png, id=448, 1405.25pt x 1405.25pt>
+[11] [12 <./img/triad-1.png>]
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ” in font cmr10!
+ [13]
+<img/senderpredict-1.png, id=416, 1405.25pt x 1405.25pt>
 File: img/senderpredict-1.png Graphic file (type png)
 
 <use img/senderpredict-1.png>
-Package pdftex.def Info: img/senderpredict-1.png used on input line 425.
+Package pdftex.def Info: img/senderpredict-1.png used on input line 427.
 (pdftex.def)             Requested size: 125.0707pt x 125.05185pt.
 
-<img/receiverpredict-1.png, id=449, 1405.25pt x 1405.25pt>
+<img/receiverpredict-1.png, id=417, 1405.25pt x 1405.25pt>
 File: img/receiverpredict-1.png Graphic file (type png)
 
 <use img/receiverpredict-1.png>
-Package pdftex.def Info: img/receiverpredict-1.png used on input line 429.
+Package pdftex.def Info: img/receiverpredict-1.png used on input line 431.
 (pdftex.def)             Requested size: 125.0707pt x 125.05185pt.
 
-<img/timepredict-1.png, id=450, 1405.25pt x 1405.25pt>
+<img/timepredict-1.png, id=418, 1405.25pt x 1405.25pt>
 File: img/timepredict-1.png Graphic file (type png)
 
 <use img/timepredict-1.png>
-Package pdftex.def Info: img/timepredict-1.png used on input line 433.
+Package pdftex.def Info: img/timepredict-1.png used on input line 435.
 (pdftex.def)             Requested size: 125.0707pt x 125.05185pt.
 
-<img/modellabel.png, id=451, 537.00626pt x 71.26625pt>
+<img/modellabel.png, id=419, 537.00626pt x 71.26625pt>
 File: img/modellabel.png Graphic file (type png)
 
 <use img/modellabel.png>
-Package pdftex.def Info: img/modellabel.png used on input line 436.
+Package pdftex.def Info: img/modellabel.png used on input line 438.
 (pdftex.def)             Requested size: 151.59769pt x 20.1186pt.
 
-Overfull \hbox (14.87874pt too wide) in paragraph at lines 422--437
+Overfull \hbox (14.87874pt too wide) in paragraph at lines 424--439
  [][] 
  []
 
-
-Overfull \vbox (4.94865pt too high) has occurred while \output is active []
-
-
-[15 <./img/senderpredict-1.png> <./img/receiverpredict-1.png> <./img/timepredic
-t-1.png> <./img/modellabel.png>]
-<img/outdegree-1.png, id=470, 2264.46pt x 1252.68pt>
+[14] <img/outdegree-1.png, id=455, 2264.46pt x 1252.68pt>
 File: img/outdegree-1.png Graphic file (type png)
- <use img/outdegree-1.png>
-Package pdftex.def Info: img/outdegree-1.png used on input line 475.
-(pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/indegree-1.png, id=471, 2264.46pt x 1252.68pt>
+<use img/outdegree-1.png>
+Package pdftex.def Info: img/outdegree-1.png used on input line 477.
+(pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
+ <img/indegree-1.png, id=456, 2264.46pt x 1252.68pt>
 File: img/indegree-1.png Graphic file (type png)
- <use img/indegree-1.png>
-Package pdftex.def Info: img/indegree-1.png used on input line 479.
+
+<use img/indegree-1.png>
+Package pdftex.def Info: img/indegree-1.png used on input line 481.
 (pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/recipientsize-1.png, id=472, 2264.46pt x 1252.68pt>
+<img/recipientsize-1.png, id=457, 2264.46pt x 1252.68pt>
 File: img/recipientsize-1.png Graphic file (type png)
 
 <use img/recipientsize-1.png>
-Package pdftex.def Info: img/recipientsize-1.png used on input line 483.
+Package pdftex.def Info: img/recipientsize-1.png used on input line 485.
 (pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/timePPplot-1.png, id=473, 1405.25pt x 1405.25pt>
+<img/timePPplot-1.png, id=458, 1405.25pt x 1405.25pt>
 File: img/timePPplot-1.png Graphic file (type png)
 
 <use img/timePPplot-1.png>
-Package pdftex.def Info: img/timePPplot-1.png used on input line 488.
+Package pdftex.def Info: img/timePPplot-1.png used on input line 490.
 (pdftex.def)             Requested size: 105.0573pt x 105.04613pt.
 
-Overfull \hbox (11.53963pt too wide) in paragraph at lines 472--491
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 474--493
  [][] 
  []
 
-[16] [17 <./img/outdegree-1.png> <./img/indegree-1.png> <./img/recipientsize-1.
-png> <./img/timePPplot-1.png>]
-<img/betanewplot2-1.png, id=499, 1405.25pt x 1405.25pt>
+[15 <./img/senderpredict-1.png> <./img/receiverpredict-1.png> <./img/timepredic
+t-1.png> <./img/modellabel.png>] [16 <./img/outdegree-1.png> <./img/indegree-1.
+png> <./img/recipientsize-1.png> <./img/timePPplot-1.png>] [17]
+<img/betanewplot2-1.png, id=496, 1405.25pt x 1405.25pt>
 File: img/betanewplot2-1.png Graphic file (type png)
 
 <use img/betanewplot2-1.png>
-Package pdftex.def Info: img/betanewplot2-1.png used on input line 514.
+Package pdftex.def Info: img/betanewplot2-1.png used on input line 516.
 (pdftex.def)             Requested size: 188.55157pt x 188.54268pt.
 
-<img/betanewplot3-1.png, id=500, 1405.25pt x 1405.25pt>
+<img/betanewplot3-1.png, id=497, 1405.25pt x 1405.25pt>
 File: img/betanewplot3-1.png Graphic file (type png)
 
 <use img/betanewplot3-1.png>
-Package pdftex.def Info: img/betanewplot3-1.png used on input line 518.
+Package pdftex.def Info: img/betanewplot3-1.png used on input line 520.
 (pdftex.def)             Requested size: 188.55157pt x 188.54268pt.
 
-Overfull \hbox (13.43648pt too wide) in paragraph at lines 511--521
+Overfull \hbox (13.43648pt too wide) in paragraph at lines 513--523
  [][] 
  []
 
-<img/etaplotnew-1.png, id=502, 1405.25pt x 1405.25pt>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [18 <./img/betanewplot2-1.png> <./img/betanewplot3-1.png>]
+<img/etaplotnew-1.png, id=505, 1405.25pt x 1405.25pt>
 File: img/etaplotnew-1.png Graphic file (type png)
 
 <use img/etaplotnew-1.png>
-Package pdftex.def Info: img/etaplotnew-1.png used on input line 535.
+Package pdftex.def Info: img/etaplotnew-1.png used on input line 537.
 (pdftex.def)             Requested size: 188.55157pt x 188.54268pt.
- [18]
-Underfull \vbox (badness 4024) has occurred while \output is active []
-
- [19 <./img/betanewplot2-1.png> <./img/betanewplot3-1.png>]
-Underfull \vbox (badness 2635) has occurred while \output is active []
+ [19]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [20 <./img/etaplotnew-1.png>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 581.
+(Font)              <12> on input line 583.
  [21] [22]
-<img/outdegree2-1.png, id=557, 2264.46pt x 1250.6725pt>
+<img/outdegree2-1.png, id=551, 2264.46pt x 1250.6725pt>
 File: img/outdegree2-1.png Graphic file (type png)
 
 <use img/outdegree2-1.png>
-Package pdftex.def Info: img/outdegree2-1.png used on input line 641.
+Package pdftex.def Info: img/outdegree2-1.png used on input line 643.
 (pdftex.def)             Requested size: 187.60315pt x 103.60541pt.
 
-<img/indegree2-1.png, id=558, 2264.46pt x 1250.6725pt>
+<img/indegree2-1.png, id=552, 2264.46pt x 1250.6725pt>
 File: img/indegree2-1.png Graphic file (type png)
 
 <use img/indegree2-1.png>
-Package pdftex.def Info: img/indegree2-1.png used on input line 645.
+Package pdftex.def Info: img/indegree2-1.png used on input line 647.
 (pdftex.def)             Requested size: 187.60315pt x 103.60541pt.
 
-<img/recipientsize2-1.png, id=559, 2264.46pt x 1250.6725pt>
+<img/recipientsize2-1.png, id=553, 2264.46pt x 1250.6725pt>
 File: img/recipientsize2-1.png Graphic file (type png)
 
 <use img/recipientsize2-1.png>
-Package pdftex.def Info: img/recipientsize2-1.png used on input line 649.
+Package pdftex.def Info: img/recipientsize2-1.png used on input line 651.
 (pdftex.def)             Requested size: 187.60315pt x 103.60541pt.
 
-<img/timePPplot2-1.png, id=560, 1405.25pt x 1405.25pt>
+<img/timePPplot2-1.png, id=554, 1405.25pt x 1405.25pt>
 File: img/timePPplot2-1.png Graphic file (type png)
 
 <use img/timePPplot2-1.png>
-Package pdftex.def Info: img/timePPplot2-1.png used on input line 654.
+Package pdftex.def Info: img/timePPplot2-1.png used on input line 656.
 (pdftex.def)             Requested size: 105.0573pt x 105.04613pt.
 File: img/modellabel.png Graphic file (type png)
  <use img/modellabel.png>
-Package pdftex.def Info: img/modellabel.png used on input line 657.
+Package pdftex.def Info: img/modellabel.png used on input line 659.
 (pdftex.def)             Requested size: 151.59769pt x 20.1186pt.
 
-Overfull \hbox (11.53963pt too wide) in paragraph at lines 638--658
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 640--660
  [][] 
  []
 
 [23 <./img/outdegree2-1.png> <./img/indegree2-1.png> <./img/recipientsize2-1.pn
 g> <./img/timePPplot2-1.png>]
-<img/betatrace-1.png, id=571, 1405.25pt x 1405.25pt>
+<img/betatrace-1.png, id=566, 1405.25pt x 1405.25pt>
 File: img/betatrace-1.png Graphic file (type png)
  <use img/betatrace-1.png>
-Package pdftex.def Info: img/betatrace-1.png used on input line 668.
+Package pdftex.def Info: img/betatrace-1.png used on input line 670.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
 
-<img/etatrace-1.png, id=572, 1405.25pt x 1405.25pt>
+<img/etatrace-1.png, id=567, 1405.25pt x 1405.25pt>
 File: img/etatrace-1.png Graphic file (type png)
  <use img/etatrace-1.png>
-Package pdftex.def Info: img/etatrace-1.png used on input line 672.
+Package pdftex.def Info: img/etatrace-1.png used on input line 674.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
 
-<img/betageweke-1.png, id=573, 1405.25pt x 1405.25pt>
+<img/betageweke-1.png, id=568, 1405.25pt x 1405.25pt>
 File: img/betageweke-1.png Graphic file (type png)
 
 <use img/betageweke-1.png>
-Package pdftex.def Info: img/betageweke-1.png used on input line 676.
+Package pdftex.def Info: img/betageweke-1.png used on input line 678.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
 
-<img/etageweke-1.png, id=574, 1405.25pt x 1405.25pt>
+<img/etageweke-1.png, id=569, 1405.25pt x 1405.25pt>
 File: img/etageweke-1.png Graphic file (type png)
  <use img/etageweke-1.png>
-Package pdftex.def Info: img/etageweke-1.png used on input line 681.
+Package pdftex.def Info: img/etageweke-1.png used on input line 683.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
 
-Overfull \hbox (11.53963pt too wide) in paragraph at lines 665--684
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 667--686
  [][] 
  []
 
@@ -861,26 +867,26 @@ Overfull \hbox (11.53963pt too wide) in paragraph at lines 665--684
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [25])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 703.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 705.
 
 [26]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 703.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 705.
  (./ba-sample.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 703.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 703.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 705.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 705.
 Package rerunfilecheck Info: File `ba-sample.out' has not changed.
 (rerunfilecheck)             Checksum: 7843D8F8BDE1AD8C1F4BB5CE510AC9F5;1553.
 Package rerunfilecheck Info: File `ba-sample.brf' has not changed.
-(rerunfilecheck)             Checksum: 3F13B113CA301EDF8AF740946C6C844C;1902.
+(rerunfilecheck)             Checksum: 0BF7856EB7A6427F8E0925CCE1298879;1902.
  ) 
 Here is how much of TeX's memory you used:
- 12057 strings out of 493089
- 183190 string characters out of 6134842
+ 12054 strings out of 493089
+ 183151 string characters out of 6134842
  312101 words of memory out of 5000000
  15142 multiletter control sequences out of 15000+600000
  17640 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,18n,75p,2864b,936s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,18n,75p,2864b,941s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -911,10 +917,10 @@ ist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2015/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on ba-sample.pdf (26 pages, 5772334 bytes).
+Output written on ba-sample.pdf (26 pages, 5747073 bytes).
 PDF statistics:
- 762 PDF objects out of 1000 (max. 8388607)
- 634 compressed objects within 7 object streams
- 209 named destinations out of 1000 (max. 500000)
+ 757 PDF objects out of 1000 (max. 8388607)
+ 629 compressed objects within 7 object streams
+ 206 named destinations out of 1000 (max. 500000)
  350 words of extra memory for PDF output out of 10000 (max. 10000000)
 
