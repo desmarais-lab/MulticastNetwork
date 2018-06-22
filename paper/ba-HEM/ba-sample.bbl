@@ -1,4 +1,4 @@
-\begin{thebibliography}{30}
+\begin{thebibliography}{29}
 \newcommand{\enquote}[1]{``#1''}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
@@ -90,12 +90,6 @@ Hunter, D., Smyth, P., Vu, D.~Q., and Asuncion, A.~U. (2011).
 \newblock \enquote{Dynamic egocentric models for citation networks.}
 \newblock In {\em Proceedings of the 28th International Conference on Machine
   Learning (ICML-11)\/}, 857--864.
-\endbibitem
-
-\bibitem[{Hyndman and Koehler(2006)}]{hyndman2006another}
-Hyndman, R.~J. and Koehler, A.~B. (2006).
-\newblock \enquote{Another look at measures of forecast accuracy.}
-\newblock {\em International journal of forecasting\/}, 22(4): 679--688.
 \endbibitem
 
 \bibitem[{Karypis et~al.(1999)Karypis, Aggarwal, Kumar, and

@@ -7,45 +7,45 @@ Repeated entry---line 978 of file bib/baHEM.bib
  : @article{newman2002email
  :                         ,
 I'm skipping whatever remains of this entry
-You've used 30 entries,
+You've used 29 entries,
             2760 wiz_defined-function locations,
-            790 strings with 10128 characters,
-and the built_in function-call counts, 18539 in all, are:
-= -- 1529
-> -- 719
-< -- 20
-+ -- 268
-- -- 230
-* -- 1397
-:= -- 2855
-add.period$ -- 117
-call.type$ -- 30
-change.case$ -- 199
-chr.to.int$ -- 30
-cite$ -- 30
-duplicate$ -- 1322
-empty$ -- 1416
-format.name$ -- 327
-if$ -- 3662
+            784 strings with 9985 characters,
+and the built_in function-call counts, 17938 in all, are:
+= -- 1477
+> -- 699
+< -- 19
++ -- 261
+- -- 224
+* -- 1349
+:= -- 2765
+add.period$ -- 113
+call.type$ -- 29
+change.case$ -- 193
+chr.to.int$ -- 29
+cite$ -- 29
+duplicate$ -- 1279
+empty$ -- 1370
+format.name$ -- 316
+if$ -- 3545
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 286
-newline$ -- 189
-num.names$ -- 122
-pop$ -- 512
+missing$ -- 277
+newline$ -- 183
+num.names$ -- 118
+pop$ -- 497
 preamble$ -- 1
-purify$ -- 191
+purify$ -- 185
 quote$ -- 0
-skip$ -- 524
+skip$ -- 508
 stack$ -- 0
-substring$ -- 967
-swap$ -- 768
+substring$ -- 931
+swap$ -- 741
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 255
+type$ -- 246
 warning$ -- 0
-while$ -- 142
+while$ -- 137
 width$ -- 0
-write$ -- 427
+write$ -- 413
 (There was 1 error message)
