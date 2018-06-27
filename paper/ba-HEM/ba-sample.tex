@@ -156,13 +156,6 @@
 			t_e &=t_{e-1} + \tau_{s_e e}.
 		\end{aligned}
 	\end{equation}
-	\begin{figure}[!t]
-		\centering
-		\includegraphics[width=0.625\textwidth]{img/diagramnew.png}	
-		\caption {An illustrative example of the generative process of the HEM.}
-		\label{figure:diagram}
-	\end{figure}	
-		Therefore, the HEM assumes a sender-driven process---i.e., the receivers and timestamp of an event are jointly determined by the sender's urgency to direct the event to those selected receivers. Note that our generative process allows for tied events. In the case of tied events---i.e., multiple senders draw exactly the same candidate timestamps---we assume that all events are generated and occur simultaneously. Algorithm \ref{alg:generative} summarizes the entire generative process for hyperedge events with one sender and one or more receivers, and Figure \ref{figure:diagram} presents an illustrative example on how the $e^{\textrm{th}}$ event is generated, assuming $t_{e-1} = 0$ and $A=5$.~\looseness=-1
 	\begin{algorithm}[!t]
 		\spacingset{1}
 		\SetAlgoLined
@@ -195,7 +188,14 @@
 		\end{algorithmic}
 		\label{alg:generative}
 	\end{algorithm}
-	
+		Therefore, the HEM assumes a sender-driven process---i.e., the receivers and timestamp of an event are jointly determined by the sender's urgency to direct the event to those selected receivers. Note that our generative process allows for tied events. In the case of tied events---i.e., multiple senders draw exactly the same candidate timestamps---we assume that all events are generated and occur simultaneously. Algorithm \ref{alg:generative} summarizes the entire generative process for hyperedge events with one sender and one or more receivers, and Figure \ref{figure:diagram} presents an illustrative example on how the $e^{\textrm{th}}$ event is generated, assuming $t_{e-1} = 0$ and $A=5$.~\looseness=-1	
+		\begin{figure}[!t]
+			\centering
+			\includegraphics[width=0.625\textwidth]{img/diagramnew.png}	
+			\caption {An illustrative example of the generative process of the HEM.}
+			\label{figure:diagram}
+		\end{figure}	
+		
 	\section{Posterior inference}\label{sec:inference}
 	In this section we describe how we invert the generative process to obtain the posterior distribution over the latent variables---candidate receivers $\{\boldsymbol{u}_e\}_{e=1}^E$, coefficients for receiver selection features $\boldsymbol{b}$, and coefficients for event timing features $\boldsymbol{\eta}$---conditioned on the observed data $\{(s_e, \boldsymbol{r}_e, t_e)\}_{e=1}^E$, covariates $\{(\boldsymbol{x}_e, \boldsymbol{y}_e)\}_{e=1}^E$, and hyperparamters $(\boldsymbol{\mu}_b, \Sigma_b, \boldsymbol{\mu}_\eta, \Sigma_\eta)$. We draw the samples using Markov chain Monte Carlo (MCMC) methods, repeatedly resampling the value of each latent variable from its conditional posterior via a Metropolis-within-Gibbs sampling algorithm. In the next subsection, we provide each latent variable's conditional posterior along with pseudocode of MCMC in Algorithm \ref{alg:MCMC}. We also evaluate the correctness of both our mathematical derivations and software implemenation using the prior--posterior simulator test of \cite{geweke2004getting}.
 	
@@ -218,35 +218,6 @@
 		\prod_{i=1}^A \frac{1}{Z(\boldsymbol{\lambda}_{ie})}\exp\Big(\mbox{log}\big(\text{I}( \lVert \boldsymbol{u}_{ie}\rVert_1 > 0)\big) + \sum\limits_{j \neq i} \lambda_{iej}u_{iej}\Big).
 		\label{eqn:latentedge}
 	\end{equation}
-	\begin{algorithm}[!t]
-		\spacingset{1}
-		\SetAlgoLined
-		\caption{MCMC algorithm}
-		\begin{algorithmic}
-			\STATE \textbf{Input}: number of outer and inner iterations $(O, I_1, I_2)$ and initial values of $(\boldsymbol{u}, \boldsymbol{b}, \boldsymbol{\eta})$
-			\vskip 0.1in
-			\FOR{$o=1$ to $O$}
-			\FOR{$e=1$ to $E$}
-			\FOR{$i = 1$ to $A$}
-			\FOR{$j = 1$ to $A$ ($j \neq i$)}
-			\STATE update $u_{iej}$ using Gibbs update ---equation (\ref{eqn:latentreceiver})
-			\ENDFOR
-			\ENDFOR
-			\ENDFOR
-			\FOR{$n=1$ to $I_1$}
-			\STATE update $\boldsymbol{b}$ using MH algorithm---equation (\ref{eqn:latentedge})
-			\ENDFOR
-			\FOR{$n=1$ to $I_2$}
-			\STATE update $\boldsymbol{\eta}$ using MH algorithm---equation (\ref{eqn:latenttime}) or (\ref{eqn:latenttime2}) 
-			\ENDFOR
-			\IF {extra parameter for $V(\mu)$} 
-			\STATE update the variance parameter using MH algorithm---equation (\ref{eqn:latenttime}) or (\ref{eqn:latenttime2}) 
-			\ENDIF
-			\ENDFOR
-			\STATE	summarize the results with the last chain of $\boldsymbol{b}$ and $\boldsymbol{\eta}$
-		\end{algorithmic}
-		\label{alg:MCMC}
-	\end{algorithm}
 	\subsubsection{Coefficients for event timing features}
 	Likewise, we use the MH algorithm to update the latent variable $\boldsymbol{\eta}$. Assuming an uninformative prior $\boldsymbol{\eta}$ (i.e., $N({0},\infty)$), the conditional posterior for an untied event case is proportional to~\looseness=-1
 	\begin{equation}
@@ -261,12 +232,42 @@
 		\label{eqn:latenttime2}
 	\end{equation}
 	where $t_1^*,\ldots,t_M^*$ are the unique timepoints across $E$ events ($M \leq E$). If $M=E$ (i.e., no tied events), equation (\ref{eqn:latenttime2}) reduces to equation (\ref{eqn:latenttime}). Note that when we have the latent variable to quantify the variance in time increments $V(\mu)$ (based on the choice of timestamp distribution in Section \ref{subsec:Time}), we also use equation (\ref{eqn:latenttime}) (or equation (\ref{eqn:latenttime2}) in case there exist tied events) for the additional MH update---e.g., $\Pr(k|\, \boldsymbol{\eta},\boldsymbol{u}, \boldsymbol{y},\boldsymbol{s}, \boldsymbol{r},\boldsymbol{t})$ for Weibull, $\Pr(\theta|\, \boldsymbol{\eta},\boldsymbol{u}, \boldsymbol{y},\boldsymbol{s}, \boldsymbol{r},\boldsymbol{t})$ for gamma, and  $\Pr(\sigma^2_\tau| \,\boldsymbol{\eta},\boldsymbol{u}, \boldsymbol{y},\boldsymbol{s}, \boldsymbol{r},\boldsymbol{t})$ for log-normal.~\looseness=-1
+		\begin{algorithm}[!t]
+			\spacingset{1}
+			\SetAlgoLined
+			\caption{MCMC algorithm}
+			\begin{algorithmic}
+				\STATE \textbf{Input}: number of outer and inner iterations $(O, I_1, I_2)$ and initial values of $(\boldsymbol{u}, \boldsymbol{b}, \boldsymbol{\eta})$
+				\vskip 0.1in
+				\FOR{$o=1$ to $O$}
+				\FOR{$e=1$ to $E$}
+				\FOR{$i = 1$ to $A$}
+				\FOR{$j = 1$ to $A$ ($j \neq i$)}
+				\STATE update $u_{iej}$ using Gibbs update ---equation (\ref{eqn:latentreceiver})
+				\ENDFOR
+				\ENDFOR
+				\ENDFOR
+				\FOR{$n=1$ to $I_1$}
+				\STATE update $\boldsymbol{b}$ using MH algorithm---equation (\ref{eqn:latentedge})
+				\ENDFOR
+				\FOR{$n=1$ to $I_2$}
+				\STATE update $\boldsymbol{\eta}$ using MH algorithm---equation (\ref{eqn:latenttime}) or (\ref{eqn:latenttime2}) 
+				\ENDFOR
+				\IF {extra parameter for $V(\mu)$} 
+				\STATE update the variance parameter using MH algorithm---equation (\ref{eqn:latenttime}) or (\ref{eqn:latenttime2}) 
+				\ENDIF
+				\ENDFOR
+				\STATE	summarize the results with the last chain of $\boldsymbol{b}$ and $\boldsymbol{\eta}$
+			\end{algorithmic}
+			\label{alg:MCMC}
+		\end{algorithm}
+
 	\subsection{Getting it Right (GiR) test} \label{subec:GiR}
 	Software development is integral to the objective of applying our model to real world data. Code review is a valuable process in any research computing context, and the prevalence of software bugs in statistical software is well documented \citep[e.g., ][]{altman2004numerical,mccullough2009accuracy}.  With highly complex models such as the HEM, there are many ways in which software bugs can be introduced and go unnoticed. As such, we present a joint analysis of the integrity of our generative model, sampling equations, and software implementation. 
 	
 	\cite{geweke2004getting} introduced the ``Getting it Right'' (GiR) test---a joint distribution test of posterior simulators which can detect errors in sampling equations as well as software bugs---and it has been used to test the implementation of Bayesian inference algorithms \citep{zhao2016bayesian}.  The test involves comparing the distributions of variables simulated from two joint distribution samplers, which we call ``forward" and ``backward" samplers. The ``forward" sampler draws joint samples of the latent and observable variables from the prior. The ``backward" sampler begins by first drawing a joint sample of the latent and observed variables from the prior. It then alternates between re-sampling the latent variables, conditioned on the observable variables, from the MCMC transition operator, and then re-sampling the observable variable, conditioned on the latent variables, from the model likelihood. If the MCMC transition operator is correctly derived and implemented, this process should asymptotically generate joint samples of the latent and observable variables from the prior, like the forward sampler.
 		
-	In the forward sampler, both observable and unobservable variables are generated using Algorithm \ref{alg:generative}. In the backward samples, unobservable variables are generated using the sampling equations for inference, which we derived in Section \ref{subsec:conditionaldist}. For each forward and backward sample that consists of $E$ number of events, we save these statistics:
+	In the forward sampler, both observable and unobservable variables are generated using Algorithm \ref{alg:generative}. In the backward samples, unobservable variables are generated using the sampling equations for inference, which we derived in Section \ref{subsec:conditionaldist}. For each forward and backward sample that consists of $E$ number of events, we save these statistics:\\
 	\begin{itemize}
 		\item[1.] Mean of observed receiver sizes $ \lVert \boldsymbol{r}_{e} \rVert_1 $ across $e=1,\ldots,E$,
 		\item[2.] Variance of observed receiver sizes $ \lVert \boldsymbol{r}_{e} \rVert_1 $ across $e=1,\ldots,E$,
@@ -507,8 +508,6 @@ with TP denoting true positive (i.e., $\boldsymbol{r}^{\textrm{(obs)}}_{ej}=\bol
 		\mbox{logit}(\lambda_{iej})=\log\Big(\frac{\lambda_{iej}}{1-\lambda_{iej}}\Big) =b_{1}+b_{2} x_{iej2}\ldots+b_{14}x_{iej14},
 	\end{equation*}
 	and can interpret the $\boldsymbol{b}$ estimates in terms of odds ratios $\frac{\lambda_{iej}}{1-\lambda_{iej}}=\exp(b_{1}+b_{2} x_{iej2}\ldots+b_{14}x_{iej14})$. First of all, we find the effects of nodal coavariates ``gender\_\,sender$(i)$" and ``gender\_\,receiver$(j)$" are both nearly always negative in the posterior samples. The log odds that any other node will be added as a receiver of an email is approximately two times less if the sender is a woman. The posterior distribution of the statistic ``outdegree$(i)$" is mostly negative, if sender $i$ sent $n$ number of emails to anyone last week, then sender $i$ is approximately $\exp(-0.109\times n)\approx(0.897)^n$ times less likely to send an email to $j$. However, this straightforward interpretation of the outdegree statistic only applies when the hyperedge size is low. The scenario in which a sender sends a lot of low-hyperedge-size emails may arise due to the use of email for a one-on-one conversation. The large positive estimates of the interaction between hyperedge size and outdegree indicate that those who have recently sent many emails with many receivers on each email are likely to continue sending broadcast emails. This scenario may arise from someone being responsible for distributing timely announcements. When we look at the effect of ``indegree$(j)$," we see a clear popularity effect---those who have received a lot of emails a lot recently are likely to continue receiving a lot of emails. If the receiver $j$ received $n$ number of emails over the last week, sender $i$ is $\exp(0.086\times n)\approx(1.091)^n $ times more likely to send an email to $j$. 
-		
-	When we look at the effects of dyadic and triadic covariates, one thing that stands out is the large and positive posterior distribution of the statistic ``send$(i,j)$" (i.e., number of times $i$ sent emails to $j$ over the last week) with the posterior mean $\hat{b}_9 = 0.274$, implying that if $i$ sent $n$ number of emails to $j$ last week, then sender $i$ is approximately $\exp(0.274\times n)\approx(1.315)^n$ times more likely to send an email to $j$. The posterior distributions for the reciprocity effect (i.e., ``receive$(i, j)$''), and the four triadic effects, are all fairly evenly spread around zero, so our results do not justify conclusions regarding the nature of these effects in the Montgomery county email network.
 			\begin{figure}[!t]
 				\centering
 				\begin{tabular}[t]{cc}
@@ -526,6 +525,8 @@ with TP denoting true positive (i.e., $\boldsymbol{r}^{\textrm{(obs)}}_{ej}=\bol
 				\caption {Posterior distribution of $\boldsymbol{b}$ estimates.}
 				\label{figure:betaresults}
 			\end{figure}
+		
+	When we look at the effects of dyadic and triadic covariates, one thing that stands out is the large and positive posterior distribution of the statistic ``send$(i,j)$" (i.e., number of times $i$ sent emails to $j$ over the last week) with the posterior mean $\hat{b}_9 = 0.274$, implying that if $i$ sent $n$ number of emails to $j$ last week, then sender $i$ is approximately $\exp(0.274\times n)\approx(1.315)^n$ times more likely to send an email to $j$. The posterior distributions for the reciprocity effect (i.e., ``receive$(i, j)$''), and the four triadic effects, are all fairly evenly spread around zero, so our results do not justify conclusions regarding the nature of these effects in the Montgomery county email network.
 	\subsubsection{Coefficients for event timing features}
 	For event timing features, Figure \ref{figure:etaresults} shows the boxplots summarizing posterior samples of $\boldsymbol{\eta}$. Note that interpretations of the estimated coefficients for $\hat{\boldsymbol{\eta}}$ should be based on the specified time unit of the datset; we specify time units to be hours for the Montgomery county email data. Moreover, since we assume the log-normal distribution for time increments, the coefficients are interpreted in terms of the change in the average log time.
 	\begin{equation*}
@@ -698,7 +699,7 @@ with TP denoting true positive (i.e., $\boldsymbol{r}^{\textrm{(obs)}}_{ej}=\bol
 			\sdescription{Add description for supplement material.}
 		\end{supplement}
 		\fi
-		
+		\newpage
 		\bibliographystyle{ba}
 		\bibliography{baHEM}
 		
