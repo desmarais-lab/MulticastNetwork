@@ -201,7 +201,7 @@
 	
 	\subsection{Conditional posteriors}\label{subsec:conditionaldist}
 	\subsubsection{Candidate receivers}
-	In our model, direct computation of the posterior densities for the latent variables $\boldsymbol{b}$ and $\boldsymbol{\eta}$---i.e., $P(\boldsymbol{b}|\,\boldsymbol{x},\boldsymbol{s}, \boldsymbol{r},\boldsymbol{t})$ and $P(\boldsymbol{\eta}|\,\boldsymbol{y},\boldsymbol{s}, \boldsymbol{r},\boldsymbol{t})$---is not possible. However, it is possible to augment the data by candidate receivers $\boldsymbol{u}$ such that we can obtain their conditional posterior by conditioning on samples of $\boldsymbol{u}$. %from $P(\boldsymbol{b}, \boldsymbol{u}|\,\boldsymbol{x},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})$ and $P(\boldsymbol{\eta}, \boldsymbol{u}|\, \boldsymbol{y},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})$.
+	In our model, direct computation of the posterior densities for the latent variables $\boldsymbol{b}$ and $\boldsymbol{\eta}$---i.e., $\Pr(\boldsymbol{b}|\,\boldsymbol{x},\boldsymbol{s}, \boldsymbol{r},\boldsymbol{t})$ and $\Pr(\boldsymbol{\eta}|\,\boldsymbol{y},\boldsymbol{s}, \boldsymbol{r},\boldsymbol{t})$---is not possible. However, it is possible to augment the data by candidate receivers $\boldsymbol{u}$ such that we can obtain their conditional posterior by conditioning on samples of $\boldsymbol{u}$. %from $P(\boldsymbol{b}, \boldsymbol{u}|\,\boldsymbol{x},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})$ and $P(\boldsymbol{\eta}, \boldsymbol{u}|\, \boldsymbol{y},\boldsymbol{a}, \boldsymbol{r},\boldsymbol{t})$.
 	This approach---i.e., ``data augmentation"---is commonly used throughout Bayesian statistics \citep{tanner1987calculation,neal2015exact}. Since $u_{iej}$ is a binary random variable, it may be sampled from a Bernoulli distribution with probability $p_{iej} =\frac{\exp(\lambda_{iej})}{\exp(\lambda_{iej})+\text{I}(\lVert\boldsymbol{u}_{ie\backslash j}\rVert_1 > 0 )}$, since
 	\begin{equation}
 		\begin{aligned}
@@ -210,7 +210,7 @@
 		\end{aligned}
 		\label{eqn:latentreceiver}
 	\end{equation}
-	where the subscript ``$\backslash j$'' denotes a quantity excluding data from position $j$ and $\text{I}(\cdots)$ is the indicator function that prevents empty receiver sets. 
+	where the subscript ``$\backslash j$'' denotes a quantity excluding data from position $j$ and $\text{I}(\cdot)$ is the indicator function that prevents empty receiver sets. 
 	\subsubsection{Coefficients for receiver selection features}
 	Unlike the candidate receivers above, the conditional posterior for $\boldsymbol{b}$ does not have a closed form; however $\boldsymbol{b}$ may instead be re-sampled using the Metropolis--Hastings (MH) algorithm. Assuming an uninformative prior (i.e., $N({0},\infty)$), the conditional posterior for $\boldsymbol{b}$ is proportional to~\looseness=-1
 	\begin{equation}
