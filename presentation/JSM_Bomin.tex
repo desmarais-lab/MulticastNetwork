@@ -1,0 +1,117 @@
+\documentclass{beamer}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{mathtools}
+\usepackage{ragged2e}
+\usepackage{adjustbox}
+\title{The Hyperedge Event Model}
+\author{Bomin Kim\\ \vspace{0.25cm} Department of Statistics\\Pennsylvania State University}
+\date{July 29, 2018\\\vspace{0.5cm} Joint Statistical Meetings 2018}
+\begin{document}
+\maketitle
+\begin{frame}
+		\frametitle{Collaborators}
+		\hspace{0.5cm}
+		\begin{figure}
+								{\includegraphics[width=.3\textwidth]{aaron.jpg}}
+			{\includegraphics[width=.2245\textwidth]{Bruce.jpeg}}
+				{\includegraphics[width=.3\textwidth]{Hanna.jpeg}}
+		\end{figure}
+\begin{itemize}
+	\item \textcolor{blue}{Aaron Schein}\\\footnotesize{College of Information and Computer Sciences, UMass Amherst}
+	\normalsize
+	\item \textcolor{blue}{Bruce Desmarais}\\\footnotesize{Department of Political Science, Pennylvania State University}
+\item		\normalsize\textcolor{blue}{Hanna Wallach}\\ \footnotesize{Microsoft Research NYC}	\normalsize
+		\end{itemize}
+\end{frame}
+\begin{frame}
+		\frametitle{Motivations: \textcolor{red}{H}yperedge \textcolor{red}{E}vent \textcolor{red}{M}odel}
+		\begin{itemize}
+			\item \textcolor{red}{H}\textcolor{blue}{yperedge}\\
+			edges including one sender and multiple receivers or one receiver and multiple
+senders.
+			\item \textcolor{red}{E}\textcolor{blue}{vent}\\
+			timestamped events
+			\item  \textcolor{red}{M}\textcolor{blue}{odel}\\
+			statistical framework to jointly \\
+		\end{itemize}
+		\centering\Large
+		``who interacts with whom, and when?"
+\end{frame}
+
+\begin{frame}
+	\frametitle{Generative Process: ``\textcolor{red}{Who} Interacts with \textcolor{red}{Whom}"}
+For each edge or event $e = 1,\ldots, E,$ 	\normalsize\vspace{0.15cm}
+	\begin{itemize}
+		\item \textcolor{blue}{Receiver intensity} for every sender-receiver pair $(i, j)_{i\neq j}$
+		\begin{equation*}
+		\lambda_{iej} = \boldsymbol{b}^T \boldsymbol{x}_{iej},
+		\end{equation*}
+		where $\boldsymbol{x}_{iej}$ is a set of receiver selection features or covariates. \vspace{0.15cm}
+		\item Every sender selects \textcolor{red}{candidate receivers} from non-empty \textcolor{blue}{multivariate Bernoulli distribution} $\boldsymbol{u}_{ie} \sim \mbox{MB}_G ({\lambda}_{ie1},\ldots, {\lambda}_{ieA})$
+				\begin{equation*}
+			P(\boldsymbol{u}_{ie}|\boldsymbol{b}, \boldsymbol{x}_{iej}) \propto \exp\Big(\log(I(||\boldsymbol{u}_{ie}||_1 > 0))+\sum_{j\neq i} \lambda_{iej}u_{iej}\Big)
+				\end{equation*}
+	\end{itemize}
+	
+\end{frame}
+\begin{frame}
+	\frametitle{Generative Process: ``and \textcolor{red}{When}"}
+		\begin{itemize}
+			\item \textcolor{blue}{Timing rate} for each sender
+			\begin{equation*}
+			\mu_{ie} = g^{-1}(\boldsymbol{\eta}^T \boldsymbol{y}_{ie})
+			\end{equation*}
+			\item \textcolor{blue}{Generalized linear model} (GLM) such that time increment $\tau_{ie}$ satisfy
+			\begin{equation*}
+			E(\tau_{ie}) = 	\mu_{ie} \mbox{ and } V(\tau_{ie}) = V(	\mu_{ie})
+			\end{equation*}
+			\item Select the sender-receiver-set with \textcolor{blue}{the smallest time increment}
+						\begin{equation*}
+						\begin{aligned}
+						s_e &= \mbox{argmin}_{i}(\tau_{ie}),\\
+						\boldsymbol{r}_e &= \boldsymbol{u}_{s_e e},\\
+						t_e &=t_{e-1} + \tau_{s_e e}.
+						\end{aligned}
+						\end{equation*}
+		\end{itemize}
+	\end{frame}
+	\begin{frame}
+		\frametitle{Generative Process: \textcolor{red}{Sender}, \textcolor{red}{Receivers}, and \textcolor{red}{Timestamps}}
+					\begin{figure}[H]
+						\centering
+						\includegraphics[width=1\textwidth]{diagramnew.png}	
+						\label{figure:diagram}
+					\end{figure}						
+			\end{frame}
+			
+				\begin{frame}
+			\frametitle{Application: Montgomery County Government
+\textcolor{red}{Email} Data}
+\begin{itemize}
+				\item Coefficients for receiver selection features
+			\item Coefficients for event timing features
+			\end{itemize}
+		\end{frame}				
+		\begin{frame}
+			\frametitle{Results: Exploratory Analysis}
+			\begin{itemize}
+				\item Coefficients for receiver selection features
+				\item Coefficients for event timing features
+			\end{itemize}
+			
+		\end{frame}				
+				\begin{frame}
+					\frametitle{Comparison: Lognormal vs. Exponential}
+					\begin{itemize}
+						\item Covariates
+					\end{itemize}
+				\end{frame}	
+							\begin{frame}
+								\frametitle{Conclusions}
+								\begin{itemize}
+									\item Covariates
+								\end{itemize}
+							\end{frame}	
+							
+\end{document}
