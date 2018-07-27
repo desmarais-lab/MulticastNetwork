@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  20 JUL 2018 18:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  26 JUL 2018 14:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1087,19 +1087,19 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 [1
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<aaron.jpg, id=43, 401.5pt x 401.5pt>
+<aaron.jpg, id=44, 401.5pt x 401.5pt>
 File: aaron.jpg Graphic file (type jpg)
  <use aaron.jpg>
 Package pdftex.def Info: aaron.jpg used on input line 26.
 (pdftex.def)             Requested size: 92.1879pt x 92.18376pt.
 
-<Bruce.jpeg, id=44, 187.70125pt x 250.9375pt>
+<Bruce.jpeg, id=45, 187.70125pt x 250.9375pt>
 File: Bruce.jpeg Graphic file (type jpg)
  <use Bruce.jpeg>
 Package pdftex.def Info: Bruce.jpeg used on input line 26.
 (pdftex.def)             Requested size: 68.98735pt x 92.22894pt.
 
-<Hanna.jpeg, id=45, 401.5pt x 401.5pt>
+<Hanna.jpeg, id=46, 401.5pt x 401.5pt>
 File: Hanna.jpeg Graphic file (type jpg)
  <use Hanna.jpeg>
 Package pdftex.def Info: Hanna.jpeg used on input line 26.
@@ -1129,21 +1129,86 @@ thkerncmss.
 ] [5
 
 ]
-<diagramnew.png, id=158, 1221.56375pt x 516.93124pt>
+<diagramnew.png, id=159, 1221.56375pt x 516.93124pt>
 File: diagramnew.png Graphic file (type png)
  <use diagramnew.png>
-Package pdftex.def Info: diagramnew.png used on input line 86.
+Package pdftex.def Info: diagramnew.png used on input line 90.
 (pdftex.def)             Requested size: 307.28987pt x 130.03703pt.
 
 [6
 
  <./diagramnew.png>] [7
 
-] [8
+]
 
-] [9
+LaTeX Font Warning: Command \normalsize invalid in math mode on input line 117.
 
-] [10
+
+<betanewplot2-1.png, id=215, 1405.25pt x 1405.25pt>
+File: betanewplot2-1.png Graphic file (type png)
+ <use betanewplot2-1.png>
+Package pdftex.def Info: betanewplot2-1.png used on input line 117.
+(pdftex.def)             Requested size: 138.2795pt x 138.26033pt.
+
+<betanewplot3-1.png, id=216, 1405.25pt x 1405.25pt>
+File: betanewplot3-1.png Graphic file (type png)
+ <use betanewplot3-1.png>
+Package pdftex.def Info: betanewplot3-1.png used on input line 117.
+(pdftex.def)             Requested size: 138.2795pt x 138.26033pt.
+
+Overfull \vbox (1.81035pt too high) detected at line 117
+ []
+
+[8
+
+ <./betanewplot2-1.png> <./betanewplot3-1.png>]
+
+LaTeX Font Warning: Command \normalsize invalid in math mode on input line 138.
+
+
+<etaplotnew-1.png, id=246, 1405.25pt x 1405.25pt>
+File: etaplotnew-1.png Graphic file (type png)
+ <use etaplotnew-1.png>
+Package pdftex.def Info: etaplotnew-1.png used on input line 138.
+(pdftex.def)             Requested size: 138.2795pt x 138.26033pt.
+
+[9
+
+ <./etaplotnew-1.png>] <senderpredict-1.png, id=274, 1405.25pt x 1405.25pt>
+File: senderpredict-1.png Graphic file (type png)
+
+<use senderpredict-1.png>
+Package pdftex.def Info: senderpredict-1.png used on input line 160.
+(pdftex.def)             Requested size: 92.1879pt x 92.18071pt.
+
+<receiverpredict-1.png, id=275, 1405.25pt x 1405.25pt>
+File: receiverpredict-1.png Graphic file (type png)
+
+<use receiverpredict-1.png>
+Package pdftex.def Info: receiverpredict-1.png used on input line 160.
+(pdftex.def)             Requested size: 92.1879pt x 92.18071pt.
+ <timepredict-1.png, id=276, 1405.25pt x 1405.25pt>
+File: timepredict-1.png Graphic file (type png)
+
+<use timepredict-1.png>
+Package pdftex.def Info: timepredict-1.png used on input line 160.
+(pdftex.def)             Requested size: 92.1879pt x 92.18071pt.
+ <outdegree2-1.png, id=277, 2264.46pt x 1250.6725pt>
+File: outdegree2-1.png Graphic file (type png)
+
+<use outdegree2-1.png>
+Package pdftex.def Info: outdegree2-1.png used on input line 160.
+(pdftex.def)             Requested size: 165.93446pt x 91.63992pt.
+ <timePPplot2-1.png, id=278, 1405.25pt x 1405.25pt>
+File: timePPplot2-1.png Graphic file (type png)
+
+<use timePPplot2-1.png>
+Package pdftex.def Info: timePPplot2-1.png used on input line 160.
+(pdftex.def)             Requested size: 92.1879pt x 92.18071pt.
+ [10
+
+ <./senderpredict-1.png> <./receiverpredict-1.png> <./timepredict-1.png> <./out
+degree2-1.png> <./timePPplot2-1.png>] [11
 
 ]
 \tf@nav=\write6
@@ -1155,11 +1220,12 @@ Package pdftex.def Info: diagramnew.png used on input line 86.
 \tf@snm=\write8
 \openout8 = `JSM_Bomin.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 117.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 117.
- (./JSM_Bomin.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 117.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 117.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 173.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 173.
+
+(./JSM_Bomin.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 173.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 173.
 Package rerunfilecheck Info: File `JSM_Bomin.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1167,34 +1233,38 @@ Package rerunfilecheck Info: File `JSM_Bomin.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 117.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 173.
  ) 
 Here is how much of TeX's memory you used:
- 20730 strings out of 493089
- 407389 string characters out of 6134842
- 476534 words of memory out of 5000000
- 23689 multiletter control sequences out of 15000+600000
- 17436 words of font info for 56 fonts, out of 8000000 for 9000
+ 20842 strings out of 493089
+ 409517 string characters out of 6134842
+ 477538 words of memory out of 5000000
+ 23781 multiletter control sequences out of 15000+600000
+ 28893 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 56i,14n,59p,410b,549s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,14n,59p,410b,621s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
 /usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></u
-sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></us
-r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/
-local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/lo
-cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/lo
-cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/loc
-al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
-l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/
-texlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/lo
-cal/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfso1000.pfb>
-Output written on JSM_Bomin.pdf (10 pages, 288627 bytes).
+usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></us
+r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></us
+r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr
+/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/
+local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/lo
+cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/loca
+l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/loca
+l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local
+/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/t
+exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/tex
+live/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local
+/texlive/2015/texmf-dist/fonts/type1/public/cm-super/sfso1000.pfb></usr/local/t
+exlive/2015/texmf-dist/fonts/type1/public/cm-super/sfso1200.pfb>
+Output written on JSM_Bomin.pdf (11 pages, 1413959 bytes).
 PDF statistics:
- 336 PDF objects out of 1000 (max. 8388607)
- 297 compressed objects within 3 object streams
- 22 named destinations out of 1000 (max. 500000)
- 63 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 394 PDF objects out of 1000 (max. 8388607)
+ 333 compressed objects within 4 object streams
+ 24 named destinations out of 1000 (max. 500000)
+ 103 words of extra memory for PDF output out of 10000 (max. 10000000)
 

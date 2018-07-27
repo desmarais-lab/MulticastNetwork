@@ -1,10 +1,4 @@
 \RequirePackage{etoolbox}
-\csdef{input@path}{%
-	{sty2/}% cls, sty files
-	{img/}% eps files
-}%
-\csgdef{bibdir}{bib/}% bst, bib files
-
 \documentclass[ba]{imsart}
 %
 %\pubyear{0000}
@@ -191,7 +185,7 @@
 		Therefore, the HEM assumes a sender-driven process---i.e., the receivers and timestamp of an event are jointly determined by the sender's urgency to direct the event to those selected receivers. Note that our generative process allows for tied events. In the case of tied events---i.e., multiple senders draw exactly the same candidate timestamps---we assume that all events are generated and occur simultaneously. Algorithm \ref{alg:generative} summarizes the entire generative process for hyperedge events with one sender and one or more receivers, and Figure \ref{figure:diagram} presents an illustrative example on how the $e^{\textrm{th}}$ event is generated, assuming $t_{e-1} = 0$ and $A=5$.~\looseness=-1	
 		\begin{figure}[!t]
 			\centering
-			\includegraphics[width=0.625\textwidth]{img/diagramnew.png}	
+			\includegraphics[width=0.625\textwidth]{diagramnew.png}	
 			\caption {An illustrative example of the generative process of the HEM.}
 			\label{figure:diagram}
 		\end{figure}	
@@ -283,51 +277,51 @@
 			\centering
 			\begin{subfigure}[b]{0.2425\textwidth}
 				\caption{Mean of $\lVert \boldsymbol{r}_{e} \rVert_1 $}
-				\includegraphics[width=\textwidth]{img/plot1.png}	
+				\includegraphics[width=\textwidth]{plot1.png}	
 			\end{subfigure}
 			\begin{subfigure}[b]{0.2425\textwidth}
 				\caption{Variance of $\lVert \boldsymbol{r}_{e} \rVert_1 $}
-				\includegraphics[width=\textwidth]{img/plot2.png}	
+				\includegraphics[width=\textwidth]{plot2.png}	
 			\end{subfigure}
 			\begin{subfigure}[b]{0.2425\textwidth}
 				\caption{Mean of $\tau_e$}
-				\includegraphics[width=\textwidth]{img/plot3.png}	
+				\includegraphics[width=\textwidth]{plot3.png}	
 			\end{subfigure}
 			\begin{subfigure}[b]{0.2425\textwidth}
 				\caption{Variance of $\tau_e$}
-				\includegraphics[width=\textwidth]{img/plot4.png}	
+				\includegraphics[width=\textwidth]{plot4.png}	
 			\end{subfigure}
 			\begin{subfigure}[b]{0.2425\textwidth}
 				\caption{Value of $b_1$}
-				\includegraphics[width=\textwidth]{img/plot5.png}	
+				\includegraphics[width=\textwidth]{plot5.png}	
 			\end{subfigure}
 			\begin{subfigure}[b]{0.2425\textwidth}
 				\caption{Value of $b_2$}
-				\includegraphics[width=\textwidth]{img/plot6.png}	
+				\includegraphics[width=\textwidth]{plot6.png}	
 			\end{subfigure}   	   	   	   	   	   	   	
 			\begin{subfigure}[b]{0.2425\textwidth}
 				\caption{Value of $b_3$}
-				\includegraphics[width=\textwidth]{img/plot7.png}	
+				\includegraphics[width=\textwidth]{plot7.png}	
 			\end{subfigure}   	   		   	   	
 			\begin{subfigure}[b]{0.2425\textwidth}
 				\caption{Value of $b_4$}
-				\includegraphics[width=\textwidth]{img/plot8.png}	
+				\includegraphics[width=\textwidth]{plot8.png}	
 			\end{subfigure}   	   		   	   	
 			\begin{subfigure}[b]{0.2425\textwidth}
 				\caption{Value of $\eta_1$}
-				\includegraphics[width=\textwidth]{img/plot9.png}	
+				\includegraphics[width=\textwidth]{plot9.png}	
 			\end{subfigure}   	   		   	   	
 			\begin{subfigure}[b]{0.2425\textwidth}
 				\caption{Value of $\eta_2$}
-				\includegraphics[width=\textwidth]{img/plot10.png}	
+				\includegraphics[width=\textwidth]{plot10.png}	
 			\end{subfigure}   	   		   	   	
 			\begin{subfigure}[b]{0.2425\textwidth}
 				\caption{Value of $\eta_3$}
-				\includegraphics[width=\textwidth]{img/plot11.png}	
+				\includegraphics[width=\textwidth]{plot11.png}	
 			\end{subfigure}   	   		   	   	  		   	   	 	
 			\begin{subfigure}[b]{0.2425\textwidth}
 				\caption{Value of $\sigma^2_\tau$}
-				\includegraphics[width=\textwidth]{img/plot12.png}	
+				\includegraphics[width=\textwidth]{plot12.png}	
 			\end{subfigure}   	   		   	   	   	   		   	   	   		   	   	
 			\caption{Probability--probability (P--P) plots for the GiR test statistics.}
 			\label{figure:GiRplot}
@@ -358,7 +352,7 @@
 	where $I(\cdot)$ is an indicator function. The network statistics (5--14) are designed so that their coefficients have a straightforward interpretation. The function ``outdegree$(i)$" and ``indegree$(j)$" measure the gregariousness and popularity effects of the node by counting the number of emails sent from $i$ and received by $j$, respectively, within the last 7 days. The gregariousness effect refers to the tendency for nodes that created many events in the past to continue to do so in the future. The popularity effect refers to the tendency for nodes that were selected as receivers of many events in the past to continue to do so in the future. Moreover, in order to capture the individual tendency of senders to select two or more receivers, we include the statistic ``$\mbox{hyperedge}\_\,\mbox{size}(i)$"---the number of events directed from sender $i$ within last 7 days where events with $n$ number of receivers are counted as $n$ separate events---as a variant of outdegree statistic, accounting for hyperedges. We also include the interaction term, ``$\mbox{interaction}(i)$", between outdegree and hyperedge size. This interaction allows us to model a possible tradeoff between the hyperedge size and the total number of events created by $i$. Dyadic statistics ``send$(i, j)$" and ``receive$(i, j)$" are defined as above such that these covariates measure the number of events directed from $i$ to $j$ and $j$ to $i$, respectively, within the last 7 days. In the example of triadic statistics, the covariate ``$\mbox{two}\_\,\mbox{send}(i, j)$" counts the events involving some node $h$ distinct from $i$ and $j$ such that events from $i$ to $h$ and $h$ to $j$ are both observed within the last 7 days. This statistic captures the tendency for events to close transitive triads (i.e., triads in which $i$ directs to $j$ and $h$, and $j$ directs to $h$). We include other triadic covariates that behave similarly and exhibit analogous interpretations, which are illustrated in Figure \ref{figure:netstats}.
 	\begin{figure}[!t]
 		\centering
-		\includegraphics[width=0.75\textwidth]{img/triaddiagram.png}	
+		\includegraphics[width=0.75\textwidth]{triaddiagram.png}	
 		\caption {Visualization of triadic statistics: two\_\,send, two\_\,receive, sibling, and cosibling.}
 		\label{figure:netstats}
 	\end{figure}
@@ -430,21 +424,21 @@ with TP denoting true positive (i.e., $\boldsymbol{r}^{\textrm{(obs)}}_{ej}=\bol
 		\begin{tabular}[t]{ccc}
 			\begin{subfigure}[b]{0.33\textwidth}
 				\caption{Sender prediction}
-				\includegraphics[width=\textwidth]{img/senderpredict-1.png}	
+				\includegraphics[width=\textwidth]{senderpredict-1.png}	
 				\label{subfigure:PPEresults1}
 			\end{subfigure}
 			\begin{subfigure}[b]{0.33\textwidth}
 				\caption{Receiver prediction}
-				\includegraphics[width=\textwidth]{img/receiverpredict-1.png}	
+				\includegraphics[width=\textwidth]{receiverpredict-1.png}	
 				\label{subfigure:PPEresults2}
 			\end{subfigure}
 			\begin{subfigure}[b]{0.33\textwidth}
 				\caption{Timestamp prediction}
-				\includegraphics[width=\textwidth]{img/timepredict-1.png}
+				\includegraphics[width=\textwidth]{timepredict-1.png}
 				\label{subfigure:PPEresults3}	
 			\end{subfigure}
 		\end{tabular}
-		\includegraphics[width=0.4\textwidth]{img/modellabel.png}				
+		\includegraphics[width=0.4\textwidth]{modellabel.png}				
 		\caption {Comparison of predictive performance between log-normal and exponential distributions: (a) correct sender posterior probability from sender predictions, (b) $F_1$ scores from receiver predictions, and (c) median absolute relative error from timestamp predictions. Blue line in (a) represents the correct sender probability expected by random guess---i.e., $1/A=1/18\approx0.056$.}
 		\label{figure:PPEresults}
 	\end{figure}		
@@ -477,20 +471,20 @@ with TP denoting true positive (i.e., $\boldsymbol{r}^{\textrm{(obs)}}_{ej}=\bol
 		\begin{tabular}[t]{cc}
 			\begin{subfigure}[b]{0.495\textwidth}
 				\caption{Outdegree distribution}
-				\includegraphics[width=\textwidth]{img/outdegree-1.png}	
+				\includegraphics[width=\textwidth]{outdegree-1.png}	
 			\end{subfigure}
 			\begin{subfigure}[b]{0.495\textwidth}
 				\caption{Indegree distribution}
-				\includegraphics[width=\textwidth]{img/indegree-1.png}	
+				\includegraphics[width=\textwidth]{indegree-1.png}	
 			\end{subfigure}\\
 			\begin{subfigure}[b]{0.495\textwidth}
 				\caption{Receiver size distribution}
-				\includegraphics[width=\textwidth]{img/recipientsize-1.png}	
+				\includegraphics[width=\textwidth]{recipientsize-1.png}	
 			\end{subfigure}
 			\begin{subfigure}[b]{0.495\textwidth}
 				\centering
 				\caption{P--P plot for time increments}
-				\includegraphics[width=0.56\textwidth]{img/timePPplot-1.png}	
+				\includegraphics[width=0.56\textwidth]{timePPplot-1.png}	
 			\end{subfigure}
 		\end{tabular}
 		\caption {PPC results from log-normal distribution. Blue lines denote the observed statistics in (a)--(c) and denotes the diagonal line in (d).}
@@ -513,12 +507,12 @@ with TP denoting true positive (i.e., $\boldsymbol{r}^{\textrm{(obs)}}_{ej}=\bol
 				\begin{tabular}[t]{cc}
 					\begin{subfigure}[b]{0.4975\textwidth}
 						\caption{Nodal covariates}
-						\includegraphics[width=\textwidth]{img/betanewplot2-1.png}
+						\includegraphics[width=\textwidth]{betanewplot2-1.png}
 						\label{subfigure:betaresults1}	
 					\end{subfigure}
 					\begin{subfigure}[b]{0.4975\textwidth}
 						\caption{Dyadic and triadic covariates}
-						\includegraphics[width=\textwidth]{img/betanewplot3-1.png}
+						\includegraphics[width=\textwidth]{betanewplot3-1.png}
 						\label{subfigure:betaresults2}	
 					\end{subfigure}
 				\end{tabular}
@@ -538,7 +532,7 @@ with TP denoting true positive (i.e., $\boldsymbol{r}^{\textrm{(obs)}}_{ej}=\bol
 	The posterior estimates of two temporal effects---``weekend$(e)$" and ``PM$(e)$"---indicate that if the $(e-1)^{\textrm{th}}$ email was sent during the weekend or after midday, then the time to the $e^{\textrm{th}}$ email is expected to take $\exp(1.552)\approx 4.722$ hours and $\exp(0.980)\approx2.665$ hours longer, respectively, compared to their counterparts (i.e., weekdays and am). On the contrary, the covariates ``manager$(i)$", ``outdegree$(i)$", and ``indegree$(i)$"  shorten the amount of time until the next email. For example, being a county manager (i.e., the lead county administrator) lowers the expected value of $\log(\tau_{ie})$ by $\hat{\eta}_3 = -1.070$. The posterior mean estimates for the  ``outdegree$(i)$" and ``indegree$(i)$" statistics are $\hat{\eta}_4=-0.206$ and $\hat{\eta}_5=-0.060$, respectively. These effects indicate that those who are involved in either sending or receiving a lot of emails recently are likely to send emails with greater speed. The posterior distribution for the effect of the gender of the manager is evenly spread around zero. In addition, the posterior mean estimates for the variance parameter $\sigma^2_\tau$ in the log-normal distribution is approximately $\hat{\sigma}^2_\tau=14.093$ with its 95\% credible interval $(12.709, 15.555)$, indicating that there exists large variability in the time increments of emails.
 			\begin{figure}[!t]
 				\centering
-				\includegraphics[width=0.4975\textwidth]{img/etaplotnew-1.png}	
+				\includegraphics[width=0.4975\textwidth]{etaplotnew-1.png}	
 				\caption {Posterior distribution of $\boldsymbol{\eta}$ estimates.}
 				\label{figure:etaresults}
 			\end{figure}	
@@ -647,23 +641,23 @@ with TP denoting true positive (i.e., $\boldsymbol{r}^{\textrm{(obs)}}_{ej}=\bol
 			\begin{tabular}[t]{cc}
 				\begin{subfigure}[b]{0.495\textwidth}
 					\caption{Outdegree distribution}
-					\includegraphics[width=\textwidth]{img/outdegree2-1.png}	
+					\includegraphics[width=\textwidth]{outdegree2-1.png}	
 				\end{subfigure}
 				\begin{subfigure}[b]{0.495\textwidth}
 					\caption{Indegree distribution}
-					\includegraphics[width=\textwidth]{img/indegree2-1.png}	
+					\includegraphics[width=\textwidth]{indegree2-1.png}	
 				\end{subfigure}\\
 				\begin{subfigure}[b]{0.495\textwidth}
 					\caption{Receiver size distribution}
-					\includegraphics[width=\textwidth]{img/recipientsize2-1.png}	
+					\includegraphics[width=\textwidth]{recipientsize2-1.png}	
 				\end{subfigure}
 				\begin{subfigure}[b]{0.495\textwidth}
 					\centering
 					\caption{P--P plot for time increments}
-					\includegraphics[width=0.56\textwidth]{img/timePPplot2-1.png}
+					\includegraphics[width=0.56\textwidth]{timePPplot2-1.png}
 				\end{subfigure}
 			\end{tabular}
-			\includegraphics[width=0.4\textwidth]{img/modellabel.png}
+			\includegraphics[width=0.4\textwidth]{modellabel.png}
 			\caption {Comparison of PPC results between log-normal (\textit{red}) and exponential (\textit{green}) distributions. Blue lines denote the observed statistics in (a)--(c) and denotes the diagonal line in (d).}
 			\label{figure:PPCtwo}
 		\end{figure}
@@ -674,20 +668,20 @@ with TP denoting true positive (i.e., $\boldsymbol{r}^{\textrm{(obs)}}_{ej}=\bol
 			\begin{tabular}[t]{cc}
 				\begin{subfigure}[b]{0.495\textwidth}
 					\caption{Traceplots of $\boldsymbol{b}$}
-					\includegraphics[width=\textwidth]{img/betatrace-1.png}	
+					\includegraphics[width=\textwidth]{betatrace-1.png}	
 				\end{subfigure}
 				\begin{subfigure}[b]{0.495\textwidth}
 					\caption{Traceplot of $\boldsymbol{\eta}$}
-					\includegraphics[width=\textwidth]{img/etatrace-1.png}	
+					\includegraphics[width=\textwidth]{etatrace-1.png}	
 				\end{subfigure}\\
 				\begin{subfigure}[b]{0.495\textwidth}
 					\caption{Geweke diagnostics for $\boldsymbol{b}$}
-					\includegraphics[width=\textwidth]{img/betageweke-1.png}	
+					\includegraphics[width=\textwidth]{betageweke-1.png}	
 				\end{subfigure}
 				\begin{subfigure}[b]{0.495\textwidth}
 					\centering
 					\caption{Geweke diagnostics for $\boldsymbol{\eta}$ and $\sigma^2_\tau$}
-					\includegraphics[width=\textwidth]{img/etageweke-1.png}
+					\includegraphics[width=\textwidth]{etageweke-1.png}
 				\end{subfigure}
 			\end{tabular}
 			\caption {Convergence diagnostics from log-normal distribution.}
