@@ -1,0 +1,249 @@
+\documentclass[12pt]{article}
+
+\topmargin 0pt \advance \topmargin by -\headheight \advance
+\topmargin by -\headsep \textheight 8.9in \oddsidemargin 0pt
+\evensidemargin \oddsidemargin \marginparwidth 0.5in \textwidth
+6.5in
+
+\renewcommand{\baselinestretch}{1.33}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{exscale}
+\usepackage{multirow}
+\usepackage[mathscr]{eucal}
+\usepackage{bm}
+\usepackage{eqlist} % Makes for a nice list of symbols.
+\usepackage[final]{graphicx}
+\usepackage[dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{natbib}
+\usepackage{caption}
+\usepackage{enumerate}
+\usepackage{subcaption}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{booktabs}
+
+\usepackage{etoolbox}
+
+\newtheorem{thm}{Theorem}
+
+\newcommand{\aset}{{\mathcal A}}
+\newcommand{\boldbeta}{{\boldsymbol{\beta}}}
+
+\def\red{\color{red}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\def\sgn{\mathrm{sign}}
+\def\E{\mathrm{E}}
+\def\Var{\mathrm{Var}}
+\def\pr{\mathrm{Pr}}
+\def\tr{\mathrm{tr}}
+\def\ve{\mathrm{vec}}
+\def\diag{\mathrm{diag}}
+
+\newcommand{\bff}{\mathrm{\bf f}}
+\def\aset{\mathcal{A}}
+\def\bset{\mathcal{B}}
+\def\sset{\mathcal{S}}
+\def\ba{\boldsymbol{a}}
+\def\hba{\boldsymbol{\hat a}}
+\newcommand{\hf}{\widehat \bff}
+\newcommand{\bphi}{\mbox{\boldmath $\phi$}}
+\newcommand{\hphi}{\widehat\bphi}
+\newcommand{\Sig}{\mathbf{\Sigma}}
+\newcommand{\hSig}{\widehat\Sig}
+\newcommand{\hbSig}{\widehat\bSigma}
+\newcommand{\hlam}{\widehat\lambda}
+\newcommand{\hLam}{\widehat \bLam}
+\newcommand{\bLam}{\mbox{\boldmath $\Lambda$}}
+\def\br{\boldsymbol{r}}
+\def\hbr{\boldsymbol{\hat r}}
+\def\bu{\boldsymbol{u}}
+\def\bv{\boldsymbol{v}}
+\def\bx{\boldsymbol{x}}
+\def\bxi{\boldsymbol{\xi}}
+\def\by{\boldsymbol{y}}
+\def\bZ{\boldsymbol{Z}}
+\def\bz{\boldsymbol{z}}
+\def\bp{\boldsymbol{p}}
+\def\bX{\boldsymbol{X}}
+\def\bW{\boldsymbol{W}}
+\def\bY{\boldsymbol{Y}}
+\def\bQ{\boldsymbol{Q}}
+\def\hbQ{\boldsymbol{\hat Q}}
+\def\bA{\boldsymbol{A}}
+\def\hbA{\boldsymbol{\hat A}}
+\def\bD{\boldsymbol{D}}
+\def\hbD{\boldsymbol{\hat D}}
+\def\bI{\boldsymbol{I}}
+\def\bS{\boldsymbol{S}}
+\def\bV{\boldsymbol{V}}
+\def\bR{\boldsymbol{R}}
+\def\hbR{\boldsymbol{\hat R}}
+\def\tbR{\boldsymbol{\tilde R}}
+\def\bH{\boldsymbol{H}}
+\def\bL{\boldsymbol{L}}
+\def\bM{\boldsymbol{M}}
+\def\bN{\boldsymbol{N}}
+\def\boldf{\boldsymbol{f}}
+
+\def\bpi{\boldsymbol{\pi}}
+\def\bmu{\boldsymbol{\mu}}
+\def\hbmu{\boldsymbol{\hat\mu}}
+\def\bzero{\boldsymbol{0}}
+\def\bSigma{\boldsymbol{\Sigma}}
+\def\hbSigma{\boldsymbol{\hat\Sigma}}
+\def\bOmega{\boldsymbol{\Omega}}
+\def\bPsi{\boldsymbol{\Psi}}
+\def\bDelta{\boldsymbol{\Delta}}
+
+\def\bG{\boldsymbol{\Gamma}}
+%\def\hbGamma{\boldsymbol{\hat\Gamma}}
+%\def\bgamma{\boldsymbol{\gamma}}
+%\def\hbgamma{\boldsymbol{\hat\gamma}}
+
+\def\bGamma{\boldsymbol{\Sigma}}
+\def\hbGamma{\boldsymbol{\hat\Sigma}}
+\def\bgamma{\boldsymbol{\sigma}}
+\def\hbgamma{\boldsymbol{\hat\sigma}}
+
+\def\bbeta{\boldsymbol{\beta}}
+\def\bpsi{\boldsymbol{\psi}}
+\def\btheta{\boldsymbol{\theta}}
+\def\mvnorm{N_k(\bzero,\mathbf{\Sigma})}
+
+\def\F{\mathcal{F}}
+\def\G{\mathcal{G}}
+\def\H{\mathcal{H}}
+\def\P{\mathcal{P}}
+\def\U{\mathcal{U}}
+
+\def\be{\begin{equation}}
+\def\ee{\end{equation}}
+\def\ben{\begin{equation*}}
+\def\een{\end{equation*}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+\def\bean{\begin{eqnarray*}}
+\def\eean{\end{eqnarray*}}
+
+\date{\today}
+\begin{document}
+%\begin{flushright}
+%March 31, 2012
+%\end{flushright}
+
+
+\begin{center}
+\textbf{Authors' Responses to Associate Editor}
+\end{center}
+\begin{center}
+\textsl{The Hyperedge Event Model}
+\end{center}
+
+Thank you for acknowledging our efforts and contributions, and also for your constructive suggestions, which are very helpful to improve the quality of our paper. 
+
+\begin{itemize}
+	\item Presentation
+
+	\textbf{  Response:} 
+	\begin{itemize}
+		\item Unusual notations such as actor $A$ and covariates $y$. Also $u_{ie}$ is the $i$th line of matrix $u_e$, while $\tau_e = min_i(\tau_{ie})$. \textcolor{red}{(discuss)} 
+		\item Change the order of Equation (2.2) and (2.1) and not use `intensity'. \textcolor{blue}{(done)}
+		\item Hard to understand 2.2 without 2.3. More explanation on $\tau_{ie}$ above Equation (2.5) and what $\mu$ represents in $V(\mu)$. \textcolor{blue}{(done)}
+	\end{itemize}
+
+	\item Discussion of relevant literature
+
+	\textbf{  Response:} 
+	\begin{itemize}
+		\item Perry and Wolfe (2013) arxiv version has a model for multicast. Any differences/advantages?
+		\item Why cite Snijders (1996) in 2.3? Be specific. \textcolor{blue}{(done)}
+	\end{itemize}
+	
+	\item Model, covariates and missing data
+	
+		\textbf{  Response:} 
+		\begin{itemize}
+			\item Observations $(s_e, r_e, t_e)_{e=1,\ldots,E}$ are not conditionaly independent since covariates depend on last 7 days. State this in Section 2 and modify out-of-sample algorithm using $(s_{e'}, r_{e'}, t_{e'})_{e':t_e<t_e'<t_e+l_e}$.  \textcolor{red}{(discuss)} 
+		\end{itemize}
+	\item MCMC sampler
+	
+		\textbf{  Response:} 
+		\begin{itemize}
+			\item Details on M-H proposals for $\boldsymbol{b}$ and $\boldsymbol{\eta}$ in Section 3.2. \textcolor{blue}{(done)}
+			\item Inefficient sampler for $u_{iej}$ especially when most are one-to-one. Comment on this and the mixing of MCMC samplers.  \textcolor{red}{(discuss)} 
+			\item Move Geweke to appendix \textcolor{blue}{(done)} and use larger number of nodes and events.
+			\item Computational complexity per iterations of the samplers.
+		\end{itemize}
+		
+	\item Typos \textcolor{blue}{(done)}
+	
+		\textbf{  Response:} We fixed all the typos identified by the reviewer as well as other writing issues, and we highly appreciate your considerable comments on these which were extremely helpful.
+\end{itemize}
+
+\newpage
+
+
+\begin{center}
+
+\textbf{Authors' Responses to Reviewer 1}
+\end{center}
+\begin{center}
+\textsl{The Hyperedge Event Model}
+\end{center}
+
+Thank you for acknowledging our efforts and contributions, and also for your constructive suggestions, which are very helpful to improve the quality of our paper.
+\begin{itemize}
+	\item Presentation and writing
+	
+	\textbf{  Response:} We fixed all the typos, unclear parts, and issues in the bibliography \textcolor{blue}{(bib not working)} identified by the reviewer. We highly appreciate your considerable comments on these which were extremely helpful. \textcolor{blue}{(done)}
+
+  \item Literature review
+
+\textbf{  Response:} 
+\begin{itemize}
+	\item More comprehensive review including temporal ERGMS and dynamic latent variable models, and discuss contributions and novelties in the light of alternatives
+\end{itemize}
+
+\item Section 2
+
+\textbf{  Response:} Rewrite Section 2 to provide a much clear picture of the model.
+
+
+\item Prior specification
+
+\textbf{  Response:} 
+\begin{itemize}
+	\item Use weakly informative priors as generic priors instead of assuming $N(0, \infty)$
+	\item Sensitivity analyses to check how much posterior inference is affected by the hyperparameters' settings, and, possibly, suggest some default values.  \textcolor{red}{(discuss)} 
+\end{itemize}
+
+\item Posterior computation  \textcolor{red}{(discuss)} 
+
+\textbf{  Response:} 
+\begin{itemize}
+	\item Type of MH, proposal distribution, acceptance rate, smart proposal
+	\item Comment on poor mixing on data augmentation
+	\item Extent of scaling, bigger dataset, information on computational time
+\end{itemize}
+\item Application  \textcolor{red}{(discuss)} 
+
+\textbf{  Response:} 
+\begin{itemize}
+	\item Better baseline than random guess $1/18$ 
+	\item Compare with SAOMs and extensions in PPE and PPC 
+	\item Bad results in predicting timestamps (MdAPE)
+	\item More conservative interpretations 
+\end{itemize}
+\end{itemize}
+
+
+
+\end{document}
+
