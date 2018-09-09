@@ -20,9 +20,9 @@
 \backcite {rao2000applied}{{4}{2.2}{equation.2.4}}
 \backcite {rizopoulos2012joint}{{4}{2.2}{equation.2.4}}
 \backcite {snijders1996stochastic}{{5}{2.3}{ALC@unique.21}}
-\backcite {geweke2004getting}{{5}{3}{section.3}}
-\backcite {tanner1987calculation}{{6}{3}{section*.2}}
-\backcite {neal2015exact}{{6}{3}{section*.2}}
+\backcite {geweke2004getting}{{6}{3}{section.3}}
+\backcite {tanner1987calculation}{{6}{3.1}{section*.2}}
+\backcite {neal2015exact}{{6}{3.1}{section*.2}}
 \backcite {ben2017transparency}{{7}{4}{section.4}}
 \backcite {PerryWolfe2012}{{9}{4.1}{section*.5}}
 \backcite {snijders1996stochastic}{{11}{4.2}{subsection.4.2}}
