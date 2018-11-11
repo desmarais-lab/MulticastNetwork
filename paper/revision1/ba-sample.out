@@ -5,18 +5,19 @@
 \BOOKMARK [2][-]{subsection.2.3}{Senders, receivers, and timestamps}{section.2}% 5
 \BOOKMARK [2][-]{subsection.2.4}{Basis in existing models}{section.2}% 6
 \BOOKMARK [1][-]{section.3}{Posterior inference}{}% 7
-\BOOKMARK [2][-]{section*.2}{Candidate receivers}{section.3}% 8
-\BOOKMARK [3][-]{section*.3}{Coefficients for receiver selection features}{section*.2}% 9
-\BOOKMARK [3][-]{section*.4}{Coefficients for event timing features}{section*.2}% 10
-\BOOKMARK [1][-]{section.4}{Application to email data}{}% 11
-\BOOKMARK [2][-]{subsection.4.1}{Covariates}{section.4}% 12
-\BOOKMARK [3][-]{section*.5}{Receiver selection features}{subsection.4.1}% 13
-\BOOKMARK [3][-]{section*.7}{Event timing features}{subsection.4.1}% 14
-\BOOKMARK [2][-]{subsection.4.2}{Model selection}{section.4}% 15
-\BOOKMARK [2][-]{subsection.4.3}{Posterior predictive checks}{section.4}% 16
-\BOOKMARK [2][-]{subsection.4.4}{Exploratory analysis}{section.4}% 17
-\BOOKMARK [3][-]{section*.10}{Coefficients for receiver selection features}{subsection.4.4}% 18
-\BOOKMARK [3][-]{section*.12}{Coefficients for event timing features}{subsection.4.4}% 19
-\BOOKMARK [1][-]{section.5}{Conclusion}{}% 20
-\BOOKMARK [1][-]{section*.15}{References}{}% 21
-\BOOKMARK [1][-]{section*.17}{Appendix}{}% 22
+\BOOKMARK [2][-]{subsection.3.1}{Conditional posteriors}{section.3}% 8
+\BOOKMARK [3][-]{section*.2}{Candidate receivers}{subsection.3.1}% 9
+\BOOKMARK [3][-]{section*.3}{Coefficients for receiver selection features}{subsection.3.1}% 10
+\BOOKMARK [3][-]{section*.4}{Coefficients for event timing features}{subsection.3.1}% 11
+\BOOKMARK [2][-]{subsection.3.2}{Computational complexity}{section.3}% 12
+\BOOKMARK [1][-]{section.4}{Application to email data}{}% 13
+\BOOKMARK [2][-]{subsection.4.1}{Covariates}{section.4}% 14
+\BOOKMARK [3][-]{section*.5}{Receiver selection features}{subsection.4.1}% 15
+\BOOKMARK [3][-]{section*.7}{Event timing features}{subsection.4.1}% 16
+\BOOKMARK [2][-]{subsection.4.2}{Model selection}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.3}{Posterior predictive checks}{section.4}% 18
+\BOOKMARK [2][-]{subsection.4.4}{Exploratory analysis}{section.4}% 19
+\BOOKMARK [3][-]{section*.10}{Coefficients for receiver selection features}{subsection.4.4}% 20
+\BOOKMARK [3][-]{section*.12}{Coefficients for event timing features}{subsection.4.4}% 21
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 22
+\BOOKMARK [1][-]{section*.15}{Appendix}{}% 23
