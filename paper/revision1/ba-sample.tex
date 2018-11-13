@@ -262,6 +262,16 @@ The models discussed above are those, like HEM,  in which edge formation is driv
 			\label{alg:MCMC}
 		\end{algorithm}
 	\subsection{Computational complexity}\label{subsec:computation}
+The sampler uses a blocked Gibbs sampler for the $u_{iej}$. Given the constraint that $\sum_j u_{iej} > 0$, this sampler may be rather inefficient in the case where there are many one-to-one interactions (as is the case in the application, where 83\% of the interactions are dyadic). In
+order to go from the state $u_{ie} = (1, 0, 0, 0, 0, 0)$ to $u_{ie} = (0, 1, 0, 0, 0, 0)$ one needs to go through a state where two receivers are activated, which has low probability in this case. It would be good to comment on this, and in general on the mixing of the MCMC sampler. 
+
+The authors should provide some indication of the computational complexity per iterations of their sampler. The application to email interaction data is rather small (18 nodes and 680 emails), so it would be good to know how many nodes/events the proposed approach can handle. Your quantitative assessments are based on 5 nodes in the simulation and 18 nodes in the application. These are quite small networks compared to those one would expect in real{world settings (such as those you list in the introduction). To what extent are your computational methods able to scale to much larger networks? An application to a bigger dataset would be useful. Moreover, more information on computational time should be provided.
+
+Given that the model is relatively complex, some sensitivity analyses should be carried out to check how much posterior inference is affected by the hyperparameters' settings, and, possibly, suggest some default values.
+
+There are many MH routines in the literature. Which type of MH do you consider? What is the proposal distribution? What about the acceptance rate? Is there any smart proposal in this case which helps in increasing the acceptance rate.
+
+You rely on data augmentation MCMC, which has been shown to mix quite poorly (also in recent theoretical papers). Indeed, as expected, you end up thinning the chains every 40 samples in the application. However, there is no comment on this in the paper. I think it should be highlighted and not just hidden in the thinning.
 
 	\section{Application to email data}\label{sec:Emails}
 	We now present a case study applying our method to Montgomery county government email data.
@@ -310,43 +320,6 @@ For the event timing features $\boldsymbol{z}$, introduced in Section \ref{subse
 	\subsection{Model selection}\label{subsec:Experiment_email}
 	
 	The HEM defines a flexible family of models, each of which is defined by a set of features (i.e., the receiver selection features $\boldsymbol{x}$, the selection of event timing features $\boldsymbol{z}$, and the distribution of time increments $f$). Many of these components will be specified based on user expertise (e.g., regarding which features would drive receiver selection), but some decisions may require a data-driven approach to model specification. For example, though theoretical considerations may inform the specification of features, subject-matter expertise is unlikely to inform the decision regarding the family of event timing distribution. Furthermore, since different distribution families (and model specifications more generally) may involve different size parameter spaces, any data-driven approach to model comparison must guard against over-fitting the data. In this section we present a general-purpose approach to evaluating the HEM specification using out-of-sample prediction. We illustrate this approach by comparing alternative distributional families for the event timing component of the model. Here, we specifically compare the predictive performance from two distributions---log-normal and exponential. We particularly choose the log-normal distribution based on some exploratory analysis (e.g., histogram and simple regressions) on raw time increments data, and select the exponential distribution as a baseline alternative that is a commonly specified distribution for time-to-event data, and is also used in the stochastic actor-oriented models (SAOMs) \citep{snijders1996stochastic} as well as their extensions \citep{snijders2007modeling}.
-	\begin{algorithm}[!t]
-		\spacingset{1}
-		\caption{Out-of-sample predictions}
-		\label{alg:PPE}
-		\begin{algorithmic}
-			\STATE {\bfseries Input}: data $ \{ (s_e, \boldsymbol{r}_e, t_e)\}_{e=1}^E$, 
-			number of new data to generate $D$, and initial values of $(\boldsymbol{b}, \boldsymbol{\eta}, \boldsymbol{u}, \sigma^2_\tau)$
-			\vskip 0.1in
-			\textbf{Test splits}:	
-			\STATE draw test senders (out of $E$ senders) 
-			\STATE draw test receivers (out of $E\times (V-1)$ receiver indicators $\{\{{r}_{ej}\}_{j\in [V]_{\backslash s_e}}\}_{e=1}^E$)
-			\STATE draw test timestamps  (out of $E$ timestamps) 
-			\STATE set the test data as ``missing" (NA)
-			\vskip 0.1in
-			\textbf{Imputation and inference:}	
-			\FOR{$d=1$ {\bfseries to}  $D$}
-			\FOR{$e=1$ {\bfseries to}  $E$}
-			\IF{$s_e=$  NA}
-			\STATE compute $\boldsymbol{\pi}_e = (\pi_{1e},\ldots,\pi_{Ve})$, where \\$\pi_{ie}=\Big(f_{\tau}(\tau_{ e}; \mu_{i e}, \sigma_\tau^2)\times \prod_{i^\prime\neq i}\big(1-F_{\tau}(\tau_{ e}; \mu_{i^\prime  e}, \sigma_\tau^2) \big)\Big) \times$
-			\STATE draw $s_e \sim \mbox{Categorical}(\boldsymbol{\pi}_e)$ 
-			\ENDIF
-			\FOR{$j\in [V]_{\backslash s_e}$}
-			\IF{$r_{ej}=$ NA}
-			\STATE draw $r_{ej} \sim \mbox{Bernoulli}(p_{ej}),$
-			where $p_{ej}=\frac{\exp(\lambda_{iej})}{\exp(\lambda_{iej})+\text{I}(\lVert\boldsymbol{u}_{ie\backslash j}\rVert_1 > 0 )}$ %as defined in equation (\ref{eqn:latentreceiver})
-			\ENDIF
-			\ENDFOR
-			\IF{$t_e=$ NA}
-			\STATE draw ${\tau}_e$ from its conditional distribution using importance sampling, %from equation (\ref{eqn:latenttime}) (without the product term) 
-	      where $P({\tau}_e|\, \cdot)\propto \Big(f_{\tau}(\tau_{e}; \mu_{s_{e} e}, \sigma_\tau^2)\times \prod_{i\neq s_{e}}\big(1-F_{\tau}(\tau_{e}; \mu_{ie}, \sigma_\tau^2)\big)\Big) \times $%\footnote{we need to specify appropriate proposal distribution such as $g \sim \mbox{halfcauchy}(5)$}
-			\ENDIF
-			\STATE run inference and update $(\boldsymbol{u},\boldsymbol{b}, \boldsymbol{\eta})$ given the imputed and observed data
-			\ENDFOR
-			\STATE store the estimates for test data
-			\ENDFOR
-		\end{algorithmic}
-	\end{algorithm}
 	
 	We evaluated the models' ability to predict out-of-sample events and timestamps on Montgomery County email data. We generated a train--test split of the data by randomly selecting 10\% of senders, receivers, and timestamp variables to be held out. Our model then imputed these missing variables during inference, sampling them from their conditional posterior along with the other latent variables. Algorithm \ref{alg:PPE} outlines this procedure in detail. We compare the predictive performance of two versions of our model, each with a different timing distribution over the time increments, by repeating the predictive assessments$N=500$ times where we make new predictions each time for the fixed held out data. We summarize the results of prediction experiments for missing senders, receivers, and timestamps in Figure \ref{figure:PPEresults}. First, we compare the posterior probability of correct senders for each of the missing emails $\{e:s_e=\mbox{NA}\}$, which corresponds to $\pi_{s_ee}$ in Algorithm \ref{alg:PPE}. We call this measure the ``correct sender posterior probability." In Figure \ref{subfigure:PPEresults1}, we display boxplots for the distribution of mean correct sender posterior probability---i.e., $\hat{\pi}_{s_{e}e} = \frac{1}{N}\sum_{n=1}^N \pi^{(n)}_{s_{e}e}$---across the missing emails. The results show that both log-normal and exponential distributions achieve better predictive performance for missing senders compared to what is expected under random guess (i.e., choose one out of $V$ possible senders $=1/18$), with the log-normal model showing better performance than the exponential model. Secondly, since the receiver vector is binary, we compute $F_1$ scores for missing receiver indicators (i.e., all $e$ and $j$ with $r_{ej}$=NA) by taking the harmonic mean of precision and recall:
 	\begin{equation}
@@ -355,6 +328,43 @@ For the event timing features $\boldsymbol{z}$, introduced in Section \ref{subse
 			\mbox{recall}  = \frac{\mbox{TP}}{\mbox{TP+FN}} \mbox{ and } \mbox{precision} & =\frac{\mbox{TP}}{\mbox{TP+FP}},
 		\end{aligned}
 	\end{equation}
+		\begin{algorithm}[!t]
+			\spacingset{1}
+			\caption{Out-of-sample predictions}
+			\label{alg:PPE}
+			\begin{algorithmic}
+				\STATE {\bfseries Input}: data $ \{ (s_e, \boldsymbol{r}_e, t_e)\}_{e=1}^E$, 
+				number of new data to generate $D$, and initial values of $(\boldsymbol{b}, \boldsymbol{\eta}, \boldsymbol{u}, \sigma^2_\tau)$
+				\vskip 0.1in
+				\textbf{Test splits}:	
+				\STATE draw test senders (out of $E$ senders) 
+				\STATE draw test receivers (out of $E\times (V-1)$ receiver indicators $\{\{{r}_{ej}\}_{j\in [V]_{\backslash s_e}}\}_{e=1}^E$)
+				\STATE draw test timestamps  (out of $E$ timestamps) 
+				\STATE set the test data as ``missing" (NA)
+				\vskip 0.1in
+				\textbf{Imputation and inference:}	
+				\FOR{$d=1$ {\bfseries to}  $D$}
+				\FOR{$e=1$ {\bfseries to}  $E$}
+				\IF{$s_e=$  NA}
+				\STATE compute $\boldsymbol{\pi}_e = (\pi_{1e},\ldots,\pi_{Ve})$, where \\$\pi_{ie}=\Big(f_{\tau}(\tau_{ e}; \mu_{i e}, \sigma_\tau^2)\times \prod_{i^\prime\neq i}\big(1-F_{\tau}(\tau_{ e}; \mu_{i^\prime  e}, \sigma_\tau^2) \big)\Big) \times$
+				\STATE draw $s_e \sim \mbox{Categorical}(\boldsymbol{\pi}_e)$ 
+				\ENDIF
+				\FOR{$j\in [V]_{\backslash s_e}$}
+				\IF{$r_{ej}=$ NA}
+				\STATE draw $r_{ej} \sim \mbox{Bernoulli}(p_{ej}),$
+				where $p_{ej}=\frac{\exp(\lambda_{iej})}{\exp(\lambda_{iej})+\text{I}(\lVert\boldsymbol{u}_{ie\backslash j}\rVert_1 > 0 )}$ %as defined in equation (\ref{eqn:latentreceiver})
+				\ENDIF
+				\ENDFOR
+				\IF{$t_e=$ NA}
+				\STATE draw ${\tau}_e$ from its conditional distribution using importance sampling, %from equation (\ref{eqn:latenttime}) (without the product term) 
+				where $P({\tau}_e|\, \cdot)\propto \Big(f_{\tau}(\tau_{e}; \mu_{s_{e} e}, \sigma_\tau^2)\times \prod_{i\neq s_{e}}\big(1-F_{\tau}(\tau_{e}; \mu_{ie}, \sigma_\tau^2)\big)\Big) \times $%\footnote{we need to specify appropriate proposal distribution such as $g \sim \mbox{halfcauchy}(5)$}
+				\ENDIF
+				\STATE run inference and update $(\boldsymbol{u},\boldsymbol{b}, \boldsymbol{\eta})$ given the imputed and observed data
+				\ENDFOR
+				\STATE store the estimates for test data
+				\ENDFOR
+			\end{algorithmic}
+		\end{algorithm}
 with TP denoting true positive (i.e., ${r}^{\textrm{(obs)}}_{ej}=r^{\textrm{(pred)}}_{ej}=1$), FN denoting false negative (i.e., ${r}^{\textrm{(obs)}}_{ej}=1$ but ${r}^{\textrm{(pred)}}_{ej}=0$), and FP denoting false positive (i.e., ${r}^{\textrm{(obs)}}_{ej}=0$ but ${r}^{\textrm{(pred)}}_{ej}=1$). Although the generative process for events (Section \ref{subsec: Tie}) is not directly affected by the choice of timestamp distribution, Figure \ref{subfigure:PPEresults2} reveals slight difference between log-normal and exponential in their performance in predicting missing receiver indicators, where log-normal on average outperforms exponential. Finally, the prediction error for the $d^{\textrm{th}}$ missing timestamp is estimated using the median of the absolute relative errors, often referred to as median absolute percentage error (MdAPE), across $N=500$ predictions:
 	\begin{figure}[!t]
 		\centering

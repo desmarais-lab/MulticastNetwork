@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  11 NOV 2018 20:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  13 NOV 2018 18:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -761,280 +761,271 @@ m/n/10 0)[] + [] \OML/cmm/m/it/10 ^^U[]u[][];
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [7]
-
-Package natbib Warning: Citation `ben2017transparency' on page 8 undefined on i
-nput line 268.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [8]
-
-Package natbib Warning: Citation `PerryWolfe2012' on page 9 undefined on input 
-line 272.
-
-
+[8]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [9]
+
+Package natbib Warning: Citation `ben2017transparency' on page 10 undefined on 
+input line 278.
+
+
+Package natbib Warning: Citation `PerryWolfe2012' on page 10 undefined on input
+ line 282.
+
 [10] <img/triaddiagram.png, id=252, 1661.20625pt x 268.00125pt>
 File: img/triaddiagram.png Graphic file (type png)
 
 <use img/triaddiagram.png>
-Package pdftex.def Info: img/triaddiagram.png used on input line 292.
+Package pdftex.def Info: img/triaddiagram.png used on input line 302.
 (pdftex.def)             Requested size: 284.25pt x 45.85812pt.
- [11 <./img/triaddiagram.png>]
+ [11]
 
 Package natbib Warning: Citation `snijders1996stochastic' on page 12 undefined 
-on input line 312.
+on input line 322.
 
 
 Package natbib Warning: Citation `snijders2007modeling' on page 12 undefined on
- input line 312.
+ input line 322.
 
-[12] [13] <img/senderpredict-1.png, id=302, 1405.25pt x 1405.25pt>
+[12 <./img/triaddiagram.png>]
+<img/senderpredict-1.png, id=271, 1405.25pt x 1405.25pt>
 File: img/senderpredict-1.png Graphic file (type png)
 
 <use img/senderpredict-1.png>
-Package pdftex.def Info: img/senderpredict-1.png used on input line 364.
+Package pdftex.def Info: img/senderpredict-1.png used on input line 374.
 (pdftex.def)             Requested size: 125.0707pt x 125.05185pt.
 
-<img/receiverpredict-1.png, id=303, 1405.25pt x 1405.25pt>
+<img/receiverpredict-1.png, id=272, 1405.25pt x 1405.25pt>
 File: img/receiverpredict-1.png Graphic file (type png)
 
 <use img/receiverpredict-1.png>
-Package pdftex.def Info: img/receiverpredict-1.png used on input line 369.
+Package pdftex.def Info: img/receiverpredict-1.png used on input line 379.
 (pdftex.def)             Requested size: 125.0707pt x 125.05185pt.
 
-<img/timepredict-1.png, id=304, 1405.25pt x 1405.25pt>
+<img/timepredict-1.png, id=273, 1405.25pt x 1405.25pt>
 File: img/timepredict-1.png Graphic file (type png)
 
 <use img/timepredict-1.png>
-Package pdftex.def Info: img/timepredict-1.png used on input line 374.
+Package pdftex.def Info: img/timepredict-1.png used on input line 384.
 (pdftex.def)             Requested size: 125.0707pt x 125.05185pt.
 
-<img/modellabel.png, id=305, 537.00626pt x 71.26625pt>
+<img/modellabel.png, id=274, 537.00626pt x 71.26625pt>
 File: img/modellabel.png Graphic file (type png)
 
 <use img/modellabel.png>
-Package pdftex.def Info: img/modellabel.png used on input line 378.
+Package pdftex.def Info: img/modellabel.png used on input line 388.
 (pdftex.def)             Requested size: 151.59769pt x 20.1186pt.
 
-Overfull \hbox (14.87874pt too wide) in paragraph at lines 361--379
+Overfull \hbox (14.87874pt too wide) in paragraph at lines 371--389
  [][] 
  []
 
-[14 <./img/senderpredict-1.png> <./img/receiverpredict-1.png> <./img/timepredic
-t-1.png> <./img/modellabel.png>]
+[13]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [14]
 
 Package natbib Warning: Citation `rubin1984bayesianly' on page 15 undefined on 
-input line 388.
+input line 398.
 
-<img/outdegree-1.png, id=320, 2264.46pt x 1252.68pt>
+<img/outdegree-1.png, id=315, 2264.46pt x 1252.68pt>
 File: img/outdegree-1.png Graphic file (type png)
  <use img/outdegree-1.png>
-Package pdftex.def Info: img/outdegree-1.png used on input line 411.
+Package pdftex.def Info: img/outdegree-1.png used on input line 421.
 (pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/indegree-1.png, id=321, 2264.46pt x 1252.68pt>
+<img/indegree-1.png, id=316, 2264.46pt x 1252.68pt>
 File: img/indegree-1.png Graphic file (type png)
  <use img/indegree-1.png>
-Package pdftex.def Info: img/indegree-1.png used on input line 415.
+Package pdftex.def Info: img/indegree-1.png used on input line 425.
 (pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/recipientsize-1.png, id=322, 2264.46pt x 1252.68pt>
+<img/recipientsize-1.png, id=317, 2264.46pt x 1252.68pt>
 File: img/recipientsize-1.png Graphic file (type png)
 
 <use img/recipientsize-1.png>
-Package pdftex.def Info: img/recipientsize-1.png used on input line 419.
+Package pdftex.def Info: img/recipientsize-1.png used on input line 429.
 (pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/timePPplot-1.png, id=323, 1405.25pt x 1405.25pt>
+<img/timePPplot-1.png, id=318, 1405.25pt x 1405.25pt>
 File: img/timePPplot-1.png Graphic file (type png)
 
 <use img/timePPplot-1.png>
-Package pdftex.def Info: img/timePPplot-1.png used on input line 424.
+Package pdftex.def Info: img/timePPplot-1.png used on input line 434.
 (pdftex.def)             Requested size: 105.0573pt x 105.04613pt.
 
-Overfull \hbox (11.53963pt too wide) in paragraph at lines 408--427
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 418--437
  [][] 
  []
 
+[15 <./img/senderpredict-1.png> <./img/receiverpredict-1.png> <./img/timepredic
+t-1.png> <./img/modellabel.png>] [16 <./img/outdegree-1.png> <./img/indegree-1.
+png> <./img/recipientsize-1.png> <./img/timePPplot-1.png>]
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Package natbib Warning: Citation `geweke1991evaluating' on page 17 undefined on
+ input line 444.
 
- [15 <./img/outdegree-1.png> <./img/indegree-1.png> <./img/recipientsize-1.png>
- <./img/timePPplot-1.png>]
-
-Package natbib Warning: Citation `geweke1991evaluating' on page 16 undefined on
- input line 434.
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [16]
 <img/betanewplot2-1.png, id=346, 1405.25pt x 1405.25pt>
 File: img/betanewplot2-1.png Graphic file (type png)
 
 <use img/betanewplot2-1.png>
-Package pdftex.def Info: img/betanewplot2-1.png used on input line 447.
+Package pdftex.def Info: img/betanewplot2-1.png used on input line 457.
 (pdftex.def)             Requested size: 188.55157pt x 188.54268pt.
 
 <img/betanewplot3-1.png, id=347, 1405.25pt x 1405.25pt>
 File: img/betanewplot3-1.png Graphic file (type png)
 
 <use img/betanewplot3-1.png>
-Package pdftex.def Info: img/betanewplot3-1.png used on input line 452.
+Package pdftex.def Info: img/betanewplot3-1.png used on input line 462.
 (pdftex.def)             Requested size: 188.55157pt x 188.54268pt.
 
-Overfull \hbox (13.43648pt too wide) in paragraph at lines 444--456
+Overfull \hbox (13.43648pt too wide) in paragraph at lines 454--466
  [][] 
  []
 
-<img/etaplotnew-1.png, id=349, 1405.25pt x 1405.25pt>
+[17]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [18 <./img/betanewplot2-1.png> <./img/betanewplot3-1.png>]
+<img/etaplotnew-1.png, id=360, 1405.25pt x 1405.25pt>
 File: img/etaplotnew-1.png Graphic file (type png)
 
 <use img/etaplotnew-1.png>
-Package pdftex.def Info: img/etaplotnew-1.png used on input line 472.
+Package pdftex.def Info: img/etaplotnew-1.png used on input line 482.
 (pdftex.def)             Requested size: 188.55157pt x 188.54268pt.
- [17]
-Underfull \vbox (badness 4024) has occurred while \output is active []
-
- [18 <./img/betanewplot2-1.png> <./img/betanewplot3-1.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
  [19 <./img/etaplotnew-1.png>] [20] (./ba-sample.bbl)
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 522.
- [21]
+(Font)              <12> on input line 532.
+[21]
 
 Package natbib Warning: Citation `altman2004numerical' on page 22 undefined on 
-input line 576.
+input line 586.
 
 
 Package natbib Warning: Citation `mccullough2009accuracy' on page 22 undefined 
-on input line 576.
+on input line 586.
 
 
 Package natbib Warning: Citation `geweke2004getting' on page 22 undefined on in
-put line 578.
+put line 588.
 
 
 Package natbib Warning: Citation `zhao2016bayesian' on page 22 undefined on inp
-ut line 578.
+ut line 588.
 
 [22]
-Underfull \hbox (badness 10000) in paragraph at lines 580--581
+Underfull \hbox (badness 10000) in paragraph at lines 590--591
 
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 595.
+(Font)              <9> on input line 605.
 <img/plot1.png, id=411, 2106.87125pt x 2106.87125pt>
 File: img/plot1.png Graphic file (type png)
  <use img/plot1.png>
-Package pdftex.def Info: img/plot1.png used on input line 596.
+Package pdftex.def Info: img/plot1.png used on input line 606.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
 <img/plot2.png, id=412, 2106.87125pt x 2106.87125pt>
 File: img/plot2.png Graphic file (type png)
  <use img/plot2.png>
-Package pdftex.def Info: img/plot2.png used on input line 600.
+Package pdftex.def Info: img/plot2.png used on input line 610.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
 <img/plot3.png, id=413, 2106.87125pt x 2106.87125pt>
 File: img/plot3.png Graphic file (type png)
  <use img/plot3.png>
-Package pdftex.def Info: img/plot3.png used on input line 604.
+Package pdftex.def Info: img/plot3.png used on input line 614.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
 <img/plot4.png, id=414, 2106.87125pt x 2106.87125pt>
 File: img/plot4.png Graphic file (type png)
  <use img/plot4.png>
-Package pdftex.def Info: img/plot4.png used on input line 608.
+Package pdftex.def Info: img/plot4.png used on input line 618.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
 <img/plot5.png, id=415, 2106.87125pt x 2106.87125pt>
 File: img/plot5.png Graphic file (type png)
  <use img/plot5.png>
-Package pdftex.def Info: img/plot5.png used on input line 612.
+Package pdftex.def Info: img/plot5.png used on input line 622.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
 <img/plot6.png, id=416, 2106.87125pt x 2106.87125pt>
 File: img/plot6.png Graphic file (type png)
  <use img/plot6.png>
-Package pdftex.def Info: img/plot6.png used on input line 616.
+Package pdftex.def Info: img/plot6.png used on input line 626.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
 <img/plot7.png, id=417, 2106.87125pt x 2106.87125pt>
 File: img/plot7.png Graphic file (type png)
  <use img/plot7.png>
-Package pdftex.def Info: img/plot7.png used on input line 620.
+Package pdftex.def Info: img/plot7.png used on input line 630.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
 <img/plot8.png, id=418, 2106.87125pt x 2106.87125pt>
 File: img/plot8.png Graphic file (type png)
  <use img/plot8.png>
-Package pdftex.def Info: img/plot8.png used on input line 624.
+Package pdftex.def Info: img/plot8.png used on input line 634.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
 <img/plot9.png, id=419, 2106.87125pt x 2106.87125pt>
 File: img/plot9.png Graphic file (type png)
  <use img/plot9.png>
-Package pdftex.def Info: img/plot9.png used on input line 628.
+Package pdftex.def Info: img/plot9.png used on input line 638.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
 <img/plot10.png, id=420, 2106.87125pt x 2106.87125pt>
 File: img/plot10.png Graphic file (type png)
  <use img/plot10.png>
-Package pdftex.def Info: img/plot10.png used on input line 632.
+Package pdftex.def Info: img/plot10.png used on input line 642.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
 <img/plot11.png, id=421, 2106.87125pt x 2106.87125pt>
 File: img/plot11.png Graphic file (type png)
  <use img/plot11.png>
-Package pdftex.def Info: img/plot11.png used on input line 636.
+Package pdftex.def Info: img/plot11.png used on input line 646.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
 <img/plot12.png, id=422, 2106.87125pt x 2106.87125pt>
 File: img/plot12.png Graphic file (type png)
  <use img/plot12.png>
-Package pdftex.def Info: img/plot12.png used on input line 640.
+Package pdftex.def Info: img/plot12.png used on input line 650.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
 [23] <img/outdegree2-1.png, id=427, 2264.46pt x 1250.6725pt>
 File: img/outdegree2-1.png Graphic file (type png)
 
 <use img/outdegree2-1.png>
-Package pdftex.def Info: img/outdegree2-1.png used on input line 651.
+Package pdftex.def Info: img/outdegree2-1.png used on input line 661.
 (pdftex.def)             Requested size: 187.60315pt x 103.60541pt.
 
 <img/indegree2-1.png, id=428, 2264.46pt x 1250.6725pt>
 File: img/indegree2-1.png Graphic file (type png)
 
 <use img/indegree2-1.png>
-Package pdftex.def Info: img/indegree2-1.png used on input line 655.
+Package pdftex.def Info: img/indegree2-1.png used on input line 665.
 (pdftex.def)             Requested size: 187.60315pt x 103.60541pt.
 
 <img/recipientsize2-1.png, id=429, 2264.46pt x 1250.6725pt>
 File: img/recipientsize2-1.png Graphic file (type png)
 
 <use img/recipientsize2-1.png>
-Package pdftex.def Info: img/recipientsize2-1.png used on input line 659.
+Package pdftex.def Info: img/recipientsize2-1.png used on input line 669.
 (pdftex.def)             Requested size: 187.60315pt x 103.60541pt.
 
 <img/timePPplot2-1.png, id=430, 1405.25pt x 1405.25pt>
 File: img/timePPplot2-1.png Graphic file (type png)
 
 <use img/timePPplot2-1.png>
-Package pdftex.def Info: img/timePPplot2-1.png used on input line 664.
+Package pdftex.def Info: img/timePPplot2-1.png used on input line 674.
 (pdftex.def)             Requested size: 105.0573pt x 105.04613pt.
 File: img/modellabel.png Graphic file (type png)
  <use img/modellabel.png>
-Package pdftex.def Info: img/modellabel.png used on input line 667.
+Package pdftex.def Info: img/modellabel.png used on input line 677.
 (pdftex.def)             Requested size: 151.59769pt x 20.1186pt.
 
-Overfull \hbox (11.53963pt too wide) in paragraph at lines 648--668
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 658--678
  [][] 
  []
 
@@ -1049,78 +1040,82 @@ mePPplot2-1.png>] <img/betatrace-1.png, id=464, 1405.25pt x 1405.25pt>
 File: img/betatrace-1.png Graphic file (type png)
 
 <use img/betatrace-1.png>
-Package pdftex.def Info: img/betatrace-1.png used on input line 678.
+Package pdftex.def Info: img/betatrace-1.png used on input line 688.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
  <img/etatrace-1.png, id=465, 1405.25pt x 1405.25pt>
 File: img/etatrace-1.png Graphic file (type png)
 
 <use img/etatrace-1.png>
-Package pdftex.def Info: img/etatrace-1.png used on input line 682.
+Package pdftex.def Info: img/etatrace-1.png used on input line 692.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
  <img/betageweke-1.png, id=466, 1405.25pt x 1405.25pt>
 File: img/betageweke-1.png Graphic file (type png)
 
 <use img/betageweke-1.png>
-Package pdftex.def Info: img/betageweke-1.png used on input line 686.
+Package pdftex.def Info: img/betageweke-1.png used on input line 696.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
 
 <img/etageweke-1.png, id=467, 1405.25pt x 1405.25pt>
 File: img/etageweke-1.png Graphic file (type png)
  <use img/etageweke-1.png>
-Package pdftex.def Info: img/etageweke-1.png used on input line 691.
+Package pdftex.def Info: img/etageweke-1.png used on input line 701.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
 
-Overfull \hbox (11.53963pt too wide) in paragraph at lines 675--694
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 685--704
  [][] 
  []
 
 
 Package natbib Warning: There were undefined citations.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 711.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 721.
 [26 <./img/betatrace-1.png> <./img/etatrace-1.png> <./img/betageweke-1.png> <./
 img/etageweke-1.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 711.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 721.
  (./ba-sample.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 711.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 711.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 721.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 721.
 Package rerunfilecheck Info: File `ba-sample.out' has not changed.
 (rerunfilecheck)             Checksum: 7146629E227D5AB9D8B4C273C83D789D;1613.
- ) 
+ )
+(\end occurred inside a group at level 1)
+
+### simple group (level 1) entered at line 268 ({)
+### bottom level 
 Here is how much of TeX's memory you used:
  11874 strings out of 493089
  178982 string characters out of 6134842
- 313978 words of memory out of 5000000
+ 313979 words of memory out of 5000000
  14999 multiletter control sequences out of 15000+600000
  17640 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,18n,75p,2864b,941s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxsl10.pf
-b></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></us
-r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/
-local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/lo
-cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/lo
-cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></us
-r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
-local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/loc
-al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/
-texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/tex
-live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texliv
-e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2
-015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/20
-15/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2
-015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
-15/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2015/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2015/texmf
--dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on ba-sample.pdf (26 pages, 5681035 bytes).
+ 42i,18n,75p,2864b,992s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmbxsl10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmex10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmi5.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+mi7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
+9.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib1
+0.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cmextra/c
+mmib7.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5
+.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pf
+b></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></us
+r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/l
+ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/lo
+cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/l
+ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/lo
+cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/loca
+l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/
+texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/te
+xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texl
+ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on ba-sample.pdf (26 pages, 5685518 bytes).
 PDF statistics:
  594 PDF objects out of 1000 (max. 8388607)
  470 compressed objects within 5 object streams
