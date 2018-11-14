@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  13 NOV 2018 18:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  13 NOV 2018 23:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -567,72 +567,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <6> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 92.
 
-
-Package natbib Warning: Citation `snijders1996stochastic' on page 1 undefined o
-n input line 96.
-
-
-Package natbib Warning: Citation `snijders2007modeling' on page 1 undefined on 
-input line 96.
-
-
-Package natbib Warning: Citation `Butts2008' on page 1 undefined on input line 
-96.
-
-
-Package natbib Warning: Citation `Vu2011' on page 1 undefined on input line 96.
-
-
-
-Package natbib Warning: Citation `hunter2011dynamic' on page 1 undefined on inp
-ut line 96.
-
-
-Package natbib Warning: Citation `PerryWolfe2012' on page 1 undefined on input 
-line 96.
-
-
-Package natbib Warning: Citation `karypis1999multilevel' on page 1 undefined on
- input line 98.
-
-
-Package natbib Warning: Citation `ghoshal2009random' on page 1 undefined on inp
-ut line 98.
-
-
-Package natbib Warning: Citation `zlatic2009hypergraph' on page 1 undefined on 
-input line 98.
-
-
-Package natbib Warning: Citation `zhang2010hypergraph' on page 1 undefined on i
-nput line 98.
-
-
-Package natbib Warning: Citation `newman2002email' on page 1 undefined on input
- line 98.
-
-
-Package natbib Warning: Citation `partzsch2012developing' on page 1 undefined o
-n input line 98.
-
-
-Package natbib Warning: Citation `fowler2006legislative' on page 1 undefined on
- input line 98.
-
-
-Package natbib Warning: Citation `cranmer2014reciprocity' on page 1 undefined o
-n input line 98.
-
-
-Package natbib Warning: Citation `PerryWolfe2012' on page 1 undefined on input 
-line 98.
-
-
-Package natbib Warning: Citation `fan2009learning' on page 1 undefined on input
- line 98.
-
-
-Overfull \vbox (8.05896pt too high) has occurred while \output is active []
+Overfull \vbox (2.05896pt too high) has occurred while \output is active []
 
 
 
@@ -641,7 +576,7 @@ Package hyperref Warning: Suppressing link with empty target on input line 99.
 [1{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
-<img/diagramnew.png, id=132, 1221.56375pt x 516.93124pt>
+<img/diagramnew.png, id=174, 1221.56375pt x 516.93124pt>
 File: img/diagramnew.png Graphic file (type png)
 
 <use img/diagramnew.png>
@@ -651,104 +586,16 @@ Package pdftex.def Info: img/diagramnew.png used on input line 109.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [2]
-
-Package natbib Warning: Citation `PerryWolfe2012' on page 3 undefined on input 
-line 116.
-
-
-Package natbib Warning: Citation `dai2013multivariate' on page 3 undefined on i
-nput line 116.
-
-
-Package natbib Warning: Citation `fellows2017removing' on page 3 undefined on i
-nput line 116.
-
-[3 <./img/diagramnew.png>]
-
-Package natbib Warning: Citation `nelder1972generalized' on page 4 undefined on
- input line 134.
-
-
-Package natbib Warning: Citation `rao2000applied' on page 4 undefined on input 
-line 146.
-
-
-Package natbib Warning: Citation `rizopoulos2012joint' on page 4 undefined on i
-nput line 146.
-
-[4]
-
-Package natbib Warning: Citation `snijders1996stochastic' on page 5 undefined o
-n input line 156.
-
+[3 <./img/diagramnew.png>] [4]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
 put line 160.
-
-Package natbib Warning: Citation `PerryWolfe2012' on page 5 undefined on input 
-line 191.
-
-
-Package natbib Warning: Citation `Butts2008' on page 5 undefined on input line 
-191.
-
-
-Package natbib Warning: Citation `hanneke2010discrete' on page 5 undefined on i
-nput line 191.
-
-
-Package natbib Warning: Citation `snijders1996stochastic' on page 5 undefined o
-n input line 191.
-
-[5]
-
-Package natbib Warning: Citation `hoff2002' on page 6 undefined on input line 1
-93.
-
-
-Package natbib Warning: Citation `minhas2016inferential' on page 6 undefined on
- input line 193.
-
-
-Package natbib Warning: Citation `sarkar2005dynamic' on page 6 undefined on inp
-ut line 193.
-
-
-Package natbib Warning: Citation `sewell2015latent' on page 6 undefined on inpu
-t line 193.
-
-
-Package natbib Warning: Citation `ward2013gravity' on page 6 undefined on input
- line 193.
-
-
-Package natbib Warning: Citation `holland1983stochastic' on page 6 undefined on
- input line 193.
-
-
-Package natbib Warning: Citation `airoldi2008mixed' on page 6 undefined on inpu
-t line 193.
-
-
-Package natbib Warning: Citation `matias2017statistical' on page 6 undefined on
- input line 193.
-
-
+ [5]
 Underfull \vbox (badness 5878) has occurred while \output is active []
 
  [6]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Package natbib Warning: Citation `geweke2004getting' on page 7 undefined on inp
-ut line 198.
-
-
-Package natbib Warning: Citation `tanner1987calculation' on page 7 undefined on
- input line 203.
-
-
-Package natbib Warning: Citation `neal2015exact' on page 7 undefined on input l
-ine 203.
-
-
+ [7]
 Overfull \hbox (0.96692pt too wide) detected at line 218
 [][] []\OT1/cmr/m/n/10 ([]\OMS/cmsy/m/n/10 j []\OML/cmm/m/it/10 ; []; []; []; [
 ]\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 / \OML/cmm/m/it/10 ^^^\OT1/cmr/m/n/10 ([]; 
@@ -758,338 +605,325 @@ m/n/10 0)[] + [] \OML/cmm/m/it/10 ^^U[]u[][];
  []
 
 
+Underfull \vbox (badness 3635) has occurred while \output is active []
+
+ [8]
+[9]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [7]
-[8]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [9]
-
-Package natbib Warning: Citation `ben2017transparency' on page 10 undefined on 
-input line 278.
-
-
-Package natbib Warning: Citation `PerryWolfe2012' on page 10 undefined on input
- line 282.
-
-[10] <img/triaddiagram.png, id=252, 1661.20625pt x 268.00125pt>
+ [10]
+<img/triaddiagram.png, id=378, 1661.20625pt x 268.00125pt>
 File: img/triaddiagram.png Graphic file (type png)
 
 <use img/triaddiagram.png>
 Package pdftex.def Info: img/triaddiagram.png used on input line 302.
 (pdftex.def)             Requested size: 284.25pt x 45.85812pt.
- [11]
+ [11] [12 <./img/triaddiagram.png>]
+Overfull \hbox (3.57771pt too wide) in paragraph at lines 331--333
+\OT1/cmr/m/n/10 co-vari-ates $[][]$ and $[][]$ cal-cu-lated as-sum-ing $\OML/cm
+m/m/it/10 s[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 i$\OT1/cmr/m/n/10 . Here, the 
+term $[][] \OML/cmm/m/it/10 L\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 s[]; [][]; t[]\O
+T1/cmr/m/n/10 )$
+ []
 
-Package natbib Warning: Citation `snijders1996stochastic' on page 12 undefined 
-on input line 322.
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Package natbib Warning: Citation `snijders2007modeling' on page 12 undefined on
- input line 322.
-
-[12 <./img/triaddiagram.png>]
-<img/senderpredict-1.png, id=271, 1405.25pt x 1405.25pt>
+ [13]
+<img/senderpredict-1.png, id=414, 1405.25pt x 1405.25pt>
 File: img/senderpredict-1.png Graphic file (type png)
 
 <use img/senderpredict-1.png>
-Package pdftex.def Info: img/senderpredict-1.png used on input line 374.
+Package pdftex.def Info: img/senderpredict-1.png used on input line 398.
 (pdftex.def)             Requested size: 125.0707pt x 125.05185pt.
 
-<img/receiverpredict-1.png, id=272, 1405.25pt x 1405.25pt>
+<img/receiverpredict-1.png, id=415, 1405.25pt x 1405.25pt>
 File: img/receiverpredict-1.png Graphic file (type png)
 
 <use img/receiverpredict-1.png>
-Package pdftex.def Info: img/receiverpredict-1.png used on input line 379.
+Package pdftex.def Info: img/receiverpredict-1.png used on input line 403.
 (pdftex.def)             Requested size: 125.0707pt x 125.05185pt.
 
-<img/timepredict-1.png, id=273, 1405.25pt x 1405.25pt>
+<img/timepredict-1.png, id=416, 1405.25pt x 1405.25pt>
 File: img/timepredict-1.png Graphic file (type png)
 
 <use img/timepredict-1.png>
-Package pdftex.def Info: img/timepredict-1.png used on input line 384.
+Package pdftex.def Info: img/timepredict-1.png used on input line 408.
 (pdftex.def)             Requested size: 125.0707pt x 125.05185pt.
 
-<img/modellabel.png, id=274, 537.00626pt x 71.26625pt>
+<img/modellabel.png, id=417, 537.00626pt x 71.26625pt>
 File: img/modellabel.png Graphic file (type png)
 
 <use img/modellabel.png>
-Package pdftex.def Info: img/modellabel.png used on input line 388.
+Package pdftex.def Info: img/modellabel.png used on input line 412.
 (pdftex.def)             Requested size: 151.59769pt x 20.1186pt.
 
-Overfull \hbox (14.87874pt too wide) in paragraph at lines 371--389
+Overfull \hbox (14.87874pt too wide) in paragraph at lines 395--413
  [][] 
  []
 
-[13]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [14]
-
-Package natbib Warning: Citation `rubin1984bayesianly' on page 15 undefined on 
-input line 398.
-
-<img/outdegree-1.png, id=315, 2264.46pt x 1252.68pt>
+[14] <img/outdegree-1.png, id=434, 2264.46pt x 1252.68pt>
 File: img/outdegree-1.png Graphic file (type png)
- <use img/outdegree-1.png>
-Package pdftex.def Info: img/outdegree-1.png used on input line 421.
-(pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/indegree-1.png, id=316, 2264.46pt x 1252.68pt>
+<use img/outdegree-1.png>
+Package pdftex.def Info: img/outdegree-1.png used on input line 445.
+(pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
+ <img/indegree-1.png, id=435, 2264.46pt x 1252.68pt>
 File: img/indegree-1.png Graphic file (type png)
- <use img/indegree-1.png>
-Package pdftex.def Info: img/indegree-1.png used on input line 425.
+
+<use img/indegree-1.png>
+Package pdftex.def Info: img/indegree-1.png used on input line 449.
 (pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/recipientsize-1.png, id=317, 2264.46pt x 1252.68pt>
+<img/recipientsize-1.png, id=436, 2264.46pt x 1252.68pt>
 File: img/recipientsize-1.png Graphic file (type png)
 
 <use img/recipientsize-1.png>
-Package pdftex.def Info: img/recipientsize-1.png used on input line 429.
+Package pdftex.def Info: img/recipientsize-1.png used on input line 453.
 (pdftex.def)             Requested size: 187.60315pt x 103.77171pt.
 
-<img/timePPplot-1.png, id=318, 1405.25pt x 1405.25pt>
+<img/timePPplot-1.png, id=437, 1405.25pt x 1405.25pt>
 File: img/timePPplot-1.png Graphic file (type png)
 
 <use img/timePPplot-1.png>
-Package pdftex.def Info: img/timePPplot-1.png used on input line 434.
+Package pdftex.def Info: img/timePPplot-1.png used on input line 458.
 (pdftex.def)             Requested size: 105.0573pt x 105.04613pt.
 
-Overfull \hbox (11.53963pt too wide) in paragraph at lines 418--437
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 442--461
  [][] 
  []
 
-[15 <./img/senderpredict-1.png> <./img/receiverpredict-1.png> <./img/timepredic
-t-1.png> <./img/modellabel.png>] [16 <./img/outdegree-1.png> <./img/indegree-1.
-png> <./img/recipientsize-1.png> <./img/timePPplot-1.png>]
 
-Package natbib Warning: Citation `geweke1991evaluating' on page 17 undefined on
- input line 444.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-<img/betanewplot2-1.png, id=346, 1405.25pt x 1405.25pt>
+ [15]
+Underfull \vbox (badness 4713) has occurred while \output is active []
+
+ [16 <./img/senderpredict-1.png> <./img/receiverpredict-1.png> <./img/timepredi
+ct-1.png> <./img/modellabel.png>]
+Underfull \vbox (badness 4242) has occurred while \output is active []
+
+ [17 <./img/outdegree-1.png> <./img/indegree-1.png> <./img/recipientsize-1.png>
+ <./img/timePPplot-1.png>] <img/betanewplot2-1.png, id=495, 1405.25pt x 1405.25
+pt>
 File: img/betanewplot2-1.png Graphic file (type png)
 
 <use img/betanewplot2-1.png>
-Package pdftex.def Info: img/betanewplot2-1.png used on input line 457.
+Package pdftex.def Info: img/betanewplot2-1.png used on input line 481.
 (pdftex.def)             Requested size: 188.55157pt x 188.54268pt.
 
-<img/betanewplot3-1.png, id=347, 1405.25pt x 1405.25pt>
+<img/betanewplot3-1.png, id=496, 1405.25pt x 1405.25pt>
 File: img/betanewplot3-1.png Graphic file (type png)
 
 <use img/betanewplot3-1.png>
-Package pdftex.def Info: img/betanewplot3-1.png used on input line 462.
+Package pdftex.def Info: img/betanewplot3-1.png used on input line 486.
 (pdftex.def)             Requested size: 188.55157pt x 188.54268pt.
 
-Overfull \hbox (13.43648pt too wide) in paragraph at lines 454--466
+Overfull \hbox (13.43648pt too wide) in paragraph at lines 478--490
  [][] 
  []
 
-[17]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [18 <./img/betanewplot2-1.png> <./img/betanewplot3-1.png>]
-<img/etaplotnew-1.png, id=360, 1405.25pt x 1405.25pt>
+[18] <img/etaplotnew-1.png, id=504, 1405.25pt x 1405.25pt>
 File: img/etaplotnew-1.png Graphic file (type png)
 
 <use img/etaplotnew-1.png>
-Package pdftex.def Info: img/etaplotnew-1.png used on input line 482.
+Package pdftex.def Info: img/etaplotnew-1.png used on input line 506.
 (pdftex.def)             Requested size: 188.55157pt x 188.54268pt.
- [19 <./img/etaplotnew-1.png>] [20] (./ba-sample.bbl)
+ [19 <./img/betanewplot2-1.png> <./img/betanewplot3-1.png>]
+Underfull \vbox (badness 5175) has occurred while \output is active []
+
+ [20 <./img/etaplotnew-1.png>] [21] (./ba-sample.bbl (./ba-sample.brf)
+\tf@brf=\write4
+\openout4 = `ba-sample.brf'.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [22]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [23])
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [24]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 532.
-[21]
+(Font)              <12> on input line 555.
 
-Package natbib Warning: Citation `altman2004numerical' on page 22 undefined on 
-input line 586.
-
-
-Package natbib Warning: Citation `mccullough2009accuracy' on page 22 undefined 
-on input line 586.
-
-
-Package natbib Warning: Citation `geweke2004getting' on page 22 undefined on in
-put line 588.
-
-
-Package natbib Warning: Citation `zhao2016bayesian' on page 22 undefined on inp
-ut line 588.
-
-[22]
-Underfull \hbox (badness 10000) in paragraph at lines 590--591
+[25] [26]
+Underfull \hbox (badness 10000) in paragraph at lines 613--614
 
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 605.
-<img/plot1.png, id=411, 2106.87125pt x 2106.87125pt>
+(Font)              <9> on input line 628.
+<img/plot1.png, id=640, 2106.87125pt x 2106.87125pt>
 File: img/plot1.png Graphic file (type png)
  <use img/plot1.png>
-Package pdftex.def Info: img/plot1.png used on input line 606.
+Package pdftex.def Info: img/plot1.png used on input line 629.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
-<img/plot2.png, id=412, 2106.87125pt x 2106.87125pt>
+<img/plot2.png, id=641, 2106.87125pt x 2106.87125pt>
 File: img/plot2.png Graphic file (type png)
  <use img/plot2.png>
-Package pdftex.def Info: img/plot2.png used on input line 610.
+Package pdftex.def Info: img/plot2.png used on input line 633.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
-<img/plot3.png, id=413, 2106.87125pt x 2106.87125pt>
+<img/plot3.png, id=642, 2106.87125pt x 2106.87125pt>
 File: img/plot3.png Graphic file (type png)
  <use img/plot3.png>
-Package pdftex.def Info: img/plot3.png used on input line 614.
+Package pdftex.def Info: img/plot3.png used on input line 637.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
-<img/plot4.png, id=414, 2106.87125pt x 2106.87125pt>
+<img/plot4.png, id=643, 2106.87125pt x 2106.87125pt>
 File: img/plot4.png Graphic file (type png)
  <use img/plot4.png>
-Package pdftex.def Info: img/plot4.png used on input line 618.
+Package pdftex.def Info: img/plot4.png used on input line 641.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
-<img/plot5.png, id=415, 2106.87125pt x 2106.87125pt>
+<img/plot5.png, id=644, 2106.87125pt x 2106.87125pt>
 File: img/plot5.png Graphic file (type png)
  <use img/plot5.png>
-Package pdftex.def Info: img/plot5.png used on input line 622.
+Package pdftex.def Info: img/plot5.png used on input line 645.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
-<img/plot6.png, id=416, 2106.87125pt x 2106.87125pt>
+<img/plot6.png, id=645, 2106.87125pt x 2106.87125pt>
 File: img/plot6.png Graphic file (type png)
  <use img/plot6.png>
-Package pdftex.def Info: img/plot6.png used on input line 626.
+Package pdftex.def Info: img/plot6.png used on input line 649.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
-<img/plot7.png, id=417, 2106.87125pt x 2106.87125pt>
+<img/plot7.png, id=646, 2106.87125pt x 2106.87125pt>
 File: img/plot7.png Graphic file (type png)
  <use img/plot7.png>
-Package pdftex.def Info: img/plot7.png used on input line 630.
+Package pdftex.def Info: img/plot7.png used on input line 653.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
-<img/plot8.png, id=418, 2106.87125pt x 2106.87125pt>
+<img/plot8.png, id=647, 2106.87125pt x 2106.87125pt>
 File: img/plot8.png Graphic file (type png)
  <use img/plot8.png>
-Package pdftex.def Info: img/plot8.png used on input line 634.
+Package pdftex.def Info: img/plot8.png used on input line 657.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
-<img/plot9.png, id=419, 2106.87125pt x 2106.87125pt>
+<img/plot9.png, id=648, 2106.87125pt x 2106.87125pt>
 File: img/plot9.png Graphic file (type png)
  <use img/plot9.png>
-Package pdftex.def Info: img/plot9.png used on input line 638.
+Package pdftex.def Info: img/plot9.png used on input line 661.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
-<img/plot10.png, id=420, 2106.87125pt x 2106.87125pt>
+<img/plot10.png, id=649, 2106.87125pt x 2106.87125pt>
 File: img/plot10.png Graphic file (type png)
  <use img/plot10.png>
-Package pdftex.def Info: img/plot10.png used on input line 642.
+Package pdftex.def Info: img/plot10.png used on input line 665.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
-<img/plot11.png, id=421, 2106.87125pt x 2106.87125pt>
+<img/plot11.png, id=650, 2106.87125pt x 2106.87125pt>
 File: img/plot11.png Graphic file (type png)
  <use img/plot11.png>
-Package pdftex.def Info: img/plot11.png used on input line 646.
+Package pdftex.def Info: img/plot11.png used on input line 669.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
-<img/plot12.png, id=422, 2106.87125pt x 2106.87125pt>
+<img/plot12.png, id=651, 2106.87125pt x 2106.87125pt>
 File: img/plot12.png Graphic file (type png)
  <use img/plot12.png>
-Package pdftex.def Info: img/plot12.png used on input line 650.
+Package pdftex.def Info: img/plot12.png used on input line 673.
 (pdftex.def)             Requested size: 91.90472pt x 91.87962pt.
 
-[23] <img/outdegree2-1.png, id=427, 2264.46pt x 1250.6725pt>
+[27] <img/outdegree2-1.png, id=655, 2264.46pt x 1250.6725pt>
 File: img/outdegree2-1.png Graphic file (type png)
 
 <use img/outdegree2-1.png>
-Package pdftex.def Info: img/outdegree2-1.png used on input line 661.
+Package pdftex.def Info: img/outdegree2-1.png used on input line 684.
 (pdftex.def)             Requested size: 187.60315pt x 103.60541pt.
 
-<img/indegree2-1.png, id=428, 2264.46pt x 1250.6725pt>
+<img/indegree2-1.png, id=656, 2264.46pt x 1250.6725pt>
 File: img/indegree2-1.png Graphic file (type png)
 
 <use img/indegree2-1.png>
-Package pdftex.def Info: img/indegree2-1.png used on input line 665.
+Package pdftex.def Info: img/indegree2-1.png used on input line 688.
 (pdftex.def)             Requested size: 187.60315pt x 103.60541pt.
 
-<img/recipientsize2-1.png, id=429, 2264.46pt x 1250.6725pt>
+<img/recipientsize2-1.png, id=657, 2264.46pt x 1250.6725pt>
 File: img/recipientsize2-1.png Graphic file (type png)
 
 <use img/recipientsize2-1.png>
-Package pdftex.def Info: img/recipientsize2-1.png used on input line 669.
+Package pdftex.def Info: img/recipientsize2-1.png used on input line 692.
 (pdftex.def)             Requested size: 187.60315pt x 103.60541pt.
 
-<img/timePPplot2-1.png, id=430, 1405.25pt x 1405.25pt>
+<img/timePPplot2-1.png, id=658, 1405.25pt x 1405.25pt>
 File: img/timePPplot2-1.png Graphic file (type png)
 
 <use img/timePPplot2-1.png>
-Package pdftex.def Info: img/timePPplot2-1.png used on input line 674.
+Package pdftex.def Info: img/timePPplot2-1.png used on input line 697.
 (pdftex.def)             Requested size: 105.0573pt x 105.04613pt.
 File: img/modellabel.png Graphic file (type png)
  <use img/modellabel.png>
-Package pdftex.def Info: img/modellabel.png used on input line 677.
+Package pdftex.def Info: img/modellabel.png used on input line 700.
 (pdftex.def)             Requested size: 151.59769pt x 20.1186pt.
 
-Overfull \hbox (11.53963pt too wide) in paragraph at lines 658--678
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 681--701
  [][] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [24 <./img/plot1.png> <./img/plot2.png> <./img/plot3.png> <./img/plot4.png> <.
+ [28 <./img/plot1.png> <./img/plot2.png> <./img/plot3.png> <./img/plot4.png> <.
 /img/plot5.png> <./img/plot6.png> <./img/plot7.png> <./img/plot8.png> <./img/pl
-ot9.png> <./img/plot10.png> <./img/plot11.png> <./img/plot12.png>] [25 <./img/o
+ot9.png> <./img/plot10.png> <./img/plot11.png> <./img/plot12.png>] [29 <./img/o
 utdegree2-1.png> <./img/indegree2-1.png> <./img/recipientsize2-1.png> <./img/ti
-mePPplot2-1.png>] <img/betatrace-1.png, id=464, 1405.25pt x 1405.25pt>
+mePPplot2-1.png>] <img/betatrace-1.png, id=690, 1405.25pt x 1405.25pt>
 File: img/betatrace-1.png Graphic file (type png)
 
 <use img/betatrace-1.png>
-Package pdftex.def Info: img/betatrace-1.png used on input line 688.
+Package pdftex.def Info: img/betatrace-1.png used on input line 711.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
- <img/etatrace-1.png, id=465, 1405.25pt x 1405.25pt>
+ <img/etatrace-1.png, id=691, 1405.25pt x 1405.25pt>
 File: img/etatrace-1.png Graphic file (type png)
 
 <use img/etatrace-1.png>
-Package pdftex.def Info: img/etatrace-1.png used on input line 692.
+Package pdftex.def Info: img/etatrace-1.png used on input line 715.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
- <img/betageweke-1.png, id=466, 1405.25pt x 1405.25pt>
+ <img/betageweke-1.png, id=692, 1405.25pt x 1405.25pt>
 File: img/betageweke-1.png Graphic file (type png)
 
 <use img/betageweke-1.png>
-Package pdftex.def Info: img/betageweke-1.png used on input line 696.
+Package pdftex.def Info: img/betageweke-1.png used on input line 719.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
 
-<img/etageweke-1.png, id=467, 1405.25pt x 1405.25pt>
+<img/etageweke-1.png, id=693, 1405.25pt x 1405.25pt>
 File: img/etageweke-1.png Graphic file (type png)
  <use img/etageweke-1.png>
-Package pdftex.def Info: img/etageweke-1.png used on input line 701.
+Package pdftex.def Info: img/etageweke-1.png used on input line 724.
 (pdftex.def)             Requested size: 187.60315pt x 187.59921pt.
 
-Overfull \hbox (11.53963pt too wide) in paragraph at lines 685--704
+Overfull \hbox (11.53963pt too wide) in paragraph at lines 708--727
  [][] 
  []
 
-
-Package natbib Warning: There were undefined citations.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 721.
-[26 <./img/betatrace-1.png> <./img/etatrace-1.png> <./img/betageweke-1.png> <./
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 744.
+[30 <./img/betatrace-1.png> <./img/etatrace-1.png> <./img/betageweke-1.png> <./
 img/etageweke-1.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 721.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 744.
  (./ba-sample.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 721.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 721.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 744.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 744.
 Package rerunfilecheck Info: File `ba-sample.out' has not changed.
-(rerunfilecheck)             Checksum: 7146629E227D5AB9D8B4C273C83D789D;1613.
+(rerunfilecheck)             Checksum: 9F3D696F50231FC1BCA982BAD9345BFA;1661.
+Package rerunfilecheck Info: File `ba-sample.brf' has not changed.
+(rerunfilecheck)             Checksum: 0874640E242DBDDC85554D80ACF961C7;2558.
  )
 (\end occurred inside a group at level 1)
 
 ### simple group (level 1) entered at line 268 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 11874 strings out of 493089
- 178982 string characters out of 6134842
- 313979 words of memory out of 5000000
- 14999 multiletter control sequences out of 15000+600000
- 17640 words of font info for 60 fonts, out of 8000000 for 9000
+ 12128 strings out of 493089
+ 184783 string characters out of 6134842
+ 315953 words of memory out of 5000000
+ 15202 multiletter control sequences out of 15000+600000
+ 17808 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,18n,75p,2864b,992s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,18n,75p,2864b,972s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmbxsl10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts
@@ -1114,11 +948,12 @@ l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/
 texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/te
 xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texl
 ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texli
-ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on ba-sample.pdf (26 pages, 5685518 bytes).
+ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texliv
+e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on ba-sample.pdf (30 pages, 5750826 bytes).
 PDF statistics:
- 594 PDF objects out of 1000 (max. 8388607)
- 470 compressed objects within 5 object streams
- 173 named destinations out of 1000 (max. 500000)
- 350 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 836 PDF objects out of 1000 (max. 8388607)
+ 704 compressed objects within 8 object streams
+ 220 named destinations out of 1000 (max. 500000)
+ 358 words of extra memory for PDF output out of 10000 (max. 10000000)
 

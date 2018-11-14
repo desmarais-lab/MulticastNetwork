@@ -94,6 +94,9 @@ trim = which(email$timepoints >=7*24*timeunit+email$timepoints[1])
 edge = edge[trim]
 X = X[trim,,,]
 Y = Y[trim,,]
+
+prior.beta = list(mean = c(-3.5, rep(0, P-1)), var = 1*diag(P))
+prior.eta = list(mean = c(7, rep(0, Q-1)), var = 1*diag(Q))
 Montgomery_infer = Inference(edge, X, Y, 55000, c(20,10,1), 15000, prior.beta, prior.eta, prior.sigma2, initialval = NULL,
                              proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, timedist = "lognormal")
 save(Montgomery_infer, file= "/Users/bomin8319/Desktop/Montgomery_infer.RData")
