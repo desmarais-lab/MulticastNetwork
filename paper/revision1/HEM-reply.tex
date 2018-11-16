@@ -26,6 +26,25 @@
 \usepackage{algpseudocode}
 \usepackage{booktabs}
 
+
+\newcommand{\pjm}[1]{{\color{blue}#1}}
+\definecolor{MyGreen}{cmyk}{1.0,0.0,1.0,0.2}
+\newcommand{\sjc}[1]{{\color{MyGreen}#1}}
+\definecolor{MyFuschia}{cmyk}{0.07,0.95,0,0}
+\newcommand{\ejm}[1]{{\color{MyFuschia}#1}}
+\definecolor{bloodred}{RGB}{102,0,0}
+\newcommand{\blood}[1]{{\color{bloodred}#1}}
+\definecolor{mygrey}{gray}{0.45}
+\newcommand{\grey}[1]{{\color{mygrey}#1}}
+\definecolor{orange}{RGB}{255,102,0}
+\newcommand{\orange}[1]{{\color{orange}#1}}
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+% The official Dartmouth green: 
+\definecolor{dartmouthgreen}{rgb}{0,.41,.24}
+
+
+
 \usepackage{etoolbox}
 
 \newtheorem{thm}{Theorem}
@@ -281,6 +300,95 @@ Thank you for acknowledging our efforts and contributions, and also for your con
 					
 					\item Discuss: sensitivity analysis?					
 \end{enumerate}
+
+
+
+\noindent \textbf{Point-by-point discussion of Reviews and Response to Comments}\\
+
+First, we thank the editor...
+
+\bigskip
+\bigskip
+
+
+\noindent \underline{\textbf{Response to the Editor's Comments}}\\
+
+\noindent {\bf E1} \grey{\emph{Presentation: I found the presentation rather lacking; in particular, the description of the model in Section 2 is very difficult to follow, due to the numerous variables introduced, the order in which the different elements of the model are introduced, and the lack of definition for some of them. I think a major rewriting is needed here. }}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor.. \\
+
+\noindent  {\bf E2} \grey{\emph{Some notations are rather unusual, for example $A$ for nodes. Although this is not indicated in the text, I assume this comes from the term ``actor'' in the stochastic actor-oriented model (SAOM) of Snijders, cited by the author? If this is the case, it would be worth mentioning it so that the reader recalls this later on. $y$ for the covariates is also rather unusual. Some notations are inconsistent. For example $u_{ie}$ denotes the first line of the matrix $u_e$, but $\tau_e = \text{min}_i(\tau_{ie})$. }}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+
+\noindent  {\bf E3} \grey{\emph{In section 2.1, I think it makes more sense to First introduce Equation (2.2) then (2.1). The term ``intensity'' used for $\lambda_{iej}$ is rather confusing. As the paper is concerned with a continuous-time model, one would expect that the term intensity refers to some point process, which is not the case here. }}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+
+
+\noindent  {\bf E4} \grey{\emph{It is difficult to understand Section 2.2 without reading section 2.3. The authors introduce the notation $\tau_{ie}$ above Equation (2.5), but do not explain what this represents (at this stage I thought it was a component of the vector $\tau_e$). I do not see what the variable $\mu$ represents in Equation (2.5), and if it is related to $\mu_{ie}$ in Equation (2.4)
+ }}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+
+
+
+\noindent  {\bf E5} \grey{\emph{ Some sentences are di¢ cult to understand:
+Page 3: ``we define a probability measure ``MBG'' motivated by the Gibbs measure'' }}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+
+
+\noindent  {\bf E6} \grey{\emph{ Discussion of relevant literature: The authors should provide a better discussion of how their model differs from other approaches, in particular the approach of Perry and Wolfe (2013), and Snijders (1996), based on point processes. Perry and Wolfe propose a specific model for multicast interaction (Equation (6) in the arxiv version of their paper). What are the differences/advantages between both constructions? In Section 2.3, the author cite Snijders (1996) when they introduce the model for the interaction arrival times. I am not sure what is meant here: is this part of the model already introduced in Snijders (1996)? The authors should be more specific here.}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+
+\noindent  {\bf E7} \grey{\emph{ Model, covariates and missing data: This is not explicitly mentioned in the definition of the model in Section 2, but the covariates $x_e$ and $y_e$ depend on the observed interaction data ($s_{e'}$ , $r_{e'}$ , $t_{e'}$ ) in the last 7 days, as written in Section 4.1. Hence the observations ($s_e$, $r_e$, $t_e$)$_{e=1,...,E}$ are not conditionally independent given the model parameters. This should be clearly stated in Section 2. For this reason, I do not think that the out-of-sample algorithm described in Algorithm 3 is correct. The conditional distribution for the missing observations $s_e$,$r_e$ and $t_e$ should depend on ($s_{e'}$ ; $r_{e'}$ ; $t_{e'}$ )$_{e': t_e < t_{e'} < t_{e} + l_e }$, which is not what is done. }}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+
+\noindent  {\bf E8} \grey{\emph{The authors should provide more details on the Metropolis-Hastings
+proposals for the parameters $b$ and $\eta$ in Section 3.2. }}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+
+
+\noindent  {\bf E9} \grey{\emph{The sampler usePs a blocked Gibbs sampler for the $u_{iej}$. Given the constraint that $\sum_j u_{iej} > 0$, this sampler may be rather inefficient in the case where there are many one-to-one interactions (as is the case in the application, where 83\% of the interactions are dyadic). In order to go from the state $u_{ie}$ = (1,0,0,0,0,0) to $u_{ie}$ = (0,1,0,0,0,0) one needs to go through a state where two receivers are activated, which has low probability in this case. It would be good to comment on this, and in general on the mixing of the MCMC sampler. }}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+
+
+\noindent  {\bf E10} \grey{\emph{The authors provide in Section 3.2. some sanity checks on the sampler. While this is good practice to perform such checks, I am not sure it is very useful to include this in the main body (could be moved to the appendix), as this is done on a very small scale example with 5 nodes and 100 events, and does not really give an indication on the convergence properties of the algorithm in a more realistic scenario. I suggest the authors perform a simulation study with a larger number of nodes and events to demonstrate that the algorithm is able to approximate the posterior distribution well in that case.
+}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+
+
+
+\noindent  {\bf E11} \grey{\emph{The authors should provide some indication of the computational complexity per iterations of their sampler. The application to email interaction data is rather small (18 nodes and 680 emails), so it would be good to know how many nodes/events the proposed approach can handle.}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+
+
+
+\noindent  {\bf E12} \grey{\emph{Typos: The article contains numerous typos. Here are some of them:}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+
+
+
+\noindent \underline{\textbf{Response to Comments by the Reviewer}}\\
+
+\noindent {\bf R1} \grey{\emph{ TYPOS...}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+
+\noindent {\bf R2} \grey{\emph{UNCLEAR PARTS...}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+
+
+
 
 \end{document}
 
