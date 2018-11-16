@@ -100,6 +100,12 @@ prior.eta = list(mean = c(7, rep(0, Q-1)), var = 1*diag(Q))
 Montgomery_infer = Inference(edge, X, Y, 55000, c(20,10,1), 15000, prior.beta, prior.eta, prior.sigma2, initialval = NULL,
                              proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, timedist = "lognormal")
 save(Montgomery_infer, file= "/Users/bomin8319/Desktop/Montgomery_infer.RData")
+
+prior.eta = list(mean = c(7, rep(0, Q-1)), var = 4*diag(Q))
+Montgomery_infer4 = Inference(edge, X, Y, 55000, c(20,10,1), 15000, prior.beta, prior.eta, prior.sigma2, initialval = NULL,
+                             proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, timedist = "lognormal")
+save(Montgomery_infer, file= "/Users/bomin8319/Desktop/Montgomery_infer.RData")
+
 ############################################################################
 Montgomery_infer2 = Inference(edge, X, Y, 55000, c(20,10,1), 15000, prior.beta, prior.eta, prior.sigma2, initialval = NULL,
                              proposal.var = c(0.00001, 0.001, 0.1), timeunit = 3600, lasttime = email[min(trim-1), 21] - initialtime, timedist = "exponential")
