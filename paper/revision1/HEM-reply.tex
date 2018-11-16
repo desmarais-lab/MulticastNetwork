@@ -388,6 +388,62 @@ proposals for the parameters $b$ and $\eta$ in Section 3.2. }}\\
 \noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
 
 
+\noindent {\bf R3} \grey{\emph{BIBLIOGRAPHY:...}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+
+
+\noindent {\bf R4} \grey{\emph{As already mentioned, the authors focus on the somewhat less explored area of continuous?time relational event models where each edge has its own different time index?instead of considering time?varying models for snap- shots of networks collected on a pre?specified time grid. However, the contribution is still within the general class of dynamic network inference. In this respect, the literature review provides a poor picture for the state-of-the-art in this wider framework. I think the authors should provide a more comprehensive literature review including also temporal ERGMs and dynamic latent variable models (e.g. dynamic stochastic block models, dynamic mixed membership stochastic block models, dynamic latent space models, . . .). Discussing your contribution in the light of these alternative (and quite different) models would further clarify the key novelties our the proposed methods.}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+
+\noindent {\bf R5} \grey{\emph{I fully understood the first paragraph in page 3 (summarizing HEMs) after reading the subsections 2.1, 2.2 and 2.3. This part should provide a much clear picture of your model instead of creating confusion. I suggest to improve it, leveraging also some intuitive illustrative figure. For example you could place Figure 1 much early and comment it while summarizing the HEM at the beginning of Section 2.}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+
+
+\noindent {\bf R6} \grey{\emph{You present the full conditionals in page 7 assuming uninformative $N(0, \infty)$ priors, but then you rely on weakly informative priors in the application (see page 17). I found this confusing. I?d present results in page 7 for generic Gaussian priors.}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+
+
+\noindent {\bf R7} \grey{\emph{Given that the model is relatively complex, some sensitivity analyses should be carried out to check how much posterior inference is affected by the hyperparameters? settings, and, possibly, suggest some default values.}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+
+
+\noindent {\bf R8} \grey{\emph{There are many MH routines in the literature. Which type of MH do you consider? What is the proposal distribution? What about the acceptance rate? Is there any smart proposal in this case which helps in increasing the acceptance rate.}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+
+
+\noindent {\bf R9} \grey{\emph{You rely on data augmentation MCMC, which has been shown to mix quite poorly (also in recent theoretical papers). Indeed, as expected, you end up thinning the chains every 40 samples in the application. However, there is no comment on this in the paper. I think it should be highlighted and not just hidden in the thinning.}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+
+
+\noindent {\bf R9} \grey{\emph{Your quantitative assessments are based on 5 nodes in the simulation and 18 nodes in the application. These are quite small networks compared to those one would expect in real?world settings (such as those you list in the introduction). To what extent are your computational methods able to scale to much larger networks? An application to a bigger dataset would be useful. Moreover, more information on computational time should be provided.}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+
+
+\noindent {\bf R10} \grey{\emph{You compare performance in predicting missing senders with random guess 1/18. This is a quite naive competitor and I am sure the authors can find much better ones?still relatively simple.}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+
+\noindent {\bf R11} \grey{\emph{In Figure 4c the choice of the logarithmic scale for MdAPE seems to hide a quite poor performance of your model in predicting the timestamps. It is true that the log?normal improves over the exponential, but the log?normal boxplot has still a third quartile providing an MdAPE of exp(7.36) which looks quite big. This is to me a negative result, which should be discussed and addressed in the paper.}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+
+
+
+\noindent {\bf R12} \grey{\emph{Based on your comments in the paper you are interpreting the posterior expectations of exp($\eta_6$) and exp($\eta_7$)--i.e. E[exp($\eta_6$) | data] and E[exp($\eta_7$) | data]. However you seem to compute this as exp[E(exp($\eta_6$) | data)] = exp(1.552) and exp[E(exp($\eta_7$) | data)] = exp(0.980). By Jensen inequality this is wrong.}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+
+\noindent {\bf R13} \grey{\emph{It is also not correct to claim that the $e^{th}$ email is expected to take E[exp($\eta$) | data] longer compared to their counterpart. The term longer seems to refer to an additive effect on the event timing, which is not the case here since you assume a log?normal for the event timing and hence the effect is on the scale of the timing and not on the location?note that, if $X \sim \text{log-normal}(\mu, \sigma^2)$, then $E(X) = exp(\mu + \sigma^2/2)$. The authors should be more careful in the interpretations on the original time scale, or, more conservatively, they could simply comment on the effects on the log-time (as done immediately after).}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
 
 
 \end{document}
