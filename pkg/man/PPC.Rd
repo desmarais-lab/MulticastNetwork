@@ -4,9 +4,12 @@
 \alias{PPC}
 \title{PPC}
 \usage{
-PPC(D, beta, eta, sigma2, X, Y, timeunit = 3600, u, timedist = "lognormal")
+PPC(emaildata, D, beta, eta, sigma2, X, Y, timeunit = 3600, u,
+  timedist = "lognormal")
 }
 \arguments{
+\item{emaildata}{raw email data}
+
 \item{D}{number of events to be generated}
 
 \item{beta}{P-length vector of coefficients for recipients}

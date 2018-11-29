@@ -1,5 +1,5 @@
 library(MulticastNetwork)
-load("/Users/bomin8319/Box/gainlab_example/Bomin/Montgomery.RData")
+load("/Users/bomin8319/Desktop/MulticastNetwork/Lab/Montgomery.RData")
 edge = Montgomery$edge
 X = Montgomery$X
 Y = Montgomery$Y
@@ -23,7 +23,7 @@ Montgomery_infer = Inference(edge, X, Y, outer, inner, burn, prior.beta, prior.e
 # generate data from the model estimates
 #Montgomery_PPC = PPC(length(edge), beta = colMeans(Montgomery_infer$beta), eta = colMeans(Montgomery_infer$eta), 
 #                     sigma2 = mean(Montgomery_infer$sigma2), X, Y, timeunit = 3600, u = Montgomery_infer$u, timedist = "lognormal")
-
+load("/Users/bomin8319/Desktop/MulticastNetwork/Emails/Montgomery_infer.RData")
 
 set.seed(1)
 missing = list()
@@ -61,8 +61,8 @@ initial$sigma2 = mean(Montgomery_infer$sigma2)
 Montgomery_PPE = PPE(edge, X, Y, 550, c(5,5,1), 50, prior.beta, prior.eta, prior.sigma2, 
                      initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, 
                      lasttime = email[min(trim-1), 21] - initialtime, MHprop.var = 0.15, timedist = "lognormal")
-
-save(Montgomery_PPE, file = "/Users/bomin8319/Desktop/MulticastNetwork/Emails/Montgomery_PPE.RData")
+save(Montgomery_PPE, file = "/Users/bomin8319/Desktop/Montgomery_PPE.RData")
+#save(Montgomery_PPE, file = "/Users/bomin8319/Desktop/MulticastNetwork/Emails/Montgomery_PPE.RData")
 
 initial = list()
 initial$beta = colMeans(Montgomery_infer2$beta)
