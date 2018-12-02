@@ -58,6 +58,13 @@ initial$u = Montgomery_infer$u
 initial$sigma2 = mean(Montgomery_infer$sigma2)
 
 #will generate 500 predictions (iterate two steps: imputation -> inference)
+Montgomery_PPE = PPE_new(Montgomery$email_data, edge, X, Y, 550, c(5,5,1), 50, prior.beta, prior.eta, prior.sigma2,
+initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600,
+lasttime = email[min(trim-1), 21] - initialtime, MHprop.var = 0.15, timedist = "lognormal")
+
+
+
+#will generate 500 predictions (iterate two steps: imputation -> inference)
 Montgomery_PPE = PPE(edge, X, Y, 550, c(5,5,1), 50, prior.beta, prior.eta, prior.sigma2, 
                      initial = initial, proposal.var = c(0.0001, 0.001, 0.1), timeunit = 3600, 
                      lasttime = email[min(trim-1), 21] - initialtime, MHprop.var = 0.15, timedist = "lognormal")

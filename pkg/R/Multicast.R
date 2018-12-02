@@ -728,23 +728,87 @@ PPE_new = function(rawdata, data, X, Y, outer, inner, burn, prior.beta, prior.et
         X = Xnew[[senders[d]]]
         Y = Ynew[[senders[d]]]
         if (o > burn) {
-        	senderprob[iter1, ] = senderprob[iter1, ] + probi
+        	senderprob[iter1, ] = senderprob[iter1, ] + exp(probi - max(probi))
         	senderpredict[iter1, o-burn] = senders[d]
         }
         iter1 = iter1+1
     }
     for (d in receivermissing) {
+    	print(d)
     	missingr = which(is.na(receivers[d,]))
+    	future = which(timestamps <= timestamps[d]+7*24*timeunit)
+    	    lambdaold = lapply((d+1):max(future), function(d) lambda_cpp(X[d,,,], beta))
+        probjold = Edgepartsum(lambdaold, u[(d+1):max(future)])
+        muold =  mu_cpp(Y, eta)
+        if (timedist == "lognormal") {
+		    	probold = Timepartsum(muold[d:max(future),], sqrt(sigma2), senders[d:max(future)], timeinc[d:max(future)]) + probjold
+        	} else {
+            	probold = Timepartsum(muold[d:max(future),], senders[d:max(future)], timeinc[d:max(future)]) + probjold
+        	}	
         for (it in 1:length(missingr)) {
-        	receiversample = u[[d]][senders[d], missingr[it]]
-        	data[[d]][[2]][missingr[it]] = receiversample
+            truereceiver = email[d, missingr[it]+2]
+        	email[d, missingr[it]+2] = abs(1-truereceiver)
+        	Xnew = X
+        	Ynew = Y
+        	for (d2 in (d+1):max(future)) {
+				index = which(timestamps >= uniqtime[which(uniqtime==timestamps[d2])-1]-7*24*timeunit & timestamps < timestamps[d2])
+				datanew = email[index, ]
+				sent = datanew[, 2]
+				received = datanew[, 3:(2+A)]
+				outdegree = tabulate(sent, A)
+				indegree = colSums(received)
+				Ynew[d2, ,5] = indegree
+		    for (a in c(1:A)) {
+			for (r in c(1:A)[-a]) {
+			#Xnew[d2, a, r, 2] = outdegree[a]  
+			Xnew[d2, a, r, 3] = indegree[r]	
+			Xnew[d2, a, r, 4] = sendraw(datanew, a, r)
+			Xnew[d2, a, r, 5] = sendraw(datanew, r, a)
+			Xnew[d2, a, r, 6] = sum(vapply(c(1:A)[-c(a,r)], function(h) {
+				sendraw(datanew, a, h) * sendraw(datanew, h, r) / 10
+				}, c(1)))
+			Xnew[d2, a, r, 7] = sum(vapply(c(1:A)[-c(a,r)], function(h) {
+				sendraw(datanew, h, a) * sendraw(datanew, r, h)
+				}, c(1))) / 10
+			Xnew[d2, a, r, 8] = sum(vapply(c(1:A)[-c(a,r)], function(h) {
+				sendraw(datanew, h, a) * sendraw(datanew, h, r)
+				}, c(1))) / 10
+			Xnew[d2, a, r, 9] = sum(vapply(c(1:A)[-c(a,r)], function(h) {
+				sendraw(datanew, a, h) * sendraw(datanew, r, h)
+				}, c(1))) / 10
+			}
+	  		Xnew[d2, a, , 10] = ifelse(outdegree[a] <sum(Xnew[d2,a,,4]),sum(Xnew[d2,a,,4])/outdegree[a] , 1)
+	  		Xnew[d2, a, , 11] = Xnew[d2, a, , 2] * Xnew[d2, a, , 10] / 10
+			}
+			}
+			lambdanew = lapply((d+1):max(future), function(d) lambda_cpp(Xnew[d,,,], beta))
+			probjnew = Edgepartsum(lambdanew, u[(d+1):max(future)])
+			munew = mu_cpp(Ynew, eta)
+			if (timedist == "lognormal") {
+		    	probnew = Timepartsum(munew[d:max(future),], sqrt(sigma2), senders[d:max(future)], timeinc[d:max(future)]) + probjnew
+        	} else {
+            	probnew = Timepartsum(munew[d:max(future),], senders[d:max(future)], timeinc[d:max(future)]) + probjnew
+        	}
+        	binaryprob = c(probold, probnew)
+        	receiversample = multinom_vec(exp(binaryprob - max(binaryprob)))
+        	if (receiversample == 1) {
+        		data[[d]][[2]][missingr[it]] = truereceiver
+        		email[d, missingr[it]+2] = truereceiver
+        	} else {
+        		data[[d]][[2]][missingr[it]] = abs(1-truereceiver)
+        		X = Xnew
+        		Y = Ynew
+        		probold = probnew
+        	}     	
         	if (o > burn) {
+        		lambda = lapply(1:D, function(d) lambda_cpp(X[d,,,], beta))
+        		#not sure if I need to account for future here as well
         		logitprob = ifelse(sum(data[[d]][[2]][-missingr[it]])==0, 0.999, exp(lambda[[d]][senders[d], missingr[it]])/(exp(lambda[[d]][senders[d], missingr[it]])+1))
         		receiverprob[iter2, ] = receiverprob[iter2, ] + c(1-logitprob, logitprob)
-        		receiverpredict[iter2, o-burn] = receiversample 
+        		receiverpredict[iter2, o-burn] = data[[d]][[2]][missingr[it]]
         	}
         	iter2 = iter2+1
-        }
+	}
     }  
     tau_raw = rhalfcauchy(5000, 5)
     fstar = dhalfcauchy(tau_raw, 5)   
