@@ -337,21 +337,21 @@ Page 3: ``we define a probability measure ``MBG'' motivated by the Gibbs measure
 
 \noindent  {\bf E6} \grey{\emph{ Discussion of relevant literature: The authors should provide a better discussion of how their model differs from other approaches, in particular the approach of Perry and Wolfe (2013), and Snijders (1996), based on point processes. Perry and Wolfe propose a specific model for multicast interaction (Equation (6) in the arxiv version of their paper). What are the differences/advantages between both constructions? In Section 2.3, the author cite Snijders (1996) when they introduce the model for the interaction arrival times. I am not sure what is meant here: is this part of the model already introduced in Snijders (1996)? The authors should be more specific here.}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor indicated lack of discussion on the relavent literature, including specific comparison between other papers we mentioned (e.g., Perry and Wolfe (2013) and Snijders (1996)). We created new section 2.4 ``Basis in existing models" which provides detailed summaries and comparisons about existing models that affected the HEM. Furthermore, we added more comments when we introduce/cite the papers with emphasis on what are the motivation and how our model uses differently.\\
 
 \noindent  {\bf E7} \grey{\emph{ Model, covariates and missing data: This is not explicitly mentioned in the definition of the model in Section 2, but the covariates $x_e$ and $y_e$ depend on the observed interaction data ($s_{e'}$ , $r_{e'}$ , $t_{e'}$ ) in the last 7 days, as written in Section 4.1. Hence the observations ($s_e$, $r_e$, $t_e$)$_{e=1,...,E}$ are not conditionally independent given the model parameters. This should be clearly stated in Section 2. For this reason, I do not think that the out-of-sample algorithm described in Algorithm 3 is correct. The conditional distribution for the missing observations $s_e$,$r_e$ and $t_e$ should depend on ($s_{e'}$ ; $r_{e'}$ ; $t_{e'}$ )$_{e': t_e < t_{e'} < t_{e} + l_e }$, which is not what is done. }}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor called attention to a very important point about conditional dependency that we were missing. Our out-of-sample algorithm (Algorithm 3) was not correct, and the conditional distribution for missing observations had to be changed as the Editor illustrated. We modified our algorithm to consider those dependencies, and Section 4.2 is fully updated based on new conditional distribution and experiment results. \\
 
 \noindent  {\bf E8} \grey{\emph{The authors should provide more details on the Metropolis-Hastings
 proposals for the parameters $b$ and $\eta$ in Section 3.2. }}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor asked to provide more details on the proposals we used for the Metropolis-Hastings algorithm, thus we added further explanations for both parameters $b$ and $\eta$ in Section 3.1.\\
 
 
-\noindent  {\bf E9} \grey{\emph{The sampler usePs a blocked Gibbs sampler for the $u_{iej}$. Given the constraint that $\sum_j u_{iej} > 0$, this sampler may be rather inefficient in the case where there are many one-to-one interactions (as is the case in the application, where 83\% of the interactions are dyadic). In order to go from the state $u_{ie}$ = (1,0,0,0,0,0) to $u_{ie}$ = (0,1,0,0,0,0) one needs to go through a state where two receivers are activated, which has low probability in this case. It would be good to comment on this, and in general on the mixing of the MCMC sampler. }}\\
+\noindent  {\bf E9} \grey{\emph{The sampler uses a blocked Gibbs sampler for the $u_{iej}$. Given the constraint that $\sum_j u_{iej} > 0$, this sampler may be rather inefficient in the case where there are many one-to-one interactions (as is the case in the application, where 83\% of the interactions are dyadic). In order to go from the state $u_{ie}$ = (1,0,0,0,0,0) to $u_{ie}$ = (0,1,0,0,0,0) one needs to go through a state where two receivers are activated, which has low probability in this case. It would be good to comment on this, and in general on the mixing of the MCMC sampler. }}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor identified some inefficiency issue in our inference algorithm, which we did not fully commented. Considering our general need to discuss more about our model's computational complexity, we generated new section 3.2 about ``computaional complexity" and left various comments including the usage of a blocked Gibbs sampler and the mixing of our MCMC sampler.\\
 
 
 \noindent  {\bf E10} \grey{\emph{The authors provide in Section 3.2. some sanity checks on the sampler. While this is good practice to perform such checks, I am not sure it is very useful to include this in the main body (could be moved to the appendix), as this is done on a very small scale example with 5 nodes and 100 events, and does not really give an indication on the convergence properties of the algorithm in a more realistic scenario. I suggest the authors perform a simulation study with a larger number of nodes and events to demonstrate that the algorithm is able to approximate the posterior distribution well in that case.
@@ -363,13 +363,13 @@ proposals for the parameters $b$ and $\eta$ in Section 3.2. }}\\
 
 \noindent  {\bf E11} \grey{\emph{The authors should provide some indication of the computational complexity per iterations of their sampler. The application to email interaction data is rather small (18 nodes and 680 emails), so it would be good to know how many nodes/events the proposed approach can handle.}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor suggested more detailed explanation on the computational complexity, especially since our application data is rather small, so (as mentioned in E9) we generated new section 3.2 about ``computaional complexity" and left comments on our computational limitation.\\
 
 
 
 \noindent  {\bf E12} \grey{\emph{Typos: The article contains numerous typos. Here are some of them:}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor identified numerous typos, and we properly fixed all those. \\
 
 
 
@@ -377,7 +377,7 @@ proposals for the parameters $b$ and $\eta$ in Section 3.2. }}\\
 
 \noindent {\bf R1} \grey{\emph{ TYPOS...}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer dentified numerous typos, and we properly fixed all those.  \\
 
 \noindent {\bf R2} \grey{\emph{UNCLEAR PARTS...}}\\
 
@@ -389,23 +389,23 @@ proposals for the parameters $b$ and $\eta$ in Section 3.2. }}\\
 \noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
 
 
-\noindent {\bf R4} \grey{\emph{As already mentioned, the authors focus on the somewhat less explored area of continuous?time relational event models where each edge has its own different time index?instead of considering time?varying models for snap- shots of networks collected on a pre?specified time grid. However, the contribution is still within the general class of dynamic network inference. In this respect, the literature review provides a poor picture for the state-of-the-art in this wider framework. I think the authors should provide a more comprehensive literature review including also temporal ERGMs and dynamic latent variable models (e.g. dynamic stochastic block models, dynamic mixed membership stochastic block models, dynamic latent space models, . . .). Discussing your contribution in the light of these alternative (and quite different) models would further clarify the key novelties our the proposed methods.}}\\
+\noindent {\bf R4} \grey{\emph{As already mentioned, the authors focus on the somewhat less explored area of continuous-time relational event models where each edge has its own different time index, instead of considering time-varying models for snap-shots of networks collected on a pre-specified time grid. However, the contribution is still within the general class of dynamic network inference. In this respect, the literature review provides a poor picture for the state-of-the-art in this wider framework. I think the authors should provide a more comprehensive literature review including also temporal ERGMs and dynamic latent variable models (e.g. dynamic stochastic block models, dynamic mixed membership stochastic block models, dynamic latent space models, . . .). Discussing your contribution in the light of these alternative (and quite different) models would further clarify the key novelties our the proposed methods.}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer indicated lack of discussion on our model's contribution on the general class of dynamic network literature, specifically in lights of temporal ERGMs and dynamic latent variable models. We created new section 2.4 ``Basis in existing models" which provides detailed summaries on our contribution and comparisons with other existing models in wider framework. \\
 
 \noindent {\bf R5} \grey{\emph{I fully understood the first paragraph in page 3 (summarizing HEMs) after reading the subsections 2.1, 2.2 and 2.3. This part should provide a much clear picture of your model instead of creating confusion. I suggest to improve it, leveraging also some intuitive illustrative figure. For example you could place Figure 1 much early and comment it while summarizing the HEM at the beginning of Section 2.}}\\
 
 \noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
 
 
-\noindent {\bf R6} \grey{\emph{You present the full conditionals in page 7 assuming uninformative $N(0, \infty)$ priors, but then you rely on weakly informative priors in the application (see page 17). I found this confusing. I?d present results in page 7 for generic Gaussian priors.}}\\
+\noindent {\bf R6} \grey{\emph{You present the full conditionals in page 7 assuming uninformative $N(0, \infty)$ priors, but then you rely on weakly informative priors in the application (see page 17). I found this confusing. I'd present results in page 7 for generic Gaussian priors.}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer suggested to use generic Gaussian priors in page 7, instead of introducing the full conditionals assuming uninformative $N(0, \infty)$ priors. We addressed this issue by assuming generic Normal priors $N(\mu, \Sigma)$ for both $b$ and $\eta$ and revised our equations and corresponding explanations in page 7.\\
 
 
 \noindent {\bf R7} \grey{\emph{Given that the model is relatively complex, some sensitivity analyses should be carried out to check how much posterior inference is affected by the hyperparameters? settings, and, possibly, suggest some default values.}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer suggested more sensitivity analyses on hyperparameter specification. We tried two alternative specification of prior distribution---one with half size of current variance and another with double size of current variance--- and summarized the results in Appendix. Also, we left some comments on these settings in Section 3.2.\\
 
 
 \noindent {\bf R8} \grey{\emph{There are many MH routines in the literature. Which type of MH do you consider? What is the proposal distribution? What about the acceptance rate? Is there any smart proposal in this case which helps in increasing the acceptance rate.}}\\
@@ -415,7 +415,7 @@ proposals for the parameters $b$ and $\eta$ in Section 3.2. }}\\
 
 \noindent {\bf R9} \grey{\emph{You rely on data augmentation MCMC, which has been shown to mix quite poorly (also in recent theoretical papers). Indeed, as expected, you end up thinning the chains every 40 samples in the application. However, there is no comment on this in the paper. I think it should be highlighted and not just hidden in the thinning.}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor suggested more detailed explanation on the computational complexity, especially because we had slow mixing of MCMC samples and thus end up with large thinning. We generated new section 3.2 about ``computaional complexity" and left comments on our computational limitations, including poor mixing of data augmentation.\\
 
 
 \noindent {\bf R9} \grey{\emph{Your quantitative assessments are based on 5 nodes in the simulation and 18 nodes in the application. These are quite small networks compared to those one would expect in real?world settings (such as those you list in the introduction). To what extent are your computational methods able to scale to much larger networks? An application to a bigger dataset would be useful. Moreover, more information on computational time should be provided.}}\\
@@ -427,7 +427,7 @@ proposals for the parameters $b$ and $\eta$ in Section 3.2. }}\\
 
 \noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
 
-\noindent {\bf R11} \grey{\emph{In Figure 4c the choice of the logarithmic scale for MdAPE seems to hide a quite poor performance of your model in predicting the timestamps. It is true that the log?normal improves over the exponential, but the log?normal boxplot has still a third quartile providing an MdAPE of exp(7.36) which looks quite big. This is to me a negative result, which should be discussed and addressed in the paper.}}\\
+\noindent {\bf R11} \grey{\emph{In Figure 4c the choice of the logarithmic scale for MdAPE seems to hide a quite poor performance of your model in predicting the timestamps. It is true that the log?normal improves over the exponential, but the log-normal boxplot has still a third quartile providing an MdAPE of exp(7.36) which looks quite big. This is to me a negative result, which should be discussed and addressed in the paper.}}\\
 
 \noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
 

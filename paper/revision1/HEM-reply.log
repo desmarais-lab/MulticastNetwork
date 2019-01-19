@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  19 JAN 2019 15:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  19 JAN 2019 16:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -488,7 +488,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 352--353
 
  []
 
-
+[3]
 Underfull \hbox (badness 10000) in paragraph at lines 354--355
 
  []
@@ -498,7 +498,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 357--359
 
  []
 
-[3]
+
 Underfull \hbox (badness 10000) in paragraph at lines 360--361
 
  []
@@ -523,7 +523,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 372--373
 
  []
 
-
+[4]
 Underfull \hbox (badness 10000) in paragraph at lines 376--377
 
  []
@@ -563,7 +563,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 392--393
 
  []
 
-[4]
+
 Underfull \hbox (badness 10000) in paragraph at lines 394--395
 
  []
@@ -573,7 +573,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 396--397
 
  []
 
-
+[5]
 Underfull \hbox (badness 10000) in paragraph at lines 398--399
 
  []
@@ -603,7 +603,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 411--412
 
  []
 
-[5]
+
 Underfull \hbox (badness 10000) in paragraph at lines 413--414
 
  []
@@ -613,7 +613,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 416--417
 
  []
 
-
+[6]
 Underfull \hbox (badness 10000) in paragraph at lines 418--419
 
  []
@@ -653,7 +653,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 436--437
 
  []
 
-[6]
+[7]
 Underfull \hbox (badness 10000) in paragraph at lines 438--439
 
  []
@@ -668,11 +668,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 442--443
 
  []
 
-[7] (./HEM-reply.aux) ) 
+[8] (./HEM-reply.aux) ) 
 Here is how much of TeX's memory you used:
  5422 strings out of 493089
  77262 string characters out of 6134842
- 147108 words of memory out of 5000000
+ 148108 words of memory out of 5000000
  8787 multiletter control sequences out of 15000+600000
  12454 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -689,10 +689,10 @@ msl12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 y6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
 2.pfb>
-Output written on HEM-reply.pdf (7 pages, 138288 bytes).
+Output written on HEM-reply.pdf (8 pages, 143727 bytes).
 PDF statistics:
- 72 PDF objects out of 1000 (max. 8388607)
- 51 compressed objects within 1 object stream
+ 75 PDF objects out of 1000 (max. 8388607)
+ 53 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
