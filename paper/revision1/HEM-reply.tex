@@ -157,14 +157,10 @@
 %March 31, 2012
 %\end{flushright}
 
-
-\begin{center}
-\textbf{Authors' Responses to Associate Editor}
-\end{center}
 \begin{center}
 \textsl{The Hyperedge Event Model}
 \end{center}
-
+\iffalse
 Thank you for acknowledging our efforts and contributions, and also for your constructive suggestions, which are very helpful to improve the quality of our paper. 
 
 \begin{itemize}
@@ -301,11 +297,11 @@ Thank you for acknowledging our efforts and contributions, and also for your con
 					\item Discuss: sensitivity analysis?					
 \end{enumerate}
 
-
+\fi
 
 \noindent \textbf{Point-by-point discussion of Reviews and Response to Comments}\\
 
-First, we thank the editor...
+First, we thank the editor for acknowledging our efforts and contributions, and also for your constructive suggestions, which are very helpful to improve the quality of our paper. 
 
 \bigskip
 \bigskip
@@ -315,28 +311,28 @@ First, we thank the editor...
 
 \noindent {\bf E1} \grey{\emph{Presentation: I found the presentation rather lacking; in particular, the description of the model in Section 2 is very difficult to follow, due to the numerous variables introduced, the order in which the different elements of the model are introduced, and the lack of definition for some of them. I think a major rewriting is needed here. }}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor.. \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor pointed out the lack of detailed and coherent explanation on the model in Section 2, suggesting better definition of variables and improvement on writing. We have significantly revised Section 2 by changing the order of subsections along with general rewriting---see E2 to E5 for details. \\
 
 \noindent  {\bf E2} \grey{\emph{Some notations are rather unusual, for example $A$ for nodes. Although this is not indicated in the text, I assume this comes from the term ``actor'' in the stochastic actor-oriented model (SAOM) of Snijders, cited by the author? If this is the case, it would be worth mentioning it so that the reader recalls this later on. $y$ for the covariates is also rather unusual. Some notations are inconsistent. For example $u_{ie}$ denotes the first line of the matrix $u_e$, but $\tau_e = \text{min}_i(\tau_{ie})$. }}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor identified some unusual notations which are not consistent with the literature. Instead of $A$ for nodes (which we got idea from SAOM as the Editor assumed) we now use $V$ for nodes (referring to vertex in network literature), and we also replaced $y$ by $z$ for time-related covariates---which are clearly stated in Section 2. We also added detailed definition on the variables and notations, such as the usage of subscripts $i$, $e$, $j$ right before Section 2.1. \\
 
 \noindent  {\bf E3} \grey{\emph{In section 2.1, I think it makes more sense to First introduce Equation (2.2) then (2.1). The term ``intensity'' used for $\lambda_{iej}$ is rather confusing. As the paper is concerned with a continuous-time model, one would expect that the term intensity refers to some point process, which is not the case here. }}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} Following the Editor's suggestion, we changed the order of Equation (2.2) and (2.1) as well as their following texts to help readers' understandability. Moreover, we agree that the term ``intensity'' could be a confusing term so we revised the sentence withut using the term.\\
 
 
 \noindent  {\bf E4} \grey{\emph{It is difficult to understand Section 2.2 without reading section 2.3. The authors introduce the notation $\tau_{ie}$ above Equation (2.5), but do not explain what this represents (at this stage I thought it was a component of the vector $\tau_e$). I do not see what the variable $\mu$ represents in Equation (2.5), and if it is related to $\mu_{ie}$ in Equation (2.4)
  }}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor expressed difficulty in understanding Section 2.2 and 2.3, and suggested further clarification on the variables $\tau$ and $\mu$. We moved Fig. 1 to earlier parts of Section 2 and briefly summarized the entire Section 2, such that the readers can understand Section 2.2 without reading Section 2.3. We also further explained the concepts and notations related to timestamp variables, $\tau$ and $\mu$, to avoid any confusion.\\
 
 
 
-\noindent  {\bf E5} \grey{\emph{ Some sentences are di¢ cult to understand:
+\noindent  {\bf E5} \grey{\emph{ Some sentences are difficult to understand:
 Page 3: ``we define a probability measure ``MBG'' motivated by the Gibbs measure'' }}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} According to the Editor's comment, we revised the sentence mentioned above and also went through entire draft to revise sentences that were not clearly written before. \\
 
 
 \noindent  {\bf E6} \grey{\emph{ Discussion of relevant literature: The authors should provide a better discussion of how their model differs from other approaches, in particular the approach of Perry and Wolfe (2013), and Snijders (1996), based on point processes. Perry and Wolfe propose a specific model for multicast interaction (Equation (6) in the arxiv version of their paper). What are the differences/advantages between both constructions? In Section 2.3, the author cite Snijders (1996) when they introduce the model for the interaction arrival times. I am not sure what is meant here: is this part of the model already introduced in Snijders (1996)? The authors should be more specific here.}}\\
