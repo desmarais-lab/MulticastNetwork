@@ -341,7 +341,7 @@ Page 3: ``we define a probability measure ``MBG'' motivated by the Gibbs measure
 
 \noindent  {\bf E7} \grey{\emph{ Model, covariates and missing data: This is not explicitly mentioned in the definition of the model in Section 2, but the covariates $x_e$ and $y_e$ depend on the observed interaction data ($s_{e'}$ , $r_{e'}$ , $t_{e'}$ ) in the last 7 days, as written in Section 4.1. Hence the observations ($s_e$, $r_e$, $t_e$)$_{e=1,...,E}$ are not conditionally independent given the model parameters. This should be clearly stated in Section 2. For this reason, I do not think that the out-of-sample algorithm described in Algorithm 3 is correct. The conditional distribution for the missing observations $s_e$,$r_e$ and $t_e$ should depend on ($s_{e'}$ ; $r_{e'}$ ; $t_{e'}$ )$_{e': t_e < t_{e'} < t_{e} + l_e }$, which is not what is done. }}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor called attention to a very important point about conditional dependency that we were missing. Our out-of-sample algorithm (Algorithm 3) was not correct, and the conditional distribution for missing observations had to be changed as the Editor illustrated. We modified our algorithm to consider those dependencies, and Section 4.2 is fully updated based on new conditional distribution and experiment results. \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} \textcolor{red}{The Editor called attention to a very important point about conditional dependency that we were missing. Our out-of-sample algorithm (Algorithm 3) was not correct, and the conditional distribution for missing observations had to be changed as the Editor illustrated. We modified our algorithm to consider those dependencies, and Section 4.2 is fully updated based on new conditional distribution and experiment results. }\\
 
 \noindent  {\bf E8} \grey{\emph{The authors should provide more details on the Metropolis-Hastings
 proposals for the parameters $b$ and $\eta$ in Section 3.2. }}\\
@@ -351,25 +351,25 @@ proposals for the parameters $b$ and $\eta$ in Section 3.2. }}\\
 
 \noindent  {\bf E9} \grey{\emph{The sampler uses a blocked Gibbs sampler for the $u_{iej}$. Given the constraint that $\sum_j u_{iej} > 0$, this sampler may be rather inefficient in the case where there are many one-to-one interactions (as is the case in the application, where 83\% of the interactions are dyadic). In order to go from the state $u_{ie}$ = (1,0,0,0,0,0) to $u_{ie}$ = (0,1,0,0,0,0) one needs to go through a state where two receivers are activated, which has low probability in this case. It would be good to comment on this, and in general on the mixing of the MCMC sampler. }}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor identified some inefficiency issue in our inference algorithm, which we did not fully commented. Considering our general need to discuss more about our model's computational complexity, we generated new section 3.2 about ``computaional complexity" and left various comments including the usage of a blocked Gibbs sampler and the mixing of our MCMC sampler.\\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} \textcolor{red}{The Editor identified some inefficiency issue in our inference algorithm, which we did not fully commented. Considering our general need to discuss more about our model's computational complexity, we generated new section 3.2 about ``computaional complexity" and left various comments including the usage of a blocked Gibbs sampler and the mixing of our MCMC sampler.}\\
 
 
 \noindent  {\bf E10} \grey{\emph{The authors provide in Section 3.2. some sanity checks on the sampler. While this is good practice to perform such checks, I am not sure it is very useful to include this in the main body (could be moved to the appendix), as this is done on a very small scale example with 5 nodes and 100 events, and does not really give an indication on the convergence properties of the algorithm in a more realistic scenario. I suggest the authors perform a simulation study with a larger number of nodes and events to demonstrate that the algorithm is able to approximate the posterior distribution well in that case.
 }}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} Previously we presented Section 3.2. as an effective way to check the validity of our derivation and code using small scale example, which is slightly different from traditional simulation studies that are designed to provide realistic scenario under the model and/or show convergence properties. Although we believe that GiR test is a good practice and should be highly recommended, we still admit that Section 3.2. does not provide significant amount of additional information on the HEM itself (other than sanity checks) and thus moved this section to Appendix C. For convergence properties of the algorithm, we created new section 3.2 about ``computaional complexity" and left some comments on convergence using our application data.\\
 
 
 
 \noindent  {\bf E11} \grey{\emph{The authors should provide some indication of the computational complexity per iterations of their sampler. The application to email interaction data is rather small (18 nodes and 680 emails), so it would be good to know how many nodes/events the proposed approach can handle.}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor suggested more detailed explanation on the computational complexity, especially since our application data is rather small, so (as mentioned in E9) we generated new section 3.2 about ``computaional complexity" and left comments on our computational limitation.\\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor suggested more detailed explanation on the computational complexity, especially since our application data is rather small, so (as mentioned in E9) we generated new section 3.2 about ``computaional complexity" and left comments on our computational limitation. As the Editor pointed out in E9, we have some inefficiency issue in our inference algorithm which limits the applicability of our model for large scale dataset (with huge number of nodes/events). We admitted this limitation in new section 3.2.\\
 
 
 
 \noindent  {\bf E12} \grey{\emph{Typos: The article contains numerous typos. Here are some of them:}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor identified numerous typos, and we properly fixed all those. \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor identified numerous typos, and we properly fixed all those. We greatly appreciate the Editor's help on these.\\
 
 
 
@@ -377,16 +377,16 @@ proposals for the parameters $b$ and $\eta$ in Section 3.2. }}\\
 
 \noindent {\bf R1} \grey{\emph{ TYPOS...}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer dentified numerous typos, and we properly fixed all those.  \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer identified numerous typos, and we properly fixed all those. We greatly appreciate the Editor's help on these.\\
 
 \noindent {\bf R2} \grey{\emph{UNCLEAR PARTS...}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer pointed out multiple unclear parts such as notation issues and sentences that needs more clarification. We went through each item and revised our draft as suggested by the reviewer. \\
 
 
 \noindent {\bf R3} \grey{\emph{BIBLIOGRAPHY:...}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer asked the authors to carefully review the bibliography and correct all the misspecifications (e.g., uncapitalized book title, wrong upper/lower cased letters). We revisited each bibliography and addressed the existing issues. We are very thankful for your comment.\\
 
 
 \noindent {\bf R4} \grey{\emph{As already mentioned, the authors focus on the somewhat less explored area of continuous-time relational event models where each edge has its own different time index, instead of considering time-varying models for snap-shots of networks collected on a pre-specified time grid. However, the contribution is still within the general class of dynamic network inference. In this respect, the literature review provides a poor picture for the state-of-the-art in this wider framework. I think the authors should provide a more comprehensive literature review including also temporal ERGMs and dynamic latent variable models (e.g. dynamic stochastic block models, dynamic mixed membership stochastic block models, dynamic latent space models, . . .). Discussing your contribution in the light of these alternative (and quite different) models would further clarify the key novelties our the proposed methods.}}\\
@@ -395,7 +395,7 @@ proposals for the parameters $b$ and $\eta$ in Section 3.2. }}\\
 
 \noindent {\bf R5} \grey{\emph{I fully understood the first paragraph in page 3 (summarizing HEMs) after reading the subsections 2.1, 2.2 and 2.3. This part should provide a much clear picture of your model instead of creating confusion. I suggest to improve it, leveraging also some intuitive illustrative figure. For example you could place Figure 1 much early and comment it while summarizing the HEM at the beginning of Section 2.}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} As suggested by the reviewer (as well as the Editor), we found out the lack of detailed and coherent explanation on the model in Section 2. We have significantly revised Section 2 by changing the order of subsections along with the general rewriting, and Figure 1 is also moved to earlier parts when summarizing the HEM at the beginning of Section 2. \\
 
 
 \noindent {\bf R6} \grey{\emph{You present the full conditionals in page 7 assuming uninformative $N(0, \infty)$ priors, but then you rely on weakly informative priors in the application (see page 17). I found this confusing. I'd present results in page 7 for generic Gaussian priors.}}\\
@@ -410,36 +410,36 @@ proposals for the parameters $b$ and $\eta$ in Section 3.2. }}\\
 
 \noindent {\bf R8} \grey{\emph{There are many MH routines in the literature. Which type of MH do you consider? What is the proposal distribution? What about the acceptance rate? Is there any smart proposal in this case which helps in increasing the acceptance rate.}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer suggested more detailed explanation on the inference scheme such as the type of MH, proposal distribution, acceptance rate, and any recommendation on proposals. We not only provided additional explanation on some generic proposal distribution in Section 3.1, but also generated new section 3.2 about ``computaional complexity" for other information on our inference scheme in general.\\
 
 
 \noindent {\bf R9} \grey{\emph{You rely on data augmentation MCMC, which has been shown to mix quite poorly (also in recent theoretical papers). Indeed, as expected, you end up thinning the chains every 40 samples in the application. However, there is no comment on this in the paper. I think it should be highlighted and not just hidden in the thinning.}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The Editor suggested more detailed explanation on the computational complexity, especially because we had slow mixing of MCMC samples and thus end up with large thinning. We generated new section 3.2 about ``computaional complexity" and left comments on our computational limitations, including poor mixing of data augmentation.\\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer suggested more detailed explanation on the computational complexity, especially because we had slow mixing of MCMC samples and thus end up with large thinning. In our new section 3.2 about ``computaional complexity", we left comments on our computational limitations, including poor mixing of data augmentation.\\
 
 
-\noindent {\bf R9} \grey{\emph{Your quantitative assessments are based on 5 nodes in the simulation and 18 nodes in the application. These are quite small networks compared to those one would expect in real?world settings (such as those you list in the introduction). To what extent are your computational methods able to scale to much larger networks? An application to a bigger dataset would be useful. Moreover, more information on computational time should be provided.}}\\
+\noindent {\bf R9} \grey{\emph{Your quantitative assessments are based on 5 nodes in the simulation and 18 nodes in the application. These are quite small networks compared to those one would expect in real-world settings (such as those you list in the introduction). To what extent are your computational methods able to scale to much larger networks? An application to a bigger dataset would be useful. Moreover, more information on computational time should be provided.}}\\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
-
-
-\noindent {\bf R10} \grey{\emph{You compare performance in predicting missing senders with random guess 1/18. This is a quite naive competitor and I am sure the authors can find much better ones?still relatively simple.}}\\
-
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
-
-\noindent {\bf R11} \grey{\emph{In Figure 4c the choice of the logarithmic scale for MdAPE seems to hide a quite poor performance of your model in predicting the timestamps. It is true that the log?normal improves over the exponential, but the log-normal boxplot has still a third quartile providing an MdAPE of exp(7.36) which looks quite big. This is to me a negative result, which should be discussed and addressed in the paper.}}\\
-
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} Again, we created a new section 3.2 to discuss more about the HEM's computational complexity. Here we acknowledged the HEM's limitation on its applicability to a bigger dataset, by outlining the scalability of the model and computational time. We also mentioned some possible ways to improve the model's scalability as a future direction of research. \\
 
 
+\noindent {\bf R10} \grey{\emph{You compare performance in predicting missing senders with random guess 1/18. This is a quite naive competitor and I am sure the authors can find much better ones still relatively simple.}}\\
 
-\noindent {\bf R12} \grey{\emph{Based on your comments in the paper you are interpreting the posterior expectations of exp($\eta_6$) and exp($\eta_7$)--i.e. E[exp($\eta_6$) | data] and E[exp($\eta_7$) | data]. However you seem to compute this as exp[E(exp($\eta_6$) | data)] = exp(1.552) and exp[E(exp($\eta_7$) | data)] = exp(0.980). By Jensen inequality this is wrong.}}\\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer suggested to consider alternative measure to compare our performance in Section 4.2., instead of our current comparison (i.e., random guess 1/18). We came up with the idea to use Dirichlet Multinomial as a baseline to sender prediction, and updated our comparison in Section 4.2. with some explanations. \\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+\noindent {\bf R11} \grey{\emph{In Figure 4c the choice of the logarithmic scale for MdAPE seems to hide a quite poor performance of your model in predicting the timestamps. It is true that the log-normal improves over the exponential, but the log-normal boxplot has still a third quartile providing an MdAPE of exp(7.36) which looks quite big. This is to me a negative result, which should be discussed and addressed in the paper.}}\\
 
-\noindent {\bf R13} \grey{\emph{It is also not correct to claim that the $e^{th}$ email is expected to take E[exp($\eta$) | data] longer compared to their counterpart. The term longer seems to refer to an additive effect on the event timing, which is not the case here since you assume a log?normal for the event timing and hence the effect is on the scale of the timing and not on the location?note that, if $X \sim \text{log-normal}(\mu, \sigma^2)$, then $E(X) = exp(\mu + \sigma^2/2)$. The authors should be more careful in the interpretations on the original time scale, or, more conservatively, they could simply comment on the effects on the log-time (as done immediately after).}}\\
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer misunderstood Figure 4c due to our lack of explanation on using the logarithmic scale. We used the logarithmic scale to draw the boxplot (since original scale was highly right-skewed, making the plot less informative), however, we maintained the original scale on the axis. As a result, the third quartile provides an MdAPE of 7.36 (not exp(7.36)). We revised the draft such that the readers are not confused with log-scale. \\
 
-\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer... \\
+
+
+\noindent {\bf R12} \grey{\emph{Based on your comments in the paper you are interpreting the posterior expectations of $exp(\eta_6)$ and $exp(\eta_7)$--i.e. $E[exp(\eta_6)| data]$ and $E[exp(\eta_7) |data]$. However you seem to compute this as $exp[E(exp(\eta_6) | data)]$ = exp(1.552) and $exp[E(exp(\eta_7) |data)]$ = exp(0.980). By Jensen inequality this is wrong.}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer commented on our misinterpretation of coefficients. We changed the way we summarize the estimated value of $\eta_6$ and $\eta_6$ (as we did with other $\eta$'s) so that we no longer provide wrong interpretation.\\
+
+\noindent {\bf R13} \grey{\emph{It is also not correct to claim that the $e^{th}$ email is expected to take $E[exp(\eta) | data]$ longer compared to their counterpart. The term longer seems to refer to an additive effect on the event timing, which is not the case here since you assume a log-normal for the event timing and hence the effect is on the scale of the timing and not on the location---note that, if $X \sim \text{log-normal}(\mu, \sigma^2)$, then $E(X) = exp(\mu + \sigma^2/2)$. The authors should be more careful in the interpretations on the original time scale, or, more conservatively, they could simply comment on the effects on the log-time (as done immediately after).}}\\
+
+\noindent \textcolor{MyGreen}{\textbf{Addressed:}} The reviewer also pointed out additional mistake when we provided the interpretation of coefficients on the original time scale. As suggested, we simply commented on the effects on the log-time (as done immediately after) instead of using the original time scale.\\
 
 
 \end{document}
